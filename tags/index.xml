@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on terryzh&#39;s blog</title>
+    <link>https://t496971418.github.io/tags/</link>
+    <description>Recent content in Tags on terryzh&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 29 Dec 2018 01:07:40 +0800</lastBuildDate>
+    
+	<atom:link href="https://t496971418.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Personal</title>
+      <link>https://t496971418.github.io/tags/personal/</link>
+      <pubDate>Sat, 29 Dec 2018 01:07:40 +0800</pubDate>
+      
+      <guid>https://t496971418.github.io/tags/personal/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
