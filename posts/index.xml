@@ -6,10 +6,25 @@
     <description>Recent content in Posts on terryzh&#39;s blog</description>
     <meta name="generator" content="Hugo 0.53" />
     <language>en-us</language>
-    <lastBuildDate>Sun, 30 Dec 2018 15:42:49 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 04 Jan 2019 10:57:49 +0800</lastBuildDate>
     
         <atom:link href="https://t496971418.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>JS数组常用方法回顾</title>
+      <link>https://t496971418.github.io/posts/js%E6%95%B0%E7%BB%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%E5%9B%9E%E9%A1%BE/</link>
+      <pubDate>Fri, 04 Jan 2019 10:57:49 +0800</pubDate>
+      
+      <guid>https://t496971418.github.io/posts/js%E6%95%B0%E7%BB%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%E5%9B%9E%E9%A1%BE/</guid>
+      <description>最近写JS碰到了很多对数组的处理。总结出来以便回顾。
+ 这里会结合一些函数式编程的思想来进行总结。
+ 处理全量数组数据 高频出现  map
+map—&amp;gt; 返回每次函数调用的结果组成的数组[有返回值]
+1 2 3 4 5 6  var baseArr = [1, 2, 3, 4, 5, 6] var dealedArr = baseArr.map(params =&amp;gt; params + 1) &amp;gt;&amp;gt;&amp;gt; [ 1, 2, 3, 4, 5, 6 ] // baseArr &amp;gt;&amp;gt;&amp;gt; [ 2, 3, 4, 5, 6, 7 ] // dealedArr    forEach
+forEach—&amp;gt; 和map的区别就是forEach是没有返回值的
+1 2 3 4 5 6 7  var baseArr = [1, 2, 3, 4, 5, 6] var dealedArr = [] baseArr.</description>
+    </item>
     
     <item>
       <title>初探vue3.0的Proxy机制</title>
