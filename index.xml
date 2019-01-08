@@ -6,10 +6,33 @@
     <description>Recent content on terryzh&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 04 Jan 2019 10:57:49 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 08 Jan 2019 09:50:36 +0800</lastBuildDate>
     
 	<atom:link href="https://t496971418.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Android基本六大布局</title>
+      <link>https://t496971418.github.io/posts/android%E5%9F%BA%E6%9C%AC%E5%85%AD%E5%A4%A7%E5%B8%83%E5%B1%80/</link>
+      <pubDate>Tue, 08 Jan 2019 09:50:36 +0800</pubDate>
+      
+      <guid>https://t496971418.github.io/posts/android%E5%9F%BA%E6%9C%AC%E5%85%AD%E5%A4%A7%E5%B8%83%E5%B1%80/</guid>
+      <description>android六大布局 今天leader让我们前端的了解下Android的画页面工作。最近Android的页面比较多，又正好碰上年会，那我们front-coder也只能搭把手了。
+声明Android程序布局有两种方式：
+ 使用XML文件描述界面布局； 在Java代码中通过调用方法进行控制。  我们既可以使用任何一种声明界面布局的方式，也可以同时使用两种方式。
+使用XML文件声明有以下3个特点：
+ 将程序的表现层和控制层分离； 在后期修改用户界面时，无须更改程序的源程序； 可通过WYSIWYG可视化工具直接看到所设计的用户界面，有利于加快界面设计的过程。 建议尽量采用XML文件声明界面元素布局。在程序运行时动态添加界面布局会大大降低应用响应速度，但依然可以在必要时动态改变屏幕内容。  六大界面布局方式包括： 线性布局(LinearLayout)、框架布局(FrameLayout)、表格布局(TableLayout)、相对布局(RelativeLayout)、绝对布局(AbsoluteLayout)和网格布局(GridLayout) 。 LinearLayout线性布局 LinearLayout容器中的组件一个挨一个排列，通过控制android:orientation属性，可控制各组件是横向排列还是纵向排列。
+LinearLayout的常用XML属性及相关方法
+   XML属性 相关方法 说明     android:gravity setGravity(int) 设置布局管理器内组件的对齐方式   android:orientation setOrientation(int) 设置布局管理器内组件的排列方式，可以设置为horizontal、vertical两个值之一     其中，gravity属性支持top, left, right, center_vertical, fill_vertical, center_horizontal, fill_horizontal, center, fill, clip_vertical, clip_horizontal。也可以同时指定多种对齐方式的组合。
+ LinearLayout子元素支持的常用XML属性及方法
+XML属性 说明 android:layout_gravity 指定该子元素在LinearLayout中的对齐方式 android:layout_weight 指定子元素在LinearLayout中所占的权重
+TableLayout表格布局 TableLayout继承自Linearout，本质上仍然是线性布局管理器。表格布局采用行、列的形式来管理UI组件，并不需要明确地声明包含多少行、多少列，而是通过添加TableRow、其他组件来控制表格的行数和列数。
+每向TableLayout中添加一个TableRow就代表一行；
+每向TableRow中添加一个一个子组件就表示一列；
+如果直接向TableLayout添加组件，那么该组件将直接占用一行；
+在表格布局中，可以为单元格设置如下三种行为方式：
+ Shrinkable：该列的所有单元格的宽度可以被收缩，以保证该表格能适应父容器的宽度； Strentchable：该列所有单元格的宽度可以被拉伸，以保证组件能完全填满表格空余空间； Collapsed：如果该列被设置为Collapsed，那么该列的所有单元格会被隐藏；  TableLayout的常用XML属性及方法</description>
+    </item>
     
     <item>
       <title>JS数组常用方法回顾</title>
