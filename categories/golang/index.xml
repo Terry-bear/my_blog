@@ -2,13 +2,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Golang on terryzh&#39;s blog</title>
-    <link>https://t496971418.github.io/tags/golang/</link>
+    <link>https://t496971418.github.io/categories/golang/</link>
     <description>Recent content in Golang on terryzh&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 09 Jan 2019 11:44:32 +0800</lastBuildDate>
     
-	<atom:link href="https://t496971418.github.io/tags/golang/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://t496971418.github.io/categories/golang/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>

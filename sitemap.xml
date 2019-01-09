@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://t496971418.github.io/posts/golang%E5%A6%82%E4%BD%95%E7%AE%A1%E7%90%86%E9%A1%B9%E7%9B%AE%E4%BE%9D%E8%B5%96/</loc>
+    <lastmod>2019-01-09T11:44:32+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://t496971418.github.io/posts/android%E5%9F%BA%E6%9C%AC%E5%85%AD%E5%A4%A7%E5%B8%83%E5%B1%80/</loc>
     <lastmod>2019-01-08T09:50:36+08:00</lastmod>
   </url>
@@ -49,19 +54,25 @@
   </url>
   
   <url>
+    <loc>https://t496971418.github.io/tags/golang/</loc>
+    <lastmod>2019-01-09T11:44:32+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://t496971418.github.io/categories/golang/</loc>
+    <lastmod>2019-01-09T11:44:32+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://t496971418.github.io/tags/javascript/</loc>
     <lastmod>2019-01-04T10:57:49+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://t496971418.github.io/tags/javascritp/</loc>
-    <lastmod>2018-12-30T15:42:49+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://t496971418.github.io/categories/javascritp/</loc>
+    <loc>https://t496971418.github.io/categories/javascript/</loc>
     <lastmod>2019-01-04T10:57:49+08:00</lastmod>
     <priority>0</priority>
   </url>
@@ -80,7 +91,7 @@
   
   <url>
     <loc>https://t496971418.github.io/posts/</loc>
-    <lastmod>2019-01-08T09:50:36+08:00</lastmod>
+    <lastmod>2019-01-09T11:44:32+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -92,7 +103,7 @@
   
   <url>
     <loc>https://t496971418.github.io/</loc>
-    <lastmod>2019-01-08T09:50:36+08:00</lastmod>
+    <lastmod>2019-01-09T11:44:32+08:00</lastmod>
     <priority>0</priority>
   </url>
   
