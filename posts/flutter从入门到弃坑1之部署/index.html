@@ -2,9 +2,7 @@
 <html lang="en-us">
 	<head>
 		<title>
-	
-		Tag | golang
-	
+	Flutter从入门到弃坑1之部署
 </title>
 		<style>
 	body {
@@ -39,8 +37,6 @@
 <link rel="shortcut icon" href="/img/defaultFav.ico">
 
 
-
-    <link rel="alternate" type="application/rss+xml" href="https://t496971418.github.io/tags/golang/index.xml" title="terryzh's blog" />
 
 
 		
@@ -166,15 +162,15 @@ var bodyBgSwitchIndex = 0;
 
 
 	
-		<a class="ui label pink " href="/tags/android" title="android">android</a>
+		<a class="ui label brown " href="/tags/android" title="android">android</a>
 	
-		<a class="ui label green " href="/tags/flutter" title="flutter">flutter</a>
+		<a class="ui label violet " href="/tags/flutter" title="flutter">flutter</a>
 	
-		<a class="ui label yellow " href="/tags/golang" title="golang">golang</a>
+		<a class="ui label blue " href="/tags/golang" title="golang">golang</a>
 	
-		<a class="ui label yellow " href="/tags/javascript" title="javascript">javascript</a>
+		<a class="ui label blue " href="/tags/javascript" title="javascript">javascript</a>
 	
-		<a class="ui label brown " href="/tags/personal" title="personal">personal</a>
+		<a class="ui label violet " href="/tags/personal" title="personal">personal</a>
 	
 
 
@@ -351,17 +347,14 @@ var bodyBgSwitchIndex = 0;
 
 	
 	
-		
-		
-		<div class="item">
-			
-			</div>
-		<div class="item">
-			
-		</div>
-	
 
 	
+	
+		<div class="ui container tablet computer only grid">
+			<div class="item" onClick="$('.ui.sidebar').sidebar('setting', 'transition', 'overlay').sidebar('toggle');">
+				<i class="inverted big link sidebar icon" title="Show Sidebar"></i>
+			</div>
+		</div>
 	
 
 	
@@ -374,10 +367,11 @@ var bodyBgSwitchIndex = 0;
 	
 </nav>
 
-	
+
 	<div class="ui centered grid">
-		<div class="fifteen wide mobile fifteen wide tablet four wide computer column">
-			<div class="ui inverted accordion">
+		
+		<div class="sixteen wide mobile only column">
+				<div class="ui inverted accordion">
 	<div id="header" class="ui inverted segment column box">		
 		
 		<header id="author" class="ui top attached center aligned inverted segment">
@@ -397,16 +391,16 @@ var bodyBgSwitchIndex = 0;
 		</header>
 
 		
-		<div class="active title header-title">
+		<div class=" title header-title">
 			
 				<div id="tag-category-pop" class="ui red right corner label">
-					<i class="hand point icon up" title="Click this to pop tags and categories"></i>
+					<i class="hand point icon down" title="Click this to pop tags and categories"></i>
 				</div>
 			
 		</div>
 		
 		
-		<div id="tag-category" class="active content">
+		<div id="tag-category" class=" content">
 			
 				<section class="ui attached center aligned inverted segment dream-tags none flexbox">
 					
@@ -415,15 +409,15 @@ var bodyBgSwitchIndex = 0;
 
 
 	
-		<a class="ui label olive " href="/tags/android" title="android">android</a>
+		<a class="ui label purple " href="/tags/android" title="android">android</a>
 	
 		<a class="ui label olive " href="/tags/flutter" title="flutter">flutter</a>
 	
-		<a class="ui label blue " href="/tags/golang" title="golang">golang</a>
+		<a class="ui label pink " href="/tags/golang" title="golang">golang</a>
 	
-		<a class="ui label olive " href="/tags/javascript" title="javascript">javascript</a>
+		<a class="ui label green " href="/tags/javascript" title="javascript">javascript</a>
 	
-		<a class="ui label blue " href="/tags/personal" title="personal">personal</a>
+		<a class="ui label teal " href="/tags/personal" title="personal">personal</a>
 	
 
 
@@ -551,42 +545,214 @@ var bodyBgSwitchIndex = 0;
 </div>
 
 		</div>
-		
-		<div class="fifteen wide mobile fifteen wide tablet eleven wide computer column post-list">
-			<div class="cards row box">
+
+		<div class="sixteen wide mobile fifteen wide tablet twelve wide computer column post-list">
+			
+			<section class="ui secondary top attached black segment post-head">
+				<h1 class="post-title">
+					Flutter从入门到弃坑1之部署
+				</h1>
+
+				<div class="sub header">
+					<div><span><i class="calendar outline icon"></i>Jan 10, 2019</span></div>
+					
+					<div><span class="disqusComment"><i class="comment outline icon"></i><a href="https://t496971418.github.io/posts/flutter%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%BC%83%E5%9D%911%E4%B9%8B%E9%83%A8%E7%BD%B2/#disqus_thread" class="disqus-comment-count" data-disqus-identifier="44db6e6b1b2be2bd128394689caa6fa6"></a></span></div>
+					<div><span><i class="clock outline icon"></i>1 min read</span></div>
+					<div><span><i class="angle double up icon"></i>Last updated on Jan 10, 2019</span></div>
+				</div>
+				<hr>
+
 				
+					<div class="toc">
+						<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#flutter在mac上的环境部署">Flutter在mac上的环境部署</a></li>
+</ul></li>
+</ul>
+</nav>
+					</div>
 				
+
+				<article class="post-content twemoji">
+					
+
+<h2 id="flutter在mac上的环境部署">Flutter在mac上的环境部署&nbsp;<a class="anchor" href="#flutter在mac上的环境部署"><i class="small linkify icon"></i></a> </h2>
+
+<p>在<strong><a href="https://www.yuque.com/xytech/flutter/gs3pnk">语雀</a></strong>了解了Flutter相关的信息后，博主准备去试试水。</p>
+
+<p>首先进入了Flutter的<a href="https://flutter.io/">官网</a>。</p>
+
+<p>看到Flutter貌似好像在19年的2月10号会发布1.0的release版本，二话不说。上手部署环境。（博主是Unix的系统）</p>
+
+<ol>
+<li><p>部署Flutter的环境要下载Flutter的SDK，官网给了例子是下载到root目录的development文件夹。博主选择直接下载到自己的root下面👇</p>
+
+<pre><code> cd
+ &gt;&gt;&gt; 进入/Users/terry
+ unzip ~/Downloads/flutter_macos_v1.0.0-stable.zip
+ &gt;&gt;&gt; 下载flutter sdk到Download目录下
+</code></pre></li>
+
+<li><p>在bash下配置flutter的全局变量</p>
+
+<pre><code>export PATH=$PATH:/Users/terry/flutter/bin
+&gt;&gt;&gt; 在 .bash_profile 文件下加入上句话
+source $HOME/.bash_profile
+&gt;&gt;&gt; 重启 .bash_profile 文件
+echo $PATH
+&gt;&gt;&gt; echo 查看是否注入
+-----------------我是分割线------------------
+
+// flutter sdk安装成功后执行
+$ flutter doctor
+// 会对当前环境进行检测 如下所示
+Doctor summary (to see all details, run flutter doctor -v):
+[✓] Flutter (Channel stable, v1.0.0, on Mac OS X 10.14.2 18C54, locale en-CN)
+[✓] Android toolchain - develop for Android devices (Android SDK 28.0.3)
+[✓] iOS toolchain - develop for iOS devices (Xcode 10.1)
+[✓] Android Studio (version 3.2)
+[!] IntelliJ IDEA Ultimate Edition (version 2018.3.1)
+    ✗ Flutter plugin not installed; this adds Flutter specific functionality.
+    ✗ Dart plugin not installed; this adds Dart specific functionality.
+[✓] VS Code (version 1.30.1)
+[!] Connected device
+    ! No devices available
+
+! Doctor found issues in 2 categories.
+</code></pre>
+
+<p>ps： 开始的时候，博主的Android toolchain 和 ios toolchain都是叉叉，具体怎么配置，请往下看。</p></li>
+
+<li><p>配置IOS的虚拟环境</p></li>
+</ol>
+
+<p>首先安装xcode</p>
+
+<pre><code>sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
+</code></pre>
+
+<p>再安装IOS simulator</p>
+
+<pre><code>open -a Simulator
+</code></pre>
+
+<p>部署IOS装置</p>
+
+<p>楼主比较懒，写了个shell，把要执行的话都放进去了下面是执行的东西</p>
+
+<pre><code> brew install --HEAD usbmuxd
+ brew link usbmuxd
+ brew install --HEAD libimobiledevice
+ brew install ideviceinstaller ios-deploy cocoapods
+ pod setup
+</code></pre>
+
+<p>ios的部署在mac上来说还是很傻瓜的，强调一下如果要弄一定要全局翻墙，否则翻车了。。。就不怪我了。</p>
+
+<ol>
+<li>配置Android的虚拟环境</li>
+</ol>
+
+<p>这个地方踩了不少的坑。首先说下，博主用的是vscode,在build的时候因为gradle的机制， 看不到进度，也不出现报错提示。找了好久最后换成Android studio才早到原因。是因为要在Android studio上安装Android的虚拟运行环境才行。下面介绍如何安装。</p>
+
+<p>在Android studio里面打开配置项，找到下列红框提示的内容，然后选择一个版本的Android进行安装</p>
+
+<p><img src="/usageImg/Untitled-f322927e-a464-4834-a595-222e4030c961.png" alt="" /></p>
+
+<ol>
+<li>创建你的第一个Flutter应用</li>
+</ol>
+
+<p>我创建了一个名字叫hello_Flutter的应用，目录结构是这样的。</p>
+
+<p><img src="/usageImg/Untitled-dda16a93-2eb9-48da-b1b6-9bf8f6a4d980.png" alt="" /></p>
+
+<p>如果上述操作都没有问题的话，恭喜你，你已经有了属于你的第一个Flutter项目，并且同时可以在IOS和Android上跑起来了。这一章就先介绍了环境的部署。👌</p>
+
+				</article>				
+			</section>
+
+			
+			<section class="ui secondary attached segment dream-tags">
 				
 					
 
 
-<article class="blog-card none flexbox" style="background-image: url(/blogImg/golang.jpeg)">
-	
-	<img class="image" src="/blogImg/golang.jpeg"></img>
-	<div class="title-content twemoji">
-		<h3><a class="title" href=https://t496971418.github.io/posts/golang%E5%A6%82%E4%BD%95%E7%AE%A1%E7%90%86%E9%A1%B9%E7%9B%AE%E4%BE%9D%E8%B5%96/>Golang如何管理项目依赖</a></h3>
-		<div class="intro twemoji">
-			
-				<br><br>
-			
-		</div>
-	</div>
+
 
 	
-	<div class="utility-info">
-		<ul class="utility-list">
-			
-				<div><i class="comment icon"></i><span class="disqus-comment-count" data-disqus-identifier="ccb13cfbe375f13a72b7076b01d5be1f"></span></div>
-			
-			<div><span><i class="calendar icon"></i>Jan 9, 2019</span></div>
-			<div><span><i class="clock icon"></i>2 min read</span></div>
-		</ul>
-	</div>
-	<div class="color-overlay"></div>
-</article>
+
 
 				
-			</div>
+			</section>
+
+			
+			
+				<section class="ui secondary  attached segment share row box">
+					
+
+
+
+
+
+
+
+
+<div class="author">
+	
+	<img class="avatar" src="https://avatars3.githubusercontent.com/u/25219343?s=460&amp;v=4">
+	
+</div>
+<div class="info grow flexbox">
+	
+	<p class="name">Terryzh</p>
+	
+	<p class="desc">二次元被代码耽误的情感主播.</p>
+</div>
+
+
+<section class="buttons row box">
+	<div class="facebook none flexbox" href="#" onclick="window.open(
+			'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+			'facebook-share-dialog',
+			'width=626,height=436'); return false;">
+		<button class="ui facebook button"><i class="facebook icon"></i>Share</button>
+	</div>
+	<div class="twitter none flexbox" onclick="window.open('https://twitter.com/intent/tweet?text=Read &quot;Flutter从入门到弃坑1之部署  https:\/\/t496971418.github.io\/posts\/flutter%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%BC%83%E5%9D%911%E4%B9%8B%E9%83%A8%E7%BD%B2\/','_self')">
+		<button class="ui twitter button"><i class="twitter icon"></i>Tweet</button>
+	</div>
+</section>
+
+				</section>
+				<section class="ui secondary attached segment copyright">
+					
+
+				</section>
+			
+
+			
+			
+				<div class="ui secondary bottom attached stacked segment disqus">
+					
+<div id="disqus_thread"></div>
+<script>
+	var disqus_config = function () {
+		this.page.url = 'https:\/\/t496971418.github.io\/posts\/flutter%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%BC%83%E5%9D%911%E4%B9%8B%E9%83%A8%E7%BD%B2\/';
+		this.page.identifier = '44db6e6b1b2be2bd128394689caa6fa6';
+	};
+	(function() {
+   	var d = document, s = d.createElement('script');
+   	s.src = 'https://' + 'dream-plus' + '.disqus.com/embed.js';
+   	s.setAttribute('data-timestamp', +new Date());
+   	(d.head || d.body).appendChild(s);
+	})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+				</div>
+			
 		</div>
 	</div>
 
