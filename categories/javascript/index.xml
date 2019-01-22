@@ -6,10 +6,22 @@
     <description>Recent content in Javascript on terryzh&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 04 Jan 2019 10:57:49 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 22 Jan 2019 11:25:36 +0800</lastBuildDate>
     
 	<atom:link href="https://t496971418.github.io/categories/javascript/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>深入理解TypeScript 1</title>
+      <link>https://t496971418.github.io/posts/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3typescript-1/</link>
+      <pubDate>Tue, 22 Jan 2019 11:25:36 +0800</pubDate>
+      
+      <guid>https://t496971418.github.io/posts/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3typescript-1/</guid>
+      <description>这一章主要总结TypeScript的用法和项目常用配置
+编译上下文 用来给文件分组，告诉 TypeScript 哪些文件是有效的，哪些是无效的。定义这种逻辑分组，一个比较好的方式是使用 tsconfig.json 文件。
+常用配置一览
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53  { &amp;#34;compilerOptions&amp;#34;: { /* 基本选项 */ &amp;#34;target&amp;#34;: &amp;#34;es5&amp;#34;, // 指定 ECMAScript 目标版本: &amp;#39;ES3&amp;#39; (default), &amp;#39;ES5&amp;#39;, &amp;#39;ES2015&amp;#39;, &amp;#39;ES2016&amp;#39;, &amp;#39;ES2017&amp;#39;, or &amp;#39;ESNEXT&amp;#39; &amp;#34;module&amp;#34;: &amp;#34;commonjs&amp;#34;, // 指定使用模块: &amp;#39;commonjs&amp;#39;, &amp;#39;amd&amp;#39;, &amp;#39;system&amp;#39;, &amp;#39;umd&amp;#39; or &amp;#39;es2015&amp;#39; &amp;#34;lib&amp;#34;: [], // 指定要包含在编译中的库文件 &amp;#34;allowJs&amp;#34;: true, // 允许编译 javascript 文件 &amp;#34;checkJs&amp;#34;: true, // 报告 javascript 文件中的错误 &amp;#34;jsx&amp;#34;: &amp;#34;preserve&amp;#34;, // 指定 jsx 代码的生成: &amp;#39;preserve&amp;#39;, &amp;#39;react-native&amp;#39;, or &amp;#39;react&amp;#39; &amp;#34;declaration&amp;#34;: true, // 生成相应的 &amp;#39;.</description>
+    </item>
     
     <item>
       <title>JS数组常用方法回顾</title>
