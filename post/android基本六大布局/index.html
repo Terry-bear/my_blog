@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Android基本六大布局 - Terryzh&#39;s blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Terryzh" /><meta name="description" content="android六大布局 今天leader让我们前端的了解下Android的画页面工作。最近Android的页面比较多，又正好碰上年会，那我们f" /><meta name="keywords" content="android" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53 with even 4.0.0" />
+
+
+<link rel="canonical" href="http://www.aizz.top/post/android%E5%9F%BA%E6%9C%AC%E5%85%AD%E5%A4%A7%E5%B8%83%E5%B1%80/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Android基本六大布局" />
+<meta property="og:description" content="android六大布局 今天leader让我们前端的了解下Android的画页面工作。最近Android的页面比较多，又正好碰上年会，那我们f" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.aizz.top/post/android%E5%9F%BA%E6%9C%AC%E5%85%AD%E5%A4%A7%E5%B8%83%E5%B1%80/" /><meta property="article:published_time" content="2019-01-08T09:50:36&#43;08:00"/>
+<meta property="article:modified_time" content="2019-01-08T09:50:36&#43;08:00"/>
+
+<meta itemprop="name" content="Android基本六大布局">
+<meta itemprop="description" content="android六大布局 今天leader让我们前端的了解下Android的画页面工作。最近Android的页面比较多，又正好碰上年会，那我们f">
+
+
+<meta itemprop="datePublished" content="2019-01-08T09:50:36&#43;08:00" />
+<meta itemprop="dateModified" content="2019-01-08T09:50:36&#43;08:00" />
+<meta itemprop="wordCount" content="2903">
+
+
+
+<meta itemprop="keywords" content="android," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Android基本六大布局"/>
+<meta name="twitter:description" content="android六大布局 今天leader让我们前端的了解下Android的画页面工作。最近Android的页面比较多，又正好碰上年会，那我们f"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Terryzh&#39;s blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Terryzh&#39;s blog</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Android基本六大布局</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-01-08 </span>
+        <div class="post-category">
+            <a href="/categories/code/"> code </a>
+            </div>
+          <span class="more-meta"> 2903 words </span>
+          <span class="more-meta"> 6 mins read </span>
+        
+      </div>
+    </header>
+
+    
+    <div class="post-content">
+      <h1 id="android六大布局">android六大布局</h1>
+
+<p>今天leader让我们前端的了解下Android的画页面工作。最近Android的页面比较多，又正好碰上年会，那我们front-coder也只能搭把手了。</p>
+
+<p>声明Android程序布局有两种方式：</p>
+
+<ol>
+<li>使用XML文件描述界面布局；</li>
+<li>在Java代码中通过调用方法进行控制。</li>
+</ol>
+
+<p>我们既可以使用任何一种声明界面布局的方式，也可以同时使用两种方式。</p>
+
+<p>使用XML文件声明有以下3个特点：</p>
+
+<ol>
+<li>将程序的表现层和控制层分离；</li>
+<li>在后期修改用户界面时，无须更改程序的源程序；</li>
+<li>可通过WYSIWYG可视化工具直接看到所设计的用户界面，有利于加快界面设计的过程。
+建议尽量采用XML文件声明界面元素布局。在程序运行时动态添加界面布局会大大降低应用响应速度，但依然可以在必要时动态改变屏幕内容。</li>
+</ol>
+
+<h2 id="六大界面布局方式包括-线性布局-linearlayout-框架布局-framelayout-表格布局-tablelayout-相对布局-relativelayout-绝对布局-absolutelayout-和网格布局-gridlayout">六大界面布局方式包括： 线性布局(LinearLayout)、框架布局(FrameLayout)、表格布局(TableLayout)、相对布局(RelativeLayout)、绝对布局(AbsoluteLayout)和网格布局(GridLayout) 。</h2>
+
+<h2 id="linearlayout线性布局">LinearLayout线性布局</h2>
+
+<p>LinearLayout容器中的组件一个挨一个排列，通过控制android:orientation属性，可控制各组件是横向排列还是纵向排列。</p>
+
+<p><strong>LinearLayout的常用XML属性及相关方法</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>XML属性</th>
+<th>相关方法</th>
+<th>说明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>android:gravity</td>
+<td>setGravity(int)</td>
+<td>设置布局管理器内组件的对齐方式</td>
+</tr>
+
+<tr>
+<td>android:orientation</td>
+<td>setOrientation(int)</td>
+<td>设置布局管理器内组件的排列方式，可以设置为horizontal、vertical两个值之一</td>
+</tr>
+</tbody>
+</table>
+
+<blockquote>
+<p>其中，gravity属性支持top, left, right, center_vertical, fill_vertical, center_horizontal, fill_horizontal, center, fill, clip_vertical, clip_horizontal。也可以同时指定多种对齐方式的组合。</p>
+</blockquote>
+
+<p><strong>LinearLayout子元素支持的常用XML属性及方法</strong></p>
+
+<p>XML属性   说明
+android:layout_gravity  指定该子元素在LinearLayout中的对齐方式
+android:layout_weight   指定子元素在LinearLayout中所占的权重</p>
+
+<h2 id="tablelayout表格布局">TableLayout表格布局</h2>
+
+<p>TableLayout继承自Linearout，本质上仍然是线性布局管理器。表格布局采用行、列的形式来管理UI组件，并不需要明确地声明包含多少行、多少列，而是通过添加TableRow、其他组件来控制表格的行数和列数。</p>
+
+<p>每向TableLayout中添加一个TableRow就代表一行；</p>
+
+<p>每向TableRow中添加一个一个子组件就表示一列；</p>
+
+<p>如果直接向TableLayout添加组件，那么该组件将直接占用一行；</p>
+
+<p>在表格布局中，可以为单元格设置如下三种行为方式：</p>
+
+<ul>
+<li>Shrinkable：该列的所有单元格的宽度可以被收缩，以保证该表格能适应父容器的宽度；</li>
+<li>Strentchable：该列所有单元格的宽度可以被拉伸，以保证组件能完全填满表格空余空间；</li>
+<li>Collapsed：如果该列被设置为Collapsed，那么该列的所有单元格会被隐藏；</li>
+</ul>
+
+<p><strong>TableLayout的常用XML属性及方法</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>XML属性</th>
+<th>相关方法</th>
+<th>说明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>android:collapseColumns</td>
+<td>setColumns(int, boolean)</td>
+<td>设置需要被隐藏的列的序号，多个序号间用逗号分隔</td>
+</tr>
+
+<tr>
+<td>android:shrinkColumns</td>
+<td>setShrinkAllColumns(boolean)</td>
+<td>设置需要被收缩的列的序号</td>
+</tr>
+
+<tr>
+<td>android:stretchColumns</td>
+<td>setStretchAllColumns(boolean)</td>
+<td>设置允许被拉伸的列的序号</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="framelayout帧布局">FrameLayout帧布局</h2>
+
+<p>FrameLayout直接继承自ViewGroup组件。帧布局为每个加入其中的组件创建一个空白的区域(称为一帧)，每个子组件占据一帧，这些帧会根据gravity属性执行自动对齐。</p>
+
+<p><strong>FrameLayout的常用XM了属性及方法</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>XML属性</th>
+<th>相关方法</th>
+<th>说明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>android:foreground</td>
+<td>setForeground(Drawable)</td>
+<td>设置该帧布局容器的前景图像</td>
+</tr>
+
+<tr>
+<td>android:foregroundGravity</td>
+<td>setForeGroundGraity(int)</td>
+<td>定义绘制前景图像的gravity属性</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="relativelayout相对布局">RelativeLayout相对布局</h2>
+
+<p><strong>RelativeLayout的XML属性及相关方法说明</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>XML属性</th>
+<th>相关方法</th>
+<th>说明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>android:gravity</td>
+<td>setGravity(int)</td>
+<td></td>
+</tr>
+
+<tr>
+<td>android:ignoreGravity</td>
+<td>setIgnoreGravity(int)</td>
+<td>设置哪个组件不受gravity属性的影响</td>
+</tr>
+</tbody>
+</table>
+
+<blockquote>
+<p>为了控制该布局容器的各子组件的布局分布，RelativeLayout提供了一个内部类：RelativeLayout.LayoutParams。</p>
+</blockquote>
+
+<p><strong>RelativeLayout.LayoutParams里只能设为boolean的XML属性</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>XML属性</th>
+<th>相关方法</th>
+<th>说明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>android:layout_centerHorizontal</td>
+<td></td>
+<td>设置该子组件是否位于布局容器的水平居中</td>
+</tr>
+
+<tr>
+<td>android:layout_centerVertical</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>android:layout_centerParent</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>android:layout_alignParentBottom</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>android:layout_alignParentLeft</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>android:layout_alignParentRight</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>android:layout_alignParentTop</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>RelativeLayout.LayoutParams里属性值为其他UI组件ID的XML属性</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>XML属性</th>
+<th>相关方法</th>
+<th>说明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>android:layout_toRightOf</td>
+<td></td>
+<td>控制该子组件位于给出ID组件的右侧</td>
+</tr>
+
+<tr>
+<td>android:layout_toLeftOf</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>android:layout_above</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>android:layout_below</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>android:layout_alignTop</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>android:layout_alignBottom</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>android:layout_alignRight</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>android:layout_alignLeft</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="android-4-0新增的网格布局gridlayout">Android 4.0新增的网格布局GridLayout</h2>
+
+<p>GridLayout是Android4.0增加的网格布局控件，与之前的TableLayout有些相似，它把整个容器划分为rows × columns个网格，每个网格可以放置一个组件。性能及功能都要比tablelayout好，比如GridLayout布局中的单元格可以跨越多行，而tablelayout则不行，此外，其渲染速度也比tablelayout要快。</p>
+
+<p>GridLayout提供了setRowCount(int)和setColumnCount(int)方法来控制该网格的行和列的数量。</p>
+
+<p><strong>GridLayout常用的XML属性和方法说明</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>XML属性</th>
+<th>相关方法</th>
+<th>说明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>android:alignmentMode</td>
+<td>setAlignmentMode(int)</td>
+<td>设置该布局管理器采用的对齐模式</td>
+</tr>
+
+<tr>
+<td>android:columnCount</td>
+<td>setColumnCount(int)</td>
+<td>设置该网格的列数量</td>
+</tr>
+
+<tr>
+<td>android:columnOrderPreserved</td>
+<td>setColumnOrderPreserved(boolean)</td>
+<td>设置该网格容器是否保留序列号</td>
+</tr>
+
+<tr>
+<td>android:roeCount</td>
+<td>setRowCount(int)</td>
+<td>设置该网格的行数量</td>
+</tr>
+
+<tr>
+<td>android:rowOrderPreserved</td>
+<td>setRowOrderPreserved(boolean)</td>
+<td>设置该网格容器是否保留行序号</td>
+</tr>
+
+<tr>
+<td>android:useDefaultMargins</td>
+<td>setUseDefaultMargins(boolean)</td>
+<td>设置该布局管理器是否使用默认的页边距</td>
+</tr>
+</tbody>
+</table>
+
+<blockquote>
+<p>为了控制GridLayout布局容器中各子组件的布局分布，GridLayout提供了一个内部类：GridLayout.LayoutParams，来控制Gridlayout布局容器中子组件的布局分布。</p>
+</blockquote>
+
+<p><strong>GridLayout.LayoutParams常用的XML属性和方法说明</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>XML属性</th>
+<th>相关方法</th>
+<th>说明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>android:layout_column</td>
+<td>设置该组件在GridLayout的第几列</td>
+<td></td>
+</tr>
+
+<tr>
+<td>android:layout_columnSpan</td>
+<td>设置该子组件在GridLayout横向上跨几列</td>
+<td></td>
+</tr>
+
+<tr>
+<td>android:layout_gravity</td>
+<td>设置该子组件采用何种方式占据该网格的空间</td>
+<td></td>
+</tr>
+
+<tr>
+<td>android:layout_row</td>
+<td>设置该子组件在GridLayout的第几行</td>
+<td></td>
+</tr>
+
+<tr>
+<td>android:layout_rowSpan</td>
+<td>设置该子组件在GridLayout纵向上跨几行</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="absolutelayout绝对布局">AbsoluteLayout绝对布局</h2>
+
+<p>即Android不提供任何布局控制，而是由开发人员自己通过X坐标、Y坐标来控制组件的位置。每个组件都可指定如下两个XML属性：</p>
+
+<ul>
+<li>layour_x;</li>
+
+<li><p>layout_y;</p>
+
+<p>绝对布局已经过时，不应使用或少使用。</p></li>
+</ul>
+
+<p><strong>界面布局类型的选择和性能优化</strong></p>
+
+<p>首先得明确，界面布局类型的嵌套越多越深越复杂，会使布局实例化变慢，使Activity的展开时间延长。建议尽量减少布局嵌套，尽量减少创建View对象的数量。</p>
+
+<p>1 . 减少布局层次，可考虑用RelativeLayout来代替LinearLayout。通过Relative的相对其他元素的位置来布局，可减少块状嵌套；</p>
+
+<p>2 . 另一种减少布局层次的技巧是使用 <code>&lt;merge /&gt;</code> 标签来合并布局；</p>
+
+<p>3 . 重用布局。Android支持在XML中使用 <code>&lt;include /&gt;</code> 标签， <code>&lt;include /&gt;</code> 通过指定android:layout属性来指定要包含的另一个XML布局。</p>
+
+<p>如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-xml" data-lang="xml"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-xml" data-lang="xml">    <span class="nt">&lt;include</span> <span class="na">android:id=</span><span class="s">&#34;@+id/id1&#34;</span> <span class="na">android:layout=</span><span class="s">&#34;@layout/mylayout&#34;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;include</span> <span class="na">android:id=</span><span class="s">&#34;@+id/id2&#34;</span> <span class="na">android:layout=</span><span class="s">&#34;@layout/mylayout&#34;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;include</span> <span class="na">android:id=</span><span class="s">&#34;@+id/id3&#34;</span> <span class="na">android:layout=</span><span class="s">&#34;@layout/mylayout&#34;</span><span class="nt">&gt;</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>对于安卓是在是不太了解,就转载了CSDN上的文章作为分享,也学习了不少关于Android的布局。</p>
+</blockquote>
+
+<p>作者：冰糖葫芦三剑客</p>
+
+<p>来源：CSDN</p>
+
+<p>原文：<a href="https://blog.csdn.net/shenggaofei/article/details/52450668">https://blog.csdn.net/shenggaofei/article/details/52450668</a></p>
+
+<p>版权声明：本文为博主原创文章，转载请附上博文链接！</p>
+    </div>
+
+    
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/android/">android</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/golang%E5%A6%82%E4%BD%95%E7%AE%A1%E7%90%86%E9%A1%B9%E7%9B%AE%E4%BE%9D%E8%B5%96/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Golang如何管理项目依赖</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/js%E6%95%B0%E7%BB%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%E5%9B%9E%E9%A1%BE/">
+            <span class="next-text nav-default">JS数组常用方法回顾</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:terryzh017@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://stackoverflow.com/users/10838177/terryzh" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://twitter.com/terryzhAizz" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/t496971418" class="iconfont icon-github" title="github"></a>
+  <a href="http://www.aizz.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Terryzh</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

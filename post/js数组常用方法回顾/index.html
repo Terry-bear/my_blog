@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>JS数组常用方法回顾 - Terryzh&#39;s blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Terryzh" /><meta name="description" content="最近写JS碰到了很多对数组的处理。总结出来以便回顾。 这里会结合一些函数式编程的思想来进行总结。 处理全量数组数据 高频出现 map map—&amp;gt; 返回" /><meta name="keywords" content="javascript" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53 with even 4.0.0" />
+
+
+<link rel="canonical" href="http://www.aizz.top/post/js%E6%95%B0%E7%BB%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%E5%9B%9E%E9%A1%BE/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="JS数组常用方法回顾" />
+<meta property="og:description" content="最近写JS碰到了很多对数组的处理。总结出来以便回顾。 这里会结合一些函数式编程的思想来进行总结。 处理全量数组数据 高频出现 map map—&gt; 返回" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.aizz.top/post/js%E6%95%B0%E7%BB%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%E5%9B%9E%E9%A1%BE/" /><meta property="article:published_time" content="2019-01-04T10:57:49&#43;08:00"/>
+<meta property="article:modified_time" content="2019-01-04T10:57:49&#43;08:00"/>
+
+<meta itemprop="name" content="JS数组常用方法回顾">
+<meta itemprop="description" content="最近写JS碰到了很多对数组的处理。总结出来以便回顾。 这里会结合一些函数式编程的思想来进行总结。 处理全量数组数据 高频出现 map map—&gt; 返回">
+
+
+<meta itemprop="datePublished" content="2019-01-04T10:57:49&#43;08:00" />
+<meta itemprop="dateModified" content="2019-01-04T10:57:49&#43;08:00" />
+<meta itemprop="wordCount" content="1576">
+
+
+
+<meta itemprop="keywords" content="javascript," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="JS数组常用方法回顾"/>
+<meta name="twitter:description" content="最近写JS碰到了很多对数组的处理。总结出来以便回顾。 这里会结合一些函数式编程的思想来进行总结。 处理全量数组数据 高频出现 map map—&gt; 返回"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Terryzh&#39;s blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Terryzh&#39;s blog</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">JS数组常用方法回顾</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-01-04 </span>
+        <div class="post-category">
+            <a href="/categories/code/"> code </a>
+            </div>
+          <span class="more-meta"> 1576 words </span>
+          <span class="more-meta"> 4 mins read </span>
+        
+      </div>
+    </header>
+
+    
+    <div class="post-content">
+      <p>最近写JS碰到了很多对数组的处理。总结出来以便回顾。</p>
+
+<blockquote>
+<p>这里会结合一些函数式编程的思想来进行总结。</p>
+</blockquote>
+
+<h1 id="处理全量数组数据">处理全量数组数据</h1>
+
+<h1 id="高频出现">高频出现</h1>
+
+<ul>
+<li><p>map</p>
+
+<p>map—&gt; 返回每次函数调用的结果组成的数组<strong>[有返回值]</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">baseArr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+<span class="kd">var</span> <span class="nx">dealedArr</span> <span class="o">=</span> <span class="nx">baseArr</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">params</span> <span class="p">=&gt;</span> <span class="nx">params</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span> <span class="p">]</span> <span class="c1">// baseArr
+</span><span class="c1"></span><span class="o">&gt;&gt;&gt;</span> <span class="p">[</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span> <span class="p">]</span> <span class="c1">// dealedArr
+</span><span class="c1"></span></code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>forEach</p>
+
+<p>forEach—&gt; 和map的区别就是forEach是<strong>没有</strong>返回值的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">baseArr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+<span class="kd">var</span> <span class="nx">dealedArr</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="nx">baseArr</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">params</span> <span class="p">=&gt;</span> <span class="nx">dealedArr</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">params</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+    
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span> <span class="p">]</span> <span class="c1">// baseArr
+</span><span class="c1"></span><span class="o">&gt;&gt;&gt;</span> <span class="p">[</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span> <span class="p">]</span> <span class="c1">// dealedArr
+</span><span class="c1"></span></code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>filter</p>
+
+<p>filter—&gt; filter的返回值是<strong>boolean</strong>的判断，为真则返回到数组中</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">judgeArr</span> <span class="o">=</span> <span class="p">[</span><span class="kc">true</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="kc">false</span><span class="p">]</span>
+<span class="kd">var</span> <span class="nx">isTrueArr</span> <span class="o">=</span> <span class="nx">judgeArr</span><span class="p">.</span><span class="nx">filter</span><span class="p">((</span><span class="nx">params</span><span class="p">)=&gt;</span> <span class="nx">params</span><span class="p">)</span>
+    
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span> <span class="kc">true</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="kc">false</span> <span class="p">]</span> <span class="c1">// judgeArr
+</span><span class="c1"></span><span class="o">&gt;&gt;&gt;</span> <span class="p">[</span> <span class="kc">true</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="kc">true</span> <span class="p">]</span> <span class="c1">// isTrueArr
+</span><span class="c1"></span></code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>reduce</p>
+
+<p>reduce—&gt; 迭代数组的所有项，然后构建一个最终返回值</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// reduce 参数的构造 
+</span><span class="c1">// callbackfn: (previousValue: number, currentValue: number, currentIndex: number, array: number[]) =&gt; number
+</span><span class="c1"></span><span class="kd">var</span> <span class="nx">numArr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>
+<span class="kd">var</span> <span class="nx">sumArr</span> <span class="o">=</span> <span class="nx">numArr</span><span class="p">.</span><span class="nx">reduce</span><span class="p">((</span><span class="nx">pV</span><span class="p">,</span> <span class="nx">cV</span><span class="p">,</span> <span class="nx">cI</span><span class="p">,</span> <span class="nx">arr</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">pV</span><span class="p">,</span> <span class="nx">cV</span><span class="p">,</span> <span class="nx">cI</span><span class="p">,</span> <span class="nx">arr</span><span class="p">)</span>
+<span class="p">})</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">1</span> <span class="p">[</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span> <span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kc">undefined</span> <span class="mi">5</span> <span class="mi">2</span> <span class="p">[</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span> <span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kc">undefined</span> <span class="mi">6</span> <span class="mi">3</span> <span class="p">[</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span> <span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kc">undefined</span> <span class="mi">7</span> <span class="mi">4</span> <span class="p">[</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span> <span class="p">]</span>
+    
+<span class="kd">var</span> <span class="nx">numArr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>
+<span class="kd">var</span> <span class="nx">sumArr</span> <span class="o">=</span> <span class="nx">numArr</span><span class="p">.</span><span class="nx">reduce</span><span class="p">((</span><span class="nx">pV</span><span class="p">,</span> <span class="nx">cV</span><span class="p">,</span> <span class="nx">cI</span><span class="p">,</span> <span class="nx">arr</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">pV</span> <span class="o">+</span> <span class="nx">cV</span><span class="p">)</span>
+    
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">23</span> <span class="c1">// sumArr
+</span><span class="c1"></span>    
+<span class="c1">// 设定初始值
+</span><span class="c1"></span><span class="kd">var</span> <span class="nx">numArr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>
+<span class="kd">var</span> <span class="nx">sumArr</span> <span class="o">=</span> <span class="nx">numArr</span><span class="p">.</span><span class="nx">reduce</span><span class="p">((</span><span class="nx">pV</span><span class="p">,</span> <span class="nx">cV</span><span class="p">,</span> <span class="nx">cI</span><span class="p">,</span> <span class="nx">arr</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">pV</span> <span class="o">+</span> <span class="nx">cV</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+    
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">33</span> <span class="c1">// sumArr
+</span><span class="c1"></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+
+<h2 id="低频出现">低频出现</h2>
+
+<ul>
+<li><p>some</p>
+
+<p>some—&gt; 判断迭代数组是否符合条件，只要有一个为真就返回true</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">natrualNumArr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>
+<span class="kd">var</span> <span class="nx">evenNum</span> <span class="o">=</span> <span class="nx">natrualNumArr</span><span class="p">.</span><span class="nx">some</span><span class="p">((</span><span class="nx">params</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">params</span> <span class="o">%</span> <span class="mi">2</span><span class="p">)</span>
+    
+<span class="o">&gt;&gt;&gt;</span> <span class="kc">true</span> <span class="c1">// evenNum
+</span><span class="c1"></span></code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>every</p>
+
+<p>every—&gt; 相比some，需要全部为真才返回true</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">natrualNumArr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>
+<span class="kd">var</span> <span class="nx">evenNum</span> <span class="o">=</span> <span class="nx">natrualNumArr</span><span class="p">.</span><span class="nx">every</span><span class="p">((</span><span class="nx">params</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">params</span> <span class="o">%</span> <span class="mi">2</span><span class="p">)</span>
+    
+<span class="o">&gt;&gt;&gt;</span> <span class="kc">false</span> <span class="c1">// evenNum
+</span><span class="c1"></span></code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>reverse</p>
+
+<p>reverse—&gt; 反转数组</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">orderArr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="kd">var</span> <span class="nx">invertedArr</span> <span class="o">=</span> <span class="nx">orderArr</span><span class="p">.</span><span class="nx">reverse</span><span class="p">()</span>
+    
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span> <span class="c1">// orderArr 
+</span><span class="c1"></span><span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="c1">// invertedArr
+</span><span class="c1"></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+
+<h1 id="处理指定数组数据">处理指定数组数据</h1>
+
+<h2 id="高频出现-1">高频出现</h2>
+
+<ul>
+<li><p>concat</p>
+
+<p>concat—&gt; 将两个数组合并，并返回一个新数组</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">orginArr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="kd">var</span> <span class="nx">etcArr</span> <span class="o">=</span> <span class="p">[</span><span class="kc">true</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="kc">false</span><span class="p">]</span>
+<span class="kd">var</span> <span class="nx">mergeArr</span> <span class="o">=</span> <span class="nx">orginArr</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">etcArr</span><span class="p">)</span>
+    
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="kc">false</span> <span class="p">]</span> <span class="c1">// mergeArr
+</span><span class="c1"></span>
+<span class="c1">// concat巧用--&gt; 作为数组的deepcopy
+</span><span class="c1"></span><span class="kd">var</span> <span class="nx">orginArr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="p">(</span><span class="nx">params</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">params</span> <span class="o">+</span> <span class="mi">1</span>  
+<span class="p">}]</span>
+<span class="kd">var</span> <span class="nx">copyArr</span> <span class="o">=</span> <span class="nx">orginArr</span><span class="p">.</span><span class="nx">concat</span><span class="p">()</span>
+<span class="nx">orginArr</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;haha&#39;</span>
+    
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;haha&#39;</span> <span class="p">]</span> <span class="c1">// orginArr
+</span><span class="c1"></span><span class="o">&gt;&gt;&gt;</span> <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="p">[</span><span class="nb">Function</span><span class="p">]</span> <span class="p">]</span> <span class="c1">// copyArr
+</span><span class="c1"></span></code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>slice</p>
+
+<p>slice—&gt; 切片，类似于python和golang中的切片。</p>
+
+<p>传参分别为<strong>start?: number</strong>, <strong>end?: number</strong></p>
+
+<blockquote>
+<p>可以实现和concat同样的deepcopy效果</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>
+<span class="kd">var</span> <span class="nx">slice</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+    
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span> <span class="p">]</span> <span class="c1">// arr
+</span><span class="c1"></span><span class="o">&gt;&gt;&gt;</span> <span class="p">[</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span> <span class="p">]</span> <span class="c1">// slice
+</span><span class="c1"></span></code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>splice</p>
+
+<p>splice—&gt; 用好了很强大，会产生依懒性。emm&hellip;</p>
+
+<p>可以实现删除、插入和替换</p>
+
+<p>传入参数 <strong>start: number</strong>, <strong>deleteCount?: number</strong>, <strong>&hellip;items: T[]</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// ? 删除时，传入两个参数
+</span><span class="c1"></span><span class="kd">var</span> <span class="nx">delArr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">11</span><span class="p">]</span>
+<span class="kd">var</span> <span class="nx">arrRemoved</span> <span class="o">=</span> <span class="nx">delArr</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+    
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">11</span><span class="p">]</span> <span class="c1">// delArr
+</span><span class="c1"></span><span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="c1">// arrRemoved
+</span><span class="c1"></span>    
+<span class="c1">// ? 插入时， 传入三个参数，start开始位置，deleteCount=0不进行删除，...items可变参
+</span><span class="c1"></span><span class="kd">var</span> <span class="nx">insertArr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">11</span><span class="p">]</span>
+<span class="kd">var</span> <span class="nx">arrRemoved2</span> <span class="o">=</span> <span class="nx">insertArr</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span>
+    
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">11</span><span class="p">]</span> <span class="c1">// insertArr
+</span><span class="c1"></span><span class="o">&gt;&gt;&gt;</span> <span class="p">[]</span> <span class="c1">// arrRemoved2 deleteCount=0 返回空数组
+</span><span class="c1"></span>    
+<span class="kd">var</span> <span class="nx">replaceArr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">11</span><span class="p">]</span>
+<span class="kd">var</span> <span class="nx">arrRemoved3</span> <span class="o">=</span> <span class="nx">replaceArr</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+    
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">11</span> <span class="p">]</span> <span class="c1">// replaceArr
+</span><span class="c1"></span><span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="c1">// arrRemoved3 deleteCount=1 返回被删除的元素
+</span><span class="c1"></span></code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>push和pop</p>
+
+<p>push—&gt; 接受可变参 <strong>&hellip;items</strong>,返回数组push后长度</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">nameArr</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;terry&#39;</span><span class="p">,</span> <span class="s1">&#39;jolie&#39;</span><span class="p">,</span> <span class="s1">&#39;aniki&#39;</span><span class="p">]</span>
+<span class="kd">var</span> <span class="nx">count</span> <span class="o">=</span> <span class="nx">nameArr</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s1">&#39;john&#39;</span><span class="p">,</span> <span class="s1">&#39;scoket&#39;</span><span class="p">)</span>
+    
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span> <span class="s1">&#39;terry&#39;</span><span class="p">,</span> <span class="s1">&#39;jolie&#39;</span><span class="p">,</span> <span class="s1">&#39;aniki&#39;</span><span class="p">,</span> <span class="s1">&#39;john&#39;</span><span class="p">,</span> <span class="s1">&#39;scoket&#39;</span> <span class="p">]</span> <span class="c1">// nameArr
+</span><span class="c1"></span><span class="o">&gt;&gt;&gt;</span> <span class="mi">5</span> <span class="c1">// count
+</span><span class="c1"></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>pop—&gt; 弹出数组末位，返回元素值</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">nameArr</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;terry&#39;</span><span class="p">,</span> <span class="s1">&#39;jolie&#39;</span><span class="p">,</span> <span class="s1">&#39;aniki&#39;</span><span class="p">]</span>
+<span class="kd">var</span> <span class="nx">popParams</span> <span class="o">=</span> <span class="nx">nameArr</span><span class="p">.</span><span class="nx">pop</span><span class="p">()</span>
+    
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="s1">&#39;terry&#39;</span><span class="p">,</span> <span class="s1">&#39;jolie&#39;</span><span class="p">]</span> <span class="c1">// nameArr
+</span><span class="c1"></span><span class="o">&gt;&gt;&gt;</span> <span class="nx">aniki</span> <span class="c1">// popParams
+</span><span class="c1"></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+
+<h2 id="低频出现-1">低频出现</h2>
+
+<ul>
+<li><p>indexOf</p>
+
+<p>indexOf—&gt; 在数组中找到对应元素下标，没有则返回<strong>-1</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;找不到&#39;</span><span class="p">,</span> <span class="s1">&#39;也找不到&#39;</span><span class="p">,</span> <span class="s1">&#39;catch&#39;</span><span class="p">,</span> <span class="s1">&#39;我隐身啦&#39;</span><span class="p">]</span>
+<span class="kd">var</span> <span class="nx">hasValue</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;catch&#39;</span><span class="p">)</span>
+<span class="kd">var</span> <span class="nx">noValue</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;try&#39;</span><span class="p">)</span>
+    
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">2</span> <span class="c1">// hasValue
+</span><span class="c1"></span><span class="o">&gt;&gt;&gt;</span> <span class="o">-</span><span class="mi">1</span> <span class="c1">// noValue
+</span><span class="c1"></span></code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>shift和unshift</p>
+
+<p>shift—&gt; 删除原数组第一项，并返回删除<strong>元素的值</strong>；如果数组为空则返回undefined</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Jack&#39;</span><span class="p">,</span> <span class="s1">&#39;Sean&#39;</span><span class="p">,</span> <span class="s1">&#39;Lily&#39;</span><span class="p">,</span> <span class="s1">&#39;lucy&#39;</span><span class="p">,</span> <span class="s1">&#39;Tom&#39;</span><span class="p">]</span>
+<span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">shift</span><span class="p">()</span>
+    
+<span class="o">&gt;&gt;&gt;</span> <span class="nx">Jack</span> <span class="c1">// params
+</span><span class="c1"></span><span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="s1">&#39;Sean&#39;</span><span class="p">,</span> <span class="s1">&#39;Lily&#39;</span><span class="p">,</span> <span class="s1">&#39;lucy&#39;</span><span class="p">,</span> <span class="s1">&#39;Tom&#39;</span><span class="p">]</span> <span class="c1">// arr
+</span><span class="c1"></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>unshift—&gt; 将参数添加到原数组开头，并返回<strong>数组的长度</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Lily&#39;</span><span class="p">,</span> <span class="s1">&#39;lucy&#39;</span><span class="p">,</span> <span class="s1">&#39;Tom&#39;</span><span class="p">]</span>
+<span class="kd">var</span> <span class="nx">count</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">unshift</span><span class="p">(</span><span class="s1">&#39;Jack&#39;</span><span class="p">,</span> <span class="s1">&#39;Sean&#39;</span><span class="p">)</span>
+    
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">5</span> <span class="c1">// count
+</span><span class="c1"></span><span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="s1">&#39;Jack&#39;</span><span class="p">,</span> <span class="s1">&#39;Sean&#39;</span><span class="p">,</span> <span class="s1">&#39;Lily&#39;</span><span class="p">,</span> <span class="s1">&#39;lucy&#39;</span><span class="p">,</span> <span class="s1">&#39;Tom&#39;</span><span class="p">]</span> <span class="c1">// arr
+</span><span class="c1"></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>好了👌，今天就写这么多了。</p></li>
+</ul>
+    </div>
+
+    
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/javascript/">javascript</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/android%E5%9F%BA%E6%9C%AC%E5%85%AD%E5%A4%A7%E5%B8%83%E5%B1%80/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Android基本六大布局</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/%E5%88%9D%E6%8E%A2vue3.0%E7%9A%84proxy%E6%9C%BA%E5%88%B6/">
+            <span class="next-text nav-default">初探vue3.0的Proxy机制</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:terryzh017@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://stackoverflow.com/users/10838177/terryzh" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://twitter.com/terryzhAizz" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/t496971418" class="iconfont icon-github" title="github"></a>
+  <a href="http://www.aizz.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Terryzh</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

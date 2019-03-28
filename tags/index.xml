@@ -1,58 +1,75 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on terryzh&#39;s blog</title>
-    <link>https://t496971418.github.io/tags/</link>
-    <description>Recent content in Tags on terryzh&#39;s blog</description>
+    <title>Tags on Terryzh&#39;s blog</title>
+    <link>http://www.aizz.top/tags/</link>
+    <description>Recent content in Tags on Terryzh&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Tue, 08 Jan 2019 09:50:36 +0800</lastBuildDate>
+    <language>en</language>
     
-	<atom:link href="https://t496971418.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://www.aizz.top/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Android</title>
-      <link>https://t496971418.github.io/tags/android/</link>
+      <title>VUE</title>
+      <link>http://www.aizz.top/tags/vue/</link>
+      <pubDate>Sun, 30 Dec 2018 15:42:49 +0800</pubDate>
+      
+      <guid>http://www.aizz.top/tags/vue/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>android</title>
+      <link>http://www.aizz.top/tags/android/</link>
       <pubDate>Tue, 08 Jan 2019 09:50:36 +0800</pubDate>
       
-      <guid>https://t496971418.github.io/tags/android/</guid>
+      <guid>http://www.aizz.top/tags/android/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Flutter</title>
-      <link>https://t496971418.github.io/tags/flutter/</link>
+      <title>flutter</title>
+      <link>http://www.aizz.top/tags/flutter/</link>
       <pubDate>Thu, 10 Jan 2019 21:53:11 +0800</pubDate>
       
-      <guid>https://t496971418.github.io/tags/flutter/</guid>
+      <guid>http://www.aizz.top/tags/flutter/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Golang</title>
-      <link>https://t496971418.github.io/tags/golang/</link>
+      <title>golang</title>
+      <link>http://www.aizz.top/tags/golang/</link>
       <pubDate>Wed, 09 Jan 2019 11:44:32 +0800</pubDate>
       
-      <guid>https://t496971418.github.io/tags/golang/</guid>
+      <guid>http://www.aizz.top/tags/golang/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Javascript</title>
-      <link>https://t496971418.github.io/tags/javascript/</link>
+      <title>javascript</title>
+      <link>http://www.aizz.top/tags/javascript/</link>
       <pubDate>Tue, 22 Jan 2019 11:25:36 +0800</pubDate>
       
-      <guid>https://t496971418.github.io/tags/javascript/</guid>
+      <guid>http://www.aizz.top/tags/javascript/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Personal</title>
-      <link>https://t496971418.github.io/tags/personal/</link>
+      <title>personal</title>
+      <link>http://www.aizz.top/tags/personal/</link>
       <pubDate>Sat, 29 Dec 2018 01:07:40 +0800</pubDate>
       
-      <guid>https://t496971418.github.io/tags/personal/</guid>
+      <guid>http://www.aizz.top/tags/personal/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>typescript</title>
+      <link>http://www.aizz.top/tags/typescript/</link>
+      <pubDate>Tue, 22 Jan 2019 11:25:36 +0800</pubDate>
+      
+      <guid>http://www.aizz.top/tags/typescript/</guid>
       <description></description>
     </item>
     

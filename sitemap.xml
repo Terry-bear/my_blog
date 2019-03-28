@@ -1,131 +1,155 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<?xml-stylesheet type="text/xsl" href="http://www.aizz.top/sitemap.xsl"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://t496971418.github.io/posts/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3typescript-1/</loc>
+    <loc>http://www.aizz.top/about/</loc>
+    <lastmod>2017-08-28T21:41:52+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.aizz.top/post/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3typescript-1/</loc>
     <lastmod>2019-01-22T11:25:36+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://t496971418.github.io/posts/flutter%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%BC%83%E5%9D%911%E4%B9%8B%E9%83%A8%E7%BD%B2/</loc>
+    <loc>http://www.aizz.top/post/flutter%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%BC%83%E5%9D%911%E4%B9%8B%E9%83%A8%E7%BD%B2/</loc>
     <lastmod>2019-01-10T21:53:11+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://t496971418.github.io/posts/golang%E5%A6%82%E4%BD%95%E7%AE%A1%E7%90%86%E9%A1%B9%E7%9B%AE%E4%BE%9D%E8%B5%96/</loc>
+    <loc>http://www.aizz.top/post/golang%E5%A6%82%E4%BD%95%E7%AE%A1%E7%90%86%E9%A1%B9%E7%9B%AE%E4%BE%9D%E8%B5%96/</loc>
     <lastmod>2019-01-09T11:44:32+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://t496971418.github.io/posts/android%E5%9F%BA%E6%9C%AC%E5%85%AD%E5%A4%A7%E5%B8%83%E5%B1%80/</loc>
+    <loc>http://www.aizz.top/post/android%E5%9F%BA%E6%9C%AC%E5%85%AD%E5%A4%A7%E5%B8%83%E5%B1%80/</loc>
     <lastmod>2019-01-08T09:50:36+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://t496971418.github.io/posts/js%E6%95%B0%E7%BB%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%E5%9B%9E%E9%A1%BE/</loc>
+    <loc>http://www.aizz.top/post/js%E6%95%B0%E7%BB%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%E5%9B%9E%E9%A1%BE/</loc>
     <lastmod>2019-01-04T10:57:49+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://t496971418.github.io/posts/%E5%88%9D%E6%8E%A2vue3.0%E7%9A%84proxy%E6%9C%BA%E5%88%B6/</loc>
+    <loc>http://www.aizz.top/post/%E5%88%9D%E6%8E%A2vue3.0%E7%9A%84proxy%E6%9C%BA%E5%88%B6/</loc>
     <lastmod>2018-12-30T15:42:49+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://t496971418.github.io/posts/18%E5%B9%B4%E5%B7%B2%E8%BF%8719%E5%B9%B4%E5%9D%9A%E6%8C%81%E7%BB%B4%E6%8A%A4%E8%87%AA%E5%B7%B1%E7%9A%84%E5%BE%AE%E5%8D%9A/</loc>
+    <loc>http://www.aizz.top/post/18%E5%B9%B4%E5%B7%B2%E8%BF%8719%E5%B9%B4%E5%9D%9A%E6%8C%81%E7%BB%B4%E6%8A%A4%E8%87%AA%E5%B7%B1%E7%9A%84%E5%BE%AE%E5%8D%9A/</loc>
     <lastmod>2018-12-29T01:07:40+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://t496971418.github.io/404/</loc>
+    <loc>http://www.aizz.top/404/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://t496971418.github.io/about/</loc>
-  </url>
-  
-  <url>
-    <loc>https://t496971418.github.io/categories/android/</loc>
-    <lastmod>2019-01-08T09:50:36+08:00</lastmod>
+    <loc>http://www.aizz.top/categories/</loc>
+    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://t496971418.github.io/tags/android/</loc>
-    <lastmod>2019-01-08T09:50:36+08:00</lastmod>
+    <loc>http://www.aizz.top/post/</loc>
+    <lastmod>2019-01-22T11:25:36+08:00</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://t496971418.github.io/categories/</loc>
-    <lastmod>2019-01-08T09:50:36+08:00</lastmod>
+    <loc>http://www.aizz.top/tags/</loc>
+    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://t496971418.github.io/categories/flutter/</loc>
+    <loc>http://www.aizz.top/</loc>
+    <lastmod>2017-08-28T21:41:52+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.aizz.top/tags/vue/</loc>
+    <lastmod>2018-12-30T15:42:49+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.aizz.top/tags/android/</loc>
+    <lastmod>2019-01-08T09:50:36+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.aizz.top/categories/code/</loc>
+    <lastmod>2019-01-22T11:25:36+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.aizz.top/tags/flutter/</loc>
     <lastmod>2019-01-10T21:53:11+08:00</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://t496971418.github.io/tags/flutter/</loc>
-    <lastmod>2019-01-10T21:53:11+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://t496971418.github.io/categories/golang/</loc>
+    <loc>http://www.aizz.top/tags/golang/</loc>
     <lastmod>2019-01-09T11:44:32+08:00</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://t496971418.github.io/tags/golang/</loc>
-    <lastmod>2019-01-09T11:44:32+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://t496971418.github.io/categories/javascript/</loc>
+    <loc>http://www.aizz.top/tags/javascript/</loc>
     <lastmod>2019-01-22T11:25:36+08:00</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://t496971418.github.io/tags/javascript/</loc>
-    <lastmod>2019-01-22T11:25:36+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://t496971418.github.io/categories/personal/</loc>
+    <loc>http://www.aizz.top/tags/personal/</loc>
     <lastmod>2018-12-29T01:07:40+08:00</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://t496971418.github.io/tags/personal/</loc>
+    <loc>http://www.aizz.top/categories/personal/</loc>
     <lastmod>2018-12-29T01:07:40+08:00</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://t496971418.github.io/posts/</loc>
+    <loc>http://www.aizz.top/tags/typescript/</loc>
     <lastmod>2019-01-22T11:25:36+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://t496971418.github.io/tags/</loc>
-    <lastmod>2019-01-08T09:50:36+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://t496971418.github.io/</loc>
-    <lastmod>2019-01-22T11:25:36+08:00</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   

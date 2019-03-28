@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Flutter从入门到弃坑1之部署 - Terryzh&#39;s blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Terryzh" /><meta name="description" content="Flutter在mac上的环境部署 在语雀了解了Flutter相关的信息后，博主准备去试试水。 首先进入了Flutter的官网。 看到Flutte" /><meta name="keywords" content="flutter" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53 with even 4.0.0" />
+
+
+<link rel="canonical" href="http://www.aizz.top/post/flutter%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%BC%83%E5%9D%911%E4%B9%8B%E9%83%A8%E7%BD%B2/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Flutter从入门到弃坑1之部署" />
+<meta property="og:description" content="Flutter在mac上的环境部署 在语雀了解了Flutter相关的信息后，博主准备去试试水。 首先进入了Flutter的官网。 看到Flutte" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.aizz.top/post/flutter%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%BC%83%E5%9D%911%E4%B9%8B%E9%83%A8%E7%BD%B2/" /><meta property="article:published_time" content="2019-01-10T21:53:11&#43;08:00"/>
+<meta property="article:modified_time" content="2019-01-10T21:53:11&#43;08:00"/>
+
+<meta itemprop="name" content="Flutter从入门到弃坑1之部署">
+<meta itemprop="description" content="Flutter在mac上的环境部署 在语雀了解了Flutter相关的信息后，博主准备去试试水。 首先进入了Flutter的官网。 看到Flutte">
+
+
+<meta itemprop="datePublished" content="2019-01-10T21:53:11&#43;08:00" />
+<meta itemprop="dateModified" content="2019-01-10T21:53:11&#43;08:00" />
+<meta itemprop="wordCount" content="1034">
+
+
+
+<meta itemprop="keywords" content="flutter," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Flutter从入门到弃坑1之部署"/>
+<meta name="twitter:description" content="Flutter在mac上的环境部署 在语雀了解了Flutter相关的信息后，博主准备去试试水。 首先进入了Flutter的官网。 看到Flutte"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Terryzh&#39;s blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Terryzh&#39;s blog</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Flutter从入门到弃坑1之部署</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-01-10 </span>
+        <div class="post-category">
+            <a href="/categories/code/"> code </a>
+            </div>
+          <span class="more-meta"> 1034 words </span>
+          <span class="more-meta"> 3 mins read </span>
+        
+      </div>
+    </header>
+
+    
+    <div class="post-content">
+      <h2 id="flutter在mac上的环境部署">Flutter在mac上的环境部署</h2>
+
+<p>在<strong><a href="https://www.yuque.com/xytech/flutter/gs3pnk">语雀</a></strong>了解了Flutter相关的信息后，博主准备去试试水。</p>
+
+<p>首先进入了Flutter的<a href="https://flutter.io/">官网</a>。</p>
+
+<p>看到Flutter貌似好像在19年的2月10号会发布1.0的release版本，二话不说。上手部署环境。（博主是Unix的系统）</p>
+
+<ol>
+<li><p>部署Flutter的环境要下载Flutter的SDK，官网给了例子是下载到root目录的development文件夹。博主选择直接下载到自己的root下面👇</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"> cd
+ &gt;&gt;&gt; 进入/Users/terry
+ unzip ~/Downloads/flutter_macos_v1.0.0-stable.zip
+ &gt;&gt;&gt; 下载flutter sdk到Download目录下</pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>在bash下配置flutter的全局变量</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">export PATH=$PATH:/Users/terry/flutter/bin
+&gt;&gt;&gt; 在 .bash_profile 文件下加入上句话
+source $HOME/.bash_profile
+&gt;&gt;&gt; 重启 .bash_profile 文件
+echo $PATH
+&gt;&gt;&gt; echo 查看是否注入
+-----------------我是分割线------------------
+
+// flutter sdk安装成功后执行
+$ flutter doctor
+// 会对当前环境进行检测 如下所示
+Doctor summary (to see all details, run flutter doctor -v):
+[✓] Flutter (Channel stable, v1.0.0, on Mac OS X 10.14.2 18C54, locale en-CN)
+[✓] Android toolchain - develop for Android devices (Android SDK 28.0.3)
+[✓] iOS toolchain - develop for iOS devices (Xcode 10.1)
+[✓] Android Studio (version 3.2)
+[!] IntelliJ IDEA Ultimate Edition (version 2018.3.1)
+    ✗ Flutter plugin not installed; this adds Flutter specific functionality.
+    ✗ Dart plugin not installed; this adds Dart specific functionality.
+[✓] VS Code (version 1.30.1)
+[!] Connected device
+    ! No devices available
+
+! Doctor found issues in 2 categories.</pre></td></tr></table>
+</div>
+</div>
+<p>ps： 开始的时候，博主的Android toolchain 和 ios toolchain都是叉叉，具体怎么配置，请往下看。</p></li>
+
+<li><p>配置IOS的虚拟环境</p></li>
+</ol>
+
+<p>首先安装xcode</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer</pre></td></tr></table>
+</div>
+</div>
+<p>再安装IOS simulator</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">open -a Simulator</pre></td></tr></table>
+</div>
+</div>
+<p>部署IOS装置</p>
+
+<p>楼主比较懒，写了个shell，把要执行的话都放进去了下面是执行的东西</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"> brew install --HEAD usbmuxd
+ brew link usbmuxd
+ brew install --HEAD libimobiledevice
+ brew install ideviceinstaller ios-deploy cocoapods
+ pod setup</pre></td></tr></table>
+</div>
+</div>
+<p>ios的部署在mac上来说还是很傻瓜的，强调一下如果要弄一定要全局翻墙，否则翻车了。。。就不怪我了。</p>
+
+<ol>
+<li>配置Android的虚拟环境</li>
+</ol>
+
+<p>这个地方踩了不少的坑。首先说下，博主用的是vscode,在build的时候因为gradle的机制， 看不到进度，也不出现报错提示。找了好久最后换成Android studio才早到原因。是因为要在Android studio上安装Android的虚拟运行环境才行。下面介绍如何安装。</p>
+
+<p>在Android studio里面打开配置项，找到下列红框提示的内容，然后选择一个版本的Android进行安装</p>
+
+<p><img src="/usageImg/Untitled-f322927e-a464-4834-a595-222e4030c961.png" alt="" /></p>
+
+<ol>
+<li>创建你的第一个Flutter应用</li>
+</ol>
+
+<p>我创建了一个名字叫hello_Flutter的应用，目录结构是这样的。</p>
+
+<p><img src="/usageImg/Untitled-dda16a93-2eb9-48da-b1b6-9bf8f6a4d980.png" alt="" /></p>
+
+<p>如果上述操作都没有问题的话，恭喜你，你已经有了属于你的第一个Flutter项目，并且同时可以在IOS和Android上跑起来了。这一章就先介绍了环境的部署。👌</p>
+    </div>
+
+    
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/flutter/">flutter</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3typescript-1/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">深入理解TypeScript 1</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/golang%E5%A6%82%E4%BD%95%E7%AE%A1%E7%90%86%E9%A1%B9%E7%9B%AE%E4%BE%9D%E8%B5%96/">
+            <span class="next-text nav-default">Golang如何管理项目依赖</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:terryzh017@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://stackoverflow.com/users/10838177/terryzh" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://twitter.com/terryzhAizz" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/t496971418" class="iconfont icon-github" title="github"></a>
+  <a href="http://www.aizz.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Terryzh</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

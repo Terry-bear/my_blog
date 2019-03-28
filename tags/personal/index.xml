@@ -1,32 +1,23 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Personal on terryzh&#39;s blog</title>
-    <link>https://t496971418.github.io/tags/personal/</link>
-    <description>Recent content in Personal on terryzh&#39;s blog</description>
+    <title>personal on Terryzh&#39;s blog</title>
+    <link>http://www.aizz.top/tags/personal/</link>
+    <description>Recent content in personal on Terryzh&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>en</language>
     <lastBuildDate>Sat, 29 Dec 2018 01:07:40 +0800</lastBuildDate>
     
-	<atom:link href="https://t496971418.github.io/tags/personal/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://www.aizz.top/tags/personal/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>18年已过，19年，坚持维护自己的微博</title>
-      <link>https://t496971418.github.io/posts/18%E5%B9%B4%E5%B7%B2%E8%BF%8719%E5%B9%B4%E5%9D%9A%E6%8C%81%E7%BB%B4%E6%8A%A4%E8%87%AA%E5%B7%B1%E7%9A%84%E5%BE%AE%E5%8D%9A/</link>
+      <link>http://www.aizz.top/post/18%E5%B9%B4%E5%B7%B2%E8%BF%8719%E5%B9%B4%E5%9D%9A%E6%8C%81%E7%BB%B4%E6%8A%A4%E8%87%AA%E5%B7%B1%E7%9A%84%E5%BE%AE%E5%8D%9A/</link>
       <pubDate>Sat, 29 Dec 2018 01:07:40 +0800</pubDate>
       
-      <guid>https://t496971418.github.io/posts/18%E5%B9%B4%E5%B7%B2%E8%BF%8719%E5%B9%B4%E5%9D%9A%E6%8C%81%E7%BB%B4%E6%8A%A4%E8%87%AA%E5%B7%B1%E7%9A%84%E5%BE%AE%E5%8D%9A/</guid>
-      <description> 18年，算是自己的多事之秋  18年算是自己在技术方面有沉淀的一年，遇到了好团队。
- 本命年可能真的就是传说中的多事之年吧。愿19年否极泰来。
-简单的做个自我介绍吧。虽然这个可能就只有我一个人在看。
-算是一个来自二次元的被代码耽误的情感主播吧。嗯，就这样。
-这个微博会写什么？ 主要还是做技术微博吧。分享和解决自己在工作中遇到的各种问题。本人主要从事前端开发工作，但有关架构的东西也会提及一二（咳咳，一口老血，毕竟是菜鸟，可能分享不了太高深的东西，但分享的东西都希望对你有帮助）。
-总结一下：
- 前端（包括VUE、React、Eletron） Node Python Golang 云开发相关（docker延伸） 自动化（自动化集成、自动化运维等） 架构（浅浅一谈）  文末的彩蛋 其实也没什么彩蛋，博主毕竟说是个情感主播，应该会涉及到一点电台的内容。但会分类，毕竟应该不是所有人都喜欢。不会显示在首页。
-19年leader给博主下了个命令，说有一个想法，让博主做一个可拆卸的菜单集成插件。不知道会不会割了。不过现在先写出来。有兴趣的可以看看我的github。毕竟作为一篇自述。还是什么都写出来，以后自己看看，也觉得蛮有意思。
- 好了，就这么多了。。😆
- </description>
+      <guid>http://www.aizz.top/post/18%E5%B9%B4%E5%B7%B2%E8%BF%8719%E5%B9%B4%E5%9D%9A%E6%8C%81%E7%BB%B4%E6%8A%A4%E8%87%AA%E5%B7%B1%E7%9A%84%E5%BE%AE%E5%8D%9A/</guid>
+      <description>18年，算是自己的多事之秋 18年算是自己在技术方面有沉淀的一年，遇到了好团队。 本命年可能真的就是传说中的多事之年吧。愿19年否极泰来。 简单的</description>
     </item>
     
   </channel>

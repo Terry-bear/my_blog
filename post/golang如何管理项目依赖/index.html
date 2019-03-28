@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Golang如何管理项目依赖 - Terryzh&#39;s blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Terryzh" /><meta name="description" content="在学习golang的过程中发现，golang一般不会作为新手的第一门语言进行学习，简而言之，golang虽然设计巧妙，但是蕴含了很多的编程技" /><meta name="keywords" content="golang" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53 with even 4.0.0" />
+
+
+<link rel="canonical" href="http://www.aizz.top/post/golang%E5%A6%82%E4%BD%95%E7%AE%A1%E7%90%86%E9%A1%B9%E7%9B%AE%E4%BE%9D%E8%B5%96/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Golang如何管理项目依赖" />
+<meta property="og:description" content="在学习golang的过程中发现，golang一般不会作为新手的第一门语言进行学习，简而言之，golang虽然设计巧妙，但是蕴含了很多的编程技" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.aizz.top/post/golang%E5%A6%82%E4%BD%95%E7%AE%A1%E7%90%86%E9%A1%B9%E7%9B%AE%E4%BE%9D%E8%B5%96/" /><meta property="article:published_time" content="2019-01-09T11:44:32&#43;08:00"/>
+<meta property="article:modified_time" content="2019-01-09T11:44:32&#43;08:00"/>
+
+<meta itemprop="name" content="Golang如何管理项目依赖">
+<meta itemprop="description" content="在学习golang的过程中发现，golang一般不会作为新手的第一门语言进行学习，简而言之，golang虽然设计巧妙，但是蕴含了很多的编程技">
+
+
+<meta itemprop="datePublished" content="2019-01-09T11:44:32&#43;08:00" />
+<meta itemprop="dateModified" content="2019-01-09T11:44:32&#43;08:00" />
+<meta itemprop="wordCount" content="2527">
+
+
+
+<meta itemprop="keywords" content="golang," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Golang如何管理项目依赖"/>
+<meta name="twitter:description" content="在学习golang的过程中发现，golang一般不会作为新手的第一门语言进行学习，简而言之，golang虽然设计巧妙，但是蕴含了很多的编程技"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Terryzh&#39;s blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Terryzh&#39;s blog</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Golang如何管理项目依赖</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-01-09 </span>
+        <div class="post-category">
+            <a href="/categories/code/"> code </a>
+            </div>
+          <span class="more-meta"> 2527 words </span>
+          <span class="more-meta"> 6 mins read </span>
+        
+      </div>
+    </header>
+
+    
+    <div class="post-content">
+      <p>在学习golang的过程中发现，golang一般不会作为新手的第一门语言进行学习，简而言之，golang虽然设计巧妙，但是蕴含了很多的编程技巧在里面，对新手可以说是很不友好。</p>
+
+<p>做过web开发的不管是前端还是后端都会有这样一个疑问，如何对自己的项目依赖包进行管理。前端有npm，后端有gradle。</p>
+
+<p>今天要介绍的就是golang在应对爆发式的第三方开源包时，做出的历史演进。</p>
+
+<p>如果是单纯的写技术文应该是蛮无聊的，所以我会把故事（历史发展）和技术（干货）分开为两个大段来讲。既可以温故知新，又可以让能看到我文章的人觉得，哎，这篇文章还蛮有意思的。</p>
+
+<h1 id="golang在对包管理的历史演进">golang在对包管理的历史演进</h1>
+
+<p><strong>介绍GOPATH和GOROOT</strong></p>
+
+<p>很多人，包括博主在内，刚开始学习golang的时候都是对这两个东西一头雾水，不知道在说什么，因为博主是前端出生，以个人的理解可以把<code>GOPATH</code>看成是<code>package.json</code>安装的<strong>全局</strong>第三方包。</p>
+
+<p><strong>GOROOT</strong></p>
+
+<p>golang的默认安装路径，会指定版本<code>GOROOT=&quot;/usr/local/Cellar/go/1.11.2/libexec&quot;</code></p>
+
+<p><strong>GOPATH</strong></p>
+
+<ul>
+<li><code>src</code>存放源代码(比如：.go .c .h .s等) 按照golang默认约定，go run，go install等命令的当前工作路径（即在此路径下执行上述命令）。</li>
+<li><code>pkg</code>编译时生成的中间文件（比如：.a）　golang编译包时</li>
+<li><code>bin</code>编译后生成的可执行文件（为了方便，可以把此目录加入到 $PATH 变量中，如果有多个gopath，那么使用<code>${GOPATH//://bin:}/bin</code>添加所有的bin目录</li>
+</ul>
+
+<p><strong>没有包管理的情况下</strong></p>
+
+<p>在golang项目搭建初期，所引用的第三方包是比较少的，可以直接使用<code>go get</code> 拉取第三方包，但是相应的就是没有依赖文件，第三方包的引用只能在对应的<code>import</code>文件中去寻找，这极大的延长了敏捷开发的时间和成本。</p>
+
+<h2 id="vendor"><strong>vendor</strong></h2>
+
+<p>go作为一个现代化的语言，居然要用这么复杂不直观而又不标准的方法来管理依赖，难怪在早期会有很多人非常不看好go的前景。</p>
+
+<p>为了解决这个问题，go在<strong>1.5</strong>版本引入了<code>vendor</code>属性(默认关闭，需要设置go环境变量<code>GO15VENDOREXPERIMENT=1</code>)，并在<strong>1.6</strong>版本中默认开启了<code>vendor</code>属性。</p>
+
+<p><strong><code>vendor</code>属性就是让go编译时，优先从项目源码树根目录下的<code>vendor</code>目录查找代码(可以理解为切了一次<code>GOPATH</code>)，如果<code>vendor</code>中有，则不再去<code>GOPATH</code>中去查找</strong></p>
+
+<blockquote>
+<p>vendor依旧存在的问题。1. vendor目录中依赖包没有版本信息。这样依赖包脱离了版本管理，对于升级、问题追溯，会有点困难。
+2. 如何方便的得到本项目依赖了哪些包，并方便的将其拷贝到vendor目录下？ Manual is fxxk.</p>
+</blockquote>
+
+<p><strong>在此基础上的进一步演进</strong></p>
+
+<ul>
+<li>godep</li>
+<li>govendor</li>
+<li>glide</li>
+<li>dep</li>
+</ul>
+
+<h1 id="细数相关用法">细数相关用法</h1>
+
+<h2 id="godep">godep</h2>
+
+<p>docker，kubernetes， coreos等go项目很多都是使用godep来管理其依赖，当然原因可能是早期也没的工具可选。</p>
+
+<p>godep早期版本并不依赖<code>vendor</code>，所以对go的版本要求很松，go 1.5之前的版本也可以用，只是行为上有所不同。在<code>vendor</code>推出以后，godep也改为使用<code>vendor</code>了。</p>
+
+<p>godep使用很简单：当你的项目编写好了，使用GOPATH的依赖包测试ok了的时候，执行：</p>
+
+<p><code>$ godep save</code></p>
+
+<p>以<strong>hcache</strong>为例，执行<code>go save</code>，会做2件事：</p>
+
+<ul>
+<li>扫描本项目的代码，将<code>hcache</code>项目依赖的包及该包的版本号(即<code>git commit</code>)记录到<code>Godeps/Godeps.json</code>文件中</li>
+<li>将依赖的代码从<code>GOPATH/src</code>中copy到<code>vendor</code>目录(忽略原始代码的.git目录)。对于不支持<code>vendor</code>的早期版本，则会拷贝到<code>Godeps/_workspace/</code>里</li>
+</ul>
+
+<p>一个<code>Godeps.json</code>的例子</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;ImportPath&#34;</span><span class="p">:</span> <span class="s2">&#34;github.com/silenceshell/hcache&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;GoVersion&#34;</span><span class="p">:</span> <span class="s2">&#34;go1.7&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;GodepVersion&#34;</span><span class="p">:</span> <span class="s2">&#34;v79&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;Deps&#34;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+          <span class="nt">&#34;ImportPath&#34;</span><span class="p">:</span> <span class="s2">&#34;github.com/tobert/pcstat&#34;</span><span class="p">,</span>
+          <span class="nt">&#34;Rev&#34;</span><span class="p">:</span> <span class="s2">&#34;91a7346e5b462a61e876c0574cb1ba331a6a5ac5&#34;</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+          <span class="nt">&#34;ImportPath&#34;</span><span class="p">:</span> <span class="s2">&#34;golang.org/x/sys/unix&#34;</span><span class="p">,</span>
+          <span class="nt">&#34;Rev&#34;</span><span class="p">:</span> <span class="s2">&#34;0b25a408a50076fbbcae6b7ac0ea5fbb0b085e79&#34;</span>
+      <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>如果要增加新的依赖包：</p>
+
+<ol>
+<li>Run go get foo/bar</li>
+<li>Edit your code to import foo/bar.</li>
+<li>Run godep save (or godep save ./…).</li>
+</ol>
+
+<p>如果要更新依赖包：</p>
+
+<ol>
+<li>Run go get -u foo/bar</li>
+<li>Run godep update foo/bar. (You can use the … wildcard, for example godep update foo/…).</li>
+</ol>
+
+<h2 id="golide">golide</h2>
+
+<p>glide也是在vendor之后出来的。glide的依赖包信息在glide.yaml和glide.lock中，前者记录了所有依赖的包，后者记录了依赖包的版本信息(合成一个多好)。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">glide create  <span class="c1"># 创建glide工程，生成glide.yaml</span>
+glide install <span class="c1"># 生成glide.lock，并拷贝依赖包</span>
+work, work, work
+glide update  <span class="c1"># 更新依赖包信息，更新glide.lock</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><code>glide install</code>会根据<code>glide.lock</code>来更新包的信息，如果没有则会走一把<code>glide update</code>生成<code>glide.lock</code></p>
+
+<p>目录结构</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">    ──<span class="nv">$GOPATH</span>/src/myProject <span class="o">(</span>Your project<span class="o">)</span>
+      ├─ glide.yaml
+      ├─ glide.lock
+      ├─ main.go <span class="o">(</span>Your main go code can live here<span class="o">)</span>
+      ├─ mySubpackage <span class="o">(</span>You can create your own subpackages, too<span class="o">)</span>
+      <span class="p">|</span>    ├─ foo.go
+      ├─ vendor
+           ├─ github.com
+                ├─ Masterminds
+                      ├─ ... etc.</code></pre></td></tr></table>
+</div>
+</div>
+<p>功能</p>
+
+<ul>
+<li><code>glide tree</code>可以很直观的看到vendor中的依赖包(以后会被移除掉，感觉没啥用)</li>
+<li><code>glide list</code>可以列出vendor下所有包</li>
+<li>glide支持的Version Control Systems更多，除了支持git，还支持 SVN, Mercurial (Hg), Bzr</li>
+<li>最重要的，<code>glide.yaml</code>可以指定更多信息，例如依赖包的tag、repo、本package的os, arch。允许指定repo可以解决package名不变。</li>
+</ul>
+
+<h2 id="govendor">govendor</h2>
+
+<p>govendor是在vendor之后出来的，功能相对godep多一点，不过就核心问题的解决来说基本是一样的。govendor生成vendor目录的时候需要2条命令：</p>
+
+<ul>
+<li><code>govendor init</code>生成<code>vendor/vendor.json</code>，此时文件中只有本项目的信息</li>
+<li><code>govendor add +external</code>更新<code>vendor/vendor.json</code>，并拷贝GOPATH下的代码到vendor目录中。</li>
+</ul>
+
+<p>govendor还可以直接指定依赖包版本来获取包，这也有了点版本管理的影子了。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">    <span class="c1"># Setup your project.</span>
+    <span class="nb">cd</span> <span class="s2">&#34;my project in GOPATH&#34;</span>
+    govendor init
+
+    <span class="c1"># Add existing GOPATH files to vendor.</span>
+    govendor add +external
+
+    <span class="c1"># View your work.</span>
+    govendor list
+
+    <span class="c1"># Look at what is using a package</span>
+    govendor list -v fmt
+
+    <span class="c1"># Specify a specific version or revision to fetch</span>
+    govendor fetch golang.org/x/net/context@a4bbce9fcae005b22ae5443f6af064d80a6f5a55
+    govendor fetch golang.org/x/net/context@v1   <span class="c1"># Get latest v1.*.* tag or branch.</span>
+    govendor fetch golang.org/x/net/context@<span class="o">=</span>v1  <span class="c1"># Get the tag or branch named &#34;v1&#34;.</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="dep-官网提供">dep(官网提供)</h2>
+
+<p>go发布的dep目前版本处于0.5，下列是博主的dep version信息</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">     version     : v0.5.0
+     build date  : <span class="m">2018</span>-08-16
+     git <span class="nb">hash</span>    : 224a564
+     go version  : go1.10.3
+     go compiler : gc
+     platform    : darwin/amd64
+     features    : <span class="nv">ImportDuringSolve</span><span class="o">=</span>false</code></pre></td></tr></table>
+</div>
+</div>
+<p>go官网给出了更为全面精准的分析，<a href="https://github.com/golang/go/wiki/PackageManagementTools"><strong>点我跳转</strong></a></p>
+
+<p>就这样咯。👌</p>
+    </div>
+
+    
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/golang/">golang</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/flutter%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%BC%83%E5%9D%911%E4%B9%8B%E9%83%A8%E7%BD%B2/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Flutter从入门到弃坑1之部署</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/android%E5%9F%BA%E6%9C%AC%E5%85%AD%E5%A4%A7%E5%B8%83%E5%B1%80/">
+            <span class="next-text nav-default">Android基本六大布局</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:terryzh017@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://stackoverflow.com/users/10838177/terryzh" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://twitter.com/terryzhAizz" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/t496971418" class="iconfont icon-github" title="github"></a>
+  <a href="http://www.aizz.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Terryzh</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
