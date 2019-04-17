@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Git基础详解(一) - Terryzh</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Terryzh" /><meta name="description" content="Git 基础 对于Git,相信现在的coder都不陌生,并且在各大博客和类似于掘金、开源中国的论坛里也有很多关于此类型的文章。 这篇文章主要从实用的角" /><meta name="keywords" content="personal" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.54.0 with even 4.0.0" />
+
+
+<link rel="canonical" href="http://www.aizz.top/post/git%E5%9F%BA%E7%A1%80%E8%AF%A6%E8%A7%A3%E4%B8%80/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.65dce888.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Git基础详解(一)" />
+<meta property="og:description" content="Git 基础 对于Git,相信现在的coder都不陌生,并且在各大博客和类似于掘金、开源中国的论坛里也有很多关于此类型的文章。 这篇文章主要从实用的角" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.aizz.top/post/git%E5%9F%BA%E7%A1%80%E8%AF%A6%E8%A7%A3%E4%B8%80/" />
+<meta property="article:published_time" content="2019-04-15T15:21:47&#43;08:00"/>
+<meta property="article:modified_time" content="2019-04-15T15:21:47&#43;08:00"/>
+
+<meta itemprop="name" content="Git基础详解(一)">
+<meta itemprop="description" content="Git 基础 对于Git,相信现在的coder都不陌生,并且在各大博客和类似于掘金、开源中国的论坛里也有很多关于此类型的文章。 这篇文章主要从实用的角">
+
+
+<meta itemprop="datePublished" content="2019-04-15T15:21:47&#43;08:00" />
+<meta itemprop="dateModified" content="2019-04-15T15:21:47&#43;08:00" />
+<meta itemprop="wordCount" content="1104">
+
+
+
+<meta itemprop="keywords" content="personal," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Git基础详解(一)"/>
+<meta name="twitter:description" content="Git 基础 对于Git,相信现在的coder都不陌生,并且在各大博客和类似于掘金、开源中国的论坛里也有很多关于此类型的文章。 这篇文章主要从实用的角"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Terryzh</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Terryzh</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Git基础详解(一)</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-04-15 </span>
+        <div class="post-category">
+            <a href="/categories/personal/"> personal </a>
+            </div>
+          <span class="more-meta"> 1104 words </span>
+          <span class="more-meta"> 3 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    
+    <div class="post-content">
+      <h1 id="git-基础">Git 基础</h1>
+
+<p>对于Git,相信现在的coder都不陌生,并且在各大博客和类似于掘金、开源中国的论坛里也有很多关于此类型的文章。</p>
+
+<p>这篇文章主要从实用的角度出发，来由浅入深的介绍实战过程中遇到的git版本控制。</p>
+
+<blockquote>
+<p>此文分为5节，每节互相独立，由浅入深，均在实战中有实用的价值，部分干活内容转载各大技术网站干货（侵删）😄 ····let&rsquo;s begin</p>
+</blockquote>
+
+<h2 id="什么是git">什么是Git</h2>
+
+<p>Git是一个 “分布式版本管理工具”，简单的理解版本管理工具：所谓的版本管理，就是指在不同时间点都可以记录当前提交的记录。用来回溯和保存记录的日志，防止出现不可回滚的情况。假如我在写一篇小说，分为三章，今天写完了第一章，进行了提交，明天我觉得第一张写的故事情节有问题，重构了第一节的内容，后来发现之前的人物找不到了，如果是以前的情况，我们应该会在本地进行一份文档的备份，然后再在心的文档上进行修改，但是这样太复杂了，重复性操作太多且容易出错。于是版本管理工具就诞生了。
+“版本管理工具” 能记录每次的修改，只要提交到版本仓库，你就可以找到之前任何时刻的状态（文本状态）。</p>
+
+<h2 id="小白如何快速入手git">小白如何快速入手Git</h2>
+
+<p>首先我们要在本机上安装git。
+emm。。。网上有很多教程，官方也介绍了不同系统安装git的方法，在这里就不赘述了。
+安装好了git，接下来就要做一些基础的配置项。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 设置用户名和邮箱</span>
+git config --global user.name <span class="s2">&#34;你的名字&#34;</span>
+git config --global user.email <span class="s2">&#34;你的邮箱&#34;</span>
+
+<span class="c1"># 查看git config里面的内容</span>
+gti config -l
+<span class="c1"># ps:按q可以退出</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>git如何配置多账号登录可以查看github或者aliyun或者coding的相关配置，涉及到ssh的内容不在本章深入。</p>
+</blockquote>
+
+<h2 id="如何进行日常提交">如何进行日常提交</h2>
+
+<p>日常中常用的命令，三剑客。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">git add .
+git commit -m <span class="s2">&#34;提交信息&#34;</span>
+git push</code></pre></td></tr></table>
+</div>
+</div>
+<p>一套骚操作后，基本你就完成了一个git常用的提交了。是不是很简单。</p>
+
+<h2 id="如何查看提交的各种记录">如何查看提交的各种记录</h2>
+
+<p>在提交的时候可能会需要查看我们的提交记录，或者是版本记录。那么我们可以使用以下的方式进行操纵。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 查看最近一次的commit信息，包括了修改的文件</span>
+git show
+<span class="c1"># 查看历史提交信息记录</span>
+git log</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="代码提交错误-如何回滚">代码提交错误，如何回滚</h2>
+
+<p>上一节说了如何查看具体的提交记录，那么我们如果要回滚到我们的指定的commit怎么办呢？
+首先利用<code>git log</code>找到指定版本的commit码，<code>4834086c9010ae5a88ce8d56eee3abbe2eeffbe7</code>,这里的commit信息是可以模糊匹配度，所以也可以截取前几位进行查找<code>4834086c</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">git reset --hard 4834086c</code></pre></td></tr></table>
+</div>
+</div>
+<p>那么我们现在工作区的版本就是<code>4834086c</code>这个提交下的版本了。</p>
+
+<p>如果要回到最新版本</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">git reset --hard <span class="s1">&#39;最新版本commit码&#39;</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>continue~~~</p>
+</blockquote>
+    </div>
+
+    
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/personal/">personal</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/%E4%B9%9D%E7%A7%8D%E8%B7%A8%E5%9F%9F%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/">
+            <span class="next-text nav-default">九种跨域方式实现原理</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:terryzh017@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://stackoverflow.com/users/10838177/terryzh" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://twitter.com/terryzhAizz" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/t496971418" class="iconfont icon-github" title="github"></a>
+  <a href="http://www.aizz.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Terryzh</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

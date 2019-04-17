@@ -10,6 +10,13 @@
   </url>
   
   <url>
+    <loc>http://www.aizz.top/post/git%E5%9F%BA%E7%A1%80%E8%AF%A6%E8%A7%A3%E4%B8%80/</loc>
+    <lastmod>2019-04-15T15:21:47+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>http://www.aizz.top/post/%E4%B9%9D%E7%A7%8D%E8%B7%A8%E5%9F%9F%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/</loc>
     <lastmod>2019-04-03T16:07:18+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -79,7 +86,7 @@
   
   <url>
     <loc>http://www.aizz.top/post/</loc>
-    <lastmod>2019-04-03T16:07:18+08:00</lastmod>
+    <lastmod>2019-04-15T15:21:47+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -141,14 +148,14 @@
   
   <url>
     <loc>http://www.aizz.top/categories/personal/</loc>
-    <lastmod>2018-12-29T01:07:40+08:00</lastmod>
+    <lastmod>2019-04-15T15:21:47+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://www.aizz.top/tags/personal/</loc>
-    <lastmod>2018-12-29T01:07:40+08:00</lastmod>
+    <lastmod>2019-04-15T15:21:47+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
