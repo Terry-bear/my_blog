@@ -21,6 +21,15 @@
     </item>
     
     <item>
+      <title>Git基础进阶(二)</title>
+      <link>http://www.aizz.top/post/git%E5%9F%BA%E7%A1%80%E8%BF%9B%E9%98%B6%E4%BA%8C/</link>
+      <pubDate>Sun, 21 Apr 2019 17:02:01 +0800</pubDate>
+      
+      <guid>http://www.aizz.top/post/git%E5%9F%BA%E7%A1%80%E8%BF%9B%E9%98%B6%E4%BA%8C/</guid>
+      <description>了解了基础的Git的用法，相信大家在掌握基本命令后已经可以熟练使用了。对于个人开发，我们或许不需要太多的协作或者code review，一个人</description>
+    </item>
+    
+    <item>
       <title>Git基础详解(一)</title>
       <link>http://www.aizz.top/post/git%E5%9F%BA%E7%A1%80%E8%AF%A6%E8%A7%A3%E4%B8%80/</link>
       <pubDate>Mon, 15 Apr 2019 15:21:47 +0800</pubDate>

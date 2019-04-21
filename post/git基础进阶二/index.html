@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Git基础进阶(二) - Terryzh</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Terryzh" /><meta name="description" content="了解了基础的Git的用法，相信大家在掌握基本命令后已经可以熟练使用了。对于个人开发，我们或许不需要太多的协作或者code review，一个人" /><meta name="keywords" content="personal" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.54.0 with even 4.0.0" />
+
+
+<link rel="canonical" href="http://www.aizz.top/post/git%E5%9F%BA%E7%A1%80%E8%BF%9B%E9%98%B6%E4%BA%8C/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.65dce888.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Git基础进阶(二)" />
+<meta property="og:description" content="了解了基础的Git的用法，相信大家在掌握基本命令后已经可以熟练使用了。对于个人开发，我们或许不需要太多的协作或者code review，一个人" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.aizz.top/post/git%E5%9F%BA%E7%A1%80%E8%BF%9B%E9%98%B6%E4%BA%8C/" />
+<meta property="article:published_time" content="2019-04-21T17:02:01&#43;08:00"/>
+<meta property="article:modified_time" content="2019-04-21T17:02:01&#43;08:00"/>
+
+<meta itemprop="name" content="Git基础进阶(二)">
+<meta itemprop="description" content="了解了基础的Git的用法，相信大家在掌握基本命令后已经可以熟练使用了。对于个人开发，我们或许不需要太多的协作或者code review，一个人">
+
+
+<meta itemprop="datePublished" content="2019-04-21T17:02:01&#43;08:00" />
+<meta itemprop="dateModified" content="2019-04-21T17:02:01&#43;08:00" />
+<meta itemprop="wordCount" content="2322">
+
+
+
+<meta itemprop="keywords" content="personal," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Git基础进阶(二)"/>
+<meta name="twitter:description" content="了解了基础的Git的用法，相信大家在掌握基本命令后已经可以熟练使用了。对于个人开发，我们或许不需要太多的协作或者code review，一个人"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Terryzh</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Terryzh</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Git基础进阶(二)</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-04-21 </span>
+        <div class="post-category">
+            <a href="/categories/personal/"> personal </a>
+            </div>
+          <span class="more-meta"> 2322 words </span>
+          <span class="more-meta"> 5 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    
+    <div class="post-content">
+      <p>了解了基础的Git的用法，相信大家在掌握基本命令后已经可以熟练使用了。对于个人开发，我们或许不需要太多的协作或者code review，一个人对代码的维护更大的体现是对历史提交的查看和变更，这个在基础章节已经有详细的应用了。
+那么，我们都知道，代码的开发，很多情况下是多人协作的一个状态，在多人协作的情况下，我们该如何确保对代码的维护达到一个共同的认可和持续的迭代呢？
+这时候，我们就不得不请出我们Git的另一大黑科技般的功能了。
+<strong>代码分支</strong>
+<strong>代码标签</strong></p>
+
+<p>接下来，将一一介绍他们的详细使用。</p>
+
+<h2 id="为什么有分支-branch">为什么有分支（branch）</h2>
+
+<p>首先，我们应该明确一点，什么是<strong>分支</strong>，可以看到，字面意思的分支，应该是从主干道上面做一个分流的操作，就像长江黄河汇入大海的图中，会遇到很多的分流，包括一系列的小河小溪。
+Git中分支的出现大大扩展了Git作为版本控制的大佬地位。
+&gt; 我们在每创建一个新的分支的时候，其实都是对当前hard指针所在位置的分支进行克隆，然后将历史的commit打入新分支内。这一点需要特别注意，新建分支是不会出现空分支（没有commit）的情况。</p>
+
+<p>废话不多少，分支在Git中，确认也是相同的意思。
+那我们就首先创建一个自己的分支吧。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 创建自定义名字的分支</span>
+git branch <span class="o">[</span>new branch name<span class="o">]</span>
+<span class="c1"># 切换到自定义的分支下</span>
+git checkout <span class="o">[</span>new branch name<span class="o">]</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="分解下这两个命令">分解下这两个命令</h3>
+
+<p><code>git branch</code>做了什么？</p>
+
+<p><img src="/img/picture/git2-checkout.png" alt="git branch" /></p>
+
+<p>可以看出在<code>git branch</code>创建新分支时，是基于当前hard的分支（master）的克隆。
+也就是说，hard是我们当前的指针，这个指针指向了master并且基于master创建了新的dev。
+此时，我么的hard还在master上。</p>
+
+<p>我们需要<code>git checkout</code>把hard的指针指向我们新创建的分支dev下。</p>
+
+<p><img src="/img/picture/git2-newbranch.png" alt="git branch" /></p>
+
+<p>我们也可以用一条命令代替上述的两个命令，达到同样的效果。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">git checkout -b <span class="o">[</span>new branch name<span class="o">]</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>这时候我们可以用<code>git branch</code>看到，我们的版本库里面已经多了一个分支了。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ git branch
+master
+*dev</code></pre></td></tr></table>
+</div>
+</div>
+<p>此时我们看到的分支是本地分支，那如何把本地已经修改好的分支提交到线上呢？</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 和提交commit一样丝滑柔顺</span>
+git push orgin <span class="o">[</span>branch name<span class="o">]</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>这样，我们对于分支，就有了一个初步的概念和理解了。关于分支深入的内容会在后面的章节提及。这里只针对初学者和基本常用的操作，不涉及复杂操作，划清难度和功能的边界，我觉得更有助于读者的目的性。</p>
+
+<h2 id="为什么有标签-tag">为什么有标签（tag）</h2>
+
+<p>接下来让我们谈一谈tag的意义，网上关于Git的使用教程千千万，这里我不会按照死板的方式进行简单的诉说，而是根据结合了个人在实战工作中运用Git来进行操作的频率对文章进行大小的分级的。所以总体上来看会有些许的凌乱，但是带来的实际价值却是值得肯定的。
+在工作中，对于入门1-3年的前端小白，或者是后端小白往往用不到tag这个东西，即使用到了，也是自己部门的技术经理或者架构师告诉你，“嗯，你把XX功能加上了以后打一个tag，这边我好做处理”。
+那么，其实tag对我们来说更想是一个附加的隐性功能，在初级的工作中只要会打tag就行了。完全不用考虑为什么要打tag。
+博主在这里就稍微的分析了一下。
+<strong>我们为什么要打tag</strong>
+经常混迹github或者是gitlab的人应该知道，在github上有很多的开源代码，这些代码的维护往往涉及到了复杂的团队协作和交互。
+对于tag的管理，更多的应用应该是release版本上。release版本中会剔除掉很多的日常commit，这些日常commit是不会出现在release版本中的。我们的每一个commit提交，就是一个tag。
+tag的使用也有蛮多，但是目前博主了解到，tag的使用相对较为自由，没有相应的标准化。
+最常使用的是将tag的版本分为三个迭代。
+<strong>0.0.0</strong>
+第一个0是代码的大版本更新，主要会涉及到重大的bug修复，或者是大篇幅的代码重构，也可能是新加入的功能和往期版本的功能有大幅的变动。
+第二个0是代码的二级更新，主要会涉及到一些小功能的添加，一些紧急的bug修复，或者是小篇幅的代码重构和优化工作。
+第三个0是代码的三级更新，主要会涉及到日常的小bug修复，并且这种篇幅的更新一定不会涉及到代码命名的更改和交互方式的变动。</p>
+
+<hr />
+
+<p>说了这么多，其实还是想让小萌新们对tag有一个基础的认识了了解。
+其实在Git中，tag的用法非常的简单。但是想用好tag，还是需要工作经验的沉淀。</p>
+
+<h3 id="列出标签">列出标签</h3>
+
+<p>列出现有标签的命令非常简单，直接运行 <code>git tag</code> 即可：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ git tag
+v0.1
+v1.3</code></pre></td></tr></table>
+</div>
+</div>
+<p>git tag 也支持模糊查询</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ git tag -l <span class="s1">&#39;v1.4.2.*&#39;</span>
+v1.4.2.1
+v1.4.2.2
+v1.4.2.3
+v1.4.2.4</code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="新建标签">新建标签</h3>
+
+<p>Git 使用的标签有两种类型：
+<strong>轻量级的（lightweight）</strong>和<strong>含附注的（annotated）</strong>。</p>
+
+<ul>
+<li>轻量级标签就像是个不会变化的分支，实际上它就是个指向特定提交对象的引用。</li>
+<li>含附注标签，实际上是存储在仓库中的一个独立对象，它有自身的校验和信息，包含着标签的名字，电子邮件地址和日期，以及标签说明。</li>
+</ul>
+
+<blockquote>
+<p>ps: 附注标签本身也允许使用 GNU Privacy Guard (GPG) 来签署或验证。</p>
+</blockquote>
+
+<h4 id="新建含附注的标签">新建含附注的标签</h4>
+
+<p>创建一个含附注类型的标签非常简单.</p>
+
+<ul>
+<li><code>-a</code> （译注：取 annotated 的首字母）指定标签名字即可。</li>
+<li><code>-m</code> 选项则指定了对应的标签说明</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ git tag -a v1.4 -m <span class="s1">&#39;my version 1.4&#39;</span>
+$ git tag
+v0.1
+v1.3
+v1.4</code></pre></td></tr></table>
+</div>
+</div>
+<p>可以使用 git show 命令查看相应标签的版本信息</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ git show v1.4
+<span class="c1"># tag 名字</span>
+tag v1.4
+<span class="c1"># 基础信息</span>
+Tagger: Scott Chacon &lt;schacon@gee-mail.com&gt;
+<span class="c1"># 创建日期</span>
+Date:   Mon Feb <span class="m">9</span> <span class="m">14</span>:45:11 <span class="m">2009</span> -0800
+<span class="c1"># -m自己添加的信息</span>
+my version <span class="m">1</span>.4
+<span class="c1"># commit版本号</span>
+commit 15027957951b64cf874c3557a0f3547bd83b3ff6
+<span class="c1"># 是否融合过分支</span>
+Merge: 4a447f7... a6b4c97...
+<span class="c1"># 基础信息</span>
+Author: Scott Chacon &lt;schacon@gee-mail.com&gt;
+<span class="c1"># 时间</span>
+Date:   Sun Feb <span class="m">8</span> <span class="m">19</span>:02:46 <span class="m">2009</span> -0800
+    Merge branch <span class="s1">&#39;experiment&#39;</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="此章命令的小结">此章命令的小结</h2>
+
+<p>这一节总结了上述小节出现的各种命令并且做了相应的小幅度扩展。</p>
+
+<table>
+<thead>
+<tr>
+<th>作用</th>
+<th>命令</th>
+<th>常用参数</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>查看分支</td>
+<td>git branch</td>
+<td>-r 可查看远程</td>
+</tr>
+
+<tr>
+<td>新建分支并检出</td>
+<td>git checkout -b [newBranch]</td>
+<td>-b 新建分支</td>
+</tr>
+
+<tr>
+<td>查看标签</td>
+<td>git tag -l &lsquo;XXX&rsquo;</td>
+<td>-l 模糊查询</td>
+</tr>
+
+<tr>
+<td>删除分支</td>
+<td>git branch -d [branch name]</td>
+<td>-d 删除</td>
+</tr>
+
+<tr>
+<td>合并分支</td>
+<td>git merge [branch name]</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+
+<blockquote>
+<p>ps: 合并分支会涉及到很多问题，今天就先讲到这里，下棋见啦。🤣🤣🤣</p>
+</blockquote>
+    </div>
+
+    
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/personal/">personal</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/git%E5%9F%BA%E7%A1%80%E8%AF%A6%E8%A7%A3%E4%B8%80/">
+            <span class="next-text nav-default">Git基础详解(一)</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:terryzh017@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://stackoverflow.com/users/10838177/terryzh" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://twitter.com/terryzhAizz" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/t496971418" class="iconfont icon-github" title="github"></a>
+  <a href="http://www.aizz.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Terryzh</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
