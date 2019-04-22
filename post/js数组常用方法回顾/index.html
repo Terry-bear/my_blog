@@ -26,7 +26,7 @@
 <meta name="generator" content="Hugo 0.54.0 with even 4.0.0" />
 
 
-<link rel="canonical" href="http://www.aizz.top/post/js%E6%95%B0%E7%BB%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%E5%9B%9E%E9%A1%BE/" />
+<link rel="canonical" href="http://www./post/js%E6%95%B0%E7%BB%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%E5%9B%9E%E9%A1%BE/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -41,7 +41,7 @@
 <meta property="og:title" content="JS数组常用方法回顾" />
 <meta property="og:description" content="最近写JS碰到了很多对数组的处理。总结出来以便回顾。 这里会结合一些函数式编程的思想来进行总结。 处理全量数组数据 高频出现 map map—&gt; 返回" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://www.aizz.top/post/js%E6%95%B0%E7%BB%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%E5%9B%9E%E9%A1%BE/" />
+<meta property="og:url" content="http://www./post/js%E6%95%B0%E7%BB%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%E5%9B%9E%E9%A1%BE/" />
 <meta property="article:published_time" content="2019-01-04T10:57:49&#43;08:00"/>
 <meta property="article:modified_time" content="2019-01-04T10:57:49&#43;08:00"/>
 
@@ -138,7 +138,25 @@
       </div>
     </header>
 
-    
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#处理全量数组数据">处理全量数组数据</a></li>
+<li><a href="#高频出现">高频出现</a>
+<ul>
+<li><a href="#低频出现">低频出现</a></li>
+</ul></li>
+<li><a href="#处理指定数组数据">处理指定数组数据</a>
+<ul>
+<li><a href="#高频出现-1">高频出现</a></li>
+<li><a href="#低频出现-1">低频出现</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
     <div class="post-content">
       <p>最近写JS碰到了很多对数组的处理。总结出来以便回顾。</p>
 
@@ -568,7 +586,21 @@
     </div>
 
     
-<footer class="post-footer">
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">Reward</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/reward/wechat-qr-code.png">
+        <span>wechat</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/reward/alipay-qr-code.png">
+        <span>alipay</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
       <div class="post-tags">
           <a href="/tags/javascript/">javascript</a>
           </div>
@@ -587,7 +619,23 @@
     </footer>
   </article>
         </div>
-        
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2019-01-04 10:57:49 \x2b0800 \x2b0800',
+        title: 'JS数组常用方法回顾',
+        clientID: 'bf0ed9ea18e819e40135',
+        clientSecret: '92bdc65717aa7f0ec48bfe94e773b57a21163785',
+        repo: 'blog_comments',
+        owner: '496971418@qq.com',
+        admin: ['496971418@qq.com'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
 
       </div>
     </main>
@@ -598,7 +646,7 @@
       <a href="https://stackoverflow.com/users/10838177/terryzh" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
       <a href="https://twitter.com/terryzhAizz" class="iconfont icon-twitter" title="twitter"></a>
       <a href="https://github.com/t496971418" class="iconfont icon-github" title="github"></a>
-  <a href="http://www.aizz.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="http://www./index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">

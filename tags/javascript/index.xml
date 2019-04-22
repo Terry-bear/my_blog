@@ -2,48 +2,48 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>javascript on Terryzh</title>
-    <link>http://www.aizz.top/tags/javascript/</link>
+    <link>http://www./tags/javascript/</link>
     <description>Recent content in javascript on Terryzh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Wed, 03 Apr 2019 16:07:18 +0800</lastBuildDate>
     
-	<atom:link href="http://www.aizz.top/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://www./tags/javascript/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>九种跨域方式实现原理</title>
-      <link>http://www.aizz.top/post/%E4%B9%9D%E7%A7%8D%E8%B7%A8%E5%9F%9F%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/</link>
+      <link>http://www./post/%E4%B9%9D%E7%A7%8D%E8%B7%A8%E5%9F%9F%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/</link>
       <pubDate>Wed, 03 Apr 2019 16:07:18 +0800</pubDate>
       
-      <guid>http://www.aizz.top/post/%E4%B9%9D%E7%A7%8D%E8%B7%A8%E5%9F%9F%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/</guid>
+      <guid>http://www./post/%E4%B9%9D%E7%A7%8D%E8%B7%A8%E5%9F%9F%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/</guid>
       <description>一、什么是跨域？ 什么是同源策略及其限制内容？ 同源策略是一种约定，它是浏览器最核心也最基本的安全功能，如果缺少了同源策略，浏览器很容易受到XS</description>
     </item>
     
     <item>
       <title>深入理解TypeScript 1</title>
-      <link>http://www.aizz.top/post/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3typescript-1/</link>
+      <link>http://www./post/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3typescript-1/</link>
       <pubDate>Tue, 22 Jan 2019 11:25:36 +0800</pubDate>
       
-      <guid>http://www.aizz.top/post/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3typescript-1/</guid>
+      <guid>http://www./post/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3typescript-1/</guid>
       <description>这一章主要总结TypeScript的用法和项目常用配置 编译上下文 用来给文件分组，告诉 TypeScript 哪些文件是有效的，哪些是无效的。定义这种逻辑分组，一个</description>
     </item>
     
     <item>
       <title>JS数组常用方法回顾</title>
-      <link>http://www.aizz.top/post/js%E6%95%B0%E7%BB%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%E5%9B%9E%E9%A1%BE/</link>
+      <link>http://www./post/js%E6%95%B0%E7%BB%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%E5%9B%9E%E9%A1%BE/</link>
       <pubDate>Fri, 04 Jan 2019 10:57:49 +0800</pubDate>
       
-      <guid>http://www.aizz.top/post/js%E6%95%B0%E7%BB%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%E5%9B%9E%E9%A1%BE/</guid>
+      <guid>http://www./post/js%E6%95%B0%E7%BB%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%E5%9B%9E%E9%A1%BE/</guid>
       <description>最近写JS碰到了很多对数组的处理。总结出来以便回顾。 这里会结合一些函数式编程的思想来进行总结。 处理全量数组数据 高频出现 map map—&amp;gt; 返回</description>
     </item>
     
     <item>
       <title>初探vue3.0的Proxy机制</title>
-      <link>http://www.aizz.top/post/%E5%88%9D%E6%8E%A2vue3.0%E7%9A%84proxy%E6%9C%BA%E5%88%B6/</link>
+      <link>http://www./post/%E5%88%9D%E6%8E%A2vue3.0%E7%9A%84proxy%E6%9C%BA%E5%88%B6/</link>
       <pubDate>Sun, 30 Dec 2018 15:42:49 +0800</pubDate>
       
-      <guid>http://www.aizz.top/post/%E5%88%9D%E6%8E%A2vue3.0%E7%9A%84proxy%E6%9C%BA%E5%88%B6/</guid>
+      <guid>http://www./post/%E5%88%9D%E6%8E%A2vue3.0%E7%9A%84proxy%E6%9C%BA%E5%88%B6/</guid>
       <description>19年已经来了，尤大也在11月份宣布了改版并发布vue3.0的计划，大概的时间会在19年的年中或者年底完成稳定版的发布。在11月份的关于vu</description>
     </item>
     

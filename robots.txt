@@ -1,2 +1,2 @@
 User-agent: *
-Sitemap: http://www.aizz.top/sitemap.xml
+Sitemap: http://www./sitemap.xml

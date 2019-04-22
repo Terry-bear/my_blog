@@ -26,7 +26,7 @@
 <meta name="generator" content="Hugo 0.54.0 with even 4.0.0" />
 
 
-<link rel="canonical" href="http://www.aizz.top/post/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3typescript-1/" />
+<link rel="canonical" href="http://www./post/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3typescript-1/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -41,7 +41,7 @@
 <meta property="og:title" content="深入理解TypeScript 1" />
 <meta property="og:description" content="这一章主要总结TypeScript的用法和项目常用配置 编译上下文 用来给文件分组，告诉 TypeScript 哪些文件是有效的，哪些是无效的。定义这种逻辑分组，一个" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://www.aizz.top/post/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3typescript-1/" />
+<meta property="og:url" content="http://www./post/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3typescript-1/" />
 <meta property="article:published_time" content="2019-01-22T11:25:36&#43;08:00"/>
 <meta property="article:modified_time" content="2019-01-22T11:25:36&#43;08:00"/>
 
@@ -138,7 +138,47 @@
       </div>
     </header>
 
-    
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#编译上下文">编译上下文</a></li>
+<li><a href="#typescript-编译"><strong>TypeScript 编译</strong></a></li>
+</ul></li>
+<li><a href="#声明空间">声明空间</a>
+<ul>
+<li><a href="#类型声明空间"><strong>类型声明空间</strong></a></li>
+<li><a href="#变量声明空间"><strong>变量声明空间</strong></a></li>
+</ul></li>
+<li><a href="#模块"><strong>模块</strong></a>
+<ul>
+<li><a href="#全局模块"><strong>全局模块</strong></a></li>
+<li><a href="#文件模块"><strong>文件模块</strong></a></li>
+<li><a href="#文件模块详情"><strong>文件模块详情</strong></a></li>
+<li><a href="#澄清-commonjs-amd-es-modules-others"><strong>澄清：commonjs, amd, es modules, others</strong></a></li>
+<li><a href="#es-模块语法"><strong>ES 模块语法</strong></a></li>
+<li><a href="#默认导入-导出"><strong>默认导入／导出</strong></a></li>
+<li><a href="#模块路径"><strong>模块路径</strong></a></li>
+<li><a href="#相对模块路径"><strong>相对模块路径</strong></a></li>
+<li><a href="#动态查找"><strong>动态查找</strong></a></li>
+<li><a href="#什么是-place"><strong>什么是 <code>place</code></strong></a></li>
+<li><a href="#重写类型的动态查找"><strong>重写类型的动态查找</strong></a></li>
+<li><a href="#import-require-仅仅是导入类型"><strong><code>import/require</code> 仅仅是导入类型</strong></a></li>
+<li><a href="#例子-1"><strong>例子 1</strong></a></li>
+<li><a href="#例子-2"><strong>例子 2</strong></a></li>
+<li><a href="#例子-3"><strong>例子 3</strong></a></li>
+<li><a href="#使用例子-懒加载"><strong>使用例子：懒加载</strong></a></li>
+<li><a href="#使用例子-打破循环依赖"><strong>使用例子：打破循环依赖</strong></a></li>
+<li><a href="#使用例子-确保导入"><strong>使用例子：确保导入</strong></a></li>
+<li><a href="#globals-d-ts"><strong>globals.d.ts</strong></a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
     <div class="post-content">
       <p>这一章主要总结TypeScript的用法和项目常用配置</p>
 
@@ -892,7 +932,21 @@
     </div>
 
     
-<footer class="post-footer">
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">Reward</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/reward/wechat-qr-code.png">
+        <span>wechat</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/reward/alipay-qr-code.png">
+        <span>alipay</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
       <div class="post-tags">
           <a href="/tags/javascript/">javascript</a>
           <a href="/tags/typescript/">typescript</a>
@@ -912,7 +966,23 @@
     </footer>
   </article>
         </div>
-        
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2019-01-22 11:25:36 \x2b0800 \x2b0800',
+        title: '深入理解TypeScript 1',
+        clientID: 'bf0ed9ea18e819e40135',
+        clientSecret: '92bdc65717aa7f0ec48bfe94e773b57a21163785',
+        repo: 'blog_comments',
+        owner: '496971418@qq.com',
+        admin: ['496971418@qq.com'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
 
       </div>
     </main>
@@ -923,7 +993,7 @@
       <a href="https://stackoverflow.com/users/10838177/terryzh" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
       <a href="https://twitter.com/terryzhAizz" class="iconfont icon-twitter" title="twitter"></a>
       <a href="https://github.com/t496971418" class="iconfont icon-github" title="github"></a>
-  <a href="http://www.aizz.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="http://www./index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">

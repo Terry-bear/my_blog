@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>android on Terryzh</title>
-    <link>http://www.aizz.top/tags/android/</link>
+    <link>http://www./tags/android/</link>
     <description>Recent content in android on Terryzh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Tue, 08 Jan 2019 09:50:36 +0800</lastBuildDate>
     
-	<atom:link href="http://www.aizz.top/tags/android/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://www./tags/android/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Android基本六大布局</title>
-      <link>http://www.aizz.top/post/android%E5%9F%BA%E6%9C%AC%E5%85%AD%E5%A4%A7%E5%B8%83%E5%B1%80/</link>
+      <link>http://www./post/android%E5%9F%BA%E6%9C%AC%E5%85%AD%E5%A4%A7%E5%B8%83%E5%B1%80/</link>
       <pubDate>Tue, 08 Jan 2019 09:50:36 +0800</pubDate>
       
-      <guid>http://www.aizz.top/post/android%E5%9F%BA%E6%9C%AC%E5%85%AD%E5%A4%A7%E5%B8%83%E5%B1%80/</guid>
+      <guid>http://www./post/android%E5%9F%BA%E6%9C%AC%E5%85%AD%E5%A4%A7%E5%B8%83%E5%B1%80/</guid>
       <description>android六大布局 今天leader让我们前端的了解下Android的画页面工作。最近Android的页面比较多，又正好碰上年会，那我们f</description>
     </item>
     
