@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Immutable JS详解 - Terryzh</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Terryzh" /><meta name="description" content="Shared mutable state is the root of all evil（共享的可变状态是万恶之源） &amp;ndash; Pete Hunt 有人说 Immutable 可以给 React 应用带来数十倍的提升，也有人说 Immutable 的引入是近期 JavaScript 中伟大的发明，因为同" /><meta name="keywords" content="javascript" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.54.0 with even 4.0.0" />
+
+
+<link rel="canonical" href="http://www./post/immutable-js%E8%AF%A6%E8%A7%A3/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.65dce888.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Immutable JS详解" />
+<meta property="og:description" content="Shared mutable state is the root of all evil（共享的可变状态是万恶之源） &ndash; Pete Hunt 有人说 Immutable 可以给 React 应用带来数十倍的提升，也有人说 Immutable 的引入是近期 JavaScript 中伟大的发明，因为同" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www./post/immutable-js%E8%AF%A6%E8%A7%A3/" />
+<meta property="article:published_time" content="2019-04-25T15:00:43&#43;08:00"/>
+<meta property="article:modified_time" content="2019-04-25T15:00:43&#43;08:00"/>
+
+<meta itemprop="name" content="Immutable JS详解">
+<meta itemprop="description" content="Shared mutable state is the root of all evil（共享的可变状态是万恶之源） &ndash; Pete Hunt 有人说 Immutable 可以给 React 应用带来数十倍的提升，也有人说 Immutable 的引入是近期 JavaScript 中伟大的发明，因为同">
+
+
+<meta itemprop="datePublished" content="2019-04-25T15:00:43&#43;08:00" />
+<meta itemprop="dateModified" content="2019-04-25T15:00:43&#43;08:00" />
+<meta itemprop="wordCount" content="4790">
+
+
+
+<meta itemprop="keywords" content="javascript," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Immutable JS详解"/>
+<meta name="twitter:description" content="Shared mutable state is the root of all evil（共享的可变状态是万恶之源） &ndash; Pete Hunt 有人说 Immutable 可以给 React 应用带来数十倍的提升，也有人说 Immutable 的引入是近期 JavaScript 中伟大的发明，因为同"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Terryzh</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Terryzh</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Immutable JS详解</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-04-25 </span>
+        <div class="post-category">
+            <a href="/categories/code/"> code </a>
+            </div>
+          <span class="more-meta"> 4790 words </span>
+          <span class="more-meta"> 10 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#什么是-immutable-data">什么是 Immutable Data</a></li>
+<li><a href="#immutable-js">immutable.js</a></li>
+<li><a href="#seamless-immutable">seamless-immutable</a></li>
+<li><a href="#immutable-优点">Immutable 优点</a>
+<ul>
+<li><a href="#1-immutable-降低了-mutable-带来的复杂度">1. Immutable 降低了 Mutable 带来的复杂度</a></li>
+<li><a href="#2-节省内存">2. 节省内存</a></li>
+<li><a href="#3-undo-redo-copy-paste-甚至时间旅行这些功能做起来小菜一碟">3. Undo/Redo，Copy/Paste，甚至时间旅行这些功能做起来小菜一碟</a></li>
+<li><a href="#4-并发安全">4. 并发安全</a></li>
+<li><a href="#5-拥抱函数式编程">5. 拥抱函数式编程</a></li>
+</ul></li>
+<li><a href="#immutable-缺点">Immutable 缺点</a>
+<ul>
+<li><a href="#1-需要学习新的-api">1. 需要学习新的 API</a></li>
+<li><a href="#2-增加了资源文件大小">2. 增加了资源文件大小</a></li>
+<li><a href="#3-容易与原生对象混淆">3. 容易与原生对象混淆</a></li>
+</ul></li>
+<li><a href="#更多认识">更多认识</a>
+<ul>
+<li><a href="#immutable-is">Immutable.is</a></li>
+<li><a href="#与-object-freeze-const-区别">与 Object.freeze、const 区别</a></li>
+<li><a href="#cursor-的概念">Cursor 的概念</a></li>
+</ul></li>
+<li><a href="#实践">实践</a>
+<ul>
+<li><a href="#与-react-搭配使用-pure-render">与 React 搭配使用，Pure Render</a></li>
+<li><a href="#setstate-的一个技巧">setState 的一个技巧</a></li>
+<li><a href="#与-flux-搭配使用">与 Flux 搭配使用</a></li>
+<li><a href="#与-redux-搭配使用">与 Redux 搭配使用</a></li>
+</ul></li>
+<li><a href="#总结">总结</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <blockquote>
+<p>Shared mutable state is the root of all evil（共享的可变状态是万恶之源）</p>
+
+<p>&ndash; Pete Hunt</p>
+</blockquote>
+
+<p>有人说 <code>Immutable</code> 可以给 <code>React</code> 应用带来数十倍的提升，也有人说 <code>Immutable</code> 的引入是近期 <code>JavaScript</code> 中伟大的发明，因为同期 <code>React</code> 太火，它的光芒被掩盖了。</p>
+
+<p>这些至少说明 <code>Immutable</code> 是很有价值的，下面我们来一探究竟。</p>
+
+<p><code>JavaScript</code> 中的对象一般是可变的<code>（Mutable）</code>，因为使用了引用赋值，新的对象简单的引用了原始对象，改变新的对象将影响到原始对象。</p>
+
+<p>如&nbsp;<code>foo={a: 1}; bar=foo; bar.a=2</code>&nbsp;你会发现此时&nbsp;<code>foo.a</code>&nbsp;也被改成了&nbsp;<code>2</code>。</p>
+
+<p>虽然这样做可以节约内存，但当应用复杂后，这就造成了非常大的隐患，<code>Mutable</code> 带来的优点变得得不偿失。</p>
+
+<p>为了解决这个问题，一般的做法是使用 <code>shallowCopy</code>（浅拷贝）或 <code>deepCopy</code>（深拷贝）来避免被修改，但这样做造成了 <code>CPU</code> 和内存的浪费。</p>
+
+<blockquote>
+<p><strong>Immutable 可以很好地解决这些问题。</strong></p>
+</blockquote>
+
+<h2 id="什么是-immutable-data">什么是 Immutable Data</h2>
+
+<p><code>Immutable Data</code> 就是一旦创建，就不能再被更改的数据。对 <code>Immutable</code> 对象的任何修改或添加删除操作都会返回一个新的 <code>Immutable</code> 对象。</p>
+
+<p><code>Immutable</code> 实现的原理是&nbsp;<code>Persistent Data Structure</code>（持久化数据结构），也就是使用旧数据创建新数据时，要保证旧数据同时可用且不变。</p>
+
+<p>同时为了避免 <code>deepCopy</code> 把所有节点都复制一遍带来的性能损耗，<code>Immutable</code> 使用了&nbsp;<code>Structural Sharing</code>（结构共享），即如果对象树中一个节点发生变化，只修改这个节点和受它影响的父节点，其它节点则进行共享。</p>
+
+<p>请看下面动画：</p>
+
+<p><img src="https://camo.githubusercontent.com/9e129aaf95d2a645a860dc26532796817e8085c0/687474703a2f2f696d672e616c6963646e2e636f6d2f7470732f69322f5442317a7a695f4b5858585858637458465858627262384f5658582d3631332d3537352e676966" alt="2b4c801a7b40eefcd4ee6767fb984fdf.gif" /></p>
+
+<blockquote>
+<p><strong>目前流行的 Immutable 库有两个：</strong></p>
+</blockquote>
+
+<h2 id="immutable-js">immutable.js</h2>
+
+<p>Facebook 工程师 Lee Byron 花费 3 年时间打造，与 <code>React</code> 同期出现，但没有被默认放到 <code>React</code> 工具集里（<code>React</code> 提供了简化的 <code>Helper</code>）。</p>
+
+<p>它内部实现了一套完整的 <code>Persistent Data Structure</code>，还有很多易用的数据类型。</p>
+
+<p>像&nbsp;<code>Collection、List、Map、Set、Record、Seq</code>。有非常全面的<code>map、filter、groupBy、reduce.find</code>函数式操作方法。同时 <code>API</code> 也尽量与 <code>Object</code> 或 <code>Array</code> 类似。</p>
+
+<p>其中有 3 种最重要的数据结构说明一下：（Java 程序员应该最熟悉了）</p>
+
+<ul>
+<li><code>Map</code>：键值对集合，对应于 Object，ES6 也有专门的 Map 对象</li>
+<li><code>List</code>：有序可重复的列表，对应于 Array</li>
+<li><code>Set</code>：无序且不可重复的列表</li>
+</ul>
+
+<h2 id="seamless-immutable">seamless-immutable</h2>
+
+<p>与 <code>Immutable.js</code> 学院派的风格不同，<code>seamless-immutable</code> 并没有实现完整的 <code>Persistent Data Structure</code>，而是使用&nbsp;<code>Object.defineProperty</code>（因此只能在 <code>IE9</code> 及以上使用）扩展了 <code>JavaScript</code> 的 <code>Array</code> 和 <code>Object</code> 对象来实现，只支持 <code>Array</code> 和 <code>Object</code> 两种数据类型，API 基于与 <code>Array</code> 和 <code>Object</code> 操持不变。</p>
+
+<p>代码库非常小，压缩后下载只有 2K。而 <code>Immutable.js</code> 压缩后下载有 16K。</p>
+
+<blockquote>
+<p>下面上代码来感受一下两者的不同：</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="c1">// 原来的写法
+</span><span class="c1"></span><span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">a</span><span class="o">:</span> <span class="p">{</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">1</span> <span class="p">}</span> <span class="p">}</span>
+<span class="kd">let</span> <span class="nx">bar</span> <span class="o">=</span> <span class="nx">foo</span>
+<span class="nx">bar</span><span class="p">.</span><span class="nx">a</span><span class="p">.</span><span class="nx">b</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">foo</span><span class="p">.</span><span class="nx">a</span><span class="p">.</span><span class="nx">b</span><span class="p">)</span> <span class="c1">// 打印 2
+</span><span class="c1"></span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">foo</span> <span class="o">===</span> <span class="nx">bar</span><span class="p">)</span> <span class="c1">//  打印 true
+</span><span class="c1"></span>
+<span class="c1">// 使用 immutable.js 后
+</span><span class="c1"></span><span class="k">import</span> <span class="nx">Immutable</span> <span class="nx">from</span> <span class="s1">&#39;immutable&#39;</span>
+<span class="nx">foo</span> <span class="o">=</span> <span class="nx">Immutable</span><span class="p">.</span><span class="nx">fromJS</span><span class="p">({</span> <span class="nx">a</span><span class="o">:</span> <span class="p">{</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">1</span> <span class="p">}</span> <span class="p">})</span>
+<span class="nx">bar</span> <span class="o">=</span> <span class="nx">foo</span><span class="p">.</span><span class="nx">setIn</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span> <span class="c1">// 使用 setIn 赋值
+</span><span class="c1"></span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">foo</span><span class="p">.</span><span class="nx">getIn</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">]))</span> <span class="c1">// 使用 getIn 取值，打印 1
+</span><span class="c1"></span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">foo</span> <span class="o">===</span> <span class="nx">bar</span><span class="p">)</span> <span class="c1">//  打印 false
+</span><span class="c1"></span>
+<span class="c1">// 使用  seamless-immutable.js 后
+</span><span class="c1"></span><span class="k">import</span> <span class="nx">SImmutable</span> <span class="nx">from</span> <span class="s1">&#39;seamless-immutable&#39;</span>
+<span class="nx">foo</span> <span class="o">=</span> <span class="nx">SImmutable</span><span class="p">({</span> <span class="nx">a</span><span class="o">:</span> <span class="p">{</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">1</span> <span class="p">}</span> <span class="p">})</span>
+<span class="nx">bar</span> <span class="o">=</span> <span class="nx">foo</span><span class="p">.</span><span class="nx">merge</span><span class="p">({</span> <span class="nx">a</span><span class="o">:</span> <span class="p">{</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">2</span> <span class="p">}</span> <span class="p">})</span> <span class="c1">// 使用 merge 赋值
+</span><span class="c1"></span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">foo</span><span class="p">.</span><span class="nx">a</span><span class="p">.</span><span class="nx">b</span><span class="p">)</span> <span class="c1">// 像原生 Object 一样取值，打印 1
+</span><span class="c1"></span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">foo</span> <span class="o">===</span> <span class="nx">bar</span><span class="p">)</span> <span class="c1">//  打印 false
+</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="immutable-优点">Immutable 优点</h2>
+
+<h3 id="1-immutable-降低了-mutable-带来的复杂度">1. Immutable 降低了 Mutable 带来的复杂度</h3>
+
+<p>可变<code>（Mutable）</code>数据耦合了 <code>Time</code> 和 <code>Value</code> 的概念，造成了数据很难被回溯。</p>
+
+<blockquote>
+<p>比如下面一段代码：</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">touchAndLog</span><span class="p">(</span><span class="nx">touchFn</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">key</span><span class="o">:</span> <span class="s1">&#39;value&#39;</span> <span class="p">}</span>
+  <span class="nx">touchFn</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">key</span><span class="p">)</span> <span class="c1">// 猜猜会打印什么？
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>在不查看&nbsp;<code>touchFn</code>&nbsp;的代码的情况下，因为不确定它对&nbsp;<code>data</code>&nbsp;做了什么，你是不可能知道会打印什么（这不是废话吗）。</p>
+
+<p>但如果&nbsp;<code>data</code>&nbsp;是 <code>Immutable</code> 的呢，你可以很肯定的知道打印的是&nbsp;<code>value</code>。</p>
+
+<h3 id="2-节省内存">2. 节省内存</h3>
+
+<p><code>Immutable.js</code> 使用了 <code>Structure Sharing</code> 会尽量复用内存，甚至以前使用的对象也可以再次被复用。没有被引用的对象会被垃圾回收。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">import</span> <span class="p">{</span> <span class="nx">Map</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;immutable&#39;</span>
+<span class="kd">let</span> <span class="nx">a</span> <span class="o">=</span> <span class="nx">Map</span><span class="p">({</span>
+  <span class="nx">select</span><span class="o">:</span> <span class="s1">&#39;users&#39;</span><span class="p">,</span>
+  <span class="nx">filter</span><span class="o">:</span> <span class="nx">Map</span><span class="p">({</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Cam&#39;</span> <span class="p">})</span>
+<span class="p">})</span>
+<span class="kd">let</span> <span class="nx">b</span> <span class="o">=</span> <span class="nx">a</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;select&#39;</span><span class="p">,</span> <span class="s1">&#39;people&#39;</span><span class="p">)</span>
+<span class="nx">a</span> <span class="o">===</span> <span class="nx">b</span> <span class="c1">// false
+</span><span class="c1"></span><span class="nx">a</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;filter&#39;</span><span class="p">)</span> <span class="o">===</span> <span class="nx">b</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;filter&#39;</span><span class="p">)</span> <span class="c1">// true
+</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>上面 <code>a</code> 和 <code>b</code> 共享了没有变化的&nbsp;<code>filter</code>&nbsp;节点。</p>
+
+<h3 id="3-undo-redo-copy-paste-甚至时间旅行这些功能做起来小菜一碟">3. Undo/Redo，Copy/Paste，甚至时间旅行这些功能做起来小菜一碟</h3>
+
+<p>因为每次数据都是不一样的，只要把这些数据放到一个数组里储存起来，想回退到哪里就拿出对应数据即可，很容易开发出撤销重做这种功能。</p>
+
+<p>后面我会提供 <code>Flux</code> 做 <code>Undo</code> 的示例。</p>
+
+<h3 id="4-并发安全">4. 并发安全</h3>
+
+<p>传统的并发非常难做，因为要处理各种数据不一致问题，因此『聪明人』发明了各种锁来解决。但使用了 <code>Immutable</code> 之后，数据天生是不可变的，并发锁就不需要了。</p>
+
+<p>然而现在并没什么卵用，因为 <code>JavaScript</code> 还是单线程运行的啊。但未来可能会加入，提前解决未来的问题不也挺好吗？</p>
+
+<h3 id="5-拥抱函数式编程">5. 拥抱函数式编程</h3>
+
+<p><code>Immutable</code> 本身就是函数式编程中的概念，纯函数式编程比面向对象更适用于前端开发。因为只要输入一致，输出必然一致，这样开发的组件更易于调试和组装。</p>
+
+<p>像 <code>ClojureScript</code>，<code>Elm</code> 等函数式编程语言中的数据类型天生都是 <code>Immutable</code> 的，这也是为什么 <code>ClojureScript</code> 基于 <code>React</code> 的框架 &mdash; <code>Om</code> 性能比 <code>React</code> 还要好的原因。</p>
+
+<h2 id="immutable-缺点">Immutable 缺点</h2>
+
+<h3 id="1-需要学习新的-api">1. 需要学习新的 API</h3>
+
+<blockquote>
+<p>No Comments</p>
+</blockquote>
+
+<h3 id="2-增加了资源文件大小">2. 增加了资源文件大小</h3>
+
+<blockquote>
+<p>No Comments</p>
+</blockquote>
+
+<h3 id="3-容易与原生对象混淆">3. 容易与原生对象混淆</h3>
+
+<p>这点是我们使用 <code>Immutable.js</code> 过程中遇到最大的问题。写代码要做思维上的转变。</p>
+
+<p>虽然 <code>Immutable.js</code> 尽量尝试把 <code>API</code> 设计的原生对象类似，有的时候还是很难区别到底是 <code>Immutable</code> 对象还是原生对象，容易混淆操作。</p>
+
+<p><code>Immutable</code> 中的 <code>Map</code> 和 <code>List</code> 虽对应原生 <code>Object</code> 和 <code>Array</code>，但操作非常不同，比如你要用&nbsp;<code>map.get('key')</code>而不是&nbsp;<code>map.key，array.get(0)</code>&nbsp;而不是&nbsp;<code>array[0]</code>。</p>
+
+<p>另外 <code>Immutable</code> 每次修改都会返回新对象，也很容易忘记赋值。</p>
+
+<p><strong>当使用外部库的时候，一般需要使用原生对象，也很容易忘记转换。</strong></p>
+
+<p>下面给出一些办法来避免类似问题发生：</p>
+
+<ol>
+<li>使用 <code>Flow</code> 或 <code>TypeScript</code> 这类有静态类型检查的工具。</li>
+<li>约定变量命名规则：如所有 <code>Immutable</code> 类型对象以&nbsp;<code>$$</code>&nbsp;开头。</li>
+<li>使用&nbsp;<code>Immutable.fromJS</code>&nbsp;而不是&nbsp;<code>Immutable.Map</code>&nbsp;或&nbsp;<code>Immutable.List</code>&nbsp;来创建对象，这样可以避免 <code>Immutable</code> 和原生对象间的混用。</li>
+</ol>
+
+<h2 id="更多认识">更多认识</h2>
+
+<h3 id="immutable-is">Immutable.is</h3>
+
+<p>两个 <code>immutable</code> 对象可以使用&nbsp;<code>===</code>&nbsp;来比较，这样是直接比较内存地址，性能最好。但即使两个对象的值是一样的，也会返回&nbsp;<code>false</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">let</span> <span class="nx">map1</span> <span class="o">=</span> <span class="nx">Immutable</span><span class="p">.</span><span class="nx">Map</span><span class="p">({</span> <span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">c</span><span class="o">:</span> <span class="mi">1</span> <span class="p">})</span>
+<span class="kd">let</span> <span class="nx">map2</span> <span class="o">=</span> <span class="nx">Immutable</span><span class="p">.</span><span class="nx">Map</span><span class="p">({</span> <span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">c</span><span class="o">:</span> <span class="mi">1</span> <span class="p">})</span>
+<span class="nx">map1</span> <span class="o">===</span> <span class="nx">map2</span> <span class="c1">// false
+</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>为了直接比较对象的值，<code>immutable.js</code> 提供了&nbsp;<code>Immutable.is</code>&nbsp;来做『值比较』，结果如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">Immutable</span><span class="p">.</span><span class="nx">is</span><span class="p">(</span><span class="nx">map1</span><span class="p">,</span> <span class="nx">map2</span><span class="p">);</span>  <span class="c1">// true
+</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><code>Immutable.is</code>&nbsp;比较的是两个对象的&nbsp;<code>hashCode</code>&nbsp;或&nbsp;<code>valueOf</code>（对于 <code>JavaScript</code> 对象）。</p>
+
+<p>由于 <code>immutable</code> 内部使用了 <code>Trie</code> 数据结构来存储，只要两个对象的&nbsp;<code>hashCode</code>&nbsp;相等，值就是一样的。这样的算法避免了深度遍历比较，性能非常好。</p>
+
+<p>后面会使用&nbsp;<code>Immutable.is</code>&nbsp;来减少 <code>React</code> 重复渲染，提高性能。</p>
+
+<p>另外，还有&nbsp;<code>mori、cortex</code>&nbsp;等，因为类似就不再介绍。</p>
+
+<h3 id="与-object-freeze-const-区别">与 Object.freeze、const 区别</h3>
+
+<p><code>Object.freeze</code>&nbsp;和 <code>ES6</code> 中新加入的&nbsp;<code>const</code>&nbsp;都可以达到防止对象被篡改的功能，但它们是 <code>shallowCopy</code> 的。对象层级一深就要特殊处理了。</p>
+
+<h3 id="cursor-的概念">Cursor 的概念</h3>
+
+<p>这个 <code>Cursor</code> 和数据库中的游标是完全不同的概念。</p>
+
+<p>由于 <code>Immutable</code> 数据一般嵌套非常深，为了便于访问深层数据，<code>Cursor</code> 提供了可以直接访问这个深层数据的引用。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-JavaScript" data-lang="JavaScript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-JavaScript" data-lang="JavaScript"><span class="k">import</span> <span class="nx">Immutable</span> <span class="nx">from</span> <span class="s1">&#39;immutable&#39;</span>
+<span class="k">import</span> <span class="nx">Cursor</span> <span class="nx">from</span> <span class="s1">&#39;immutable/contrib/cursor&#39;</span>
+
+<span class="kd">let</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">Immutable</span><span class="p">.</span><span class="nx">fromJS</span><span class="p">({</span> <span class="nx">a</span><span class="o">:</span> <span class="p">{</span> <span class="nx">b</span><span class="o">:</span> <span class="p">{</span> <span class="nx">c</span><span class="o">:</span> <span class="mi">1</span> <span class="p">}</span> <span class="p">}</span> <span class="p">})</span>
+<span class="c1">// 让 cursor 指向 { c: 1 }
+</span><span class="c1"></span><span class="kd">let</span> <span class="nx">cursor</span> <span class="o">=</span> <span class="nx">Cursor</span><span class="p">.</span><span class="nx">from</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">],</span> <span class="nx">newData</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="c1">// 当 cursor 或其子 cursor 执行 update 时调用
+</span><span class="c1"></span>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">newData</span><span class="p">)</span>
+<span class="p">})</span>
+
+<span class="nx">cursor</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;c&#39;</span><span class="p">)</span> <span class="c1">// 1
+</span><span class="c1"></span><span class="nx">cursor</span> <span class="o">=</span> <span class="nx">cursor</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="nx">x</span> <span class="p">=&gt;</span> <span class="nx">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="nx">cursor</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;c&#39;</span><span class="p">)</span> <span class="c1">// 2
+</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="实践">实践</h2>
+
+<h3 id="与-react-搭配使用-pure-render">与 React 搭配使用，Pure Render</h3>
+
+<p>熟悉 <code>React</code> 的都知道，<code>React</code> 做性能优化时有一个避免重复渲染的大招，就是使用&nbsp;<code>shouldComponentUpdate()</code>，但它默认返回&nbsp;<code>true</code>，即始终会执行&nbsp;<code>render()</code>&nbsp;方法，然后做 <code>Virtual DOM</code> 比较，并得出是否需要做真实 <code>DOM</code> 更新，这里往往会带来很多无必要的渲染并成为性能瓶颈。</p>
+
+<p>当然我们也可以在&nbsp;<code>shouldComponentUpdate()</code>&nbsp;中使用使用 <code>deepCopy</code> 和 <code>deepCompare</code> 来避免无必要的&nbsp;<code>render()</code>，但&nbsp;<code>deepCopy</code> 和 <code>deepCompare</code> 一般都是非常耗性能的。</p>
+
+<p><code>Immutable</code> 则提供了简洁高效的判断数据是否变化的方法，只需&nbsp;<code>===</code>&nbsp;和&nbsp;<code>is</code>&nbsp;比较就能知道是否需要执行&nbsp;<code>render()</code>，而这个操作几乎 0 成本，所以可以极大提高性能。修改后的&nbsp;<code>shouldComponentUpdate</code>&nbsp;是这样的：</p>
+
+<p><strong>注意：</strong><code>React</code> 中规定&nbsp;<code>state</code>&nbsp;和&nbsp;<code>props</code>&nbsp;只能是一个普通对象，所以比较时要比较对象的&nbsp;<code>key</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">import</span> <span class="p">{</span> <span class="nx">is</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;immutable&#39;</span>
+
+<span class="nx">shouldComponentUpdate</span><span class="o">:</span> <span class="p">(</span><span class="nx">nextProps</span> <span class="o">=</span> <span class="p">{},</span> <span class="nx">nextState</span> <span class="o">=</span> <span class="p">{})</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="nx">thisProps</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span> <span class="o">||</span> <span class="p">{},</span>
+    <span class="nx">thisState</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">||</span> <span class="p">{}</span>
+
+  <span class="k">if</span> <span class="p">(</span>
+    <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">thisProps</span><span class="p">).</span><span class="nx">length</span> <span class="o">!==</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">nextProps</span><span class="p">).</span><span class="nx">length</span> <span class="o">||</span>
+    <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">thisState</span><span class="p">).</span><span class="nx">length</span> <span class="o">!==</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">nextState</span><span class="p">).</span><span class="nx">length</span>
+  <span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kc">true</span>
+  <span class="p">}</span>
+
+  <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">nextProps</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">is</span><span class="p">(</span><span class="nx">thisProps</span><span class="p">[</span><span class="nx">key</span><span class="p">],</span> <span class="nx">nextProps</span><span class="p">[</span><span class="nx">key</span><span class="p">]))</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="kc">true</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">nextState</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span>
+      <span class="nx">thisState</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">!==</span> <span class="nx">nextState</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">||</span>
+      <span class="o">!</span><span class="nx">is</span><span class="p">(</span><span class="nx">thisState</span><span class="p">[</span><span class="nx">key</span><span class="p">],</span> <span class="nx">nextState</span><span class="p">[</span><span class="nx">key</span><span class="p">])</span>
+    <span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="kc">true</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="kc">false</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>使用 <code>Immutable</code> 后，如下图，当红色节点的 <code>state</code> 变化后，不会再渲染树中的所有节点，而是只渲染图中绿色的部分：
+<img src="https://camo.githubusercontent.com/85bcf6a09c811f9e68b729557726504ac008d18e/687474703a2f2f696d672e616c6963646e2e636f6d2f7470732f69332f54423156696e704b58585858585841587058585a5f4f644e4658582d3731352d3332342e706e67" alt="005a24678dc39c202dbf3d1df96da13e.png" /></p>
+
+<p>你也可以借助&nbsp;<code>React.addons.PureRenderMixin</code>&nbsp;或支持 <code>class</code> 语法的 <code>[pure-render-decorator](felixgirault/pure-render-decorator · GitHub)</code> 来实现。</p>
+
+<h3 id="setstate-的一个技巧">setState 的一个技巧</h3>
+
+<p><code>React</code> 建议把&nbsp;<code>this.state</code>&nbsp;当作 <code>Immutable</code> 的，因此修改前需要做一个 <code>deepCopy</code>，显得麻烦：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">import</span> <span class="s1">&#39;_&#39;</span> <span class="nx">from</span> <span class="s1">&#39;lodash&#39;</span>
+<span class="k">const</span> <span class="nx">Component</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
+  <span class="nx">getInitialState</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="nx">data</span><span class="o">:</span> <span class="p">{</span> <span class="nx">times</span><span class="o">:</span> <span class="mi">0</span> <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nx">handleAdd</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">cloneDeep</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">data</span><span class="p">)</span>
+    <span class="nx">data</span><span class="p">.</span><span class="nx">times</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">times</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span> <span class="nx">data</span><span class="o">:</span> <span class="nx">data</span> <span class="p">})</span>
+    <span class="c1">// 如果上面不做 cloneDeep，下面打印的结果会是已经加 1 后的值。
+</span><span class="c1"></span>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">times</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">})</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>使用 Immutable 后：</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">getInitialState</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="nx">data</span><span class="o">:</span> <span class="nx">Map</span><span class="p">({</span> <span class="nx">times</span><span class="o">:</span> <span class="mi">0</span> <span class="p">})</span>
+  <span class="p">}</span>
+<span class="p">},</span>
+<span class="nx">handleAdd</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span> <span class="nx">data</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span><span class="s1">&#39;times&#39;</span><span class="p">,</span> <span class="nx">v</span> <span class="p">=&gt;</span> <span class="nx">v</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="p">})</span>
+  <span class="c1">// 这时的 times 并不会改变
+</span><span class="c1"></span>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;times&#39;</span><span class="p">))</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>上面的&nbsp;<code>handleAdd</code>&nbsp;可以简写成：</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">handleAdd</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">(({</span><span class="nx">data</span><span class="p">})</span> <span class="p">=&gt;</span> <span class="p">({</span><span class="nx">data</span><span class="o">:</span> <span class="nx">data</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span> <span class="s1">&#39;times&#39;</span><span class="p">,</span> <span class="nx">v</span> <span class="p">=&gt;</span> <span class="nx">v</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="p">}))</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="与-flux-搭配使用">与 Flux 搭配使用</h3>
+
+<p>由于 <code>Flux</code> 并没有限定 <code>Store</code> 中数据的类型，使用 <code>Immutable</code> 非常简单。</p>
+
+<p>现在是实现一个类似带有添加和撤销功能的 <code>Store</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">import</span> <span class="p">{</span> <span class="nx">Map</span><span class="p">,</span> <span class="nx">OrderedMap</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;immutable&#39;</span>
+
+<span class="kd">let</span> <span class="nx">todos</span> <span class="o">=</span> <span class="nx">OrderedMap</span><span class="p">()</span>
+<span class="kd">let</span> <span class="nx">history</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1">// 普通数组，存放每次操作后产生的数据
+</span><span class="c1"></span>
+<span class="kd">let</span> <span class="nx">TodoStore</span> <span class="o">=</span> <span class="nx">createStore</span><span class="p">({</span>
+  <span class="nx">getAll</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">todos</span>
+  <span class="p">}</span>
+<span class="p">})</span>
+
+<span class="nx">Dispatcher</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="nx">action</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">action</span><span class="p">.</span><span class="nx">actionType</span> <span class="o">===</span> <span class="s1">&#39;create&#39;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">id</span> <span class="o">=</span> <span class="nx">createGUID</span><span class="p">()</span>
+    <span class="nx">history</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">todos</span><span class="p">)</span> <span class="c1">// 记录当前操作前的数据，便于撤销
+</span><span class="c1"></span>    <span class="nx">todos</span> <span class="o">=</span> <span class="nx">todos</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span>
+      <span class="nx">id</span><span class="p">,</span>
+      <span class="nx">Map</span><span class="p">({</span>
+        <span class="nx">id</span><span class="o">:</span> <span class="nx">id</span><span class="p">,</span>
+        <span class="nx">complete</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="nx">text</span><span class="o">:</span> <span class="nx">action</span><span class="p">.</span><span class="nx">text</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span>
+      <span class="p">})</span>
+    <span class="p">)</span>
+    <span class="nx">TodoStore</span><span class="p">.</span><span class="nx">emitChange</span><span class="p">()</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">action</span><span class="p">.</span><span class="nx">actionType</span> <span class="o">===</span> <span class="s1">&#39;undo&#39;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// 这里是撤销功能实现，
+</span><span class="c1"></span>    <span class="c1">// 只需从 history 数组中取前一次 todos 即可
+</span><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="nx">history</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">todos</span> <span class="o">=</span> <span class="nx">history</span><span class="p">.</span><span class="nx">pop</span><span class="p">()</span>
+    <span class="p">}</span>
+    <span class="nx">TodoStore</span><span class="p">.</span><span class="nx">emitChange</span><span class="p">()</span>
+  <span class="p">}</span>
+<span class="p">})</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="与-redux-搭配使用">与 Redux 搭配使用</h3>
+
+<p><code>Redux</code>&nbsp;是目前流行的 <code>Flux</code> 衍生库。它简化了 <code>Flux</code> 中多个 Store 的概念，只有一个 <code>Store</code>，数据操作通过 <code>Reducer</code> 中实现；</p>
+
+<p>同时它提供更简洁和清晰的单向数据流（<code>View -&gt; Action -&gt; Middleware -&gt; Reducer</code>），也更易于开发同构应用。目前已经在我们项目中大规模使用。</p>
+
+<p>由于 <code>Redux</code> 中内置的&nbsp;<code>combineReducers</code>&nbsp;和 <code>reducer</code> 中的&nbsp;<code>initialState</code>&nbsp;都为原生的 <code>Object</code> 对象，所以不能和 <code>Immutable</code> 原生搭配使用。</p>
+
+<p>幸运的是，<code>Redux</code> 并不排斥使用 <code>Immutable</code>，可以自己重写&nbsp;<code>combineReducers</code>&nbsp;或使用&nbsp;<code>redux-immutablejs</code>&nbsp;来提供支持。</p>
+
+<p>上面我们提到 <code>Cursor</code> 可以方便检索和 <code>update</code> 层级比较深的数据，但因为 <code>Redux</code> 中已经有了 <code>select</code> 来做检索，<code>Action</code> 来更新数据，因此 <code>Cursor</code> 在这里就没有用武之地了。</p>
+
+<h2 id="总结">总结</h2>
+
+<p><code>Immutable</code> 可以给应用带来极大的性能提升，但是否使用还要看项目情况。由于侵入性较强，新项目引入比较容易，老项目迁移需要评估迁移。对于一些提供给外部使用的公共组件，最好不要把 <code>Immutable</code> 对象直接暴露在对外接口中。</p>
+
+<p>如果 JS 原生 <code>Immutable</code> 类型会不会太美，被称为 <code>React API</code> 终结者的 <code>Sebastian Markbåge</code> 有一个这样的提案，能否通过现在还不确定。不过可以肯定的是 <code>Immutable</code> 会被越来越多的项目使用。</p>
+
+<blockquote>
+<blockquote>
+<blockquote>
+<p>转载,侵删</p>
+</blockquote>
+</blockquote>
+</blockquote>
+    </div>
+
+    
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">Reward</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/reward/wechat-qr-code.png">
+        <span>wechat</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/reward/alipay-qr-code.png">
+        <span>alipay</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/javascript/">javascript</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/git%E5%9F%BA%E7%A1%80%E8%BF%9B%E9%98%B6%E4%BA%8C/">
+            <span class="next-text nav-default">Git基础进阶(二)</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2019-04-25 15:00:43 \x2b0800 \x2b0800',
+        title: 'Immutable JS详解',
+        clientID: 'bf0ed9ea18e819e40135',
+        clientSecret: '92bdc65717aa7f0ec48bfe94e773b57a21163785',
+        repo: 'blog_comments',
+        owner: '496971418@qq.com',
+        admin: ['496971418@qq.com'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:terryzh017@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://stackoverflow.com/users/10838177/terryzh" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://twitter.com/terryzhAizz" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/t496971418" class="iconfont icon-github" title="github"></a>
+  <a href="http://www./index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Terryzh</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

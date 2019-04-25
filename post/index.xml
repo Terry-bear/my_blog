@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Terryzh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 21 Apr 2019 17:02:01 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 25 Apr 2019 15:00:43 +0800</lastBuildDate>
     
 	<atom:link href="http://www./post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Immutable JS详解</title>
+      <link>http://www./post/immutable-js%E8%AF%A6%E8%A7%A3/</link>
+      <pubDate>Thu, 25 Apr 2019 15:00:43 +0800</pubDate>
+      
+      <guid>http://www./post/immutable-js%E8%AF%A6%E8%A7%A3/</guid>
+      <description>Shared mutable state is the root of all evil（共享的可变状态是万恶之源） &amp;ndash; Pete Hunt 有人说 Immutable 可以给 React 应用带来数十倍的提升，也有人说 Immutable 的引入是近期 JavaScript 中伟大的发明，因为同</description>
+    </item>
     
     <item>
       <title>Git基础进阶(二)</title>
