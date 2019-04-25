@@ -161,14 +161,14 @@
   </url>
   
   <url>
-    <loc>http://www./tags/personal/</loc>
+    <loc>http://www./categories/personal/</loc>
     <lastmod>2019-04-21T17:02:01+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://www./categories/personal/</loc>
+    <loc>http://www./tags/personal/</loc>
     <lastmod>2019-04-21T17:02:01+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
