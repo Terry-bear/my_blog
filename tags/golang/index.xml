@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>golang on Terryzh</title>
-    <link>http://www./tags/golang/</link>
+    <link>http://www.elixir-zh.cn/tags/golang/</link>
     <description>Recent content in golang on Terryzh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Wed, 09 Jan 2019 11:44:32 +0800</lastBuildDate>
     
-	<atom:link href="http://www./tags/golang/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://www.elixir-zh.cn/tags/golang/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Golang如何管理项目依赖</title>
-      <link>http://www./post/golang%E5%A6%82%E4%BD%95%E7%AE%A1%E7%90%86%E9%A1%B9%E7%9B%AE%E4%BE%9D%E8%B5%96/</link>
+      <link>http://www.elixir-zh.cn/post/golang%E5%A6%82%E4%BD%95%E7%AE%A1%E7%90%86%E9%A1%B9%E7%9B%AE%E4%BE%9D%E8%B5%96/</link>
       <pubDate>Wed, 09 Jan 2019 11:44:32 +0800</pubDate>
       
-      <guid>http://www./post/golang%E5%A6%82%E4%BD%95%E7%AE%A1%E7%90%86%E9%A1%B9%E7%9B%AE%E4%BE%9D%E8%B5%96/</guid>
+      <guid>http://www.elixir-zh.cn/post/golang%E5%A6%82%E4%BD%95%E7%AE%A1%E7%90%86%E9%A1%B9%E7%9B%AE%E4%BE%9D%E8%B5%96/</guid>
       <description>在学习golang的过程中发现，golang一般不会作为新手的第一门语言进行学习，简而言之，golang虽然设计巧妙，但是蕴含了很多的编程技</description>
     </item>
     

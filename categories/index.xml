@@ -2,29 +2,29 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on Terryzh</title>
-    <link>http://www./categories/</link>
+    <link>http://www.elixir-zh.cn/categories/</link>
     <description>Recent content in Categories on Terryzh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     
-	<atom:link href="http://www./categories/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://www.elixir-zh.cn/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>code</title>
-      <link>http://www./categories/code/</link>
+      <link>http://www.elixir-zh.cn/categories/code/</link>
       <pubDate>Thu, 25 Apr 2019 15:00:43 +0800</pubDate>
       
-      <guid>http://www./categories/code/</guid>
+      <guid>http://www.elixir-zh.cn/categories/code/</guid>
       <description></description>
     </item>
     
     <item>
       <title>personal</title>
-      <link>http://www./categories/personal/</link>
+      <link>http://www.elixir-zh.cn/categories/personal/</link>
       <pubDate>Sun, 21 Apr 2019 17:02:01 +0800</pubDate>
       
-      <guid>http://www./categories/personal/</guid>
+      <guid>http://www.elixir-zh.cn/categories/personal/</guid>
       <description></description>
     </item>
     

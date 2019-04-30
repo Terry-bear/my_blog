@@ -2,111 +2,111 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on Terryzh</title>
-    <link>http://www./post/</link>
+    <link>http://www.elixir-zh.cn/post/</link>
     <description>Recent content in Posts on Terryzh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Thu, 25 Apr 2019 15:00:43 +0800</lastBuildDate>
     
-	<atom:link href="http://www./post/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://www.elixir-zh.cn/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Immutable JS详解</title>
-      <link>http://www./post/immutable-js%E8%AF%A6%E8%A7%A3/</link>
+      <link>http://www.elixir-zh.cn/post/immutable-js%E8%AF%A6%E8%A7%A3/</link>
       <pubDate>Thu, 25 Apr 2019 15:00:43 +0800</pubDate>
       
-      <guid>http://www./post/immutable-js%E8%AF%A6%E8%A7%A3/</guid>
+      <guid>http://www.elixir-zh.cn/post/immutable-js%E8%AF%A6%E8%A7%A3/</guid>
       <description>Shared mutable state is the root of all evil（共享的可变状态是万恶之源） &amp;ndash; Pete Hunt 有人说 Immutable 可以给 React 应用带来数十倍的提升，也有人说 Immutable 的引入是近期 JavaScript 中伟大的发明，因为同</description>
     </item>
     
     <item>
       <title>Git基础进阶(二)</title>
-      <link>http://www./post/git%E5%9F%BA%E7%A1%80%E8%BF%9B%E9%98%B6%E4%BA%8C/</link>
+      <link>http://www.elixir-zh.cn/post/git%E5%9F%BA%E7%A1%80%E8%BF%9B%E9%98%B6%E4%BA%8C/</link>
       <pubDate>Sun, 21 Apr 2019 17:02:01 +0800</pubDate>
       
-      <guid>http://www./post/git%E5%9F%BA%E7%A1%80%E8%BF%9B%E9%98%B6%E4%BA%8C/</guid>
+      <guid>http://www.elixir-zh.cn/post/git%E5%9F%BA%E7%A1%80%E8%BF%9B%E9%98%B6%E4%BA%8C/</guid>
       <description>了解了基础的Git的用法，相信大家在掌握基本命令后已经可以熟练使用了。对于个人开发，我们或许不需要太多的协作或者code review，一个人</description>
     </item>
     
     <item>
       <title>Git基础详解(一)</title>
-      <link>http://www./post/git%E5%9F%BA%E7%A1%80%E8%AF%A6%E8%A7%A3%E4%B8%80/</link>
+      <link>http://www.elixir-zh.cn/post/git%E5%9F%BA%E7%A1%80%E8%AF%A6%E8%A7%A3%E4%B8%80/</link>
       <pubDate>Mon, 15 Apr 2019 15:21:47 +0800</pubDate>
       
-      <guid>http://www./post/git%E5%9F%BA%E7%A1%80%E8%AF%A6%E8%A7%A3%E4%B8%80/</guid>
+      <guid>http://www.elixir-zh.cn/post/git%E5%9F%BA%E7%A1%80%E8%AF%A6%E8%A7%A3%E4%B8%80/</guid>
       <description>Git 基础 对于Git,相信现在的coder都不陌生,并且在各大博客和类似于掘金、开源中国的论坛里也有很多关于此类型的文章。 这篇文章主要从实用的角</description>
     </item>
     
     <item>
       <title>九种跨域方式实现原理</title>
-      <link>http://www./post/%E4%B9%9D%E7%A7%8D%E8%B7%A8%E5%9F%9F%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/</link>
+      <link>http://www.elixir-zh.cn/post/%E4%B9%9D%E7%A7%8D%E8%B7%A8%E5%9F%9F%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/</link>
       <pubDate>Wed, 03 Apr 2019 16:07:18 +0800</pubDate>
       
-      <guid>http://www./post/%E4%B9%9D%E7%A7%8D%E8%B7%A8%E5%9F%9F%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/</guid>
+      <guid>http://www.elixir-zh.cn/post/%E4%B9%9D%E7%A7%8D%E8%B7%A8%E5%9F%9F%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/</guid>
       <description>一、什么是跨域？ 什么是同源策略及其限制内容？ 同源策略是一种约定，它是浏览器最核心也最基本的安全功能，如果缺少了同源策略，浏览器很容易受到XS</description>
     </item>
     
     <item>
       <title>深入理解TypeScript 1</title>
-      <link>http://www./post/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3typescript-1/</link>
+      <link>http://www.elixir-zh.cn/post/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3typescript-1/</link>
       <pubDate>Tue, 22 Jan 2019 11:25:36 +0800</pubDate>
       
-      <guid>http://www./post/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3typescript-1/</guid>
+      <guid>http://www.elixir-zh.cn/post/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3typescript-1/</guid>
       <description>这一章主要总结TypeScript的用法和项目常用配置 编译上下文 用来给文件分组，告诉 TypeScript 哪些文件是有效的，哪些是无效的。定义这种逻辑分组，一个</description>
     </item>
     
     <item>
       <title>Flutter从入门到弃坑1之部署</title>
-      <link>http://www./post/flutter%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%BC%83%E5%9D%911%E4%B9%8B%E9%83%A8%E7%BD%B2/</link>
+      <link>http://www.elixir-zh.cn/post/flutter%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%BC%83%E5%9D%911%E4%B9%8B%E9%83%A8%E7%BD%B2/</link>
       <pubDate>Thu, 10 Jan 2019 21:53:11 +0800</pubDate>
       
-      <guid>http://www./post/flutter%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%BC%83%E5%9D%911%E4%B9%8B%E9%83%A8%E7%BD%B2/</guid>
+      <guid>http://www.elixir-zh.cn/post/flutter%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%BC%83%E5%9D%911%E4%B9%8B%E9%83%A8%E7%BD%B2/</guid>
       <description>Flutter在mac上的环境部署 在语雀了解了Flutter相关的信息后，博主准备去试试水。 首先进入了Flutter的官网。 看到Flutte</description>
     </item>
     
     <item>
       <title>Golang如何管理项目依赖</title>
-      <link>http://www./post/golang%E5%A6%82%E4%BD%95%E7%AE%A1%E7%90%86%E9%A1%B9%E7%9B%AE%E4%BE%9D%E8%B5%96/</link>
+      <link>http://www.elixir-zh.cn/post/golang%E5%A6%82%E4%BD%95%E7%AE%A1%E7%90%86%E9%A1%B9%E7%9B%AE%E4%BE%9D%E8%B5%96/</link>
       <pubDate>Wed, 09 Jan 2019 11:44:32 +0800</pubDate>
       
-      <guid>http://www./post/golang%E5%A6%82%E4%BD%95%E7%AE%A1%E7%90%86%E9%A1%B9%E7%9B%AE%E4%BE%9D%E8%B5%96/</guid>
+      <guid>http://www.elixir-zh.cn/post/golang%E5%A6%82%E4%BD%95%E7%AE%A1%E7%90%86%E9%A1%B9%E7%9B%AE%E4%BE%9D%E8%B5%96/</guid>
       <description>在学习golang的过程中发现，golang一般不会作为新手的第一门语言进行学习，简而言之，golang虽然设计巧妙，但是蕴含了很多的编程技</description>
     </item>
     
     <item>
       <title>Android基本六大布局</title>
-      <link>http://www./post/android%E5%9F%BA%E6%9C%AC%E5%85%AD%E5%A4%A7%E5%B8%83%E5%B1%80/</link>
+      <link>http://www.elixir-zh.cn/post/android%E5%9F%BA%E6%9C%AC%E5%85%AD%E5%A4%A7%E5%B8%83%E5%B1%80/</link>
       <pubDate>Tue, 08 Jan 2019 09:50:36 +0800</pubDate>
       
-      <guid>http://www./post/android%E5%9F%BA%E6%9C%AC%E5%85%AD%E5%A4%A7%E5%B8%83%E5%B1%80/</guid>
+      <guid>http://www.elixir-zh.cn/post/android%E5%9F%BA%E6%9C%AC%E5%85%AD%E5%A4%A7%E5%B8%83%E5%B1%80/</guid>
       <description>android六大布局 今天leader让我们前端的了解下Android的画页面工作。最近Android的页面比较多，又正好碰上年会，那我们f</description>
     </item>
     
     <item>
       <title>JS数组常用方法回顾</title>
-      <link>http://www./post/js%E6%95%B0%E7%BB%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%E5%9B%9E%E9%A1%BE/</link>
+      <link>http://www.elixir-zh.cn/post/js%E6%95%B0%E7%BB%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%E5%9B%9E%E9%A1%BE/</link>
       <pubDate>Fri, 04 Jan 2019 10:57:49 +0800</pubDate>
       
-      <guid>http://www./post/js%E6%95%B0%E7%BB%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%E5%9B%9E%E9%A1%BE/</guid>
+      <guid>http://www.elixir-zh.cn/post/js%E6%95%B0%E7%BB%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%E5%9B%9E%E9%A1%BE/</guid>
       <description>最近写JS碰到了很多对数组的处理。总结出来以便回顾。 这里会结合一些函数式编程的思想来进行总结。 处理全量数组数据 高频出现 map map—&amp;gt; 返回</description>
     </item>
     
     <item>
       <title>初探vue3.0的Proxy机制</title>
-      <link>http://www./post/%E5%88%9D%E6%8E%A2vue3.0%E7%9A%84proxy%E6%9C%BA%E5%88%B6/</link>
+      <link>http://www.elixir-zh.cn/post/%E5%88%9D%E6%8E%A2vue3.0%E7%9A%84proxy%E6%9C%BA%E5%88%B6/</link>
       <pubDate>Sun, 30 Dec 2018 15:42:49 +0800</pubDate>
       
-      <guid>http://www./post/%E5%88%9D%E6%8E%A2vue3.0%E7%9A%84proxy%E6%9C%BA%E5%88%B6/</guid>
+      <guid>http://www.elixir-zh.cn/post/%E5%88%9D%E6%8E%A2vue3.0%E7%9A%84proxy%E6%9C%BA%E5%88%B6/</guid>
       <description>19年已经来了，尤大也在11月份宣布了改版并发布vue3.0的计划，大概的时间会在19年的年中或者年底完成稳定版的发布。在11月份的关于vu</description>
     </item>
     
     <item>
       <title>18年已过，19年，坚持维护自己的微博</title>
-      <link>http://www./post/18%E5%B9%B4%E5%B7%B2%E8%BF%8719%E5%B9%B4%E5%9D%9A%E6%8C%81%E7%BB%B4%E6%8A%A4%E8%87%AA%E5%B7%B1%E7%9A%84%E5%BE%AE%E5%8D%9A/</link>
+      <link>http://www.elixir-zh.cn/post/18%E5%B9%B4%E5%B7%B2%E8%BF%8719%E5%B9%B4%E5%9D%9A%E6%8C%81%E7%BB%B4%E6%8A%A4%E8%87%AA%E5%B7%B1%E7%9A%84%E5%BE%AE%E5%8D%9A/</link>
       <pubDate>Sat, 29 Dec 2018 01:07:40 +0800</pubDate>
       
-      <guid>http://www./post/18%E5%B9%B4%E5%B7%B2%E8%BF%8719%E5%B9%B4%E5%9D%9A%E6%8C%81%E7%BB%B4%E6%8A%A4%E8%87%AA%E5%B7%B1%E7%9A%84%E5%BE%AE%E5%8D%9A/</guid>
+      <guid>http://www.elixir-zh.cn/post/18%E5%B9%B4%E5%B7%B2%E8%BF%8719%E5%B9%B4%E5%9D%9A%E6%8C%81%E7%BB%B4%E6%8A%A4%E8%87%AA%E5%B7%B1%E7%9A%84%E5%BE%AE%E5%8D%9A/</guid>
       <description>18年算是自己在技术方面有沉淀的一年，遇到了好团队。 本命年可能真的就是传说中的多事之年吧。愿19年否极泰来。 简单的做个自我介绍吧。虽然这个可</description>
     </item>
     

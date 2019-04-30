@@ -1,2 +1,2 @@
 User-agent: *
-Sitemap: http://www./sitemap.xml
+Sitemap: http://www.elixir-zh.cn/sitemap.xml
