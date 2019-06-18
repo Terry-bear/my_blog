@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>CSS 属性选择器的深入挖掘[转] - Terryzh</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Terryzh" /><meta name="description" content="CSS 属性选择器，可以通过已经存在的属性名或属性值匹配元素。 属性选择器是在 CSS2 中引入的并且在 CSS3 中得到了很好拓展。本文将会比较全面的介绍属性选择器，" /><meta name="keywords" content="CSS" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.54.0 with even 4.0.0" />
+
+
+<link rel="canonical" href="http://www.elixir-zh.cn/post/css-%E5%B1%9E%E6%80%A7%E9%80%89%E6%8B%A9%E5%99%A8%E7%9A%84%E6%B7%B1%E5%85%A5%E6%8C%96%E6%8E%98%E8%BD%AC/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.65dce888.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="CSS 属性选择器的深入挖掘[转]" />
+<meta property="og:description" content="CSS 属性选择器，可以通过已经存在的属性名或属性值匹配元素。 属性选择器是在 CSS2 中引入的并且在 CSS3 中得到了很好拓展。本文将会比较全面的介绍属性选择器，" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.elixir-zh.cn/post/css-%E5%B1%9E%E6%80%A7%E9%80%89%E6%8B%A9%E5%99%A8%E7%9A%84%E6%B7%B1%E5%85%A5%E6%8C%96%E6%8E%98%E8%BD%AC/" />
+<meta property="article:published_time" content="2019-06-18T16:30:05&#43;08:00"/>
+<meta property="article:modified_time" content="2019-06-18T16:30:05&#43;08:00"/>
+
+<meta itemprop="name" content="CSS 属性选择器的深入挖掘[转]">
+<meta itemprop="description" content="CSS 属性选择器，可以通过已经存在的属性名或属性值匹配元素。 属性选择器是在 CSS2 中引入的并且在 CSS3 中得到了很好拓展。本文将会比较全面的介绍属性选择器，">
+
+
+<meta itemprop="datePublished" content="2019-06-18T16:30:05&#43;08:00" />
+<meta itemprop="dateModified" content="2019-06-18T16:30:05&#43;08:00" />
+<meta itemprop="wordCount" content="3862">
+
+
+
+<meta itemprop="keywords" content="CSS," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="CSS 属性选择器的深入挖掘[转]"/>
+<meta name="twitter:description" content="CSS 属性选择器，可以通过已经存在的属性名或属性值匹配元素。 属性选择器是在 CSS2 中引入的并且在 CSS3 中得到了很好拓展。本文将会比较全面的介绍属性选择器，"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Terryzh</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Terryzh</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">CSS 属性选择器的深入挖掘[转]</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-06-18 </span>
+        <div class="post-category">
+            <a href="/categories/css/"> CSS </a>
+            </div>
+          <span class="more-meta"> 3862 words </span>
+          <span class="more-meta"> 8 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#简单的语法介绍">简单的语法介绍</a>
+<ul>
+<li><a href="#子串值-substring-value-属性选择器">子串值（Substring value）属性选择器</a></li>
+</ul></li>
+<li><a href="#css-属性选择器的最基本用法">CSS 属性选择器的最基本用法</a></li>
+<li><a href="#复杂一点点的用法">复杂一点点的用法</a>
+<ul>
+<li><a href="#层叠选择">层叠选择</a></li>
+<li><a href="#多条件复合选择">多条件复合选择</a></li>
+<li><a href="#伪正则写法">伪正则写法</a></li>
+<li><a href="#配合-not-伪类">配合 :not() 伪类</a></li>
+</ul></li>
+<li><a href="#组合拳用法-搭配伪元素提升用户体验">组合拳用法，搭配伪元素提升用户体验</a></li>
+<li><a href="#角标功能">角标功能</a>
+<ul>
+<li><a href="#属性选择器配合伪元素实现类-title-功能">属性选择器配合伪元素实现类 title 功能</a></li>
+<li><a href="#商品展示提示效果">商品展示提示效果</a></li>
+<li><a href="#属性选择器配合伪元素实现下载提示">属性选择器配合伪元素实现下载提示</a></li>
+<li><a href="#属性选择器配合伪元素对链接的协议进行提示-http-https">属性选择器配合伪元素对链接的协议进行提示(http/https)</a></li>
+<li><a href="#属性选择器对文件类型的处理">属性选择器对文件类型的处理</a></li>
+</ul></li>
+<li><a href="#属性选择器对-input-类型的处理">属性选择器对 <code>input</code> 类型的处理</a></li>
+<li><a href="#值得注意的点">值得注意的点</a>
+<ul>
+<li><a href="#注意选择器优先级-class-与-class-xxx-是否等价">注意选择器优先级 <code>，.class</code> 与 <code>[class=xxx]</code> 是否等价</a></li>
+<li><a href="#是否需要括号">是否需要括号？</a></li>
+<li><a href="#css-语义化">CSS 语义化</a></li>
+</ul></li>
+<li><a href="#最后">最后</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      
+
+<p>CSS 属性选择器，可以通过已经存在的属性名或属性值匹配元素。</p>
+
+<p>属性选择器是在 CSS2 中引入的并且在 CSS3 中得到了很好拓展。本文将会比较全面的介绍属性选择器，尽可能的去挖掘这个选择器在不同场景下的不同用法。</p>
+
+<h2 id="简单的语法介绍">简单的语法介绍</h2>
+
+<ul>
+<li><code>[attr]</code>：该选择器选择包含 <code>attr</code> 属性的所有元素，不论 <code>attr</code> 的值为何。</li>
+<li><code>[attr=val]</code>：该选择器仅选择 <code>attr</code> 属性被赋值为 <code>val</code> 的所有元素。</li>
+<li><code>[attr~=val]</code>：该选择器仅选择具有 <code>attr</code> 属性的元素，而且要求 <code>val</code> 值是 <code>attr</code> 值包含的被空格分隔的取值列表里中的一个。</li>
+</ul>
+
+<h3 id="子串值-substring-value-属性选择器">子串值（Substring value）属性选择器</h3>
+
+<p>下面几个属于 CSS3 新增语法，也被称为“伪正则选择器”，因为它们提供类似 regular expression 的灵活匹配方式。</p>
+
+<ul>
+<li><code>[attr|=val]</code> : 选择attr属性的值是 val 或值以 val- 开头的元素（注意，这里的 “-” 不是一个错误，这是用来处理语言编码的）。</li>
+<li><code>[attr^=val]</code> : 选择attr属性的值以 val 开头（包括 val）的元素。</li>
+<li><code>[attr$=val]</code> : 选择attr属性的值以 val 结尾（包括 val）的元素。</li>
+<li><code>[attr*=val]</code> : 选择attr属性的值中包含子字符串 val 的元素（一个子字符串就是一个字符串的一部分而已，例如，”cat“ 是 字符串 ”caterpillar“ 的子字符串</li>
+</ul>
+
+<h2 id="css-属性选择器的最基本用法">CSS 属性选择器的最基本用法</h2>
+
+<p>属性选择器最基本的用法，就是通过元素的属性值去选择 DOM 元素。像这样，将选中所有带 <code>href</code> 属性的DOM 元素：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="o">[</span><span class="nt">href</span><span class="o">]</span> <span class="p">{</span>
+    <span class="k">color</span><span class="p">:</span> <span class="kc">red</span><span class="p">;</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><a href="https://codepen.io/Chokcoco/pen/qGGxYa">CodePen Demo &ndash; 属性选择器基本用法</a></p>
+
+<h2 id="复杂一点点的用法">复杂一点点的用法</h2>
+
+<h3 id="层叠选择">层叠选择</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="nt">div</span> <span class="o">[</span><span class="nt">href</span><span class="o">]</span><span class="p">{</span>
+<span class="err">...</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="多条件复合选择">多条件复合选择</h3>
+
+<p>选择一个 <code>img</code> 标签，它含有 <code>title</code> 属性，并且包含类名为 <code>logo</code> 的元素。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="nt">img</span><span class="o">[</span><span class="nt">title</span><span class="o">][</span><span class="nt">class</span><span class="o">~=</span><span class="nt">logo</span><span class="o">]</span><span class="p">{</span>
+<span class="err">...</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="伪正则写法">伪正则写法</h3>
+
+<ul>
+<li>i 参数</li>
+</ul>
+
+<p>忽略类名的大小写限制，选择包含 class 类名包含子字符串为 text，Text，TeXt&hellip; 等情况的 p 元素。 这里的 i 的含义就是正则里面参数 i 的含义，ignore，忽略大小写的意思。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="nt">p</span><span class="o">[</span><span class="nt">class</span><span class="o">*=</span><span class="s2">&#34;text&#34;</span> <span class="nt">i</span><span class="o">]</span> <span class="p">{</span>
+<span class="err">...</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>所以上面的选择器可以选中类似这样的目标元素：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">p</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;text&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;nameText&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;desc textarea&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span></code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>g 参数</li>
+</ul>
+
+<p>与正则表达式不一样，参数 <code>g</code> 在这里表示大小写敏感（case-sensitively）。然而，<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors">这个属性当前仍未纳入标准</a>，支持的浏览器不多。</p>
+
+<p><a href="https://codepen.io/Chokcoco/pen/rggdYj">CodePen Demo &ndash; 属性选择器的伪正则用法</a></p>
+
+<h3 id="配合-not-伪类">配合 :not() 伪类</h3>
+
+<p>还有一种比较常用的场景就是搭配<code>:not()</code> 伪类，完成一些判断检测性的功能。譬如下面这个选择器，就可以选取所有没有 <code>[href]</code> 属性的 <code>a</code> 标签，添加一个红色边框。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="nt">a</span><span class="p">:</span><span class="nd">not</span><span class="o">([</span><span class="nt">href</span><span class="o">])</span><span class="p">{</span>
+    <span class="k">border</span><span class="p">:</span> <span class="mi">1</span><span class="kt">px</span> <span class="kc">solid</span> <span class="kc">red</span><span class="p">;</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>当然，复杂一点，我们可以搭配不仅仅一个 <code>:not()</code>伪类，像是这样，可以同时多个配合使用，选择一个 href, target, rel 属性都没有的 a 标签：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="nt">a</span><span class="p">:</span><span class="nd">not</span><span class="o">([</span><span class="nt">href</span><span class="o">])</span><span class="p">:</span><span class="nd">not</span><span class="o">([</span><span class="nt">target</span><span class="o">])</span><span class="p">:</span><span class="nd">not</span><span class="o">([</span><span class="nt">rel</span><span class="o">])</span><span class="p">{</span>
+    <span class="k">border</span><span class="p">:</span> <span class="mi">1</span><span class="kt">px</span> <span class="kc">solid</span> <span class="kc">blue</span><span class="p">;</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><a href="https://codepen.io/Chokcoco/pen/JQdgzR">CodePen Demo &ndash; 属性选择器配合 :not 伪类</a></p>
+
+<p>重写行内样式？
+甚至乎，如果有这种场景，我们还可以覆盖掉行内样式，像这样:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="o">&lt;</span><span class="nt">p</span> <span class="nt">style</span><span class="o">=</span><span class="s2">&#34;height: 24px; color: red;&#34;</span><span class="o">&gt;</span><span class="nt">xxxxxx</span><span class="o">&lt;/</span><span class="nt">p</span><span class="o">&gt;</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>我们可以使用属性选择器强制覆盖掉上述样式：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="o">[</span><span class="nt">style</span><span class="o">*=</span><span class="s2">&#34;color: red&#34;</span><span class="o">]</span> <span class="p">{</span>
+    <span class="k">color</span><span class="p">:</span> <span class="kc">blue</span> <span class="cp">!important</span><span class="p">;</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="组合拳用法-搭配伪元素提升用户体验">组合拳用法，搭配伪元素提升用户体验</h2>
+
+<p>当然，属性选择器不一定只是单单的进行标签的选择。</p>
+
+<p>配合上伪元素，我们可以实现很多有助提升用户体验的功能。</p>
+
+<h2 id="角标功能">角标功能</h2>
+
+<p>这里有一个小知识点，伪元素的 <code>content</code> 属性，通过 <code>attr(xxx)</code>，可以读取到对应 <code>DOM</code> 元素标签名为 xxx 的属性的值。</p>
+
+<p>所以，配合属性选择器，我们可以很容易的实现一些角标功能：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">count</span><span class="o">=</span><span class="s">“5“</span><span class="p">&gt;</span>Message<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="nt">div</span> <span class="p">{</span>
+    <span class="k">position</span><span class="p">:</span> <span class="kc">relative</span><span class="p">;</span>
+    <span class="k">width</span><span class="p">:</span> <span class="mi">200</span><span class="kt">px</span><span class="p">;</span>
+    <span class="k">height</span><span class="p">:</span> <span class="mi">64</span><span class="kt">px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">div</span><span class="p">::</span><span class="nd">before</span> <span class="p">{</span>
+    <span class="k">content</span><span class="p">:</span> <span class="nb">attr</span><span class="p">(</span><span class="n">count</span><span class="p">);</span>
+    <span class="err">...</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><img src="https://user-gold-cdn.xitu.io/2019/6/18/16b6866a5a078137?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="image" /></p>
+
+<p>这里右上角的数字 5 提示角标，就是使用属性选择器配合伪元素实现，可以适应各种长度，以及中英文，能够节省一些标签。</p>
+
+<p><a href="https://codepen.io/Chokcoco/pen/EBKMpw">CodePen Demo &ndash; 属性选择器实现角标功能</a></p>
+
+<h3 id="属性选择器配合伪元素实现类-title-功能">属性选择器配合伪元素实现类 title 功能</h3>
+
+<p>我们都知道，如果给一个图片添加一个 <code>title</code> 属性，当 <code>hover</code> 到图片上面的时，会展示 <code>title</code> 属性里面附加的内容，类似这样：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;xxxxxxxxx&#34;</span> <span class="na">title</span><span class="o">=</span><span class="s">&#34;风景图片&#34;</span><span class="p">&gt;</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><img src="https://user-gold-cdn.xitu.io/2019/6/18/16b6866a59e40328?imageslim" alt="attributeselector" /></p>
+
+<p>这里不一定是 <code>img</code> 标签，其他标签添加 <code>title</code> 属性都能有类似的效果。但是这里会有两个问题：</p>
+
+<ul>
+<li>响应太慢，通常鼠标 hover 上去要隔 1s 左右才会出现这个 title 框</li>
+<li>框体结构无法自定义，弹出框的样式无法自定义</li>
+</ul>
+
+<p>所以这里，如果我们希望有一些自己能够控制样式的可快速响应的浮层，可以自定义一个类 <code>title</code> 属性，我们把它称作 <code>popTitle</code>，那么可以这样操作：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">p</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;title&#34;</span> <span class="na">popTitle</span><span class="o">=</span><span class="s">&#34;文字弹出&#34;</span><span class="p">&gt;</span>这是一段描述性文字<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;title&#34;</span> <span class="na">popTitle</span><span class="o">=</span><span class="s">&#34;标题A&#34;</span><span class="p">&gt;</span>这是一段描述性文字<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="nt">p</span><span class="o">[</span><span class="nt">popTitle</span><span class="o">]</span><span class="p">:</span><span class="nd">hover</span><span class="p">::</span><span class="nd">before</span> <span class="p">{</span>
+    <span class="k">content</span><span class="p">:</span> <span class="nb">attr</span><span class="p">(</span><span class="n">popTitle</span><span class="p">);</span>
+    <span class="k">position</span><span class="p">:</span> <span class="kc">absolute</span><span class="p">;</span>
+    <span class="k">color</span><span class="p">:</span> <span class="kc">red</span><span class="p">;</span>
+    <span class="k">border</span><span class="p">:</span> <span class="mi">1</span><span class="kt">px</span> <span class="kc">solid</span> <span class="mh">#000</span><span class="p">;</span>
+    <span class="err">...</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>对比一下，第一个是原生自带的 <code>title</code> 属性，下面两个是使用属性选择器配合伪元素模拟的提示：</p>
+
+<p><img src="https://user-gold-cdn.xitu.io/2019/6/18/16b6866a654e3ae4?imageslim" alt="attributeselector2" /></p>
+
+<blockquote>
+<p>浏览器自带的 <code>title</code> 属性延迟响应是添加一层防抖保护，避免频繁触发，这里也可以通过对伪元素添加一个100毫秒级的 <code>transition-delay</code> 实现延迟展示。</p>
+</blockquote>
+
+<p><a href="https://codepen.io/Chokcoco/pen/GaaXyp">CodePen Demo &ndash; 属性选择器配合伪元素实现类 title 功能</a></p>
+
+<h3 id="商品展示提示效果">商品展示提示效果</h3>
+
+<p>好，上面的运用实例我们再拓展一下，考虑如何更好的运用到实际业务中，其实也是有很多用武之地的。譬如说，通过属性选择器给图片添加标签，类似一些电商网站会用到的一个效果。</p>
+
+<p>我们希望给图片添加一些标签，在 hover 图片的时候展示出来。</p>
+
+<blockquote>
+<p>当然，CSS 中，诸如 <code>&lt;img&gt;</code> 、<code>&lt;input&gt;</code>、<code>&lt;iframe&gt;</code>，这几个标签是不支持伪元素的。</p>
+</blockquote>
+
+<p>所以这里我们输出 DOM 的时候，给 img 的父元素带上部分图片描述标签。通过 CSS 去控制这些标签的展示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;g-wrap&#34;</span> <span class="na">desc1</span><span class="o">=</span><span class="s">&#34;商品描述AAA&#34;</span> <span class="na">desc2</span><span class="o">=</span><span class="s">&#34;商品描述BBB&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;https://xx.baidu.com/timg?xxx&#34;</span> <span class="p">&gt;</span>    
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="o">[</span><span class="nt">desc1</span><span class="o">]</span><span class="p">::</span><span class="nd">before</span><span class="o">,</span>
+<span class="o">[</span><span class="nt">desc2</span><span class="o">]</span><span class="p">::</span><span class="nd">after</span> <span class="p">{</span>
+    <span class="k">position</span><span class="p">:</span> <span class="kc">absolute</span><span class="p">;</span>
+    <span class="k">opacity</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="o">[</span><span class="nt">desc1</span><span class="o">]</span><span class="p">::</span><span class="nd">before</span> <span class="p">{</span>
+    <span class="k">content</span><span class="p">:</span> <span class="nb">attr</span><span class="p">(</span><span class="n">desc1</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="o">[</span><span class="nt">desc2</span><span class="o">]</span><span class="p">::</span><span class="nd">after</span> <span class="p">{</span>
+    <span class="k">content</span><span class="p">:</span> <span class="nb">attr</span><span class="p">(</span><span class="n">desc2</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="o">[</span><span class="nt">desc1</span><span class="o">]</span><span class="p">:</span><span class="nd">hover</span><span class="p">::</span><span class="nd">before</span><span class="o">,</span>
+<span class="o">[</span><span class="nt">desc2</span><span class="o">]</span><span class="p">:</span><span class="nd">hover</span><span class="p">::</span><span class="nd">after</span><span class="p">{</span>
+    <span class="k">opacity</span><span class="p">:</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>看看效果：</p>
+
+<p><img src="https://user-gold-cdn.xitu.io/2019/6/18/16b6866a64c03936?imageslim" alt="attributeselector4" /></p>
+
+<p><a href="https://codepen.io/Chokcoco/pen/VJZKmx?editors=1100">CodePen Demo &ndash; 通过属性选择器给图片添加标签</a></p>
+
+<h3 id="属性选择器配合伪元素实现下载提示">属性选择器配合伪元素实现下载提示</h3>
+
+<p>我们知道，<code>HTML5</code> 对标签新增了一个 <code>download</code> 属性，此属性指示浏览器下载 <code>URL</code> 而不是导航到它。</p>
+
+<p>那么，我们可以利用属性选择器对所有带此类标签的元素进行提示。像这样：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;https://www.xxx.com/logo.png&#34;</span> <span class="na">download</span><span class="o">=</span><span class="s">&#34;logo&#34;</span><span class="p">&gt;</span>logo<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="o">[</span><span class="nt">download</span><span class="o">]</span> <span class="p">{</span>
+    <span class="k">position</span><span class="p">:</span> <span class="kc">relative</span><span class="p">;</span>
+    <span class="k">color</span><span class="p">:</span> <span class="kc">hotpink</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="o">[</span><span class="nt">download</span><span class="o">]</span><span class="p">:</span><span class="nd">hover</span><span class="p">::</span><span class="nd">before</span> <span class="p">{</span>
+    <span class="k">content</span><span class="p">:</span> <span class="s2">&#34;点击可下载此资源！&#34;</span><span class="p">;</span>
+    <span class="k">position</span><span class="p">:</span> <span class="kc">absolute</span><span class="p">;</span>
+    <span class="err">...</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>当我们 hover 到这个链接的时候，就会这样，提示用户，这是一个可以下载的按钮：</p>
+
+<p><img src="https://user-gold-cdn.xitu.io/2019/6/18/16b6866a65ad8d67?imageslim" alt="attributeselector3" /></p>
+
+<p><a href="https://codepen.io/Chokcoco/pen/byymKj">CodePen Demo &ndash; 属性选择器配合伪元素做下载提示</a></p>
+
+<h3 id="属性选择器配合伪元素对链接的协议进行提示-http-https">属性选择器配合伪元素对链接的协议进行提示(http/https)</h3>
+
+<p>现在大部分网站不是切了 <code>https</code> 就是走在切 <code>https</code> 的路上。如果页面上的链接很多或者对跳转页面的协议有要求，使用属性选择器配合伪元素对链接的协议进行提示也不失为一种好方法。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="nt">a</span><span class="o">[</span><span class="nt">href</span><span class="o">^=</span><span class="s2">&#34;http:&#34;</span><span class="o">]</span><span class="p">:</span><span class="nd">hover</span><span class="p">::</span><span class="nd">before</span> <span class="p">{</span>
+    <span class="k">content</span><span class="p">:</span> <span class="s2">&#34;这是一个http链接&#34;</span><span class="p">;</span>
+    <span class="err">...</span>
+<span class="p">}</span>
+
+<span class="nt">a</span><span class="o">[</span><span class="nt">href</span><span class="o">^=</span><span class="s2">&#34;https:&#34;</span><span class="o">]</span><span class="p">:</span><span class="nd">hover</span><span class="p">::</span><span class="nd">before</span> <span class="p">{</span>
+    <span class="k">content</span><span class="p">:</span> <span class="s2">&#34;这是一个https链接&#34;</span><span class="p">;</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><a href="https://codepen.io/Chokcoco/pen/byXQwj">CodePen Demo &ndash; 属性选择器配合伪元素对链接的协议进行提示(http/https)</a></p>
+
+<p>当然，伪元素的内容不一定是纯文字的，为了给用户更好的体验，图或者图片加文字也是可以的。</p>
+
+<p>譬如我们可以形象化地给 https 链接站点再加一个小绿锁，符合用户的一些常规认知。</p>
+
+<p><img src="https://user-gold-cdn.xitu.io/2019/6/18/16b6866a65aaa47c?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="image" /></p>
+
+<p>这里我将小绿锁的图片使用 <code>base64</code> 嵌入到伪元素当中，简单的使用 <code>text-indent</code> 控制图文的排布：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="nt">a</span><span class="o">[</span><span class="nt">href</span><span class="o">^=</span><span class="s2">&#34;https:&#34;</span><span class="o">]</span><span class="p">:</span><span class="nd">hover</span><span class="p">::</span><span class="nd">before</span> <span class="p">{</span>
+    <span class="k">content</span><span class="p">:</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
+    <span class="k">padding-left</span><span class="p">:</span> <span class="mi">16</span><span class="kt">px</span><span class="p">;</span>
+    <span class="k">background</span><span class="p">:</span> <span class="nb">url</span><span class="p">(</span><span class="s2">&#34;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAb0lEQVQoz2NkQAJc5aIc//7962VgYIiDCi1iYmIq/tb5+gdMDROyBqhiGWYmJlVmJiZVBgYGGagYdsBRKvyZu1xUAsbnLheV4CgV/oxbQ4nwf0JiTAwkAkaIU4QaGf4z1uFX+b/pR/e7epJtGJEaAKDXHzEJ3KYmAAAAAElFTkSuQmCC&#34;</span><span class="p">);</span>
+    <span class="err">...</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><img src="https://user-gold-cdn.xitu.io/2019/6/18/16b6866af954bf26?imageslim" alt="attributeselector5" /></p>
+
+<blockquote>
+<p>这里只是一个非常小的 Demo，实际情况是大部分用户并不了解这个小绿锁的含义，所以实际使用应该搭配文字辅助提示。</p>
+</blockquote>
+
+<p><a href="https://codepen.io/Chokcoco/pen/wbVQJx">CodePen Demo &ndash; 属性选择器配合伪元素对https协议进行图文提示</a></p>
+
+<h3 id="属性选择器对文件类型的处理">属性选择器对文件类型的处理</h3>
+
+<p>也可以对一些可下载资源进行视觉上 icon 的提示。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;xxx.doc&#34;</span><span class="p">&gt;</span>Word File<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;xxx.ppt&#34;</span><span class="p">&gt;</span>PPT File<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;xxx.PDF&#34;</span><span class="p">&gt;</span>PDF File<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;xxx.MP3&#34;</span><span class="p">&gt;</span>MP3 File<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;xxx.avi&#34;</span><span class="p">&gt;</span>AVI File<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="nt">a</span><span class="o">[</span><span class="nt">href</span><span class="o">$=</span><span class="s2">&#34;.doc&#34;</span> <span class="nt">i</span><span class="o">]</span><span class="p">::</span><span class="nd">before</span> <span class="p">{</span>
+    <span class="k">content</span><span class="p">:</span> <span class="s2">&#34;doc&#34;</span><span class="p">;</span>
+    <span class="k">background</span><span class="p">:</span> <span class="mh">#a9c4f5</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">a</span><span class="o">[</span><span class="nt">href</span><span class="o">$=</span><span class="s2">&#34;.ppt&#34;</span> <span class="nt">i</span><span class="o">]</span><span class="p">::</span><span class="nd">before</span> <span class="p">{</span>
+    <span class="k">content</span><span class="p">:</span> <span class="s2">&#34;ppt&#34;</span><span class="p">;</span>
+    <span class="k">background</span><span class="p">:</span> <span class="mh">#f8e94f</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">a</span><span class="o">[</span><span class="nt">href</span><span class="o">$=</span><span class="s2">&#34;.pdf&#34;</span> <span class="nt">i</span><span class="o">]</span><span class="p">::</span><span class="nd">before</span> <span class="p">{</span>
+    <span class="k">content</span><span class="p">:</span> <span class="s2">&#34;pdf&#34;</span><span class="p">;</span>
+    <span class="k">background</span><span class="p">:</span> <span class="mh">#fb807a</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">a</span><span class="o">[</span><span class="nt">href</span><span class="o">$=</span><span class="s2">&#34;.mp3&#34;</span> <span class="nt">i</span><span class="o">]</span><span class="p">::</span><span class="nd">before</span> <span class="p">{</span>
+    <span class="k">content</span><span class="p">:</span> <span class="s2">&#34;mp3&#34;</span><span class="p">;</span>
+    <span class="k">background</span><span class="p">:</span> <span class="mh">#cb5cf5</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">a</span><span class="o">[</span><span class="nt">href</span><span class="o">$=</span><span class="s2">&#34;.avi&#34;</span> <span class="nt">i</span><span class="o">]</span><span class="p">::</span><span class="nd">before</span> <span class="p">{</span>
+    <span class="k">content</span><span class="p">:</span> <span class="s2">&#34;avi&#34;</span><span class="p">;</span>
+    <span class="k">background</span><span class="p">:</span> <span class="mh">#5f8ffc</span><span class="p">;</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><img src="https://user-gold-cdn.xitu.io/2019/6/18/16b6866b82527678?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="image" /></p>
+
+<p><a href="https://codepen.io/Chokcoco/pen/orNQJL">CodePen Demo &ndash; 属性选择器选择文件名后缀</a></p>
+
+<h2 id="属性选择器对-input-类型的处理">属性选择器对 <code>input</code> 类型的处理</h2>
+
+<p>属性选择器其实对 <code>input</code> 类型的元素是一个很好的帮手，因为 <code>input</code> 常用，且经常搭配很多不同功能的属性值。</p>
+
+<p>只不过，由于 <code>input</code> 类型无法添加伪元素。所以搭配属性选择器更多的通过属性的各种状态改变自身的样式。</p>
+
+<p>简单举个例子，譬如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> <span class="na">disabled</span><span class="p">&gt;</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="nt">input</span><span class="o">[</span><span class="nt">type</span><span class="o">=</span><span class="nt">text</span><span class="o">][</span><span class="nt">disabled</span><span class="o">]</span> <span class="p">{</span>
+    <span class="k">border</span><span class="p">:</span> <span class="mi">1</span><span class="kt">px</span> <span class="kc">solid</span> <span class="mh">#aaa</span><span class="p">;</span>
+    <span class="k">background</span><span class="p">:</span> <span class="mh">#ccc</span><span class="p">;</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>这里，我们选择了 <code>type=text</code> 并且拥有 <code>disabled</code> 属性的 <code>input</code> 元素，将它的背景色和边框色设置为灰色。给与用户更好的视觉提示。</p>
+
+<p><img src="https://user-gold-cdn.xitu.io/2019/6/18/16b6866b852e7a21?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="image" /></p>
+
+<h2 id="值得注意的点">值得注意的点</h2>
+
+<h3 id="注意选择器优先级-class-与-class-xxx-是否等价">注意选择器优先级 <code>，.class</code> 与 <code>[class=xxx]</code> 是否等价</h3>
+
+<p>考虑这个问题，下面两个选择器是否等值？</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;header&#34;</span><span class="p">&gt;</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="p">.</span><span class="nc">header</span> <span class="p">{</span>
+    <span class="k">color</span><span class="p">:</span> <span class="kc">red</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="o">[</span><span class="nt">class</span><span class="o">~=</span><span class="s2">&#34;header&#34;</span><span class="o">]</span> <span class="p">{</span>
+    <span class="k">color</span><span class="p">:</span> <span class="kc">blue</span><span class="p">;</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>上述两个选择器，作用完全一致。然而，如果是下面这种情况，两者就不一样了：</p>
+
+<p><code>&lt;div id=&quot;header&quot;&gt;</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="p">#</span><span class="nn">header</span><span class="p">{</span>
+    <span class="k">color</span><span class="p">:</span> <span class="kc">red</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="o">[</span><span class="nt">id</span><span class="o">=</span><span class="s2">&#34;header&#34;</span><span class="o">]</span> <span class="p">{</span>
+    <span class="k">color</span><span class="p">:</span> <span class="kc">blue</span><span class="p">;</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>这里，ID 选择器<code>#header</code>比属性选择器<code>[id=&quot;header&quot;]</code>的权重更高，虽然两者能够选择同样的元素，但是两者并不完全等价。</p>
+
+<h3 id="是否需要括号">是否需要括号？</h3>
+
+<p>考虑下面三种情况，是否一致？</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="o">[</span><span class="nt">class</span><span class="o">=</span><span class="s2">&#34;header&#34;</span><span class="o">]</span><span class="p">{</span> <span class="err">...</span> <span class="p">}</span>
+
+<span class="o">[</span><span class="nt">class</span><span class="o">=</span><span class="s1">&#39;header&#39;</span><span class="o">]</span><span class="p">{</span> <span class="err">...</span> <span class="p">}</span>
+
+<span class="o">[</span><span class="nt">class</span><span class="o">=</span><span class="nt">header</span><span class="o">]</span><span class="p">{</span> <span class="err">...</span> <span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>事实上，从 HTML2 开始，不添加括号的写法就已经得到支持，所以上述三种写法都是正确的。</p>
+
+<p>然而，能够不使用括号也是有限制的，再看看下面这种写法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="nt">a</span><span class="o">[</span><span class="nt">href</span><span class="o">=</span><span class="nt">bar</span><span class="o">]</span> <span class="p">{</span> <span class="err">...</span> <span class="p">}</span>
+
+<span class="nt">a</span><span class="o">[</span><span class="nt">href</span><span class="o">^=</span><span class="nt">http</span><span class="o">://]</span> <span class="p">{</span><span class="err">...</span> <span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>第二个选择器是个无效选择器，<code>://</code> 不括起来的话会识别错误，必须使用括号括起来像这样<code>a[href^=&quot;http://&quot;]</code>，这里具体的原因可以看看这篇文章：<a href="https://mothereff.in/unquoted-attributes">Unquoted attribute value validator</a>。</p>
+
+<p>所以保险起见，建议都加上括号。</p>
+
+<h3 id="css-语义化">CSS 语义化</h3>
+
+<p>编写”具有语义的<code>HTML</code>”原则是现代、专业前端开发的一个基础。当然，我们经常谈论到的都是 <code>HTML</code> 语义化。</p>
+
+<p>那么，<code>CSS</code> 需要语义化吗？<code>CSS</code> 有语义化吗？例如上述的例子，使用特定的类名或者 id 选择器皆可完成。那么使用属性选择器的理由是什么？</p>
+
+<p>我的理解是，属性（attribute）本身已经具有一定的语义，表达了元素的某些特征或者功能，利用属性选取元素再进行对该属性值的特定操作，一定程度上也可以辅助提升代码的语义化。至少的提升了 <code>CSS</code> 代码的可读性。但是 <code>CSS</code> 是否需要语义化这个问题就见仁见智了。</p>
+
+<h2 id="最后">最后</h2>
+
+<p>这里有几篇文章还涵盖了很多其他方面使用，可以对比观看：</p>
+
+<ul>
+<li><a href="https://www.smashingmagazine.com/2013/08/semantic-css-with-intelligent-selectors/">Semantic CSS With Intelligent Selectors</a></li>
+<li><a href="https://www.smashingmagazine.com/2018/10/attribute-selectors-splicing-html-dna-css/">Splicing HTML’s DNA With CSS Attribute Selectors</a>
+更多精彩 <code>CSS</code> 技术文章汇总在我的 <a href="https://github.com/chokcoco/iCSS">Github &ndash; iCSS</a> ，持续更新，欢迎点个 star 订阅收藏。</li>
+</ul>
+
+<blockquote>
+<blockquote>
+<blockquote>
+<p>本文转载自<a href="https://juejin.im/post/5d084b6651882563194b2eab">chokcoco</a>,侵删.</p>
+</blockquote>
+</blockquote>
+</blockquote>
+
+    </div>
+
+    
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">Reward</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/reward/wechat-qr-code.png">
+        <span>wechat</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/reward/alipay-qr-code.png">
+        <span>alipay</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/css/">CSS</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/immutable-js%E8%AF%A6%E8%A7%A3/">
+            <span class="next-text nav-default">Immutable JS详解</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2019-06-18 16:30:05 \x2b0800 \x2b0800',
+        title: 'CSS 属性选择器的深入挖掘[转]',
+        clientID: 'bf0ed9ea18e819e40135',
+        clientSecret: '92bdc65717aa7f0ec48bfe94e773b57a21163785',
+        repo: 'blog_comments',
+        owner: '496971418@qq.com',
+        admin: ['496971418@qq.com'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:terryzh017@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://stackoverflow.com/users/10838177/terryzh" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://twitter.com/terryzhAizz" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/t496971418" class="iconfont icon-github" title="github"></a>
+  <a href="http://www.elixir-zh.cn/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Terryzh</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

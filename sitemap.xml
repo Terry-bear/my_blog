@@ -10,6 +10,13 @@
   </url>
   
   <url>
+    <loc>http://www.elixir-zh.cn/post/css-%E5%B1%9E%E6%80%A7%E9%80%89%E6%8B%A9%E5%99%A8%E7%9A%84%E6%B7%B1%E5%85%A5%E6%8C%96%E6%8E%98%E8%BD%AC/</loc>
+    <lastmod>2019-06-18T16:30:05+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>http://www.elixir-zh.cn/post/immutable-js%E8%AF%A6%E8%A7%A3/</loc>
     <lastmod>2019-04-25T15:00:43+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -93,20 +100,36 @@
   </url>
   
   <url>
+    <loc>http://www.elixir-zh.cn/tags/css/</loc>
+    <lastmod>2019-06-18T16:30:05+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.elixir-zh.cn/categories/css/</loc>
+    <lastmod>2019-06-18T16:30:05+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>http://www.elixir-zh.cn/categories/</loc>
+    <lastmod>2019-06-18T16:30:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://www.elixir-zh.cn/post/</loc>
-    <lastmod>2019-04-25T15:00:43+08:00</lastmod>
+    <lastmod>2019-06-18T16:30:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://www.elixir-zh.cn/tags/</loc>
+    <lastmod>2019-06-18T16:30:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>

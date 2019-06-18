@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Terryzh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 25 Apr 2019 15:00:43 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 18 Jun 2019 16:30:05 +0800</lastBuildDate>
     
 	<atom:link href="http://www.elixir-zh.cn/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>CSS 属性选择器的深入挖掘[转]</title>
+      <link>http://www.elixir-zh.cn/post/css-%E5%B1%9E%E6%80%A7%E9%80%89%E6%8B%A9%E5%99%A8%E7%9A%84%E6%B7%B1%E5%85%A5%E6%8C%96%E6%8E%98%E8%BD%AC/</link>
+      <pubDate>Tue, 18 Jun 2019 16:30:05 +0800</pubDate>
+      
+      <guid>http://www.elixir-zh.cn/post/css-%E5%B1%9E%E6%80%A7%E9%80%89%E6%8B%A9%E5%99%A8%E7%9A%84%E6%B7%B1%E5%85%A5%E6%8C%96%E6%8E%98%E8%BD%AC/</guid>
+      <description>CSS 属性选择器，可以通过已经存在的属性名或属性值匹配元素。 属性选择器是在 CSS2 中引入的并且在 CSS3 中得到了很好拓展。本文将会比较全面的介绍属性选择器，</description>
+    </item>
     
     <item>
       <title>Immutable JS详解</title>
