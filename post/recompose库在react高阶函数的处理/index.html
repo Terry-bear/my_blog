@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Recompose库在React高阶函数的处理 - Terryzh</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Terryzh" /><meta name="description" content="多年来，我逐渐意识到开发高质量的React应用的唯一正确途径，是编写函数组件。 在本文中，我将简要介绍函数组件和高阶组件。之后，我们将深入研究" /><meta name="keywords" content="javascript" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.54.0 with even 4.0.0" />
+
+
+<link rel="canonical" href="http://www.elixir-zh.cn/post/recompose%E5%BA%93%E5%9C%A8react%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0%E7%9A%84%E5%A4%84%E7%90%86/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.65dce888.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Recompose库在React高阶函数的处理" />
+<meta property="og:description" content="多年来，我逐渐意识到开发高质量的React应用的唯一正确途径，是编写函数组件。 在本文中，我将简要介绍函数组件和高阶组件。之后，我们将深入研究" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.elixir-zh.cn/post/recompose%E5%BA%93%E5%9C%A8react%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0%E7%9A%84%E5%A4%84%E7%90%86/" />
+<meta property="article:published_time" content="2019-06-20T14:24:02&#43;08:00"/>
+<meta property="article:modified_time" content="2019-06-20T14:24:02&#43;08:00"/>
+
+<meta itemprop="name" content="Recompose库在React高阶函数的处理">
+<meta itemprop="description" content="多年来，我逐渐意识到开发高质量的React应用的唯一正确途径，是编写函数组件。 在本文中，我将简要介绍函数组件和高阶组件。之后，我们将深入研究">
+
+
+<meta itemprop="datePublished" content="2019-06-20T14:24:02&#43;08:00" />
+<meta itemprop="dateModified" content="2019-06-20T14:24:02&#43;08:00" />
+<meta itemprop="wordCount" content="3505">
+
+
+
+<meta itemprop="keywords" content="javascript," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Recompose库在React高阶函数的处理"/>
+<meta name="twitter:description" content="多年来，我逐渐意识到开发高质量的React应用的唯一正确途径，是编写函数组件。 在本文中，我将简要介绍函数组件和高阶组件。之后，我们将深入研究"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Terryzh</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Terryzh</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Recompose库在React高阶函数的处理</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-06-20 </span>
+        <div class="post-category">
+            <a href="/categories/code/"> code </a>
+            </div>
+          <span class="more-meta"> 3505 words </span>
+          <span class="more-meta"> 7 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#函数组件简介">函数组件简介</a></li>
+<li><a href="#高阶组件">高阶组件</a>
+<ul>
+<li><a href="#凌乱的class组件">凌乱的Class组件</a></li>
+</ul></li>
+<li><a href="#需要recompose库">需要Recompose库</a></li>
+<li><a href="#优雅的函数组件">优雅的函数组件</a>
+<ul>
+<li><a href="#step-0-安装-recompose">Step 0. 安装 Recompose</a></li>
+<li><a href="#step-1-提取输入表单的state">Step 1. 提取输入表单的State</a></li>
+<li><a href="#step-2-提取表单验证逻辑">Step 2.提取表单验证逻辑</a></li>
+<li><a href="#step-3-提取表单提交逻辑">Step 3. 提取表单提交逻辑</a></li>
+<li><a href="#step-4-魔术-coming">Step 4. 魔术<code>coming</code></a></li>
+<li><a href="#step-5-呼吸一口新鲜空气">Step 5.呼吸一口新鲜空气</a></li>
+</ul></li>
+<li><a href="#project-source-code">Project Source Code</a></li>
+<li><a href="#惊喜-使用recompose的pure可以优化性能">惊喜：使用Recompose的pure可以优化性能</a></li>
+<li><a href="#总结">总结</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>多年来，我逐渐意识到开发高质量的<code>React</code>应用的唯一正确途径，是编写函数组件。</p>
+
+<p>在本文中，我将简要介绍函数组件和高阶组件。之后，我们将深入研究臃肿的<code>React</code>组件，将之重构为由多个可组合的高阶组件的优雅方案。</p>
+
+<h2 id="函数组件简介">函数组件简介</h2>
+
+<p>之所以被称为函数组件，是因为它们确实是普通的<code>JavaScript</code>函数。 常用的<code>React</code>中应该只包含函数组件。</p>
+
+<p>首先让我们来看一个非常简单的<code>Class</code>组件</p>
+
+<p>fileName-&gt;<strong>simple_class_component.jsx</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="k">class</span> <span class="nx">MyComponent</span> <span class="k">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span><span class="nx">Hi</span><span class="p">,</span> <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">name</span><span class="p">}&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>现在让我们将相同的组件重写为函数组件：</p>
+
+<p>fileName-&gt;<strong>simple_functional_component.jsx</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="k">const</span> <span class="nx">MyComponent</span> <span class="o">=</span> <span class="p">({</span><span class="nx">name</span><span class="p">})</span> <span class="p">=&gt;</span> <span class="p">(</span>
+  <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span><span class="nx">Hi</span><span class="p">,</span> <span class="p">{</span><span class="nx">name</span><span class="p">}&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">);</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>如您所见，函数组件更清晰，更短，更易于阅读。也没有必要使用<code>this</code>关键字。</p>
+
+<blockquote>
+<p>其他一些好处：</p>
+</blockquote>
+
+<ul>
+<li>易于推理 - 函数组件是纯函数，这意味着它们将始终为相同的输入，输出相同的输出。 给定名称Ilya，上面的组件将呈现</li>
+</ul>
+
+<p><code>&lt;h1&gt; Hi，Ilya &lt;/ h1&gt;</code>
+* 易于测试 - 由于函数组件是纯函数，因此很容易对它们进行预测：给定一些props，预测它渲染相应的结构。
+* 帮助防止滥用组件state，采用props替代。
+* 鼓励可重用和模块化代码。
+* 不要让 “god” components 过于承担太多事情
+* 组合性-可以根据需要使用高阶组件添加行为。</p>
+
+<blockquote>
+<p>如果你的组件没有render（）方法以外的方法，那么就没有理由使用class组件。</p>
+</blockquote>
+
+<h2 id="高阶组件">高阶组件</h2>
+
+<p>高阶组件（HOC）是<code>React</code>中用于重用（和隔离）组件逻辑的功能。 你可能已经遇到过<code>HOC - Redux</code>的<code>connect</code>是一个高阶组件。</p>
+
+<p>将HOC应用于组件，将用新特性增强现有组件。这通常是通过添加新的<code>props</code>来完成的，这些<code>props</code>会传递到组件中。对于<code>Redux</code>的<code>connect</code>，组件将获得新的<code>props</code>，这些<code>props</code>与<code>mapStateToProps</code>和<code>mapDispatchToProps</code>函数进行了映射。</p>
+
+<p>我们经常需要与<code>localStorage</code>交互，但是，直接在组件内部与<code>localStorage</code>交互是错误的，因为它有副作用。 在常用的<code>React</code>中，组件应该没有副作用。 以下简单的高阶组件将向包裹组件添加三个新<code>props</code>，并使其能够与<code>localStorage</code>交互。</p>
+
+<p>fileName-&gt;<strong>simple_hoc.jsx</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="k">const</span> <span class="nx">withLocalStorage</span> <span class="o">=</span> <span class="p">(</span><span class="nx">WrappedComponent</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="nx">loadFromStorage</span>   <span class="o">=</span> <span class="p">(</span><span class="nx">key</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="nx">key</span><span class="p">);</span>
+  <span class="k">const</span> <span class="nx">saveToStorage</span>     <span class="o">=</span> <span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="nx">value</span><span class="p">);</span>
+  <span class="k">const</span> <span class="nx">removeFromStorage</span> <span class="o">=</span> <span class="p">(</span><span class="nx">key</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">localStorage</span><span class="p">.</span><span class="nx">removeItem</span><span class="p">(</span><span class="nx">key</span><span class="p">);</span>
+  
+  <span class="k">return</span> <span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">(</span>
+      <span class="p">&lt;</span><span class="nt">WrappedComponent</span>
+            <span class="na">loadFromStorage</span><span class="o">=</span><span class="s">{loadFromStorage}</span>
+            <span class="na">saveToStorage</span><span class="o">=</span><span class="s">{saveToStorage}</span>
+            <span class="na">removeFromStorage</span><span class="o">=</span><span class="s">{removeFromStorage}</span>
+            <span class="p">{</span><span class="na">...props</span><span class="p">}</span>
+        <span class="p">/&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>然后我们可以简单地使用以下方法:<code>withLocalStorage(MyComponent)</code></p>
+
+<h3 id="凌乱的class组件">凌乱的Class组件</h3>
+
+<p>让我向您介绍我们将要使用的组件。 它是一个简单的注册表单，由三个字段组成，并带有一些基本的表单验证。</p>
+
+<p>fileName-&gt;<strong>complex_form.js</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="k">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s2">&#34;react&#34;</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">TextField</span><span class="p">,</span> <span class="nx">Button</span><span class="p">,</span> <span class="nx">Grid</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&#34;@material-ui/core&#34;</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">axios</span> <span class="nx">from</span> <span class="s1">&#39;axios&#39;</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nx">SignupForm</span> <span class="k">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">email</span><span class="o">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+    <span class="nx">emailError</span><span class="o">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+    <span class="nx">password</span><span class="o">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+    <span class="nx">passwordError</span><span class="o">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+    <span class="nx">confirmPassword</span><span class="o">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+    <span class="nx">confirmPasswordError</span><span class="o">:</span> <span class="s2">&#34;&#34;</span>
+  <span class="p">};</span>
+
+  <span class="nx">getEmailError</span> <span class="o">=</span> <span class="nx">email</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="nx">emailRegex</span> <span class="o">=</span> <span class="sr">/^(([^&lt;&gt;()\[\]\\.,;:\s@&#34;]+(\.[^&lt;&gt;()\[\]\\.,;:\s@&#34;]+)*)|(&#34;.+&#34;))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/</span><span class="p">;</span>
+
+    <span class="k">const</span> <span class="nx">isValidEmail</span> <span class="o">=</span> <span class="nx">emailRegex</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">email</span><span class="p">);</span>
+    <span class="k">return</span> <span class="o">!</span><span class="nx">isValidEmail</span> <span class="o">?</span> <span class="s2">&#34;Invalid email.&#34;</span> <span class="o">:</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
+  <span class="p">};</span>
+
+  <span class="nx">validateEmail</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="nx">error</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getEmailError</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">email</span><span class="p">);</span>
+
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span> <span class="nx">emailError</span><span class="o">:</span> <span class="nx">error</span> <span class="p">});</span>
+    <span class="k">return</span> <span class="o">!</span><span class="nx">error</span><span class="p">;</span>
+  <span class="p">};</span>
+
+  <span class="nx">getPasswordError</span> <span class="o">=</span> <span class="nx">password</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="nx">passwordRegex</span> <span class="o">=</span> <span class="sr">/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/</span><span class="p">;</span>
+
+    <span class="k">const</span> <span class="nx">isValidPassword</span> <span class="o">=</span> <span class="nx">passwordRegex</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">password</span><span class="p">);</span>
+    <span class="k">return</span> <span class="o">!</span><span class="nx">isValidPassword</span>
+      <span class="o">?</span> <span class="s2">&#34;The password must contain minimum eight characters, at least one letter and one number.&#34;</span>
+      <span class="o">:</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
+  <span class="p">};</span>
+
+  <span class="nx">validatePassword</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="nx">error</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getPasswordError</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">password</span><span class="p">);</span>
+
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span> <span class="nx">passwordError</span><span class="o">:</span> <span class="nx">error</span> <span class="p">});</span>
+    <span class="k">return</span> <span class="o">!</span><span class="nx">error</span><span class="p">;</span>
+  <span class="p">};</span>
+
+  <span class="nx">getConfirmPasswordError</span> <span class="o">=</span> <span class="p">(</span><span class="nx">password</span><span class="p">,</span> <span class="nx">confirmPassword</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="nx">passwordsMatch</span> <span class="o">=</span> <span class="nx">password</span> <span class="o">===</span> <span class="nx">confirmPassword</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="o">!</span><span class="nx">passwordsMatch</span> <span class="o">?</span> <span class="s2">&#34;Passwords don&#39;t match.&#34;</span> <span class="o">:</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
+  <span class="p">};</span>
+
+  <span class="nx">validateConfirmPassword</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="nx">error</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getConfirmPasswordError</span><span class="p">(</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">password</span><span class="p">,</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">confirmPassword</span>
+    <span class="p">);</span>
+
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span> <span class="nx">confirmPasswordError</span><span class="o">:</span> <span class="nx">error</span> <span class="p">});</span>
+    <span class="k">return</span> <span class="o">!</span><span class="nx">error</span><span class="p">;</span>
+  <span class="p">};</span>
+
+  <span class="nx">onChangeEmail</span> <span class="o">=</span> <span class="nx">event</span> <span class="p">=&gt;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span>
+      <span class="nx">email</span><span class="o">:</span> <span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span>
+    <span class="p">});</span>
+
+  <span class="nx">onChangePassword</span> <span class="o">=</span> <span class="nx">event</span> <span class="p">=&gt;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span>
+      <span class="nx">password</span><span class="o">:</span> <span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span>
+    <span class="p">});</span>
+
+  <span class="nx">onChangeConfirmPassword</span> <span class="o">=</span> <span class="nx">event</span> <span class="p">=&gt;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span>
+      <span class="nx">confirmPassword</span><span class="o">:</span> <span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span>
+    <span class="p">});</span>
+
+  <span class="nx">handleSubmit</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span>
+      <span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">validateEmail</span><span class="p">()</span> <span class="o">||</span>
+      <span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">validatePassword</span><span class="p">()</span> <span class="o">||</span>
+      <span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">validateConfirmPassword</span><span class="p">()</span>
+    <span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="nx">email</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">email</span><span class="p">,</span>
+      <span class="nx">password</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">password</span>
+    <span class="p">};</span>
+
+    <span class="nx">axios</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="sb">`https://mywebsite.com/api/signup`</span><span class="p">,</span> <span class="nx">data</span><span class="p">);</span>
+  <span class="p">};</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="p">&lt;</span><span class="nt">Grid</span> <span class="na">container</span> <span class="na">spacing</span><span class="o">=</span><span class="s">{16}</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">Grid</span> <span class="na">item</span> <span class="na">xs</span><span class="o">=</span><span class="s">{4}</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nt">TextField</span>
+            <span class="na">label</span><span class="o">=</span><span class="s">&#34;Email&#34;</span>
+            <span class="na">value</span><span class="o">=</span><span class="s">{this.state.email}</span>
+            <span class="na">error</span><span class="o">=</span><span class="s">{!!this.state.emailError}</span>
+            <span class="na">helperText</span><span class="o">=</span><span class="s">{this.state.emailError}</span>
+            <span class="na">onChange</span><span class="o">=</span><span class="s">{this.onChangeEmail}</span>
+            <span class="na">margin</span><span class="o">=</span><span class="s">&#34;normal&#34;</span>
+          <span class="p">/&gt;</span>
+
+          <span class="p">&lt;</span><span class="nt">TextField</span>
+            <span class="na">label</span><span class="o">=</span><span class="s">&#34;Password&#34;</span>
+            <span class="na">value</span><span class="o">=</span><span class="s">{this.state.password}</span>
+            <span class="na">error</span><span class="o">=</span><span class="s">{!!this.state.passwordError}</span>
+            <span class="na">helperText</span><span class="o">=</span><span class="s">{this.state.passwordError}</span>
+            <span class="na">type</span><span class="o">=</span><span class="s">&#34;password&#34;</span>
+            <span class="na">onChange</span><span class="o">=</span><span class="s">{this.onChangePassword}</span>
+            <span class="na">margin</span><span class="o">=</span><span class="s">&#34;normal&#34;</span>
+          <span class="p">/&gt;</span>
+
+          <span class="p">&lt;</span><span class="nt">TextField</span>
+            <span class="na">label</span><span class="o">=</span><span class="s">&#34;Confirm Password&#34;</span>
+            <span class="na">value</span><span class="o">=</span><span class="s">{this.state.confirmPassword}</span>
+            <span class="na">error</span><span class="o">=</span><span class="s">{!!this.state.confirmPasswordError}</span>
+            <span class="na">helperText</span><span class="o">=</span><span class="s">{this.state.confirmPasswordError}</span>
+            <span class="na">type</span><span class="o">=</span><span class="s">&#34;password&#34;</span>
+            <span class="na">onChange</span><span class="o">=</span><span class="s">{this.onChangeConfirmPassword}</span>
+            <span class="na">margin</span><span class="o">=</span><span class="s">&#34;normal&#34;</span>
+          <span class="p">/&gt;</span>
+
+          <span class="p">&lt;</span><span class="nt">Button</span>
+            <span class="na">variant</span><span class="o">=</span><span class="s">&#34;contained&#34;</span>
+            <span class="na">color</span><span class="o">=</span><span class="s">&#34;primary&#34;</span>
+            <span class="na">onClick</span><span class="o">=</span><span class="s">{this.handleSubmit}</span>
+            <span class="na">margin</span><span class="o">=</span><span class="s">&#34;normal&#34;</span>
+          <span class="p">&gt;</span>
+            <span class="nx">Sign</span> <span class="nx">Up</span>
+          <span class="p">&lt;/</span><span class="nt">Button</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">Grid</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">Grid</span><span class="p">&gt;</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">SignupForm</span><span class="p">;</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>上面的组件很乱，它一次做很多事情：处理它的状态，验证表单字段，以及渲染表单。 它已经是<strong>140</strong>行代码。 添加更多功能很快就无法维护。 我们能做得更好吗？</p>
+
+<blockquote>
+<p>让我们看看我们能做些什么。</p>
+</blockquote>
+
+<h2 id="需要recompose库">需要Recompose库</h2>
+
+<blockquote>
+<p><code>Recompose</code>是一个<code>React</code>实用库，用于函数组件和高阶组件。把它想象成<code>React</code>的<code>lodash</code>。</p>
+</blockquote>
+
+<p><code>Recompose</code>允许你通过添加状态，生命周期方法，上下文等来增强函数组件。</p>
+
+<p>最重要的是，它允许您清晰地分离关注点 - 你可以让主要组件专门负责布局，高阶组件负责处理表单输入，另一个用于处理表单验证，另一个用于提交表单。 它很容易测试！</p>
+
+<h2 id="优雅的函数组件">优雅的函数组件</h2>
+
+<h3 id="step-0-安装-recompose">Step 0. 安装 Recompose</h3>
+
+<p><code>yarn add recompose</code></p>
+
+<h3 id="step-1-提取输入表单的state">Step 1. 提取输入表单的State</h3>
+
+<p>我们将从<code>Recompose</code>库中使用<code>withStateHandlers</code>高阶组件。 它将允许我们将组件状态与组件本身隔离开来。 我们将使用它为电子邮件，密码和确认密码字段添加表单状态，以及上述字段的事件处理程序。</p>
+
+<p>fileName-&gt;<strong>withTextFieldState.js</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="k">import</span> <span class="p">{</span> <span class="nx">withStateHandlers</span><span class="p">,</span> <span class="nx">compose</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&#34;recompose&#34;</span><span class="p">;</span>
+
+<span class="k">const</span> <span class="nx">initialState</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">email</span><span class="o">:</span> <span class="p">{</span> <span class="nx">value</span><span class="o">:</span> <span class="s2">&#34;&#34;</span> <span class="p">},</span>
+  <span class="nx">password</span><span class="o">:</span> <span class="p">{</span> <span class="nx">value</span><span class="o">:</span> <span class="s2">&#34;&#34;</span> <span class="p">},</span>
+  <span class="nx">confirmPassword</span><span class="o">:</span> <span class="p">{</span> <span class="nx">value</span><span class="o">:</span> <span class="s2">&#34;&#34;</span> <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="k">const</span> <span class="nx">onChangeEmail</span> <span class="o">=</span> <span class="nx">props</span> <span class="p">=&gt;</span> <span class="nx">event</span> <span class="p">=&gt;</span> <span class="p">({</span>
+  <span class="nx">email</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">value</span><span class="o">:</span> <span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span><span class="p">,</span>
+    <span class="nx">isDirty</span><span class="o">:</span> <span class="kc">true</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="k">const</span> <span class="nx">onChangePassword</span> <span class="o">=</span> <span class="nx">props</span> <span class="p">=&gt;</span> <span class="nx">event</span> <span class="p">=&gt;</span> <span class="p">({</span>
+  <span class="nx">password</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">value</span><span class="o">:</span> <span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span><span class="p">,</span>
+    <span class="nx">isDirty</span><span class="o">:</span> <span class="kc">true</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="k">const</span> <span class="nx">onChangeConfirmPassword</span> <span class="o">=</span> <span class="nx">props</span> <span class="p">=&gt;</span> <span class="nx">event</span> <span class="p">=&gt;</span> <span class="p">({</span>
+  <span class="nx">confirmPassword</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">value</span><span class="o">:</span> <span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span><span class="p">,</span>
+    <span class="nx">isDirty</span><span class="o">:</span> <span class="kc">true</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="k">const</span> <span class="nx">withTextFieldState</span> <span class="o">=</span> <span class="nx">withStateHandlers</span><span class="p">(</span><span class="nx">initialState</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">onChangeEmail</span><span class="p">,</span>
+  <span class="nx">onChangePassword</span><span class="p">,</span>
+  <span class="nx">onChangeConfirmPassword</span>
+<span class="p">});</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">withTextFieldState</span><span class="p">;</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><code>withStateHandlers</code>高阶组件非常简单——它接受初始状态和包含状态处理程序的对象。调用时，每个状态处理程序将返回新的状态。</p>
+
+<h3 id="step-2-提取表单验证逻辑">Step 2.提取表单验证逻辑</h3>
+
+<p>现在是时候提取表单验证逻辑了。我们将从<code>Recompose</code>中使用<code>withProps</code>高阶组件。它允许将任意<code>props</code>添加到现有组件。</p>
+
+<p>我们将使用<code>withProps</code>添加<code>emailError</code>，<code>passwordError</code>和<code>confirmPasswordError props</code>，如果我们的表单任何字段存在无效，它们将输出错误。</p>
+
+<p>还应该注意，每个表单字段的验证逻辑都保存在一个单独的文件中（为了更好地分离关注点）。</p>
+
+<p>fileName-&gt;<strong>withPasswordError.js</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="k">import</span> <span class="p">{</span> <span class="nx">withProps</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&#34;recompose&#34;</span><span class="p">;</span>
+
+<span class="k">const</span> <span class="nx">getEmailError</span> <span class="o">=</span> <span class="nx">email</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">email</span><span class="p">.</span><span class="nx">isDirty</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">const</span> <span class="nx">emailRegex</span> <span class="o">=</span> <span class="sr">/^(([^&lt;&gt;()\[\]\\.,;:\s@&#34;]+(\.[^&lt;&gt;()\[\]\\.,;:\s@&#34;]+)*)|(&#34;.+&#34;))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/</span><span class="p">;</span>
+
+  <span class="k">const</span> <span class="nx">isValidEmail</span> <span class="o">=</span> <span class="nx">emailRegex</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">email</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+  <span class="k">return</span> <span class="o">!</span><span class="nx">isValidEmail</span> <span class="o">?</span> <span class="s2">&#34;Invalid email.&#34;</span> <span class="o">:</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">const</span> <span class="nx">withEmailError</span> <span class="o">=</span> <span class="nx">withProps</span><span class="p">(</span><span class="nx">ownerProps</span> <span class="p">=&gt;</span> <span class="p">({</span>
+  <span class="nx">emailError</span><span class="o">:</span> <span class="nx">getEmailError</span><span class="p">(</span><span class="nx">ownerProps</span><span class="p">.</span><span class="nx">email</span><span class="p">)</span>
+<span class="p">}));</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">withEmailError</span><span class="p">;</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>fileName-&gt; <strong>withEmailError.js</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="k">import</span> <span class="p">{</span> <span class="nx">withProps</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&#34;recompose&#34;</span><span class="p">;</span>
+
+<span class="k">const</span> <span class="nx">getPasswordError</span> <span class="o">=</span> <span class="nx">password</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">password</span><span class="p">.</span><span class="nx">isDirty</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">const</span> <span class="nx">passwordRegex</span> <span class="o">=</span> <span class="sr">/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/</span><span class="p">;</span>
+
+  <span class="k">const</span> <span class="nx">isValidPassword</span> <span class="o">=</span> <span class="nx">passwordRegex</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">password</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+  <span class="k">return</span> <span class="o">!</span><span class="nx">isValidPassword</span>
+    <span class="o">?</span> <span class="s2">&#34;The password must contain minimum eight characters, at least one letter and one number.&#34;</span>
+    <span class="o">:</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">const</span> <span class="nx">withPasswordError</span> <span class="o">=</span> <span class="nx">withProps</span><span class="p">(</span><span class="nx">ownerProps</span> <span class="p">=&gt;</span> <span class="p">({</span>
+  <span class="nx">passwordError</span><span class="o">:</span> <span class="nx">getPasswordError</span><span class="p">(</span><span class="nx">ownerProps</span><span class="p">.</span><span class="nx">password</span><span class="p">)</span>
+<span class="p">}));</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">withPasswordError</span><span class="p">;</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>fileName-&gt;<strong>withConfirmPasswordError.js</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="k">import</span> <span class="p">{</span> <span class="nx">withProps</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&#34;recompose&#34;</span><span class="p">;</span>
+
+<span class="k">const</span> <span class="nx">getConfirmPasswordError</span> <span class="o">=</span> <span class="p">(</span><span class="nx">password</span><span class="p">,</span> <span class="nx">confirmPassword</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">confirmPassword</span><span class="p">.</span><span class="nx">isDirty</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">const</span> <span class="nx">passwordsMatch</span> <span class="o">=</span> <span class="nx">password</span><span class="p">.</span><span class="nx">value</span> <span class="o">===</span> <span class="nx">confirmPassword</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
+
+  <span class="k">return</span> <span class="o">!</span><span class="nx">passwordsMatch</span> <span class="o">?</span> <span class="s2">&#34;Passwords don&#39;t match.&#34;</span> <span class="o">:</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">const</span> <span class="nx">withConfirmPasswordError</span> <span class="o">=</span> <span class="nx">withProps</span><span class="p">(</span>
+    <span class="p">(</span><span class="nx">ownerProps</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">({</span>
+        <span class="nx">confirmPasswordError</span><span class="o">:</span> <span class="nx">getConfirmPasswordError</span><span class="p">(</span>
+            <span class="nx">ownerProps</span><span class="p">.</span><span class="nx">password</span><span class="p">,</span>
+            <span class="nx">ownerProps</span><span class="p">.</span><span class="nx">confirmPassword</span>
+        <span class="p">)</span>
+    <span class="p">})</span>
+<span class="p">);</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">withConfirmPasswordError</span><span class="p">;</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="step-3-提取表单提交逻辑">Step 3. 提取表单提交逻辑</h3>
+
+<p>在这一步中，我们将提取表单提交逻辑。我们将再次使用<code>withProps</code>高阶组件来添加<code>onSubmit</code>处理程序。</p>
+
+<p><code>handleSubmit</code>函数接受从上一步传递下来的<code>emailError</code>，<code>passwordError</code>和<code>confirmPasswordError props</code>，检查是否有任何错误，如果没有，则会把参数请求到我们的<code>API</code>。</p>
+
+<p>fileName-&gt;<strong>withSubmitForm.js</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="k">import</span> <span class="p">{</span> <span class="nx">withProps</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&#34;recompose&#34;</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">axios</span> <span class="nx">from</span> <span class="s2">&#34;axios&#34;</span><span class="p">;</span>
+
+<span class="k">const</span> <span class="nx">handleSubmit</span> <span class="o">=</span> <span class="p">({</span>
+  <span class="nx">email</span><span class="p">,</span>
+  <span class="nx">password</span><span class="p">,</span>
+  <span class="nx">emailError</span><span class="p">,</span>
+  <span class="nx">passwordError</span><span class="p">,</span>
+  <span class="nx">confirmPasswordError</span>
+<span class="p">})</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">emailError</span> <span class="o">||</span> <span class="nx">passwordError</span> <span class="o">||</span> <span class="nx">confirmPasswordError</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">email</span><span class="o">:</span> <span class="nx">email</span><span class="p">.</span><span class="nx">value</span><span class="p">,</span>
+    <span class="nx">password</span><span class="o">:</span> <span class="nx">password</span><span class="p">.</span><span class="nx">value</span>
+  <span class="p">};</span>
+
+  <span class="nx">axios</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="sb">`https://mywebsite.com/api/signup`</span><span class="p">,</span> <span class="nx">data</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="k">const</span> <span class="nx">withSubmitForm</span> <span class="o">=</span> <span class="nx">withProps</span><span class="p">(</span><span class="nx">ownerProps</span> <span class="p">=&gt;</span> <span class="p">({</span>
+  <span class="nx">onSubmit</span><span class="o">:</span> <span class="nx">handleSubmit</span><span class="p">(</span><span class="nx">ownerProps</span><span class="p">)</span>
+<span class="p">}));</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">withSubmitForm</span><span class="p">;</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="step-4-魔术-coming">Step 4. 魔术<code>coming</code></h3>
+
+<p>最后，将我们创建的高阶组件组合到一个可以在我们的表单上使用的增强器中。 我们将使用<code>recompose</code>中的<code>compose</code>函数，它可以组合多个高阶组件。</p>
+
+<p>fileName-&gt;<strong>withFormLogic.js</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="k">import</span> <span class="p">{</span> <span class="nx">compose</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&#34;recompose&#34;</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="nx">withTextFieldState</span> <span class="nx">from</span> <span class="s2">&#34;./withTextFieldState&#34;</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">withEmailError</span> <span class="nx">from</span> <span class="s2">&#34;./withEmailError&#34;</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">withPasswordError</span> <span class="nx">from</span> <span class="s2">&#34;./withPasswordError&#34;</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">withConfirmPasswordError</span> <span class="nx">from</span> <span class="s2">&#34;./withConfirmPasswordError&#34;</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">withSubmitForm</span> <span class="nx">from</span> <span class="s2">&#34;./withSubmitForm&#34;</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">compose</span><span class="p">(</span>
+    <span class="nx">withTextFieldState</span><span class="p">,</span>
+    <span class="nx">withEmailError</span><span class="p">,</span>
+    <span class="nx">withPasswordError</span><span class="p">,</span>
+    <span class="nx">withConfirmPasswordError</span><span class="p">,</span>
+    <span class="nx">withSubmitForm</span>
+<span class="p">);</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>请注意此解决方案的优雅和整洁程度。所有必需的逻辑只是简单地添加到另一个逻辑上以生成一个增强器组件。</p>
+</blockquote>
+
+<h3 id="step-5-呼吸一口新鲜空气">Step 5.呼吸一口新鲜空气</h3>
+
+<p>现在让我们来看看<code>SignupForm</code>组件本身。</p>
+
+<p>fileName-&gt;<strong>SignupForm.js</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="k">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s2">&#34;react&#34;</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">TextField</span><span class="p">,</span> <span class="nx">Button</span><span class="p">,</span> <span class="nx">Grid</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&#34;@material-ui/core&#34;</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">withFormLogic</span> <span class="nx">from</span> <span class="s2">&#34;./logic&#34;</span><span class="p">;</span>
+
+<span class="k">const</span> <span class="nx">SignupForm</span> <span class="o">=</span> <span class="p">({</span>
+    <span class="nx">email</span><span class="p">,</span> <span class="nx">onChangeEmail</span><span class="p">,</span> <span class="nx">emailError</span><span class="p">,</span>
+    <span class="nx">password</span><span class="p">,</span> <span class="nx">onChangePassword</span><span class="p">,</span> <span class="nx">passwordError</span><span class="p">,</span>
+    <span class="nx">confirmPassword</span><span class="p">,</span> <span class="nx">onChangeConfirmPassword</span><span class="p">,</span> <span class="nx">confirmPasswordError</span><span class="p">,</span>
+    <span class="nx">onSubmit</span>
+<span class="p">})</span> <span class="p">=&gt;</span> <span class="p">(</span>
+  <span class="p">&lt;</span><span class="nt">Grid</span> <span class="na">container</span> <span class="na">spacing</span><span class="o">=</span><span class="s">{16}</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">Grid</span> <span class="na">item</span> <span class="na">xs</span><span class="o">=</span><span class="s">{4}</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">TextField</span>
+        <span class="na">label</span><span class="o">=</span><span class="s">&#34;Email&#34;</span>
+        <span class="na">value</span><span class="o">=</span><span class="s">{email.value}</span>
+        <span class="na">error</span><span class="o">=</span><span class="s">{!!emailError}</span>
+        <span class="na">helperText</span><span class="o">=</span><span class="s">{emailError}</span>
+        <span class="na">onChange</span><span class="o">=</span><span class="s">{onChangeEmail}</span>
+        <span class="na">margin</span><span class="o">=</span><span class="s">&#34;normal&#34;</span>
+      <span class="p">/&gt;</span>
+
+      <span class="p">&lt;</span><span class="nt">TextField</span>
+        <span class="na">label</span><span class="o">=</span><span class="s">&#34;Password&#34;</span>
+        <span class="na">value</span><span class="o">=</span><span class="s">{password.value}</span>
+        <span class="na">error</span><span class="o">=</span><span class="s">{!!passwordError}</span>
+        <span class="na">helperText</span><span class="o">=</span><span class="s">{passwordError}</span>
+        <span class="na">type</span><span class="o">=</span><span class="s">&#34;password&#34;</span>
+        <span class="na">onChange</span><span class="o">=</span><span class="s">{onChangePassword}</span>
+        <span class="na">margin</span><span class="o">=</span><span class="s">&#34;normal&#34;</span>
+      <span class="p">/&gt;</span>
+
+      <span class="p">&lt;</span><span class="nt">TextField</span>
+        <span class="na">label</span><span class="o">=</span><span class="s">&#34;Confirm Password&#34;</span>
+        <span class="na">value</span><span class="o">=</span><span class="s">{confirmPassword.value}</span>
+        <span class="na">error</span><span class="o">=</span><span class="s">{!!confirmPasswordError}</span>
+        <span class="na">helperText</span><span class="o">=</span><span class="s">{confirmPasswordError}</span>
+        <span class="na">type</span><span class="o">=</span><span class="s">&#34;password&#34;</span>
+        <span class="na">onChange</span><span class="o">=</span><span class="s">{onChangeConfirmPassword}</span>
+        <span class="na">margin</span><span class="o">=</span><span class="s">&#34;normal&#34;</span>
+      <span class="p">/&gt;</span>
+
+      <span class="p">&lt;</span><span class="nt">Button</span>
+        <span class="na">variant</span><span class="o">=</span><span class="s">&#34;contained&#34;</span>
+        <span class="na">color</span><span class="o">=</span><span class="s">&#34;primary&#34;</span>
+        <span class="na">onClick</span><span class="o">=</span><span class="s">{onSubmit}</span>
+        <span class="na">margin</span><span class="o">=</span><span class="s">&#34;normal&#34;</span>
+      <span class="p">&gt;</span>
+        <span class="nx">Sign</span> <span class="nx">Up</span>
+      <span class="p">&lt;/</span><span class="nt">Button</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">Grid</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">Grid</span><span class="p">&gt;</span>
+<span class="p">);</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">withFormLogic</span><span class="p">(</span><span class="nx">SignupForm</span><span class="p">);</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>新的重构组件非常清晰，只做一件事 - <strong>渲染</strong>。 单一责任原则规定模块应该做一件事，它应该做得好。 我相信我们已经实现了这一目标。</p>
+
+<p>所有必需的数据和输入处理程序都只是作为<code>props</code>传递下来。 这反过来使组件非常容易测试。</p>
+
+<p>我们应该始终努力使我们的组件完全不包含逻辑，并且只负责渲染。 <code>Recompose</code>允许我们这样做。</p>
+
+<h2 id="project-source-code">Project Source Code</h2>
+
+<p>如果接下来遇到任何问题，可以从<a href="https://github.com/suzdalnitski/medium-mastering-recompose">github</a>下载整个项目</p>
+
+<h2 id="惊喜-使用recompose的pure可以优化性能">惊喜：使用Recompose的pure可以优化性能</h2>
+
+<p><code>Recompose</code>有<code>pure</code>，这是一个很好的高阶组件，允许我们只在需要的时候重新呈现组件。<code>pure</code>将确保组件不会重新呈现，除非任何<code>props</code>发生了更改。</p>
+
+<p>fileName-&gt;<strong>pureSignupForm.js</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="k">import</span> <span class="p">{</span> <span class="nx">compose</span><span class="p">,</span> <span class="nx">pure</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&#34;recompose&#34;</span><span class="p">;</span>
+
+<span class="p">...</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">compose</span><span class="p">(</span>
+  <span class="nx">pure</span><span class="p">,</span>
+  <span class="nx">withFormLogic</span>
+<span class="p">)(</span><span class="nx">SignupForm</span><span class="p">);</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="总结">总结</h2>
+
+<p>我们应该始终遵循组件的单一责任原则，将逻辑与表现隔离开来。为了实现这一点，首先应该取消<code>Class</code>组件的写法。主要组件本身应该是功能性的，并且应该只负责呈现而不是其他任何东西。然后将所有必需的状态和逻辑添加为高阶组件。</p>
+
+<p>遵循以上规则将使您的代码清晰明了、易于<strong>阅读</strong>、易于<strong>维护</strong>和易于<strong>测试</strong>。</p>
+
+<blockquote>
+<blockquote>
+<blockquote>
+<p>本文转自<a href="https://zhuanlan.zhihu.com/p/42494044">Crop Circle</a>,侵删</p>
+</blockquote>
+</blockquote>
+</blockquote>
+    </div>
+
+    
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">Reward</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/reward/wechat-qr-code.png">
+        <span>wechat</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/reward/alipay-qr-code.png">
+        <span>alipay</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/javascript/">javascript</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/css-%E5%B1%9E%E6%80%A7%E9%80%89%E6%8B%A9%E5%99%A8%E7%9A%84%E6%B7%B1%E5%85%A5%E6%8C%96%E6%8E%98%E8%BD%AC/">
+            <span class="next-text nav-default">CSS 属性选择器的深入挖掘[转]</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2019-06-20 14:24:02 \x2b0800 \x2b0800',
+        title: 'Recompose库在React高阶函数的处理',
+        clientID: 'bf0ed9ea18e819e40135',
+        clientSecret: '92bdc65717aa7f0ec48bfe94e773b57a21163785',
+        repo: 'blog_comments',
+        owner: '496971418@qq.com',
+        admin: ['496971418@qq.com'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:terryzh017@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://stackoverflow.com/users/10838177/terryzh" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://twitter.com/terryzhAizz" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/t496971418" class="iconfont icon-github" title="github"></a>
+  <a href="http://www.elixir-zh.cn/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Terryzh</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

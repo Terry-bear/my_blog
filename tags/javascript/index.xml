@@ -6,10 +6,19 @@
     <description>Recent content in javascript on Terryzh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 25 Apr 2019 15:00:43 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 20 Jun 2019 14:24:02 +0800</lastBuildDate>
     
 	<atom:link href="http://www.elixir-zh.cn/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Recompose库在React高阶函数的处理</title>
+      <link>http://www.elixir-zh.cn/post/recompose%E5%BA%93%E5%9C%A8react%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0%E7%9A%84%E5%A4%84%E7%90%86/</link>
+      <pubDate>Thu, 20 Jun 2019 14:24:02 +0800</pubDate>
+      
+      <guid>http://www.elixir-zh.cn/post/recompose%E5%BA%93%E5%9C%A8react%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0%E7%9A%84%E5%A4%84%E7%90%86/</guid>
+      <description>多年来，我逐渐意识到开发高质量的React应用的唯一正确途径，是编写函数组件。 在本文中，我将简要介绍函数组件和高阶组件。之后，我们将深入研究</description>
+    </item>
     
     <item>
       <title>Immutable JS详解</title>
