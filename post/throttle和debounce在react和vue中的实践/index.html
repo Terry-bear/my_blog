@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Throttle和Debounce在React和Vue中的实践 - Terryzh</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Terryzh" /><meta name="description" content="引言 使用 React 构建应用程序时，我们总是会遇到一些限制问题，比如大量的调用、异步网络请求和 DOM 更新等，我们可以使用 React 提供的功能来检查这些。 shoul" /><meta name="keywords" content="javascript" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.54.0 with even 4.0.0" />
+
+
+<link rel="canonical" href="http://www.elixir-zh.cn/post/throttle%E5%92%8Cdebounce%E5%9C%A8react%E5%92%8Cvue%E4%B8%AD%E7%9A%84%E5%AE%9E%E8%B7%B5/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.65dce888.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Throttle和Debounce在React和Vue中的实践" />
+<meta property="og:description" content="引言 使用 React 构建应用程序时，我们总是会遇到一些限制问题，比如大量的调用、异步网络请求和 DOM 更新等，我们可以使用 React 提供的功能来检查这些。 shoul" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.elixir-zh.cn/post/throttle%E5%92%8Cdebounce%E5%9C%A8react%E5%92%8Cvue%E4%B8%AD%E7%9A%84%E5%AE%9E%E8%B7%B5/" />
+<meta property="article:published_time" content="2019-06-22T13:48:50&#43;08:00"/>
+<meta property="article:modified_time" content="2019-06-22T13:48:50&#43;08:00"/>
+
+<meta itemprop="name" content="Throttle和Debounce在React和Vue中的实践">
+<meta itemprop="description" content="引言 使用 React 构建应用程序时，我们总是会遇到一些限制问题，比如大量的调用、异步网络请求和 DOM 更新等，我们可以使用 React 提供的功能来检查这些。 shoul">
+
+
+<meta itemprop="datePublished" content="2019-06-22T13:48:50&#43;08:00" />
+<meta itemprop="dateModified" content="2019-06-22T13:48:50&#43;08:00" />
+<meta itemprop="wordCount" content="3120">
+
+
+
+<meta itemprop="keywords" content="javascript," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Throttle和Debounce在React和Vue中的实践"/>
+<meta name="twitter:description" content="引言 使用 React 构建应用程序时，我们总是会遇到一些限制问题，比如大量的调用、异步网络请求和 DOM 更新等，我们可以使用 React 提供的功能来检查这些。 shoul"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Terryzh</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Terryzh</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Throttle和Debounce在React和Vue中的实践</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-06-22 </span>
+        <div class="post-category">
+            <a href="/categories/code/"> code </a>
+            </div>
+          <span class="more-meta"> 3120 words </span>
+          <span class="more-meta"> 7 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#引言">引言</a></li>
+<li><a href="#从一个例子开始">从一个例子开始</a>
+<ul>
+<li><a href="#例子-1">例子 1</a></li>
+<li><a href="#例子-2">例子 2</a></li>
+</ul></li>
+<li><a href="#节流-throttle">节流 Throttle</a>
+<ul>
+<li><a href="#使用-underscore">使用 underscore</a></li>
+<li><a href="#使用-lodash">使用 lodash</a></li>
+<li><a href="#使用-rxjs">使用 RxJS</a></li>
+<li><a href="#使用自定义实现">使用自定义实现</a></li>
+</ul></li>
+<li><a href="#防抖-debounce">防抖 <code>Debounce</code></a>
+<ul>
+<li><a href="#使用underscore">使用underscore</a></li>
+<li><a href="#使用lodash">使用lodash</a></li>
+<li><a href="#使用rxjs">使用RxJS</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="引言">引言</h2>
+
+<p>使用 React 构建应用程序时，我们总是会遇到一些限制问题，比如大量的调用、异步网络请求和 DOM 更新等，我们可以使用 React 提供的功能来检查这些。</p>
+
+<ul>
+<li><code>shouldComponentUpdate(…)</code> 生命周期钩子</li>
+<li><code>React.PureComponent</code></li>
+<li><code>React.memo</code></li>
+<li>Windowing and Virtualization</li>
+<li>Memoization</li>
+<li>Hydration</li>
+<li>Hooks (<code>useState</code>, <code>useMemo</code>, <code>useContext</code>, <code>useReducer</code>等)</li>
+</ul>
+
+<p>在这篇文章中，我们将研究如何在不使用 React 提供的功能下来改进 React 应用程序性能，我们将使用一种不仅仅适用于 React 的技术：节流（<strong>Throttle</strong>）和防抖（<strong>Debounce</strong>）。</p>
+
+<h2 id="从一个例子开始">从一个例子开始</h2>
+
+<h3 id="例子-1">例子 1</h3>
+
+<p>下面这个例子可以很好的解释节流和防抖带给我们的好处，假设我们有一个 <code>autocomp</code> 组件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="k">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
+<span class="k">import</span> <span class="s1">&#39;./autocomp.css&#39;</span><span class="p">;</span>
+<span class="k">class</span> <span class="nx">autocomp</span> <span class="k">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="o">=</span> <span class="p">{</span>
+            <span class="nx">results</span><span class="o">:</span> <span class="p">[]</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="nx">handleInput</span> <span class="o">=</span> <span class="nx">evt</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="k">const</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">evt</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span>
+        <span class="nx">fetch</span><span class="p">(</span><span class="sb">`/api/users`</span><span class="p">)</span>
+            <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">res</span> <span class="p">=&gt;</span> <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">())</span>
+            <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">result</span> <span class="p">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span> <span class="nx">results</span><span class="o">:</span> <span class="nx">result</span><span class="p">.</span><span class="nx">users</span> <span class="p">}))</span>
+    <span class="p">}</span>
+    <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="p">{</span> <span class="nx">results</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">;</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="o">=</span><span class="s">&#39;autocomp_wrapper&#39;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">input</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">&#34;Enter your search..&#34;</span> <span class="na">onChange</span><span class="o">=</span><span class="s">{this.handleInput}</span> <span class="p">/&gt;</span>
+            <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+                <span class="p">{</span><span class="nx">results</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">item</span><span class="p">=&gt;{</span><span class="nx">item</span><span class="p">})}</span>
+            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="k">export</span> <span class="k">default</span> <span class="nx">autocomp</span><span class="p">;</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>在我们的 <code>autocomp</code> 组件中，一旦我们在输入框中输入一个单词，它就会请求 <code>api/users</code> 获取要显示的用户列表。 在每个字母输入后，触发异步网络请求，并且成功后通过 <code>this.setState</code> 更新<code>DOM</code>。</p>
+
+<p>现在，想象一下输入 <code>fidudusola</code> 尝试搜索结果 <code>fidudusolanke</code>，将有许多名称与 <code>fidudusola</code> 一起出现。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="m">1</span>.  f
+<span class="m">2</span>.  <span class="k">fi</span>
+<span class="m">3</span>.  fid
+<span class="m">4</span>.  fidu
+<span class="m">5</span>.  fidud
+<span class="m">6</span>.  fidudu
+<span class="m">7</span>.  fidudus
+<span class="m">8</span>.  fiduduso
+<span class="m">9</span>.  fidudusol
+<span class="m">10</span>. fidudusola</code></pre></td></tr></table>
+</div>
+</div>
+<p>这个名字有 10 个字母，所以我们将有 10 次 API 请求和 10 次 DOM 更新，这只是一个用户而已!! 输入完成后最终看到我们预期的名字 <code>fidudusolanke</code> 和其他结果一起出现。</p>
+
+<p>即使 <code>autocomp</code> 可以在没有网络请求的情况下完成（例如，内存中有一个本地“数据库”），仍然需要为输入的每个字符/单词进行昂贵的 <code>DOM</code> 更新。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="k">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;nnamdi&#39;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;fidudusola&#39;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;fashola&#39;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;fidudusolanke&#39;</span>
+    <span class="p">},</span>
+    <span class="c1">// ... up to 10,000 records
+</span><span class="c1"></span><span class="p">]</span>
+<span class="k">class</span> <span class="nx">autocomp</span> <span class="k">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="o">=</span> <span class="p">{</span>
+            <span class="nx">results</span><span class="o">:</span> <span class="p">[]</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="nx">handleInput</span> <span class="o">=</span> <span class="nx">evt</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="k">const</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">evt</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span>
+        <span class="k">const</span> <span class="nx">filteredRes</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">filter</span><span class="p">((</span><span class="nx">item</span><span class="p">)=&gt;</span> <span class="p">{</span>
+            <span class="c1">// algorithm to search through the `data` array
+</span><span class="c1"></span>        <span class="p">})</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span> <span class="nx">results</span><span class="o">:</span> <span class="nx">filteredRes</span> <span class="p">})</span>
+    <span class="p">}</span>
+    <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="p">{</span> <span class="nx">results</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">;</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="o">=</span><span class="s">&#39;autocomp_wrapper&#39;</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">input</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">&#34;Enter your search..&#34;</span> <span class="na">onChange</span><span class="o">=</span><span class="s">{this.handleInput}</span> <span class="p">/&gt;</span>
+                <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+                    <span class="p">{</span><span class="nx">results</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">result</span><span class="p">=&gt;{</span><span class="nx">result</span><span class="p">})}</span>
+                <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="例子-2">例子 2</h3>
+
+<p>另一个例子是使用 <code>resize</code> 和 <code>scroll</code> 等事件。大多数情况下，网站每秒滚动 1000 次，想象一下在 <code>scroll</code> 事件中添加一个事件处理。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;scroll&#39;</span><span class="p">,</span> <span class="p">()=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Scrolled !!!&#39;</span><span class="p">)</span>
+<span class="p">})</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>你会发现这个函数每秒被执行 <strong>1000</strong> 次！如果这个事件处理函数执行大量计算或大量 <code>DOM</code> 操作，将面临最坏的情况。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">longOp</span><span class="p">(</span><span class="nx">ms</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">now</span> <span class="o">=</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span>
+    <span class="kd">var</span> <span class="nx">end</span> <span class="o">=</span> <span class="nx">now</span> <span class="o">+</span> <span class="nx">ms</span>
+    <span class="k">while</span><span class="p">(</span><span class="nx">now</span> <span class="o">&lt;</span> <span class="nx">end</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">now</span> <span class="o">=</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;scroll&#39;</span><span class="p">,</span> <span class="p">()=&gt;</span> <span class="p">{</span>
+    <span class="c1">// simulating a heavy operation
+</span><span class="c1"></span>    <span class="nx">longOp</span><span class="p">(</span><span class="mi">9000</span><span class="p">)</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Scrolled !!!&#39;</span><span class="p">)</span>
+<span class="p">})</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>我们有一个需要 9 秒才能完成的操作，最后输出 <code>Scrolled</code> !!!，假设我们滚动 5000 像素会有 200 多个事件被触发。 因此，需要 9 秒才能完成一次的事件，大约需要 9 * 200 = 1800s 来运行全部的 200 个事件。 因此，全部完成需要 30 分钟（半小时）。</p>
+
+<p>所以肯定会发现一个滞后且无响应的浏览器，因此编写的事件处理函数最好在较短的时间内执行完成。</p>
+
+<p>我们发现这会在我们的应用程序中产生巨大的性能瓶颈，我们不需要在输入的每个字母上执行 API 请求和 DOM 更新，我们需要等到用户停止输入或者输入一段时间之后，等到用户停止滚动或者滚动一段时间之后，再去执行事件处理函数。</p>
+
+<p>所有这些确保我们的应用程序有良好性能，让我们看看如何使用节流和防抖来避免这种性能瓶颈。</p>
+
+<h2 id="节流-throttle">节流 Throttle</h2>
+
+<blockquote>
+<p>节流强制一个函数在一段时间内可以调用的最大次数，例如每 100 毫秒最多执行一次函数。</p>
+</blockquote>
+
+<p>节流是指在指定的时间内执行一次给定的函数。这限制了函数被调用的次数，所以重复的函数调用不会重置任何数据。</p>
+
+<p>假设我们通常以 1000 次 / 20 秒的速度调用函数。 如果我们使用节流将它限制为每 500 毫秒执行一次，我们会看到函数在 20 秒内将执行 40 次。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="mi">1000</span> <span class="o">*</span> <span class="mi">20</span> <span class="nx">secs</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span><span class="mi">000</span><span class="nx">ms</span>
+<span class="mi">20</span><span class="p">,</span><span class="mi">000</span><span class="nx">ms</span> <span class="err">/ 500ms = 40 times</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>这是从 1000 次到 40 次的极大优化。</p>
+
+<p>下面将介绍在 React 中使用节流的例子，将分别使用 <code>underscore</code> 、 <code>lodash</code> 、<code>RxJS</code> 以及自定义实现。</p>
+
+<h3 id="使用-underscore">使用 underscore</h3>
+
+<p>我们将使用 <code>underscore</code> 提供的节流函数处理我们的 <code>autocomp</code> 组件。</p>
+
+<p>先安装依赖。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">npm i underscore</code></pre></td></tr></table>
+</div>
+</div>
+<p>然后在组件中导入它：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="c1">// ...
+</span><span class="c1"></span><span class="k">import</span> <span class="o">*</span> <span class="nx">as</span> <span class="nx">_</span> <span class="nx">from</span> <span class="nx">underscore</span><span class="p">;</span>
+<span class="k">class</span> <span class="nx">autocomp</span> <span class="k">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="nx">results</span><span class="o">:</span> <span class="p">[]</span>
+        <span class="p">}</span>
+       <span class="k">this</span><span class="p">.</span><span class="nx">handleInputThrottled</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">throttle</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">handleInput</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="nx">handleInput</span> <span class="o">=</span> <span class="nx">evt</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="k">const</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">evt</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span>
+        <span class="k">const</span> <span class="nx">filteredRes</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">filter</span><span class="p">((</span><span class="nx">item</span><span class="p">)=&gt;</span> <span class="p">{</span>
+            <span class="c1">// algorithm to search through the `data` array
+</span><span class="c1"></span>        <span class="p">})</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span> <span class="nx">results</span><span class="o">:</span> <span class="nx">filteredRes</span> <span class="p">})</span>
+    <span class="p">}</span>
+    <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="p">{</span> <span class="nx">results</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">;</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="o">=</span><span class="s">&#39;autocomp_wrapper&#39;</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">input</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">&#34;Enter your search..&#34;</span> <span class="na">onChange</span><span class="o">=</span><span class="s">{this.handleInputThrottled}</span> <span class="p">/&gt;</span>
+                <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+                    <span class="p">{</span><span class="nx">results</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">result</span><span class="p">=&gt;{</span><span class="nx">result</span><span class="p">})}</span>
+                <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>节流函数接收两个参数，分别是需要被限制的函数和时间差，返回一个节流处理后的函数。 在我们的例子中，<code>handleInput</code> 方法被传递给 <code>throttle</code> 函数，时间差为 1000ms。</p>
+
+<p>现在，假设我们以每 200ms 1 个字母的正常速度输入 fidudusola，输入完成需要10 * 200ms =（2000ms）2s，这时 handleInput 方法将只调用 2（2000ms / 1000ms = 2）次而不是最初的 10 次。</p>
+
+<h3 id="使用-lodash">使用 lodash</h3>
+
+<p><code>lodash</code> 也提供了一个 <code>throttle</code> 函数，我们可以在 JS 程序中使用它。</p>
+
+<p>首先，我们需要安装依赖。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">npm i lodash</code></pre></td></tr></table>
+</div>
+</div>
+<p>使用 <code>lodash</code>，我们的 <code>autocomp</code> 将是这样的。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="c1">// ...
+</span><span class="c1"></span><span class="k">import</span> <span class="p">{</span> <span class="nx">throttle</span> <span class="p">}</span> <span class="nx">from</span> <span class="nx">lodash</span><span class="p">;</span>
+<span class="k">class</span> <span class="nx">autocomp</span> <span class="k">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="nx">results</span><span class="o">:</span> <span class="p">[]</span>
+        <span class="p">}</span>
+       <span class="k">this</span><span class="p">.</span><span class="nx">handleInputThrottled</span> <span class="o">=</span> <span class="nx">throttle</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">handleInput</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="nx">handleInput</span> <span class="o">=</span> <span class="nx">evt</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="k">const</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">evt</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span>
+        <span class="k">const</span> <span class="nx">filteredRes</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">filter</span><span class="p">((</span><span class="nx">item</span><span class="p">)=&gt;</span> <span class="p">{</span>
+            <span class="c1">// algorithm to search through the `data` array
+</span><span class="c1"></span>        <span class="p">})</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span> <span class="nx">results</span><span class="o">:</span> <span class="nx">filteredRes</span> <span class="p">})</span>
+    <span class="p">}</span>
+    <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="p">{</span> <span class="nx">results</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">;</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="o">=</span><span class="s">&#39;autocomp_wrapper&#39;</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">input</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">&#34;Enter your search..&#34;</span> <span class="na">onChange</span><span class="o">=</span><span class="s">{this.handleInputThrottled}</span> <span class="p">/&gt;</span>
+                <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+                    <span class="p">{</span><span class="nx">results</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">result</span><span class="p">=&gt;{</span><span class="nx">result</span><span class="p">})}</span>
+                <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>和 <code>underscore</code> 一样的效果，没有其他区别。</p>
+
+<h3 id="使用-rxjs">使用 RxJS</h3>
+
+<p>JS 中的 <code>Reactive Extensions</code> 提供了一个节流运算符，我们可以使用它来实现功能。</p>
+
+<p>首先，我们安装 rxjs。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">npm i rxjs</code></pre></td></tr></table>
+</div>
+</div>
+<p>我们从 <code>rxjs</code> 库导入 <code>throttle</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="c1">// ...
+</span><span class="c1"></span><span class="k">import</span> <span class="p">{</span> <span class="nx">BehaviorSubject</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;rxjs&#39;</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">throttle</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;rxjs/operators&#39;</span><span class="p">;</span>
+<span class="k">class</span> <span class="nx">autocomp</span> <span class="k">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="nx">results</span><span class="o">:</span> <span class="p">[]</span>
+        <span class="p">}</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">inputStream</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">BehaviorSubject</span><span class="p">()</span>
+    <span class="p">}</span>
+    <span class="nx">componentDidMount</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">inputStream</span>
+            <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span>
+                <span class="nx">throttle</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="nx">v</span> <span class="p">=&gt;</span> <span class="p">{</span>
+                <span class="k">const</span> <span class="nx">filteredRes</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">filter</span><span class="p">((</span><span class="nx">item</span><span class="p">)=&gt;</span> <span class="p">{</span>
+                    <span class="c1">// algorithm to search through the `data` array
+</span><span class="c1"></span>                <span class="p">})</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span> <span class="nx">results</span><span class="o">:</span> <span class="nx">filteredRes</span> <span class="p">})</span>
+        <span class="p">})</span>
+    <span class="p">}</span>
+    <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="p">{</span> <span class="nx">results</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">;</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="o">=</span><span class="s">&#39;autocomp_wrapper&#39;</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">input</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">&#34;Enter your search..&#34;</span> <span class="na">onChange</span><span class="o">=</span><span class="s">{e</span> <span class="err">=</span><span class="p">&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">inputStream</span><span class="p">.</span><span class="nx">next</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span><span class="p">)}</span> <span class="err">/&gt;</span>
+                <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+                    <span class="p">{</span><span class="nx">results</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">result</span> <span class="p">=&gt;</span> <span class="p">{</span> <span class="nx">result</span> <span class="p">})}</span>
+                <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>我们从 <code>rxjs</code> 中导入了 <code>throttle</code> 和 <code>BehaviorSubject</code>，初始化了一个 <code>BehaviorSubject</code> 实例保存在 <code>inputStream</code> 属性，在 <code>componentDidMount</code> 中，我们将 <code>inputStream</code> 流传递给节流操作符，传入 1000，表示 RxJS 节流控制为 1000ms，节流操作返回的流被订阅以获得流值。</p>
+
+<p>因为在组件加载时订阅了 <code>inputStream</code>，所以我们开始输入时，输入的内容就被发送到 <code>inputStream</code> 流中。 刚开始时，由于 <code>throttle</code> 操作符 1000ms 内不会发送内容，在这之后发送最新值， 发送之后就开始计算得到结果。</p>
+
+<p>如果我们以 200ms 1 个字母的速度输入 <code>fidudusola</code> ，该组件将重新渲染 2000ms / 1000ms = 2次。</p>
+
+<h3 id="使用自定义实现">使用自定义实现</h3>
+
+<p>我们实现自己的节流函数，方便更好的理解节流如何工作。</p>
+
+<p>我们知道在一个节流控制的函数中，它会根据指定的时间间隔调用，我们将使用 setTimeout 函数实现这一点。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="kd">function</span> <span class="nx">throttle</span><span class="p">(</span><span class="nx">fn</span><span class="p">,</span> <span class="nx">ms</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">timeout</span>
+    <span class="kd">function</span> <span class="nx">exec</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">fn</span><span class="p">.</span><span class="nx">apply</span><span class="p">()</span>
+    <span class="p">}</span>
+    <span class="kd">function</span> <span class="nx">clear</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">timeout</span> <span class="o">==</span> <span class="kc">undefined</span> <span class="o">?</span> <span class="kc">null</span> <span class="o">:</span> <span class="nx">clearTimeout</span><span class="p">(</span><span class="nx">timeout</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">fn</span> <span class="o">!==</span> <span class="kc">undefined</span> <span class="o">&amp;&amp;</span> <span class="nx">ms</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">timeout</span> <span class="o">=</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">exec</span><span class="p">,</span> <span class="nx">ms</span><span class="p">)</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;callback function and the timeout must be supplied&#39;</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="c1">// API to clear the timeout
+</span><span class="c1"></span>    <span class="nx">throttle</span><span class="p">.</span><span class="nx">clearTimeout</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">clear</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>上面的实现非常简单，直接使用 <code>setTimeout API</code> 实现，在 <code>React</code> 项目中使用方式如下。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="c1">// ...
+</span><span class="c1"></span><span class="k">class</span> <span class="nx">autocomp</span> <span class="k">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="nx">results</span><span class="o">:</span> <span class="p">[]</span>
+        <span class="p">}</span>
+       <span class="k">this</span><span class="p">.</span><span class="nx">handleInputThrottled</span> <span class="o">=</span> <span class="nx">throttle</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">handleInput</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="nx">handleInput</span> <span class="o">=</span> <span class="nx">evt</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="k">const</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">evt</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span>
+        <span class="k">const</span> <span class="nx">filteredRes</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">filter</span><span class="p">((</span><span class="nx">item</span><span class="p">)=&gt;</span> <span class="p">{</span>
+            <span class="c1">// algorithm to search through the `data` array
+</span><span class="c1"></span>        <span class="p">})</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span> <span class="nx">results</span><span class="o">:</span> <span class="nx">filteredRes</span> <span class="p">})</span>
+    <span class="p">}</span>
+    <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="p">{</span> <span class="nx">results</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">;</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="o">=</span><span class="s">&#39;autocomp_wrapper&#39;</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">input</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">&#34;Enter your search..&#34;</span> <span class="na">onChange</span><span class="o">=</span><span class="s">{this.handleInputThrottled}</span> <span class="p">/&gt;</span>
+                <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+                    <span class="p">{</span><span class="nx">results</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">result</span><span class="p">=&gt;{</span><span class="nx">result</span><span class="p">})}</span>
+                <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="防抖-debounce">防抖 <code>Debounce</code></h2>
+
+<blockquote>
+<p>防抖会强制自上次调用后经过一定时间才会再次调用函数，例如只有在没有被调用的情况下经过一段时间之后（例如100毫秒）才执行该函数。</p>
+</blockquote>
+
+<p>在防抖时，它忽略对函数的所有调用，直到函数停止调用一段时间之后才会再次执行。</p>
+
+<p>下面将介绍在项目中使用 <code>debounce</code> 的例子。</p>
+
+<h3 id="使用underscore">使用underscore</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="c1">// ...
+</span><span class="c1"></span><span class="k">import</span> <span class="o">*</span> <span class="nx">as</span> <span class="nx">_</span> <span class="nx">from</span> <span class="s1">&#39;underscore&#39;</span><span class="p">;</span>
+<span class="k">class</span> <span class="nx">autocomp</span> <span class="k">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="nx">results</span><span class="o">:</span> <span class="p">[]</span>
+        <span class="p">}</span>
+       <span class="k">this</span><span class="p">.</span><span class="nx">handleInputThrottled</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">debounce</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">handleInput</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="nx">handleInput</span> <span class="o">=</span> <span class="nx">evt</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="k">const</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">evt</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span>
+        <span class="k">const</span> <span class="nx">filteredRes</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">filter</span><span class="p">((</span><span class="nx">item</span><span class="p">)=&gt;</span> <span class="p">{</span>
+            <span class="c1">// algorithm to search through the `data` array
+</span><span class="c1"></span>        <span class="p">})</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span> <span class="nx">results</span><span class="o">:</span> <span class="nx">filteredRes</span> <span class="p">})</span>
+    <span class="p">}</span>
+    <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="p">{</span> <span class="nx">results</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">;</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="o">=</span><span class="s">&#39;autocomp_wrapper&#39;</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">input</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">&#34;Enter your search..&#34;</span> <span class="na">onChange</span><span class="o">=</span><span class="s">{this.handleInputThrottled}</span> <span class="p">/&gt;</span>
+                <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+                    <span class="p">{</span><span class="nx">results</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">result</span><span class="p">=&gt;{</span><span class="nx">result</span><span class="p">})}</span>
+                <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="使用lodash">使用lodash</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="c1">// ...
+</span><span class="c1"></span><span class="k">import</span> <span class="p">{</span> <span class="nx">debounce</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;lodash&#39;</span><span class="p">;</span>
+<span class="k">class</span> <span class="nx">autocomp</span> <span class="k">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="nx">results</span><span class="o">:</span> <span class="p">[]</span>
+        <span class="p">}</span>
+       <span class="k">this</span><span class="p">.</span><span class="nx">handleInputThrottled</span> <span class="o">=</span> <span class="nx">debounce</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">handleInput</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="nx">handleInput</span> <span class="o">=</span> <span class="nx">evt</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="k">const</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">evt</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span>
+        <span class="k">const</span> <span class="nx">filteredRes</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">filter</span><span class="p">((</span><span class="nx">item</span><span class="p">)=&gt;</span> <span class="p">{</span>
+            <span class="c1">// algorithm to search through the `data` array
+</span><span class="c1"></span>        <span class="p">})</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span> <span class="nx">results</span><span class="o">:</span> <span class="nx">filteredRes</span> <span class="p">})</span>
+    <span class="p">}</span>
+    <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="p">{</span> <span class="nx">results</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">;</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="o">=</span><span class="s">&#39;autocomp_wrapper&#39;</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">input</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">&#34;Enter your search..&#34;</span> <span class="na">onChange</span><span class="o">=</span><span class="s">{this.handleInputThrottled}</span> <span class="p">/&gt;</span>
+                <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+                    <span class="p">{</span><span class="nx">results</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">result</span><span class="p">=&gt;{</span><span class="nx">result</span><span class="p">})}</span>
+                <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="使用rxjs">使用RxJS</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="c1">// ...
+</span><span class="c1"></span><span class="k">import</span> <span class="p">{</span> <span class="nx">BehaviorSubject</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;rxjs&#39;</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">debounce</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;rxjs/operators&#39;</span><span class="p">;</span>
+<span class="k">class</span> <span class="nx">autocomp</span> <span class="k">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="nx">results</span><span class="o">:</span> <span class="p">[]</span>
+        <span class="p">}</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">inputStream</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">BehaviorSubject</span><span class="p">()</span>
+    <span class="p">}</span>
+    <span class="nx">componentDidMount</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">inputStream</span>
+            <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span>
+                <span class="nx">debounce</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="nx">v</span> <span class="p">=&gt;</span> <span class="p">{</span>
+                <span class="k">const</span> <span class="nx">filteredRes</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">filter</span><span class="p">((</span><span class="nx">item</span><span class="p">)=&gt;</span> <span class="p">{</span>
+                    <span class="c1">// algorithm to search through the `data` array
+</span><span class="c1"></span>                <span class="p">})</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span> <span class="nx">results</span><span class="o">:</span> <span class="nx">filteredRes</span> <span class="p">})</span>
+        <span class="p">})</span>
+    <span class="p">}</span>
+    <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="p">{</span> <span class="nx">results</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">;</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="o">=</span><span class="s">&#39;autocomp_wrapper&#39;</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">input</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">&#34;Enter your search..&#34;</span> <span class="na">onChange</span><span class="o">=</span><span class="s">{e</span> <span class="err">=</span><span class="p">&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">inputStream</span><span class="p">.</span><span class="nx">next</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span><span class="p">)}</span> <span class="err">/&gt;</span>
+                <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+                    <span class="p">{</span><span class="nx">results</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">result</span> <span class="p">=&gt;</span> <span class="p">{</span> <span class="nx">result</span> <span class="p">})}</span>
+                <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>本文转自<a href="https://mp.weixin.qq.com/s/Cz3ZwGBUXzDl_WauQ_mhwQ">木子杨翻译的文章</a>, 侵删</p>
+</blockquote>
+</blockquote>
+</blockquote>
+    </div>
+
+    
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">Reward</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/reward/wechat-qr-code.png">
+        <span>wechat</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/reward/alipay-qr-code.png">
+        <span>alipay</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/javascript/">javascript</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/recompose%E5%BA%93%E5%9C%A8react%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0%E7%9A%84%E5%A4%84%E7%90%86/">
+            <span class="next-text nav-default">Recompose库在React高阶函数的处理</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2019-06-22 13:48:50 \x2b0800 \x2b0800',
+        title: 'Throttle和Debounce在React和Vue中的实践',
+        clientID: 'bf0ed9ea18e819e40135',
+        clientSecret: '92bdc65717aa7f0ec48bfe94e773b57a21163785',
+        repo: 'blog_comments',
+        owner: '496971418@qq.com',
+        admin: ['496971418@qq.com'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:terryzh017@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://stackoverflow.com/users/10838177/terryzh" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://twitter.com/terryzhAizz" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/t496971418" class="iconfont icon-github" title="github"></a>
+  <a href="http://www.elixir-zh.cn/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Terryzh</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

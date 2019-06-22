@@ -6,10 +6,19 @@
     <description>Recent content in javascript on Terryzh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 20 Jun 2019 14:24:02 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 22 Jun 2019 13:48:50 +0800</lastBuildDate>
     
 	<atom:link href="http://www.elixir-zh.cn/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Throttle和Debounce在React和Vue中的实践</title>
+      <link>http://www.elixir-zh.cn/post/throttle%E5%92%8Cdebounce%E5%9C%A8react%E5%92%8Cvue%E4%B8%AD%E7%9A%84%E5%AE%9E%E8%B7%B5/</link>
+      <pubDate>Sat, 22 Jun 2019 13:48:50 +0800</pubDate>
+      
+      <guid>http://www.elixir-zh.cn/post/throttle%E5%92%8Cdebounce%E5%9C%A8react%E5%92%8Cvue%E4%B8%AD%E7%9A%84%E5%AE%9E%E8%B7%B5/</guid>
+      <description>引言 使用 React 构建应用程序时，我们总是会遇到一些限制问题，比如大量的调用、异步网络请求和 DOM 更新等，我们可以使用 React 提供的功能来检查这些。 shoul</description>
+    </item>
     
     <item>
       <title>Recompose库在React高阶函数的处理</title>

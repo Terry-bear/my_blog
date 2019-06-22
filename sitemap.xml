@@ -10,6 +10,13 @@
   </url>
   
   <url>
+    <loc>http://www.elixir-zh.cn/post/throttle%E5%92%8Cdebounce%E5%9C%A8react%E5%92%8Cvue%E4%B8%AD%E7%9A%84%E5%AE%9E%E8%B7%B5/</loc>
+    <lastmod>2019-06-22T13:48:50+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>http://www.elixir-zh.cn/post/recompose%E5%BA%93%E5%9C%A8react%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0%E7%9A%84%E5%A4%84%E7%90%86/</loc>
     <lastmod>2019-06-20T14:24:02+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -129,7 +136,7 @@
   
   <url>
     <loc>http://www.elixir-zh.cn/post/</loc>
-    <lastmod>2019-06-20T14:24:02+08:00</lastmod>
+    <lastmod>2019-06-22T13:48:50+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -164,7 +171,7 @@
   
   <url>
     <loc>http://www.elixir-zh.cn/categories/code/</loc>
-    <lastmod>2019-06-20T14:24:02+08:00</lastmod>
+    <lastmod>2019-06-22T13:48:50+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -185,7 +192,7 @@
   
   <url>
     <loc>http://www.elixir-zh.cn/tags/javascript/</loc>
-    <lastmod>2019-06-20T14:24:02+08:00</lastmod>
+    <lastmod>2019-06-22T13:48:50+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
