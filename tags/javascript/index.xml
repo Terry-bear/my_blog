@@ -6,10 +6,19 @@
     <description>Recent content in javascript on Terryzh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 22 Jun 2019 13:48:50 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 22 Jun 2019 17:27:39 +0800</lastBuildDate>
     
 	<atom:link href="http://www.elixir-zh.cn/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>[译]Docker集成React应用</title>
+      <link>http://www.elixir-zh.cn/post/%E8%AF%91docker%E9%9B%86%E6%88%90react%E5%BA%94%E7%94%A8/</link>
+      <pubDate>Sat, 22 Jun 2019 17:27:39 +0800</pubDate>
+      
+      <guid>http://www.elixir-zh.cn/post/%E8%AF%91docker%E9%9B%86%E6%88%90react%E5%BA%94%E7%94%A8/</guid>
+      <description>本文翻译自 Michael Herman 的 Dockerizing a React App Docker是一种容器化工具，可以帮助开发者加快开发和部署过程。如果你正在使用微服务，Docker可以更轻松地将小型</description>
+    </item>
     
     <item>
       <title>Throttle和Debounce在React和Vue中的实践</title>

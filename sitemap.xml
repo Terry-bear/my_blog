@@ -10,6 +10,13 @@
   </url>
   
   <url>
+    <loc>http://www.elixir-zh.cn/post/%E8%AF%91docker%E9%9B%86%E6%88%90react%E5%BA%94%E7%94%A8/</loc>
+    <lastmod>2019-06-22T17:27:39+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>http://www.elixir-zh.cn/post/throttle%E5%92%8Cdebounce%E5%9C%A8react%E5%92%8Cvue%E4%B8%AD%E7%9A%84%E5%AE%9E%E8%B7%B5/</loc>
     <lastmod>2019-06-22T13:48:50+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -135,8 +142,15 @@
   </url>
   
   <url>
+    <loc>http://www.elixir-zh.cn/categories/ops/</loc>
+    <lastmod>2019-06-22T17:27:39+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>http://www.elixir-zh.cn/post/</loc>
-    <lastmod>2019-06-22T13:48:50+08:00</lastmod>
+    <lastmod>2019-06-22T17:27:39+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -171,7 +185,7 @@
   
   <url>
     <loc>http://www.elixir-zh.cn/categories/code/</loc>
-    <lastmod>2019-06-22T13:48:50+08:00</lastmod>
+    <lastmod>2019-06-22T17:27:39+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -192,7 +206,7 @@
   
   <url>
     <loc>http://www.elixir-zh.cn/tags/javascript/</loc>
-    <lastmod>2019-06-22T13:48:50+08:00</lastmod>
+    <lastmod>2019-06-22T17:27:39+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -214,6 +228,13 @@
   <url>
     <loc>http://www.elixir-zh.cn/tags/typescript/</loc>
     <lastmod>2019-01-22T11:25:36+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.elixir-zh.cn/tags/%E5%AE%B9%E5%99%A8%E5%8C%96/</loc>
+    <lastmod>2019-06-22T17:27:39+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
