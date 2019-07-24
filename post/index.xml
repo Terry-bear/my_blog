@@ -6,10 +6,28 @@
     <description>Recent content in Posts on Terryzh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 22 Jun 2019 17:27:39 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 24 Jul 2019 10:56:12 +0800</lastBuildDate>
     
 	<atom:link href="http://www.elixir-zh.cn/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>[译]如何使用React Hooks获取数据</title>
+      <link>http://www.elixir-zh.cn/post/%E8%AF%91%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8react-hooks%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE/</link>
+      <pubDate>Wed, 24 Jul 2019 10:56:12 +0800</pubDate>
+      
+      <guid>http://www.elixir-zh.cn/post/%E8%AF%91%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8react-hooks%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE/</guid>
+      <description>在本教程中，我想向您展示如何使用state和effectHook在React with Hooks中获取数据。我们将使用广为人知的黑客新闻API来获取</description>
+    </item>
+    
+    <item>
+      <title>TODO浅析基于Redux延展的前端状态管理(一)</title>
+      <link>http://www.elixir-zh.cn/post/%E6%B5%85%E6%9E%90%E5%9F%BA%E4%BA%8Eredux%E5%BB%B6%E5%B1%95%E7%9A%84%E5%89%8D%E7%AB%AF%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E4%B8%80/</link>
+      <pubDate>Thu, 27 Jun 2019 20:29:22 +0800</pubDate>
+      
+      <guid>http://www.elixir-zh.cn/post/%E6%B5%85%E6%9E%90%E5%9F%BA%E4%BA%8Eredux%E5%BB%B6%E5%B1%95%E7%9A%84%E5%89%8D%E7%AB%AF%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E4%B8%80/</guid>
+      <description>序 最近研究了一下一直云里雾里的前端传输问题。 随着前端开发的逐渐复杂化，前端的状态管理和参数传递变得越来越复杂。 单纯的从URL或者是local</description>
+    </item>
     
     <item>
       <title>[译]Docker集成React应用</title>

@@ -10,6 +10,20 @@
   </url>
   
   <url>
+    <loc>http://www.elixir-zh.cn/post/%E8%AF%91%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8react-hooks%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE/</loc>
+    <lastmod>2019-07-24T10:56:12+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.elixir-zh.cn/post/%E6%B5%85%E6%9E%90%E5%9F%BA%E4%BA%8Eredux%E5%BB%B6%E5%B1%95%E7%9A%84%E5%89%8D%E7%AB%AF%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E4%B8%80/</loc>
+    <lastmod>2019-06-27T20:29:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>http://www.elixir-zh.cn/post/%E8%AF%91docker%E9%9B%86%E6%88%90react%E5%BA%94%E7%94%A8/</loc>
     <lastmod>2019-06-22T17:27:39+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -150,7 +164,7 @@
   
   <url>
     <loc>http://www.elixir-zh.cn/post/</loc>
-    <lastmod>2019-06-22T17:27:39+08:00</lastmod>
+    <lastmod>2019-07-24T10:56:12+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -185,7 +199,7 @@
   
   <url>
     <loc>http://www.elixir-zh.cn/categories/code/</loc>
-    <lastmod>2019-06-22T17:27:39+08:00</lastmod>
+    <lastmod>2019-07-24T10:56:12+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -206,7 +220,7 @@
   
   <url>
     <loc>http://www.elixir-zh.cn/tags/javascript/</loc>
-    <lastmod>2019-06-22T17:27:39+08:00</lastmod>
+    <lastmod>2019-07-24T10:56:12+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -228,6 +242,20 @@
   <url>
     <loc>http://www.elixir-zh.cn/tags/typescript/</loc>
     <lastmod>2019-01-22T11:25:36+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.elixir-zh.cn/tags/react/</loc>
+    <lastmod>2019-06-27T20:29:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.elixir-zh.cn/tags/redux/</loc>
+    <lastmod>2019-06-27T20:29:22+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>

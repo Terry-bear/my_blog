@@ -1,0 +1,1977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>[译]如何使用React Hooks获取数据 - Terryzh</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Terryzh" /><meta name="description" content="在本教程中，我想向您展示如何使用state和effectHook在React with Hooks中获取数据。我们将使用广为人知的黑客新闻API来获取" /><meta name="keywords" content="javascript" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.54.0 with even 4.0.0" />
+
+
+<link rel="canonical" href="http://www.elixir-zh.cn/post/%E8%AF%91%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8react-hooks%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.65dce888.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="[译]如何使用React Hooks获取数据" />
+<meta property="og:description" content="在本教程中，我想向您展示如何使用state和effectHook在React with Hooks中获取数据。我们将使用广为人知的黑客新闻API来获取" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.elixir-zh.cn/post/%E8%AF%91%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8react-hooks%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE/" />
+<meta property="article:published_time" content="2019-07-24T10:56:12&#43;08:00"/>
+<meta property="article:modified_time" content="2019-07-24T10:56:12&#43;08:00"/>
+
+<meta itemprop="name" content="[译]如何使用React Hooks获取数据">
+<meta itemprop="description" content="在本教程中，我想向您展示如何使用state和effectHook在React with Hooks中获取数据。我们将使用广为人知的黑客新闻API来获取">
+
+
+<meta itemprop="datePublished" content="2019-07-24T10:56:12&#43;08:00" />
+<meta itemprop="dateModified" content="2019-07-24T10:56:12&#43;08:00" />
+<meta itemprop="wordCount" content="7040">
+
+
+
+<meta itemprop="keywords" content="javascript," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[译]如何使用React Hooks获取数据"/>
+<meta name="twitter:description" content="在本教程中，我想向您展示如何使用state和effectHook在React with Hooks中获取数据。我们将使用广为人知的黑客新闻API来获取"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Terryzh</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Terryzh</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">[译]如何使用React Hooks获取数据</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-07-24 </span>
+        <div class="post-category">
+            <a href="/categories/code/"> code </a>
+            </div>
+          <span class="more-meta"> 7040 words </span>
+          <span class="more-meta"> 15 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#使用react-hooks获取数据">使用React Hooks获取数据</a></li>
+<li><a href="#如何以编程方式-手动触发hook">如何以编程方式/手动触发Hook？</a></li>
+<li><a href="#在react-hooks中的loading-indicator">在React Hooks中的Loading indicator</a></li>
+<li><a href="#使用react-hook进行错误处理">使用React Hook进行错误处理</a></li>
+<li><a href="#在react中使用表单获取数据">在React中使用表单获取数据</a></li>
+<li><a href="#自定义数据获取hook">自定义数据获取hook</a></li>
+<li><a href="#用于数据获取的reducer-hook">用于数据获取的Reducer Hook</a></li>
+<li><a href="#在effect-hook中终止数据获取">在Effect Hook中终止数据获取</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>在本教程中，我想向您<strong>展示如何</strong>使用<a href="https://reactjs.org/docs/hooks-state.html">state</a>和<a href="https://reactjs.org/docs/hooks-effect.html">effect</a><strong>Hook</strong>在<strong>React with Hooks</strong>中获取数据。我们将使用广为人知的<a href="https://hn.algolia.com/api">黑客新闻API</a>来获取科技界的热门文章。您还将实现数据提取的自定义挂钩，可以在应用程序的任何位置重用，也可以作为独立节点包在npm上发布。</p>
+
+<p>如果您对这个新的React功能一无所知，请<a href="https://www.robinwieruch.de/react-hooks/">查看React Hooks的</a>这个<a href="https://www.robinwieruch.de/react-hooks/">介绍</a>。如果您想要查看完成的项目以获取展示如何在React with Hooks中获取数据的展示示例，请检查此<a href="https://github.com/the-road-to-learn-react/react-hooks-introduction">GitHub存储库</a>。</p>
+
+<p>如果您只是想准备好React Hook进行数据获取：<code>npm install use-data-api</code>并按照<a href="https://github.com/the-road-to-learn-react/use-data-api">文档进行操作</a>。</p>
+
+<blockquote>
+<p><strong>注意：</strong>将来，React Hooks不适用于React中的数据获取。相反，一个名为Suspense的功能将负责它。以下演练是了解React中有关状态和效果挂钩的更多信息的好方法。</p>
+</blockquote>
+
+<h2 id="使用react-hooks获取数据">使用React Hooks获取数据</h2>
+
+<p>如何使用<a href="https://www.robinwieruch.de/react-render-props-pattern/">Render Prop组件</a>和<a href="https://www.robinwieruch.de/gentle-introduction-higher-order-components/">高阶组件重新获取</a>它，以及它如何处理错误处理和加载微调器。在本文中，我想在功能组件中使用React Hooks向您展示所有内容。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">useState</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="p">[</span><span class="nx">data</span><span class="p">,</span> <span class="nx">setData</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">({</span> <span class="nx">hits</span><span class="o">:</span> <span class="p">[]</span> <span class="p">});</span>
+
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">ul</span><span class="o">&gt;</span>
+      <span class="p">{</span><span class="nx">data</span><span class="p">.</span><span class="nx">hits</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">item</span> <span class="p">=&gt;</span> <span class="p">(</span>
+        <span class="o">&lt;</span><span class="nx">li</span> <span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">objectID</span><span class="p">}</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">url</span><span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">title</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/a&gt;</span>
+        <span class="o">&lt;</span><span class="err">/li&gt;</span>
+      <span class="p">))}</span>
+    <span class="o">&lt;</span><span class="err">/ul&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">App</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>App组件显示了一个项目列表（hits = Hacker News文章）。状态(state)和状态更新(state update)函数来自状态钩子<code>useState</code>，它被称为负责管理我们要为App组件获取的数据的本地状态。初始状态是表示数据的对象中的空命中列表。目前还没有人为这些数据设置任何状态。</p>
+
+<p>我们将使用<a href="https://github.com/axios/axios">axios</a>来获取数据，但是您可以使用另一个数据获取库或浏览器的本机提取API。如果尚未安装axios，可以在命令行中执行此操作<code>npm install axios</code>。然后为数据获取实现效果钩子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">useState</span><span class="p">,</span> <span class="nx">useEffect</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">axios</span> <span class="nx">from</span> <span class="s1">&#39;axios&#39;</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="p">[</span><span class="nx">data</span><span class="p">,</span> <span class="nx">setData</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">({</span> <span class="nx">hits</span><span class="o">:</span> <span class="p">[]</span> <span class="p">});</span>
+
+  <span class="nx">useEffect</span><span class="p">(</span><span class="kr">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">axios</span><span class="p">(</span>
+      <span class="s1">&#39;http://hn.algolia.com/api/v1/search?query=redux&#39;</span><span class="p">,</span>
+    <span class="p">);</span>
+
+    <span class="nx">setData</span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+  <span class="p">});</span>
+
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">ul</span><span class="o">&gt;</span>
+      <span class="p">{</span><span class="nx">data</span><span class="p">.</span><span class="nx">hits</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">item</span> <span class="p">=&gt;</span> <span class="p">(</span>
+        <span class="o">&lt;</span><span class="nx">li</span> <span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">objectID</span><span class="p">}</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">url</span><span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">title</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/a&gt;</span>
+        <span class="o">&lt;</span><span class="err">/li&gt;</span>
+      <span class="p">))}</span>
+    <span class="o">&lt;</span><span class="err">/ul&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">App</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>名为<code>useEffect</code>的<code>Effect hook</code>用于从API获取带有axios的数据，并使用状态挂钩的更新功能将数据设置为组件的本地状态。<code>Promise resolving</code>发生在<code>async / await</code>中。</p>
+
+<p>但是，当您运行应用程序时，您应该偶然发现一个讨厌的循环。<code>effect hook</code>在组件安装时运行，但也在组件更新时运行。因为我们在每次数据提取后设置状态，所以组件会更新并且效果会再次运行。它一次又一次地获取数据。<strong>这是一个错误，需要避免</strong>。<strong>绝大多数的新手肯定会犯错的地方</strong>。<strong>我们只想在组件安装时获取数据。</strong>这就是为什么你可以提供一个空数组作为<code>effect hook</code>的第二个参数，以避免在组件更新时激活它，但仅用于组件的安装。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">useState</span><span class="p">,</span> <span class="nx">useEffect</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">axios</span> <span class="nx">from</span> <span class="s1">&#39;axios&#39;</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="p">[</span><span class="nx">data</span><span class="p">,</span> <span class="nx">setData</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">({</span> <span class="nx">hits</span><span class="o">:</span> <span class="p">[]</span> <span class="p">});</span>
+
+  <span class="nx">useEffect</span><span class="p">(</span><span class="kr">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">axios</span><span class="p">(</span>
+      <span class="s1">&#39;http://hn.algolia.com/api/v1/search?query=redux&#39;</span><span class="p">,</span>
+    <span class="p">);</span>
+
+    <span class="nx">setData</span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+  <span class="p">},</span> <span class="p">[]);</span>
+
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">ul</span><span class="o">&gt;</span>
+      <span class="p">{</span><span class="nx">data</span><span class="p">.</span><span class="nx">hits</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">item</span> <span class="p">=&gt;</span> <span class="p">(</span>
+        <span class="o">&lt;</span><span class="nx">li</span> <span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">objectID</span><span class="p">}</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">url</span><span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">title</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/a&gt;</span>
+        <span class="o">&lt;</span><span class="err">/li&gt;</span>
+      <span class="p">))}</span>
+    <span class="o">&lt;</span><span class="err">/ul&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">App</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>第二个参数可用于定义钩子所依赖的所有变量（在此数组中分配）。如果其中一个变量发生变化，则钩子再次运行。如果包含变量的数组为空，则在更新组件时挂钩不会运行，因为它不必监视任何变量。</p>
+
+<p>还有最后一个问题。在代码中，我们使用async / await从第三方API获取数据。根据文档，每个使用async注释的函数都会返回一个隐式的promise：*“async函数声明定义了一个异步函数，它返回一个AsyncFunction对象。异步函数是一个通过事件循环异步操作的函数，使用隐式Promise返回其结果。“*。但是，<code>effect hook</code>应该不返回任何内容或清除功能。这就是为什么你可能会在开发者控制台日志中看到以下警告：<strong>07：41：22.910 index.js：1452.Warning: useEffect function must return a cleanup function or nothing.。不支持Promises和useEffect（async（）=&gt; &hellip;），但可以在effect中调用异步函数。</strong>。这就是为什么<code>useEffect</code>不允许在函数中直接使用async的原因。让我们通过在效果中使用async函数来实现它的解决方法。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">useState</span><span class="p">,</span> <span class="nx">useEffect</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">axios</span> <span class="nx">from</span> <span class="s1">&#39;axios&#39;</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="p">[</span><span class="nx">data</span><span class="p">,</span> <span class="nx">setData</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">({</span> <span class="nx">hits</span><span class="o">:</span> <span class="p">[]</span> <span class="p">});</span>
+
+  <span class="nx">useEffect</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="nx">fetchData</span> <span class="o">=</span> <span class="kr">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="k">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">axios</span><span class="p">(</span>
+        <span class="s1">&#39;http://hn.algolia.com/api/v1/search?query=redux&#39;</span><span class="p">,</span>
+      <span class="p">);</span>
+
+      <span class="nx">setData</span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+    <span class="p">};</span>
+
+    <span class="nx">fetchData</span><span class="p">();</span>
+  <span class="p">},</span> <span class="p">[]);</span>
+
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">ul</span><span class="o">&gt;</span>
+      <span class="p">{</span><span class="nx">data</span><span class="p">.</span><span class="nx">hits</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">item</span> <span class="p">=&gt;</span> <span class="p">(</span>
+        <span class="o">&lt;</span><span class="nx">li</span> <span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">objectID</span><span class="p">}</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">url</span><span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">title</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/a&gt;</span>
+        <span class="o">&lt;</span><span class="err">/li&gt;</span>
+      <span class="p">))}</span>
+    <span class="o">&lt;</span><span class="err">/ul&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">App</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>简而言之，就是使用React钩子获取数据。但是如果您对错误处理，loading indicator，如何触发从表单中获取数据以及如何实现可重用数据获取挂钩感兴趣，请继续阅读。</p>
+</blockquote>
+
+<h2 id="如何以编程方式-手动触发hook">如何以编程方式/手动触发Hook？</h2>
+
+<p>非常棒，我们在组件安装后获取数据。但是如何使用输入字段告诉API我们感兴趣的主题？“Redux”被视为默认查询。但是关于“React”的话题呢？让我们实现一个输入元素，使某人能够获取除“Redux”故事之外的其他故事。因此，为input元素引入一个新状态。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">Fragment</span><span class="p">,</span> <span class="nx">useState</span><span class="p">,</span> <span class="nx">useEffect</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">axios</span> <span class="nx">from</span> <span class="s1">&#39;axios&#39;</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="p">[</span><span class="nx">data</span><span class="p">,</span> <span class="nx">setData</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">({</span> <span class="nx">hits</span><span class="o">:</span> <span class="p">[]</span> <span class="p">});</span>
+  <span class="k">const</span> <span class="p">[</span><span class="nx">query</span><span class="p">,</span> <span class="nx">setQuery</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="s1">&#39;redux&#39;</span><span class="p">);</span>
+
+  <span class="nx">useEffect</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="nx">fetchData</span> <span class="o">=</span> <span class="kr">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="k">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">axios</span><span class="p">(</span>
+        <span class="s1">&#39;http://hn.algolia.com/api/v1/search?query=redux&#39;</span><span class="p">,</span>
+      <span class="p">);</span>
+
+      <span class="nx">setData</span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+    <span class="p">};</span>
+
+    <span class="nx">fetchData</span><span class="p">();</span>
+  <span class="p">},</span> <span class="p">[]);</span>
+
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">Fragment</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">input</span>
+        <span class="nx">type</span><span class="o">=</span><span class="s2">&#34;text&#34;</span>
+        <span class="nx">value</span><span class="o">=</span><span class="p">{</span><span class="nx">query</span><span class="p">}</span>
+        <span class="nx">onChange</span><span class="o">=</span><span class="p">{</span><span class="nx">event</span> <span class="p">=&gt;</span> <span class="nx">setQuery</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span><span class="p">)}</span>
+      <span class="err">/&gt;</span>
+      <span class="o">&lt;</span><span class="nx">ul</span><span class="o">&gt;</span>
+        <span class="p">{</span><span class="nx">data</span><span class="p">.</span><span class="nx">hits</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">item</span> <span class="p">=&gt;</span> <span class="p">(</span>
+          <span class="o">&lt;</span><span class="nx">li</span> <span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">objectID</span><span class="p">}</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">url</span><span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">title</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/a&gt;</span>
+          <span class="o">&lt;</span><span class="err">/li&gt;</span>
+        <span class="p">))}</span>
+      <span class="o">&lt;</span><span class="err">/ul&gt;</span>
+    <span class="o">&lt;</span><span class="err">/Fragment&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">App</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>目前，两个状态彼此独立，但现在您希望将它们耦合到仅获取输入字段中查询指定的文章。通过以下更改，组件应在挂载后按查询字词获取所有文章。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="p">...</span>
+
+<span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="p">[</span><span class="nx">data</span><span class="p">,</span> <span class="nx">setData</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">({</span> <span class="nx">hits</span><span class="o">:</span> <span class="p">[]</span> <span class="p">});</span>
+  <span class="k">const</span> <span class="p">[</span><span class="nx">query</span><span class="p">,</span> <span class="nx">setQuery</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="s1">&#39;redux&#39;</span><span class="p">);</span>
+
+  <span class="nx">useEffect</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="nx">fetchData</span> <span class="o">=</span> <span class="kr">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="k">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">axios</span><span class="p">(</span>
+        <span class="sb">`http://hn.algolia.com/api/v1/search?query=</span><span class="si">${</span><span class="nx">query</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span>
+      <span class="p">);</span>
+
+      <span class="nx">setData</span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+    <span class="p">};</span>
+
+    <span class="nx">fetchData</span><span class="p">();</span>
+  <span class="p">},</span> <span class="p">[]);</span>
+
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">...</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">App</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>缺少一点：当您尝试在输入字段中键入内容时，在从效果触发安装后没有其他数据获取。那是因为你提供了空数组作为效果的第二个参数。效果取决于无变量，因此仅在组件安装时触发。但是，现在效果应该取决于查询。查询更改后，数据请求将再次触发。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="p">...</span>
+
+<span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="p">[</span><span class="nx">data</span><span class="p">,</span> <span class="nx">setData</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">({</span> <span class="nx">hits</span><span class="o">:</span> <span class="p">[]</span> <span class="p">});</span>
+  <span class="k">const</span> <span class="p">[</span><span class="nx">query</span><span class="p">,</span> <span class="nx">setQuery</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="s1">&#39;redux&#39;</span><span class="p">);</span>
+
+  <span class="nx">useEffect</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="nx">fetchData</span> <span class="o">=</span> <span class="kr">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="k">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">axios</span><span class="p">(</span>
+        <span class="sb">`http://hn.algolia.com/api/v1/search?query=</span><span class="si">${</span><span class="nx">query</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span>
+      <span class="p">);</span>
+
+      <span class="nx">setData</span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+    <span class="p">};</span>
+
+    <span class="nx">fetchData</span><span class="p">();</span>
+  <span class="p">},</span> <span class="p">[</span><span class="nx">query</span><span class="p">]);</span>
+
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">...</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">App</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>一旦更改输入字段中的值，就可以重新获取数据。但这会带来另一个问题：<strong>在输入字段中键入的每个字符上，都会触发效果并执行另一个数据提取请求</strong>。如何提供一个按钮来触发请求，从而手动控制hook？</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="p">[</span><span class="nx">data</span><span class="p">,</span> <span class="nx">setData</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">({</span> <span class="nx">hits</span><span class="o">:</span> <span class="p">[]</span> <span class="p">});</span>
+  <span class="k">const</span> <span class="p">[</span><span class="nx">query</span><span class="p">,</span> <span class="nx">setQuery</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="s1">&#39;redux&#39;</span><span class="p">);</span>
+  <span class="k">const</span> <span class="p">[</span><span class="nx">search</span><span class="p">,</span> <span class="nx">setSearch</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+
+  <span class="nx">useEffect</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="nx">fetchData</span> <span class="o">=</span> <span class="kr">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="k">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">axios</span><span class="p">(</span>
+        <span class="sb">`http://hn.algolia.com/api/v1/search?query=</span><span class="si">${</span><span class="nx">query</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span>
+      <span class="p">);</span>
+
+      <span class="nx">setData</span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+    <span class="p">};</span>
+
+    <span class="nx">fetchData</span><span class="p">();</span>
+  <span class="p">},</span> <span class="p">[</span><span class="nx">query</span><span class="p">]);</span>
+
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">Fragment</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">input</span>
+        <span class="nx">type</span><span class="o">=</span><span class="s2">&#34;text&#34;</span>
+        <span class="nx">value</span><span class="o">=</span><span class="p">{</span><span class="nx">query</span><span class="p">}</span>
+        <span class="nx">onChange</span><span class="o">=</span><span class="p">{</span><span class="nx">event</span> <span class="p">=&gt;</span> <span class="nx">setQuery</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span><span class="p">)}</span>
+      <span class="err">/&gt;</span>
+      <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&#34;button&#34;</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="p">=&gt;</span> <span class="nx">setSearch</span><span class="p">(</span><span class="nx">query</span><span class="p">)}</span><span class="o">&gt;</span>
+        <span class="nx">Search</span>
+      <span class="o">&lt;</span><span class="err">/button&gt;</span>
+
+      <span class="o">&lt;</span><span class="nx">ul</span><span class="o">&gt;</span>
+        <span class="p">{</span><span class="nx">data</span><span class="p">.</span><span class="nx">hits</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">item</span> <span class="p">=&gt;</span> <span class="p">(</span>
+          <span class="o">&lt;</span><span class="nx">li</span> <span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">objectID</span><span class="p">}</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">url</span><span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">title</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/a&gt;</span>
+          <span class="o">&lt;</span><span class="err">/li&gt;</span>
+        <span class="p">))}</span>
+      <span class="o">&lt;</span><span class="err">/ul&gt;</span>
+    <span class="o">&lt;</span><span class="err">/Fragment&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>现在，使效果取决于搜索状态，而不是每次键盘点击后的查询状态。用户单击该按钮后，将设置新的搜索状态，并应手动触发<code>effect hook</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="p">...</span>
+
+<span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="p">[</span><span class="nx">data</span><span class="p">,</span> <span class="nx">setData</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">({</span> <span class="nx">hits</span><span class="o">:</span> <span class="p">[]</span> <span class="p">});</span>
+  <span class="k">const</span> <span class="p">[</span><span class="nx">query</span><span class="p">,</span> <span class="nx">setQuery</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="s1">&#39;redux&#39;</span><span class="p">);</span>
+  <span class="k">const</span> <span class="p">[</span><span class="nx">search</span><span class="p">,</span> <span class="nx">setSearch</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="s1">&#39;redux&#39;</span><span class="p">);</span>
+
+  <span class="nx">useEffect</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="nx">fetchData</span> <span class="o">=</span> <span class="kr">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="k">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">axios</span><span class="p">(</span>
+        <span class="sb">`http://hn.algolia.com/api/v1/search?query=</span><span class="si">${</span><span class="nx">search</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span>
+      <span class="p">);</span>
+
+      <span class="nx">setData</span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+    <span class="p">};</span>
+
+    <span class="nx">fetchData</span><span class="p">();</span>
+  <span class="p">},</span> <span class="p">[</span><span class="nx">search</span><span class="p">]);</span>
+
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">...</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">App</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>此外，搜索状态的初始状态设置为与查询状态相同的状态，因为组件也在mount上获取数据，因此结果应该与输入字段的值保持一致。但是，具有类似的查询和搜索状态有点令人困惑。为什么不将实际的URL设置为状态而不是搜索状态？</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="p">[</span><span class="nx">data</span><span class="p">,</span> <span class="nx">setData</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">({</span> <span class="nx">hits</span><span class="o">:</span> <span class="p">[]</span> <span class="p">});</span>
+  <span class="k">const</span> <span class="p">[</span><span class="nx">query</span><span class="p">,</span> <span class="nx">setQuery</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="s1">&#39;redux&#39;</span><span class="p">);</span>
+  <span class="k">const</span> <span class="p">[</span><span class="nx">url</span><span class="p">,</span> <span class="nx">setUrl</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span>
+    <span class="s1">&#39;http://hn.algolia.com/api/v1/search?query=redux&#39;</span><span class="p">,</span>
+  <span class="p">);</span>
+
+  <span class="nx">useEffect</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="nx">fetchData</span> <span class="o">=</span> <span class="kr">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="k">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">axios</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span>
+
+      <span class="nx">setData</span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+    <span class="p">};</span>
+
+    <span class="nx">fetchData</span><span class="p">();</span>
+  <span class="p">},</span> <span class="p">[</span><span class="nx">url</span><span class="p">]);</span>
+
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">Fragment</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">input</span>
+        <span class="nx">type</span><span class="o">=</span><span class="s2">&#34;text&#34;</span>
+        <span class="nx">value</span><span class="o">=</span><span class="p">{</span><span class="nx">query</span><span class="p">}</span>
+        <span class="nx">onChange</span><span class="o">=</span><span class="p">{</span><span class="nx">event</span> <span class="p">=&gt;</span> <span class="nx">setQuery</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span><span class="p">)}</span>
+      <span class="err">/&gt;</span>
+      <span class="o">&lt;</span><span class="nx">button</span>
+        <span class="nx">type</span><span class="o">=</span><span class="s2">&#34;button&#34;</span>
+        <span class="nx">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="p">=&gt;</span>
+          <span class="nx">setUrl</span><span class="p">(</span><span class="sb">`http://hn.algolia.com/api/v1/search?query=</span><span class="si">${</span><span class="nx">query</span><span class="si">}</span><span class="sb">`</span><span class="p">)</span>
+        <span class="p">}</span>
+      <span class="o">&gt;</span>
+        <span class="nx">Search</span>
+      <span class="o">&lt;</span><span class="err">/button&gt;</span>
+
+      <span class="o">&lt;</span><span class="nx">ul</span><span class="o">&gt;</span>
+        <span class="p">{</span><span class="nx">data</span><span class="p">.</span><span class="nx">hits</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">item</span> <span class="p">=&gt;</span> <span class="p">(</span>
+          <span class="o">&lt;</span><span class="nx">li</span> <span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">objectID</span><span class="p">}</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">url</span><span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">title</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/a&gt;</span>
+          <span class="o">&lt;</span><span class="err">/li&gt;</span>
+        <span class="p">))}</span>
+      <span class="o">&lt;</span><span class="err">/ul&gt;</span>
+    <span class="o">&lt;</span><span class="err">/Fragment&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>这就是使用效果钩子获取隐式程序数据的情况。您可以决定<code>effect</code>所依赖的<code>state</code>。一旦您在单击或其他副作用中设置此<code>state</code>，<code>effect</code>将再次运行。在这种情况下，如果URL状态发生更改，则<code>effect</code>会再次运行以从API获取故事。</p>
+</blockquote>
+
+<h2 id="在react-hooks中的loading-indicator">在React Hooks中的Loading indicator</h2>
+
+<p>让我们为数据提取引入一个<code>Loading indicator</code>。它只是另一个由<code>state hook</code>管理的状态。加载标志用于在App组件中呈现加载指示符。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">Fragment</span><span class="p">,</span> <span class="nx">useState</span><span class="p">,</span> <span class="nx">useEffect</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">axios</span> <span class="nx">from</span> <span class="s1">&#39;axios&#39;</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="p">[</span><span class="nx">data</span><span class="p">,</span> <span class="nx">setData</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">({</span> <span class="nx">hits</span><span class="o">:</span> <span class="p">[]</span> <span class="p">});</span>
+  <span class="k">const</span> <span class="p">[</span><span class="nx">query</span><span class="p">,</span> <span class="nx">setQuery</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="s1">&#39;redux&#39;</span><span class="p">);</span>
+  <span class="k">const</span> <span class="p">[</span><span class="nx">url</span><span class="p">,</span> <span class="nx">setUrl</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span>
+    <span class="s1">&#39;http://hn.algolia.com/api/v1/search?query=redux&#39;</span><span class="p">,</span>
+  <span class="p">);</span>
+  <span class="k">const</span> <span class="p">[</span><span class="nx">isLoading</span><span class="p">,</span> <span class="nx">setIsLoading</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+
+  <span class="nx">useEffect</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="nx">fetchData</span> <span class="o">=</span> <span class="kr">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="nx">setIsLoading</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+
+      <span class="k">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">axios</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span>
+
+      <span class="nx">setData</span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+      <span class="nx">setIsLoading</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+    <span class="p">};</span>
+
+    <span class="nx">fetchData</span><span class="p">();</span>
+  <span class="p">},</span> <span class="p">[</span><span class="nx">url</span><span class="p">]);</span>
+
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">Fragment</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">input</span>
+        <span class="nx">type</span><span class="o">=</span><span class="s2">&#34;text&#34;</span>
+        <span class="nx">value</span><span class="o">=</span><span class="p">{</span><span class="nx">query</span><span class="p">}</span>
+        <span class="nx">onChange</span><span class="o">=</span><span class="p">{</span><span class="nx">event</span> <span class="p">=&gt;</span> <span class="nx">setQuery</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span><span class="p">)}</span>
+      <span class="err">/&gt;</span>
+      <span class="o">&lt;</span><span class="nx">button</span>
+        <span class="nx">type</span><span class="o">=</span><span class="s2">&#34;button&#34;</span>
+        <span class="nx">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="p">=&gt;</span>
+          <span class="nx">setUrl</span><span class="p">(</span><span class="sb">`http://hn.algolia.com/api/v1/search?query=</span><span class="si">${</span><span class="nx">query</span><span class="si">}</span><span class="sb">`</span><span class="p">)</span>
+        <span class="p">}</span>
+      <span class="o">&gt;</span>
+        <span class="nx">Search</span>
+      <span class="o">&lt;</span><span class="err">/button&gt;</span>
+
+      <span class="p">{</span><span class="nx">isLoading</span> <span class="o">?</span> <span class="p">(</span>
+        <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="nx">Loading</span> <span class="p">...</span><span class="o">&lt;</span><span class="err">/div&gt;</span>
+      <span class="p">)</span> <span class="o">:</span> <span class="p">(</span>
+        <span class="o">&lt;</span><span class="nx">ul</span><span class="o">&gt;</span>
+          <span class="p">{</span><span class="nx">data</span><span class="p">.</span><span class="nx">hits</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">item</span> <span class="p">=&gt;</span> <span class="p">(</span>
+            <span class="o">&lt;</span><span class="nx">li</span> <span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">objectID</span><span class="p">}</span><span class="o">&gt;</span>
+              <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">url</span><span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">title</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/a&gt;</span>
+            <span class="o">&lt;</span><span class="err">/li&gt;</span>
+          <span class="p">))}</span>
+        <span class="o">&lt;</span><span class="err">/ul&gt;</span>
+      <span class="p">)}</span>
+    <span class="o">&lt;</span><span class="err">/Fragment&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">App</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>一旦为数据提取调用了效果，这在组件安装或URL状态更改时发生，则加载状态设置为true。请求解析后，加载状态再次设置为false。</p>
+
+<h2 id="使用react-hook进行错误处理">使用React Hook进行错误处理</h2>
+
+<p>使用React钩子获取数据的错误处理怎么样？错误只是用状态挂钩初始化的另一个状态。一旦出现错误状态，App组件就可以为用户呈现反馈。使用async / await时，通常使用try / catch块进行错误处理。你可以在<code>effect</code>范围内完成：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">Fragment</span><span class="p">,</span> <span class="nx">useState</span><span class="p">,</span> <span class="nx">useEffect</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">axios</span> <span class="nx">from</span> <span class="s1">&#39;axios&#39;</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="p">[</span><span class="nx">data</span><span class="p">,</span> <span class="nx">setData</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">({</span> <span class="nx">hits</span><span class="o">:</span> <span class="p">[]</span> <span class="p">});</span>
+  <span class="k">const</span> <span class="p">[</span><span class="nx">query</span><span class="p">,</span> <span class="nx">setQuery</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="s1">&#39;redux&#39;</span><span class="p">);</span>
+  <span class="k">const</span> <span class="p">[</span><span class="nx">url</span><span class="p">,</span> <span class="nx">setUrl</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span>
+    <span class="s1">&#39;http://hn.algolia.com/api/v1/search?query=redux&#39;</span><span class="p">,</span>
+  <span class="p">);</span>
+  <span class="k">const</span> <span class="p">[</span><span class="nx">isLoading</span><span class="p">,</span> <span class="nx">setIsLoading</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+  <span class="k">const</span> <span class="p">[</span><span class="nx">isError</span><span class="p">,</span> <span class="nx">setIsError</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+
+  <span class="nx">useEffect</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="nx">fetchData</span> <span class="o">=</span> <span class="kr">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="nx">setIsError</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+      <span class="nx">setIsLoading</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+
+      <span class="k">try</span> <span class="p">{</span>
+        <span class="k">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">axios</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span>
+
+        <span class="nx">setData</span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+      <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">setIsError</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+      <span class="p">}</span>
+
+      <span class="nx">setIsLoading</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+    <span class="p">};</span>
+
+    <span class="nx">fetchData</span><span class="p">();</span>
+  <span class="p">},</span> <span class="p">[</span><span class="nx">url</span><span class="p">]);</span>
+
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">Fragment</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">input</span>
+        <span class="nx">type</span><span class="o">=</span><span class="s2">&#34;text&#34;</span>
+        <span class="nx">value</span><span class="o">=</span><span class="p">{</span><span class="nx">query</span><span class="p">}</span>
+        <span class="nx">onChange</span><span class="o">=</span><span class="p">{</span><span class="nx">event</span> <span class="p">=&gt;</span> <span class="nx">setQuery</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span><span class="p">)}</span>
+      <span class="err">/&gt;</span>
+      <span class="o">&lt;</span><span class="nx">button</span>
+        <span class="nx">type</span><span class="o">=</span><span class="s2">&#34;button&#34;</span>
+        <span class="nx">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="p">=&gt;</span>
+          <span class="nx">setUrl</span><span class="p">(</span><span class="sb">`http://hn.algolia.com/api/v1/search?query=</span><span class="si">${</span><span class="nx">query</span><span class="si">}</span><span class="sb">`</span><span class="p">)</span>
+        <span class="p">}</span>
+      <span class="o">&gt;</span>
+        <span class="nx">Search</span>
+      <span class="o">&lt;</span><span class="err">/button&gt;</span>
+
+      <span class="p">{</span><span class="nx">isError</span> <span class="o">&amp;&amp;</span> <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="nx">Something</span> <span class="nx">went</span> <span class="nx">wrong</span> <span class="p">...</span><span class="o">&lt;</span><span class="err">/div&gt;}</span>
+
+      <span class="p">{</span><span class="nx">isLoading</span> <span class="o">?</span> <span class="p">(</span>
+        <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="nx">Loading</span> <span class="p">...</span><span class="o">&lt;</span><span class="err">/div&gt;</span>
+      <span class="p">)</span> <span class="o">:</span> <span class="p">(</span>
+        <span class="o">&lt;</span><span class="nx">ul</span><span class="o">&gt;</span>
+          <span class="p">{</span><span class="nx">data</span><span class="p">.</span><span class="nx">hits</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">item</span> <span class="p">=&gt;</span> <span class="p">(</span>
+            <span class="o">&lt;</span><span class="nx">li</span> <span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">objectID</span><span class="p">}</span><span class="o">&gt;</span>
+              <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">url</span><span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">title</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/a&gt;</span>
+            <span class="o">&lt;</span><span class="err">/li&gt;</span>
+          <span class="p">))}</span>
+        <span class="o">&lt;</span><span class="err">/ul&gt;</span>
+      <span class="p">)}</span>
+    <span class="o">&lt;</span><span class="err">/Fragment&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">App</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>每次<code>hook</code>再次运行时，错误状态都会重置。这很有用，因为在失败的请求之后，用户可能想要再次尝试它，这应该重置错误。为了自己执行错误，您可以将URL更改为无效的内容。然后检查错误消息是否显示。</p>
+
+<h2 id="在react中使用表单获取数据">在React中使用表单获取数据</h2>
+
+<p>获取数据的正确表单怎么样？到目前为止，我们只有输入字段和按钮的组合。一旦引入了更多输入元素，您可能希望用表单元素包装它们。此外，表单也可以通过键盘上的“Enter”触发按钮。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+  <span class="p">...</span>
+
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">Fragment</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">form</span>
+        <span class="nx">onSubmit</span><span class="o">=</span><span class="p">{()</span> <span class="p">=&gt;</span>
+          <span class="nx">setUrl</span><span class="p">(</span><span class="sb">`http://hn.algolia.com/api/v1/search?query=</span><span class="si">${</span><span class="nx">query</span><span class="si">}</span><span class="sb">`</span><span class="p">)</span>
+        <span class="p">}</span>
+      <span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">input</span>
+          <span class="nx">type</span><span class="o">=</span><span class="s2">&#34;text&#34;</span>
+          <span class="nx">value</span><span class="o">=</span><span class="p">{</span><span class="nx">query</span><span class="p">}</span>
+          <span class="nx">onChange</span><span class="o">=</span><span class="p">{</span><span class="nx">event</span> <span class="p">=&gt;</span> <span class="nx">setQuery</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span><span class="p">)}</span>
+        <span class="err">/&gt;</span>
+        <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&#34;submit&#34;</span><span class="o">&gt;</span><span class="nx">Search</span><span class="o">&lt;</span><span class="err">/button&gt;</span>
+      <span class="o">&lt;</span><span class="err">/form&gt;</span>
+
+      <span class="p">{</span><span class="nx">isError</span> <span class="o">&amp;&amp;</span> <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="nx">Something</span> <span class="nx">went</span> <span class="nx">wrong</span> <span class="p">...</span><span class="o">&lt;</span><span class="err">/div&gt;}</span>
+
+      <span class="p">...</span>
+    <span class="o">&lt;</span><span class="err">/Fragment&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>但是现在浏览器在单击提交按钮时会重新加载，因为这是提交表单时浏览器的本机行为。为了防止默认行为，我们可以在React事件上调用一个函数。这就是你在React类组件中的表现。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+  <span class="p">...</span>
+
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">Fragment</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">form</span> <span class="nx">onSubmit</span><span class="o">=</span><span class="p">{</span><span class="nx">event</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="nx">setUrl</span><span class="p">(</span><span class="sb">`http://hn.algolia.com/api/v1/search?query=</span><span class="si">${</span><span class="nx">query</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+
+        <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+      <span class="p">}}</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">input</span>
+          <span class="nx">type</span><span class="o">=</span><span class="s2">&#34;text&#34;</span>
+          <span class="nx">value</span><span class="o">=</span><span class="p">{</span><span class="nx">query</span><span class="p">}</span>
+          <span class="nx">onChange</span><span class="o">=</span><span class="p">{</span><span class="nx">event</span> <span class="p">=&gt;</span> <span class="nx">setQuery</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span><span class="p">)}</span>
+        <span class="err">/&gt;</span>
+        <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&#34;submit&#34;</span><span class="o">&gt;</span><span class="nx">Search</span><span class="o">&lt;</span><span class="err">/button&gt;</span>
+      <span class="o">&lt;</span><span class="err">/form&gt;</span>
+
+      <span class="p">{</span><span class="nx">isError</span> <span class="o">&amp;&amp;</span> <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="nx">Something</span> <span class="nx">went</span> <span class="nx">wrong</span> <span class="p">...</span><span class="o">&lt;</span><span class="err">/div&gt;}</span>
+
+      <span class="p">...</span>
+    <span class="o">&lt;</span><span class="err">/Fragment&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>现在，当您单击“提交”按钮时，浏览器不应再重新加载。它像以前一样工作，但这次是使用表单而不是简单的输入字段和按钮组合。您也可以按键盘上的“Enter”键。</p>
+
+<h2 id="自定义数据获取hook">自定义数据获取hook</h2>
+
+<p>为了提取数据提取的自定义<code>hook</code>，将属于数据提取的所有内容（属于输入字段的查询状态除外，包括加载指示符和错误处理）移动到其自己的函数中。还要确保从App组件中使用的函数返回所有必需的变量。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">const</span> <span class="nx">useHackerNewsApi</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="p">[</span><span class="nx">data</span><span class="p">,</span> <span class="nx">setData</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">({</span> <span class="nx">hits</span><span class="o">:</span> <span class="p">[]</span> <span class="p">});</span>
+  <span class="k">const</span> <span class="p">[</span><span class="nx">url</span><span class="p">,</span> <span class="nx">setUrl</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span>
+    <span class="s1">&#39;http://hn.algolia.com/api/v1/search?query=redux&#39;</span><span class="p">,</span>
+  <span class="p">);</span>
+  <span class="k">const</span> <span class="p">[</span><span class="nx">isLoading</span><span class="p">,</span> <span class="nx">setIsLoading</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+  <span class="k">const</span> <span class="p">[</span><span class="nx">isError</span><span class="p">,</span> <span class="nx">setIsError</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+
+  <span class="nx">useEffect</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="nx">fetchData</span> <span class="o">=</span> <span class="kr">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="nx">setIsError</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+      <span class="nx">setIsLoading</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+
+      <span class="k">try</span> <span class="p">{</span>
+        <span class="k">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">axios</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span>
+
+        <span class="nx">setData</span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+      <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">setIsError</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+      <span class="p">}</span>
+
+      <span class="nx">setIsLoading</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+    <span class="p">};</span>
+
+    <span class="nx">fetchData</span><span class="p">();</span>
+  <span class="p">},</span> <span class="p">[</span><span class="nx">url</span><span class="p">]);</span>
+
+  <span class="k">return</span> <span class="p">[{</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">isLoading</span><span class="p">,</span> <span class="nx">isError</span> <span class="p">},</span> <span class="nx">setUrl</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>现在，您的新<code>hook</code>可以再次在App组件中使用：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="p">[</span><span class="nx">query</span><span class="p">,</span> <span class="nx">setQuery</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="s1">&#39;redux&#39;</span><span class="p">);</span>
+  <span class="k">const</span> <span class="p">[{</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">isLoading</span><span class="p">,</span> <span class="nx">isError</span> <span class="p">},</span> <span class="nx">doFetch</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useHackerNewsApi</span><span class="p">();</span>
+
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">Fragment</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">form</span> <span class="nx">onSubmit</span><span class="o">=</span><span class="p">{</span><span class="nx">event</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="nx">doFetch</span><span class="p">(</span><span class="sb">`http://hn.algolia.com/api/v1/search?query=</span><span class="si">${</span><span class="nx">query</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+
+        <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+      <span class="p">}}</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">input</span>
+          <span class="nx">type</span><span class="o">=</span><span class="s2">&#34;text&#34;</span>
+          <span class="nx">value</span><span class="o">=</span><span class="p">{</span><span class="nx">query</span><span class="p">}</span>
+          <span class="nx">onChange</span><span class="o">=</span><span class="p">{</span><span class="nx">event</span> <span class="p">=&gt;</span> <span class="nx">setQuery</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span><span class="p">)}</span>
+        <span class="err">/&gt;</span>
+        <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&#34;submit&#34;</span><span class="o">&gt;</span><span class="nx">Search</span><span class="o">&lt;</span><span class="err">/button&gt;</span>
+      <span class="o">&lt;</span><span class="err">/form&gt;</span>
+
+      <span class="p">...</span>
+    <span class="o">&lt;</span><span class="err">/Fragment&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>初始状态也可以是通用的。将它简单地传递给新的自定义<code>hook</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">Fragment</span><span class="p">,</span> <span class="nx">useState</span><span class="p">,</span> <span class="nx">useEffect</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">axios</span> <span class="nx">from</span> <span class="s1">&#39;axios&#39;</span><span class="p">;</span>
+
+<span class="k">const</span> <span class="nx">useDataApi</span> <span class="o">=</span> <span class="p">(</span><span class="nx">initialUrl</span><span class="p">,</span> <span class="nx">initialData</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="p">[</span><span class="nx">data</span><span class="p">,</span> <span class="nx">setData</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="nx">initialData</span><span class="p">);</span>
+  <span class="k">const</span> <span class="p">[</span><span class="nx">url</span><span class="p">,</span> <span class="nx">setUrl</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="nx">initialUrl</span><span class="p">);</span>
+  <span class="k">const</span> <span class="p">[</span><span class="nx">isLoading</span><span class="p">,</span> <span class="nx">setIsLoading</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+  <span class="k">const</span> <span class="p">[</span><span class="nx">isError</span><span class="p">,</span> <span class="nx">setIsError</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+
+  <span class="nx">useEffect</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="nx">fetchData</span> <span class="o">=</span> <span class="kr">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="nx">setIsError</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+      <span class="nx">setIsLoading</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+
+      <span class="k">try</span> <span class="p">{</span>
+        <span class="k">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">axios</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span>
+
+        <span class="nx">setData</span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+      <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">setIsError</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+      <span class="p">}</span>
+
+      <span class="nx">setIsLoading</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+    <span class="p">};</span>
+
+    <span class="nx">fetchData</span><span class="p">();</span>
+  <span class="p">},</span> <span class="p">[</span><span class="nx">url</span><span class="p">]);</span>
+
+  <span class="k">return</span> <span class="p">[{</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">isLoading</span><span class="p">,</span> <span class="nx">isError</span> <span class="p">},</span> <span class="nx">setUrl</span><span class="p">];</span>
+<span class="p">};</span>
+
+<span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="p">[</span><span class="nx">query</span><span class="p">,</span> <span class="nx">setQuery</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="s1">&#39;redux&#39;</span><span class="p">);</span>
+  <span class="k">const</span> <span class="p">[{</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">isLoading</span><span class="p">,</span> <span class="nx">isError</span> <span class="p">},</span> <span class="nx">doFetch</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useDataApi</span><span class="p">(</span>
+    <span class="s1">&#39;http://hn.algolia.com/api/v1/search?query=redux&#39;</span><span class="p">,</span>
+    <span class="p">{</span> <span class="nx">hits</span><span class="o">:</span> <span class="p">[]</span> <span class="p">},</span>
+  <span class="p">);</span>
+
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">Fragment</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">form</span>
+        <span class="nx">onSubmit</span><span class="o">=</span><span class="p">{</span><span class="nx">event</span> <span class="p">=&gt;</span> <span class="p">{</span>
+          <span class="nx">doFetch</span><span class="p">(</span>
+            <span class="sb">`http://hn.algolia.com/api/v1/search?query=</span><span class="si">${</span><span class="nx">query</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span>
+          <span class="p">);</span>
+
+          <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+        <span class="p">}}</span>
+      <span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">input</span>
+          <span class="nx">type</span><span class="o">=</span><span class="s2">&#34;text&#34;</span>
+          <span class="nx">value</span><span class="o">=</span><span class="p">{</span><span class="nx">query</span><span class="p">}</span>
+          <span class="nx">onChange</span><span class="o">=</span><span class="p">{</span><span class="nx">event</span> <span class="p">=&gt;</span> <span class="nx">setQuery</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span><span class="p">)}</span>
+        <span class="err">/&gt;</span>
+        <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&#34;submit&#34;</span><span class="o">&gt;</span><span class="nx">Search</span><span class="o">&lt;</span><span class="err">/button&gt;</span>
+      <span class="o">&lt;</span><span class="err">/form&gt;</span>
+
+      <span class="p">{</span><span class="nx">isError</span> <span class="o">&amp;&amp;</span> <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="nx">Something</span> <span class="nx">went</span> <span class="nx">wrong</span> <span class="p">...</span><span class="o">&lt;</span><span class="err">/div&gt;}</span>
+
+      <span class="p">{</span><span class="nx">isLoading</span> <span class="o">?</span> <span class="p">(</span>
+        <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="nx">Loading</span> <span class="p">...</span><span class="o">&lt;</span><span class="err">/div&gt;</span>
+      <span class="p">)</span> <span class="o">:</span> <span class="p">(</span>
+        <span class="o">&lt;</span><span class="nx">ul</span><span class="o">&gt;</span>
+          <span class="p">{</span><span class="nx">data</span><span class="p">.</span><span class="nx">hits</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">item</span> <span class="p">=&gt;</span> <span class="p">(</span>
+            <span class="o">&lt;</span><span class="nx">li</span> <span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">objectID</span><span class="p">}</span><span class="o">&gt;</span>
+              <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">url</span><span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">title</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/a&gt;</span>
+            <span class="o">&lt;</span><span class="err">/li&gt;</span>
+          <span class="p">))}</span>
+        <span class="o">&lt;</span><span class="err">/ul&gt;</span>
+      <span class="p">)}</span>
+    <span class="o">&lt;</span><span class="err">/Fragment&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">App</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>这就是使用自定义<code>hook</code>获取数据的原因。<code>hook</code>本身对API没有任何了解。它从外部接收所有参数，并仅管理必要的状态，例如数据，加载和错误状态。它执行请求并使用它作为自定义数据获取<code>hook</code>将数据返回给组件。</p>
+</blockquote>
+
+<h2 id="用于数据获取的reducer-hook">用于数据获取的Reducer Hook</h2>
+
+<p>到目前为止，我们已经使用各种状态挂钩来管理数据，加载和错误状态的数据获取状态。然而，不知何故，所有这些状态，<a href="https://www.robinwieruch.de/react-usereducer-vs-usestate/">由他们自己的状态钩子管理，属于一起，因为他们关心同一个问题</a>。如您所见，它们都在数据提取功能中使用。一个很好的指标，他们属于一起的是，它们用于一个接一个（例如<code>setIsError</code>，<code>setIsLoading</code>）。让我们将所有这三个与<a href="https://www.robinwieruch.de/react-usereducer-hook/">Reducer Hook</a>结合起来。</p>
+
+<p>Reducer Hook返回一个状态对象和一个改变状态对象的函数。该函数（称为调度函数）采用具有类型和可选有效负载的操作。所有这些信息都在实际的reducer函数中用于从先前的状态，动作的可选有效负载和类型中提取新状态。让我们看看它在代码中是如何工作的：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">Fragment</span><span class="p">,</span>
+  <span class="nx">useState</span><span class="p">,</span>
+  <span class="nx">useEffect</span><span class="p">,</span>
+  <span class="nx">useReducer</span><span class="p">,</span>
+<span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">axios</span> <span class="nx">from</span> <span class="s1">&#39;axios&#39;</span><span class="p">;</span>
+
+<span class="k">const</span> <span class="nx">dataFetchReducer</span> <span class="o">=</span> <span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">action</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="p">...</span>
+<span class="p">};</span>
+
+<span class="k">const</span> <span class="nx">useDataApi</span> <span class="o">=</span> <span class="p">(</span><span class="nx">initialUrl</span><span class="p">,</span> <span class="nx">initialData</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="p">[</span><span class="nx">url</span><span class="p">,</span> <span class="nx">setUrl</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="nx">initialUrl</span><span class="p">);</span>
+
+  <span class="k">const</span> <span class="p">[</span><span class="nx">state</span><span class="p">,</span> <span class="nx">dispatch</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useReducer</span><span class="p">(</span><span class="nx">dataFetchReducer</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">isLoading</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nx">isError</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nx">data</span><span class="o">:</span> <span class="nx">initialData</span><span class="p">,</span>
+  <span class="p">});</span>
+
+  <span class="p">...</span>
+<span class="p">};</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>Reducer Hook将reducer函数和初始状态对象作为参数。在我们的例子中，数据，加载和错误状态的初始状态的参数没有改变，但它们已经聚合到一个由一个reducer钩子而不是单个状态钩子管理的状态对象。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">const</span> <span class="nx">dataFetchReducer</span> <span class="o">=</span> <span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">action</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="p">...</span>
+<span class="p">};</span>
+
+<span class="k">const</span> <span class="nx">useDataApi</span> <span class="o">=</span> <span class="p">(</span><span class="nx">initialUrl</span><span class="p">,</span> <span class="nx">initialData</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="p">[</span><span class="nx">url</span><span class="p">,</span> <span class="nx">setUrl</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="nx">initialUrl</span><span class="p">);</span>
+
+  <span class="k">const</span> <span class="p">[</span><span class="nx">state</span><span class="p">,</span> <span class="nx">dispatch</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useReducer</span><span class="p">(</span><span class="nx">dataFetchReducer</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">isLoading</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nx">isError</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nx">data</span><span class="o">:</span> <span class="nx">initialData</span><span class="p">,</span>
+  <span class="p">});</span>
+
+  <span class="nx">useEffect</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="nx">fetchData</span> <span class="o">=</span> <span class="kr">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="nx">dispatch</span><span class="p">({</span> <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;FETCH_INIT&#39;</span> <span class="p">});</span>
+
+      <span class="k">try</span> <span class="p">{</span>
+        <span class="k">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">axios</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span>
+
+        <span class="nx">dispatch</span><span class="p">({</span> <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;FETCH_SUCCESS&#39;</span><span class="p">,</span> <span class="nx">payload</span><span class="o">:</span> <span class="nx">result</span><span class="p">.</span><span class="nx">data</span> <span class="p">});</span>
+      <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">dispatch</span><span class="p">({</span> <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;FETCH_FAILURE&#39;</span> <span class="p">});</span>
+      <span class="p">}</span>
+    <span class="p">};</span>
+
+    <span class="nx">fetchData</span><span class="p">();</span>
+  <span class="p">},</span> <span class="p">[</span><span class="nx">url</span><span class="p">]);</span>
+
+  <span class="p">...</span>
+<span class="p">};</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>现在，在获取数据时，可以使用调度功能将信息发送到reducer功能。使用dispatch函数发送的对象具有强制<code>type</code>属性和可选<code>payload</code>属性。该类型告诉reducer功能需要应用哪个状态转换，并且reducer可以另外使用有效负载来提取新状态。毕竟，我们只有三个状态转换：初始化提取过程，通知成功的数据提取结果，并通知错误的数据提取结果。</p>
+
+<p>在自定义<code>hook</code>的末尾，状态像以前一样返回，但是因为我们有一个状态对象而不是独立状态。这样，调用<code>useDataApi</code>自定义挂钩的人仍然可以访问<code>data</code>，<code>isLoading</code>并且<code>isError</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">const</span> <span class="nx">useDataApi</span> <span class="o">=</span> <span class="p">(</span><span class="nx">initialUrl</span><span class="p">,</span> <span class="nx">initialData</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="p">[</span><span class="nx">url</span><span class="p">,</span> <span class="nx">setUrl</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="nx">initialUrl</span><span class="p">);</span>
+
+  <span class="k">const</span> <span class="p">[</span><span class="nx">state</span><span class="p">,</span> <span class="nx">dispatch</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useReducer</span><span class="p">(</span><span class="nx">dataFetchReducer</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">isLoading</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nx">isError</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nx">data</span><span class="o">:</span> <span class="nx">initialData</span><span class="p">,</span>
+  <span class="p">});</span>
+
+  <span class="p">...</span>
+
+  <span class="k">return</span> <span class="p">[</span><span class="nx">state</span><span class="p">,</span> <span class="nx">setUrl</span><span class="p">];</span>
+<span class="p">};</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>最后但并非最不重要的是，缺少<code>reducer</code>函数的实现。它需要作用于所谓的三种不同的状态转换<code>FETCH_INIT</code>，<code>FETCH_SUCCESS</code>和<code>FETCH_FAILURE</code>。每个状态转换都需要返回一个新的状态对象。让我们看看如何使用switch case语句实现它：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">const</span> <span class="nx">dataFetchReducer</span> <span class="o">=</span> <span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">action</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="k">switch</span> <span class="p">(</span><span class="nx">action</span><span class="p">.</span><span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="s1">&#39;FETCH_INIT&#39;</span><span class="o">:</span>
+      <span class="k">return</span> <span class="p">{</span> <span class="p">...</span><span class="nx">state</span> <span class="p">};</span>
+    <span class="k">case</span> <span class="s1">&#39;FETCH_SUCCESS&#39;</span><span class="o">:</span>
+      <span class="k">return</span> <span class="p">{</span> <span class="p">...</span><span class="nx">state</span> <span class="p">};</span>
+    <span class="k">case</span> <span class="s1">&#39;FETCH_FAILURE&#39;</span><span class="o">:</span>
+      <span class="k">return</span> <span class="p">{</span> <span class="p">...</span><span class="nx">state</span> <span class="p">};</span>
+    <span class="k">default</span><span class="o">:</span>
+      <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p><code>reducer</code>函数可以通过其参数访问当前状态和传入操作。到目前为止，在out case case语句中，每个状态转换仅返回先前的状态。解构语句用于保持状态对象不可变 - 意味着状态永远不会直接变异 - 以强制执行最佳实践。现在让我们覆盖一些当前状态返回的属性来改变每个状态转换的状态：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">const</span> <span class="nx">dataFetchReducer</span> <span class="o">=</span> <span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">action</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="k">switch</span> <span class="p">(</span><span class="nx">action</span><span class="p">.</span><span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="s1">&#39;FETCH_INIT&#39;</span><span class="o">:</span>
+      <span class="k">return</span> <span class="p">{</span>
+        <span class="p">...</span><span class="nx">state</span><span class="p">,</span>
+        <span class="nx">isLoading</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nx">isError</span><span class="o">:</span> <span class="kc">false</span>
+      <span class="p">};</span>
+    <span class="k">case</span> <span class="s1">&#39;FETCH_SUCCESS&#39;</span><span class="o">:</span>
+      <span class="k">return</span> <span class="p">{</span>
+        <span class="p">...</span><span class="nx">state</span><span class="p">,</span>
+        <span class="nx">isLoading</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="nx">isError</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="nx">data</span><span class="o">:</span> <span class="nx">action</span><span class="p">.</span><span class="nx">payload</span><span class="p">,</span>
+      <span class="p">};</span>
+    <span class="k">case</span> <span class="s1">&#39;FETCH_FAILURE&#39;</span><span class="o">:</span>
+      <span class="k">return</span> <span class="p">{</span>
+        <span class="p">...</span><span class="nx">state</span><span class="p">,</span>
+        <span class="nx">isLoading</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="nx">isError</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="p">};</span>
+    <span class="k">default</span><span class="o">:</span>
+      <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>现在，由动作类型决定的每个状态转换都会返回基于先前状态和可选有效负载的新状态。例如，在成功请求的情况下，有效载荷用于设置新状态对象的数据。</p>
+
+<p>总之，Reducer Hook确保状态管理的这一部分用自己的逻辑封装。通过提供操作类型和可选的有效负载，您将始终以谓词状态更改结束。此外，您永远不会遇到无效状态。例如，以前可能会意外地将<code>isLoading</code>和<code>isError</code>状态设置为true。在这种情况下，UI应该显示什么？现在，reducer函数定义的每个状态转换都会导致一个有效的状态对象。</p>
+
+<h2 id="在effect-hook中终止数据获取">在Effect Hook中终止数据获取</h2>
+
+<p>React中的一个常见问题是即使组件已经卸载（例如由于使用React Router导航），也会设置组件状态。让我们看看我们如何阻止在数据提取的自定义<code>hook</code>中设置状态：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">const</span> <span class="nx">useDataApi</span> <span class="o">=</span> <span class="p">(</span><span class="nx">initialUrl</span><span class="p">,</span> <span class="nx">initialData</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="p">[</span><span class="nx">url</span><span class="p">,</span> <span class="nx">setUrl</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="nx">initialUrl</span><span class="p">);</span>
+
+  <span class="k">const</span> <span class="p">[</span><span class="nx">state</span><span class="p">,</span> <span class="nx">dispatch</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useReducer</span><span class="p">(</span><span class="nx">dataFetchReducer</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">isLoading</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nx">isError</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nx">data</span><span class="o">:</span> <span class="nx">initialData</span><span class="p">,</span>
+  <span class="p">});</span>
+
+  <span class="nx">useEffect</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">didCancel</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+
+    <span class="k">const</span> <span class="nx">fetchData</span> <span class="o">=</span> <span class="kr">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="nx">dispatch</span><span class="p">({</span> <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;FETCH_INIT&#39;</span> <span class="p">});</span>
+
+      <span class="k">try</span> <span class="p">{</span>
+        <span class="k">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">axios</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">didCancel</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">dispatch</span><span class="p">({</span> <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;FETCH_SUCCESS&#39;</span><span class="p">,</span> <span class="nx">payload</span><span class="o">:</span> <span class="nx">result</span><span class="p">.</span><span class="nx">data</span> <span class="p">});</span>
+        <span class="p">}</span>
+      <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">didCancel</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">dispatch</span><span class="p">({</span> <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;FETCH_FAILURE&#39;</span> <span class="p">});</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">};</span>
+
+    <span class="nx">fetchData</span><span class="p">();</span>
+
+    <span class="k">return</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="nx">didCancel</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">};</span>
+  <span class="p">},</span> <span class="p">[</span><span class="nx">url</span><span class="p">]);</span>
+
+  <span class="k">return</span> <span class="p">[</span><span class="nx">state</span><span class="p">,</span> <span class="nx">setUrl</span><span class="p">];</span>
+<span class="p">};</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>每个<code>effect hook</code>都带有一个清理功能，该功能在组件卸载时运行。清理功能是<code>hook</code>返回的一个功能。在我们的例子中，我们使用一个<code>boolean</code>来调用<code>didCancel</code>，让我们的数据获取逻辑知道组件的状态（已安装/未安装）。如果组件已卸载，则应将该标志设置为<code>true</code>导致在最终异步解析数据提取后阻止设置组件状态。</p>
+
+<blockquote>
+<p><em>注意：实际上不会中止数据获取 - 这可以通过Axios Cancellation实现- 但是对于未安装的组件不再执行状态转换。由于Axios Cancellation在我看来并不是最好的API，因此这个防止设置状态的布尔标志也能完成这项工作。</em></p>
+</blockquote>
+
+<p>您已经了解了如何在React中使用<code>useState</code>和<code>useEffect</code>的React Hook进行数据提取，我希望本文对您了解React Hooks以及如何在现实世界中使用它们非常有用。</p>
+
+<p><a href="https://www.robinwieruch.de/react-hooks-fetch-data/">PS：原文链接😁</a></p>
+    </div>
+
+    
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">Reward</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/reward/wechat-qr-code.png">
+        <span>wechat</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/reward/alipay-qr-code.png">
+        <span>alipay</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/javascript/">javascript</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/%E6%B5%85%E6%9E%90%E5%9F%BA%E4%BA%8Eredux%E5%BB%B6%E5%B1%95%E7%9A%84%E5%89%8D%E7%AB%AF%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E4%B8%80/">
+            <span class="next-text nav-default">TODO浅析基于Redux延展的前端状态管理(一)</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2019-07-24 10:56:12 \x2b0800 \x2b0800',
+        title: '[译]如何使用React Hooks获取数据',
+        clientID: 'bf0ed9ea18e819e40135',
+        clientSecret: '92bdc65717aa7f0ec48bfe94e773b57a21163785',
+        repo: 'blog_comments',
+        owner: '496971418@qq.com',
+        admin: ['496971418@qq.com'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:terryzh017@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://stackoverflow.com/users/10838177/terryzh" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://twitter.com/terryzhAizz" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/t496971418" class="iconfont icon-github" title="github"></a>
+  <a href="http://www.elixir-zh.cn/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Terryzh</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

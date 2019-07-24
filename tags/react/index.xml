@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>“React&#34; on Terryzh</title>
+    <link>http://www.elixir-zh.cn/tags/react/</link>
+    <description>Recent content in “React&#34; on Terryzh</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 27 Jun 2019 20:29:22 +0800</lastBuildDate>
+    
+	<atom:link href="http://www.elixir-zh.cn/tags/react/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>TODO浅析基于Redux延展的前端状态管理(一)</title>
+      <link>http://www.elixir-zh.cn/post/%E6%B5%85%E6%9E%90%E5%9F%BA%E4%BA%8Eredux%E5%BB%B6%E5%B1%95%E7%9A%84%E5%89%8D%E7%AB%AF%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E4%B8%80/</link>
+      <pubDate>Thu, 27 Jun 2019 20:29:22 +0800</pubDate>
+      
+      <guid>http://www.elixir-zh.cn/post/%E6%B5%85%E6%9E%90%E5%9F%BA%E4%BA%8Eredux%E5%BB%B6%E5%B1%95%E7%9A%84%E5%89%8D%E7%AB%AF%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E4%B8%80/</guid>
+      <description>序 最近研究了一下一直云里雾里的前端传输问题。 随着前端开发的逐渐复杂化，前端的状态管理和参数传递变得越来越复杂。 单纯的从URL或者是local</description>
+    </item>
+    
+  </channel>
+</rss>
