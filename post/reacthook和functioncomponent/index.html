@@ -51,7 +51,7 @@
 
 <meta itemprop="datePublished" content="2019-07-30T16:45:27&#43;08:00" />
 <meta itemprop="dateModified" content="2019-07-30T16:45:27&#43;08:00" />
-<meta itemprop="wordCount" content="3910">
+<meta itemprop="wordCount" content="3909">
 
 
 
@@ -132,7 +132,7 @@
         <div class="post-category">
             <a href="/categories/code/"> code </a>
             </div>
-          <span class="more-meta"> 3910 words </span>
+          <span class="more-meta"> 3909 words </span>
           <span class="more-meta"> 8 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -188,10 +188,10 @@
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="lnt">1
+</span></code></pre></td>
 <td class="lntd">
-<pre class="chroma">  const [num, UpdateNum] = useState(0)</pre></td></tr></table>
+<pre class="chroma"><code class="language-jsx" data-lang="jsx">  <span class="k">const</span> <span class="p">[</span><span class="nx">num</span><span class="p">,</span> <span class="nx">UpdateNum</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></code></pre></td></tr></table>
 </div>
 </div>
 <ul>
@@ -199,7 +199,7 @@
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt"> 1
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -211,20 +211,20 @@
 </span><span class="lnt">10
 </span><span class="lnt">11
 </span><span class="lnt">12
-</span></pre></td>
+</span></code></pre></td>
 <td class="lntd">
-<pre class="chroma">  function ScrollView({row}) {
-  let [isScrollingDown, setIsScrollingDown] = useState(false);
-  let [prevRow, setPrevRow] = useState(null);
+<pre class="chroma"><code class="language-jsx" data-lang="jsx">  <span class="kd">function</span> <span class="nx">ScrollView</span><span class="p">({</span><span class="nx">row</span><span class="p">})</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="p">[</span><span class="nx">isScrollingDown</span><span class="p">,</span> <span class="nx">setIsScrollingDown</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+  <span class="kd">let</span> <span class="p">[</span><span class="nx">prevRow</span><span class="p">,</span> <span class="nx">setPrevRow</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
   
-  if (row !== prevRow) {
-    // Row 自上次渲染以来发生过改变。更新 isScrollingDown。
-    setIsScrollingDown(prevRow !== null &amp;&amp; row &gt; prevRow);
-    setPrevRow(row);
-  }
+  <span class="k">if</span> <span class="p">(</span><span class="nx">row</span> <span class="o">!==</span> <span class="nx">prevRow</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Row 自上次渲染以来发生过改变。更新 isScrollingDown。
+</span><span class="c1"></span>    <span class="nx">setIsScrollingDown</span><span class="p">(</span><span class="nx">prevRow</span> <span class="o">!==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="nx">row</span> <span class="o">&gt;</span> <span class="nx">prevRow</span><span class="p">);</span>
+    <span class="nx">setPrevRow</span><span class="p">(</span><span class="nx">row</span><span class="p">);</span>
+  <span class="p">}</span>
   
-  return `Scrolling down: ${isScrollingDown}`;
-  }</pre></td></tr></table>
+  <span class="k">return</span> <span class="sb">`Scrolling down: </span><span class="si">${</span><span class="nx">isScrollingDown</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
+  <span class="p">}</span></code></pre></td></tr></table>
 </div>
 </div>
 <p>React 会立即退出第一次渲染并用更新后的 state 重新运行组件以避免耗费太多性能。</p>
@@ -234,14 +234,14 @@
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
-</span></pre></td>
+</span></code></pre></td>
 <td class="lntd">
-<pre class="chroma">  const Button = React.memo((props) =&gt; {
-  // 具体的组件
-  });</pre></td></tr></table>
+<pre class="chroma"><code class="language-jsx" data-lang="jsx">  <span class="k">const</span> <span class="nx">Button</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">memo</span><span class="p">((</span><span class="nx">props</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="c1">// 具体的组件
+</span><span class="c1"></span>  <span class="p">});</span></code></pre></td></tr></table>
 </div>
 </div>
 <p>注意：<strong>React.memo 等效于 PureComponent</strong>，它只浅比较 props。这里也可以使用 <code>useMemo</code> 优化每一个节点。</p>
@@ -253,7 +253,7 @@
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt"> 1
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -266,21 +266,21 @@
 </span><span class="lnt">11
 </span><span class="lnt">12
 </span><span class="lnt">13
-</span></pre></td>
+</span></code></pre></td>
 <td class="lntd">
-<pre class="chroma">  // componentDidMount
-  useEffect(()=&gt;{
-  // 需要在 componentDidMount 执行的内容
-  }, [])
+<pre class="chroma"><code class="language-jsx" data-lang="jsx">  <span class="c1">// componentDidMount
+</span><span class="c1"></span>  <span class="nx">useEffect</span><span class="p">(()=&gt;{</span>
+  <span class="c1">// 需要在 componentDidMount 执行的内容
+</span><span class="c1"></span>  <span class="p">},</span> <span class="p">[])</span>
   
-  useEffect(() =&gt; { 
-  // 在 componentDidMount，以及 count 更改时 componentDidUpdate 执行的内容
-  document.title = `You clicked ${count} times`; 
-  return () =&gt; {
-    // 需要在 count 更改时 componentDidUpdate（先于 document.title = ... 执行，遵守先清理后更新）
-    // 以及 componentWillUnmount 执行的内容       
-  } // 当函数中 Cleanup 函数会按照在代码中定义的顺序先后执行，与函数本身的特性无关
-  }, [count]); // 仅在 count 更改时更新</pre></td></tr></table>
+  <span class="nx">useEffect</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="c1">// 在 componentDidMount，以及 count 更改时 componentDidUpdate 执行的内容
+</span><span class="c1"></span>  <span class="nb">document</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="sb">`You clicked </span><span class="si">${</span><span class="nx">count</span><span class="si">}</span><span class="sb"> times`</span><span class="p">;</span>
+  <span class="k">return</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// 需要在 count 更改时 componentDidUpdate（先于 document.title = ... 执行，遵守先清理后更新）
+</span><span class="c1"></span>    <span class="c1">// 以及 componentWillUnmount 执行的内容
+</span><span class="c1"></span>  <span class="p">}</span> <span class="c1">// 当函数中 Cleanup 函数会按照在代码中定义的顺序先后执行，与函数本身的特性无关
+</span><span class="c1"></span>  <span class="p">},</span> <span class="p">[</span><span class="nx">count</span><span class="p">]);</span> <span class="err">// 仅在 count 更改时更新</span></code></pre></td></tr></table>
 </div>
 </div>
 <p><strong>请记得 React 会等待浏览器完成画面渲染之后才会延迟调用 useEffect，因此会使得额外操作很方便</strong></p>
@@ -290,22 +290,22 @@
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span><span class="lnt">6
 </span><span class="lnt">7
-</span></pre></td>
+</span></code></pre></td>
 <td class="lntd">
-<pre class="chroma">  // componentDidMount/componentWillUnmount
-  useEffect(()=&gt;{
-  // 需要在 componentDidMount 执行的内容
-  return function cleanup() {
-    // 需要在 componentWillUnmount 执行的内容      
-  }
-  }, [])</pre></td></tr></table>
+<pre class="chroma"><code class="language-jsx" data-lang="jsx">  <span class="c1">// componentDidMount/componentWillUnmount
+</span><span class="c1"></span>  <span class="nx">useEffect</span><span class="p">(()=&gt;{</span>
+  <span class="c1">// 需要在 componentDidMount 执行的内容
+</span><span class="c1"></span>  <span class="k">return</span> <span class="kd">function</span> <span class="nx">cleanup</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// 需要在 componentWillUnmount 执行的内容
+</span><span class="c1"></span>  <span class="p">}</span>
+  <span class="p">},</span> <span class="p">[])</span></code></pre></td></tr></table>
 </div>
 </div>
 <ul>
@@ -498,7 +498,7 @@
 <p>实际上，<strong>只要父级重新渲染，getDerivedStateFromProps 和 componentWillReceiveProps 都会重新调用，不管 props 有没有变化</strong>。所以，在这两个方法内直接将 props 赋值到 state 是不安全的。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt"> 1
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -560,70 +560,70 @@
 </span><span class="lnt">60
 </span><span class="lnt">61
 </span><span class="lnt">62
-</span></pre></td>
+</span></code></pre></td>
 <td class="lntd">
-<pre class="chroma">// 子组件
-class PhoneInput extends Component {
-  state = { phone: this.props.phone };
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="c1">// 子组件
+</span><span class="c1"></span><span class="k">class</span> <span class="nx">PhoneInput</span> <span class="k">extends</span> <span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">state</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">phone</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">phone</span> <span class="p">};</span>
 
-  handleChange = e =&gt; {
-    this.setState({ phone: e.target.value });
-  };
+  <span class="nx">handleChange</span> <span class="o">=</span> <span class="nx">e</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span> <span class="nx">phone</span><span class="o">:</span> <span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span> <span class="p">});</span>
+  <span class="p">};</span>
 
-  render() {
-    const { phone } = this.state;
-    return &lt;input onChange={this.handleChange} value={phone} /&gt;;
-  }
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="p">{</span> <span class="nx">phone</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">;</span>
+    <span class="k">return</span> <span class="p">&lt;</span><span class="nt">input</span> <span class="na">onChange</span><span class="o">=</span><span class="s">{this.handleChange}</span> <span class="na">value</span><span class="o">=</span><span class="s">{phone}</span> <span class="p">/&gt;;</span>
+  <span class="p">}</span>
 
-  componentWillReceiveProps(nextProps) {
-    // 不要这样做。
-    // 这会覆盖掉之前所有的组件内 state 更新！
-    this.setState({ phone: nextProps.phone });
-  }
-}
+  <span class="nx">componentWillReceiveProps</span><span class="p">(</span><span class="nx">nextProps</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// 不要这样做。
+</span><span class="c1"></span>    <span class="c1">// 这会覆盖掉之前所有的组件内 state 更新！
+</span><span class="c1"></span>    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span> <span class="nx">phone</span><span class="o">:</span> <span class="nx">nextProps</span><span class="p">.</span><span class="nx">phone</span> <span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 
-// 父组件
-class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      count: 0
-    };
-  }
+<span class="c1">// 父组件
+</span><span class="c1"></span><span class="k">class</span> <span class="nx">App</span> <span class="k">extends</span> <span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">();</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="nx">count</span><span class="o">:</span> <span class="mi">0</span>
+    <span class="p">};</span>
+  <span class="p">}</span>
 
-  componentDidMount() {
-    // 使用了 setInterval，
-    // 每秒钟都会更新一下 state.count
-    // 这将导致 App 每秒钟重新渲染一次
-    this.interval = setInterval(
-      () =&gt;
-        this.setState(prevState =&gt; ({
-          count: prevState.count + 1
-        })),
-      1000
-    );
-  }
+  <span class="nx">componentDidMount</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// 使用了 setInterval，
+</span><span class="c1"></span>    <span class="c1">// 每秒钟都会更新一下 state.count
+</span><span class="c1"></span>    <span class="c1">// 这将导致 App 每秒钟重新渲染一次
+</span><span class="c1"></span>    <span class="k">this</span><span class="p">.</span><span class="nx">interval</span> <span class="o">=</span> <span class="nx">setInterval</span><span class="p">(</span>
+      <span class="p">()</span> <span class="p">=&gt;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">(</span><span class="nx">prevState</span> <span class="p">=&gt;</span> <span class="p">({</span>
+          <span class="nx">count</span><span class="o">:</span> <span class="nx">prevState</span><span class="p">.</span><span class="nx">count</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="p">})),</span>
+      <span class="mi">1000</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
 
-  componentWillUnmount() {
-    clearInterval(this.interval);
-  }
+  <span class="nx">componentWillUnmount</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">clearInterval</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">interval</span><span class="p">);</span>
+  <span class="p">}</span>
 
-  render() {
-    return (
-      &lt;&gt;
-        &lt;p&gt;
-          Start editing to see some magic happen :)
-        &lt;/p&gt;
-        &lt;PhoneInput phone=&#39;call me!&#39; /&gt; 
-        &lt;p&gt;
-          This component will re-render every second. Each time it renders, the
-          text you type will be reset. This illustrates a derived state
-          anti-pattern.
-        &lt;/p&gt;
-      &lt;/&gt;
-    );
-  }
-}</pre></td></tr></table>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;&gt;</span>
+        <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+          <span class="nx">Start</span> <span class="nx">editing</span> <span class="nx">to</span> <span class="nx">see</span> <span class="nx">some</span> <span class="nx">magic</span> <span class="nx">happen</span> <span class="o">:</span><span class="p">)</span>
+        <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">PhoneInput</span> <span class="na">phone</span><span class="o">=</span><span class="s">&#39;call me!&#39;</span> <span class="p">/&gt;</span>
+        <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+          <span class="nx">This</span> <span class="nx">component</span> <span class="nx">will</span> <span class="nx">re</span><span class="o">-</span><span class="nx">render</span> <span class="nx">every</span> <span class="nx">second</span><span class="p">.</span> <span class="nx">Each</span> <span class="nx">time</span> <span class="nx">it</span> <span class="nx">renders</span><span class="p">,</span> <span class="nx">the</span>
+          <span class="nx">text</span> <span class="nx">you</span> <span class="nx">type</span> <span class="nx">will</span> <span class="nx">be</span> <span class="nx">reset</span><span class="p">.</span> <span class="nx">This</span> <span class="nx">illustrates</span> <span class="nx">a</span> <span class="nx">derived</span> <span class="nx">state</span>
+          <span class="nx">anti</span><span class="o">-</span><span class="nx">pattern</span><span class="p">.</span>
+        <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+      <span class="o">&lt;</span><span class="err">/&gt;</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
 </div>
 </div>
 <p>实例可点击这里查看</p>
@@ -633,7 +633,7 @@ class App extends Component {
 <p>我们也可以使用 <strong>在 props 变化后修改 state</strong>。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt"> 1
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -649,24 +649,24 @@ class App extends Component {
 </span><span class="lnt">14
 </span><span class="lnt">15
 </span><span class="lnt">16
-</span></pre></td>
+</span></code></pre></td>
 <td class="lntd">
-<pre class="chroma">class PhoneInput extends Component {
-  state = {
-    phone: this.props.phone
-  };
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="k">class</span> <span class="nx">PhoneInput</span> <span class="k">extends</span> <span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">phone</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">phone</span>
+  <span class="p">};</span>
 
-  componentWillReceiveProps(nextProps) {
-    // 只要 props.phone 改变，就改变 state
-    if (nextProps.phone !== this.props.phone) {
-      this.setState({
-        phone: nextProps.phone
-      });
-    }
-  }
+  <span class="nx">componentWillReceiveProps</span><span class="p">(</span><span class="nx">nextProps</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// 只要 props.phone 改变，就改变 state
+</span><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="nx">nextProps</span><span class="p">.</span><span class="nx">phone</span> <span class="o">!==</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">phone</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span>
+        <span class="nx">phone</span><span class="o">:</span> <span class="nx">nextProps</span><span class="p">.</span><span class="nx">phone</span>
+      <span class="p">});</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
 
-  // ...
-}</pre></td></tr></table>
+  <span class="c1">// ...
+</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
 </div>
 </div>
 <p>但这种也会导致一个问题，当 props 较为复杂时，props 与 state 的关系不好控制，可能导致问题</p>
@@ -674,22 +674,22 @@ class App extends Component {
 <p>解决方案一：<strong>完全可控的组件</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
-</span></pre></td>
+</span></code></pre></td>
 <td class="lntd">
-<pre class="chroma">function PhoneInput(props) {
-  return &lt;input onChange={props.onChange} value={props.phone} /&gt;;
-}</pre></td></tr></table>
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="kd">function</span> <span class="nx">PhoneInput</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">&lt;</span><span class="nt">input</span> <span class="na">onChange</span><span class="o">=</span><span class="s">{props.onChange}</span> <span class="na">value</span><span class="o">=</span><span class="s">{props.phone}</span> <span class="p">/&gt;;</span>
+<span class="p">}</span></code></pre></td></tr></table>
 </div>
 </div>
-<p><strong>完全由 props 控制，不派生 state</strong></p>
+<p>完全由 <strong>props</strong> 控制，不派生 <strong>state</strong></p>
 
 <p>解决方案二：<strong>有 key 的非可控组件</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt"> 1
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -705,47 +705,47 @@ class App extends Component {
 </span><span class="lnt">14
 </span><span class="lnt">15
 </span><span class="lnt">16
-</span></pre></td>
+</span></code></pre></td>
 <td class="lntd">
-<pre class="chroma">class PhoneInput extends Component {
-  state = { phone: this.props.defaultPhone };
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="k">class</span> <span class="nx">PhoneInput</span> <span class="k">extends</span> <span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">state</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">phone</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">defaultPhone</span> <span class="p">};</span>
 
-  handleChange = event =&gt; {
-    this.setState({ phone: event.target.value });
-  };
+  <span class="nx">handleChange</span> <span class="o">=</span> <span class="nx">event</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span> <span class="nx">phone</span><span class="o">:</span> <span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span> <span class="p">});</span>
+  <span class="p">};</span>
 
-  render() {
-    return &lt;input onChange={this.handleChange} value={this.state.phone} /&gt;;
-  }
-}
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">&lt;</span><span class="nt">input</span> <span class="na">onChange</span><span class="o">=</span><span class="s">{this.handleChange}</span> <span class="na">value</span><span class="o">=</span><span class="s">{this.state.phone}</span> <span class="p">/&gt;;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 
-&lt;PhoneInput
-  defaultPhone={this.props.user.phone}
-  key={this.props.user.id}
-/&gt;</pre></td></tr></table>
+<span class="p">&lt;</span><span class="nt">PhoneInput</span>
+  <span class="na">defaultPhone</span><span class="o">=</span><span class="s">{this.props.user.phone}</span>
+  <span class="na">key</span><span class="o">=</span><span class="s">{this.props.user.id}</span>
+<span class="p">/&gt;</span></code></pre></td></tr></table>
 </div>
 </div>
 <p>当 <code>key</code> 变化时， React 会<strong>创建一个新的而不是更新一个既有的组件</strong></p>
 
 <p><strong>误解二</strong>：将 props 的值直接复制给 state</p>
 
-<p><strong>应避免将 props 的值复制给 state</strong></p>
+<p>应避免将 <strong>props</strong> 的值复制给 <strong>state</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span><span class="lnt">6
-</span></pre></td>
+</span></code></pre></td>
 <td class="lntd">
-<pre class="chroma">constructor(props) {
- super(props);
- // 千万不要这样做
- // 直接用 props，保证单一数据源
- this.state = { phone: props.phone };
-}</pre></td></tr></table>
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="nx">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+ <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+ <span class="c1">// 千万不要这样做
+</span><span class="c1"></span> <span class="c1">// 直接用 props，保证单一数据源
+</span><span class="c1"></span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">phone</span><span class="o">:</span> <span class="nx">props</span><span class="p">.</span><span class="nx">phone</span> <span class="p">};</span>
+<span class="p">}</span></code></pre></td></tr></table>
 </div>
 </div>
 <h3 id="三-多个组件的执行顺序">三、多个组件的执行顺序</h3>
