@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Terryzh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 24 Jul 2019 10:56:12 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 30 Jul 2019 16:45:27 +0800</lastBuildDate>
     
 	<atom:link href="http://www.elixir-zh.cn/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ReactHook和FunctionComponent</title>
+      <link>http://www.elixir-zh.cn/post/reacthook%E5%92%8Cfunctioncomponent/</link>
+      <pubDate>Tue, 30 Jul 2019 16:45:27 +0800</pubDate>
+      
+      <guid>http://www.elixir-zh.cn/post/reacthook%E5%92%8Cfunctioncomponent/</guid>
+      <description>React 生命周期很多人都了解，但通常我们所了解的都是 单个组件 的生命周期，但针对 Hooks 组件、多个关联组件（父子组件和兄弟组件） 的生命周期又是怎么样的喃？</description>
+    </item>
     
     <item>
       <title>[译]如何使用React Hooks获取数据</title>
