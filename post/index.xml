@@ -6,10 +6,37 @@
     <description>Recent content in Posts on Terryzh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 14 Aug 2019 15:40:16 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 14 Aug 2019 16:15:13 +0800</lastBuildDate>
     
 	<atom:link href="http://www.elixir-zh.cn/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Flutter中的网络请求4</title>
+      <link>http://www.elixir-zh.cn/post/flutter%E4%B8%AD%E7%9A%84%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%824/</link>
+      <pubDate>Wed, 14 Aug 2019 16:15:13 +0800</pubDate>
+      
+      <guid>http://www.elixir-zh.cn/post/flutter%E4%B8%AD%E7%9A%84%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%824/</guid>
+      <description>基于shared_preferences本地存储操作 数据存储是开发APP必不可少的一部分，比如页面缓存，从网络上获取数据的本地持久化等，那么</description>
+    </item>
+    
+    <item>
+      <title>Flutter中的网络请求3</title>
+      <link>http://www.elixir-zh.cn/post/flutter%E4%B8%AD%E7%9A%84%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%823/</link>
+      <pubDate>Wed, 14 Aug 2019 16:11:58 +0800</pubDate>
+      
+      <guid>http://www.elixir-zh.cn/post/flutter%E4%B8%AD%E7%9A%84%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%823/</guid>
+      <description>JSON解析与复杂模型转换实用技巧 JSON是一种轻量级的数据交换语言，在网络编程中大量的用到了JSON来作为传输数据的格式，那么在Flutt</description>
+    </item>
+    
+    <item>
+      <title>Flutter中的网络请求2</title>
+      <link>http://www.elixir-zh.cn/post/flutter%E4%B8%AD%E7%9A%84%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%822/</link>
+      <pubDate>Wed, 14 Aug 2019 16:03:32 +0800</pubDate>
+      
+      <guid>http://www.elixir-zh.cn/post/flutter%E4%B8%AD%E7%9A%84%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%822/</guid>
+      <description>Future与FutureBuilder实用技巧 什么是Future？ Future表示在接下来的某个时间的值或错误，借助Future我们可以在</description>
+    </item>
     
     <item>
       <title>Flutter中的网络请求1</title>

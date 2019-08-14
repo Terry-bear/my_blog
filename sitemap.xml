@@ -10,6 +10,27 @@
   </url>
   
   <url>
+    <loc>http://www.elixir-zh.cn/post/flutter%E4%B8%AD%E7%9A%84%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%824/</loc>
+    <lastmod>2019-08-14T16:15:13+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.elixir-zh.cn/post/flutter%E4%B8%AD%E7%9A%84%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%823/</loc>
+    <lastmod>2019-08-14T16:11:58+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.elixir-zh.cn/post/flutter%E4%B8%AD%E7%9A%84%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%822/</loc>
+    <lastmod>2019-08-14T16:03:32+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>http://www.elixir-zh.cn/post/flutter%E4%B8%AD%E7%9A%84%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%821/</loc>
     <lastmod>2019-08-14T15:40:16+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -185,7 +206,7 @@
   
   <url>
     <loc>http://www.elixir-zh.cn/post/</loc>
-    <lastmod>2019-08-14T15:40:16+08:00</lastmod>
+    <lastmod>2019-08-14T16:15:13+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -220,14 +241,14 @@
   
   <url>
     <loc>http://www.elixir-zh.cn/categories/code/</loc>
-    <lastmod>2019-08-14T15:40:16+08:00</lastmod>
+    <lastmod>2019-08-14T16:15:13+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://www.elixir-zh.cn/tags/flutter/</loc>
-    <lastmod>2019-08-14T15:40:16+08:00</lastmod>
+    <lastmod>2019-08-14T16:15:13+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>

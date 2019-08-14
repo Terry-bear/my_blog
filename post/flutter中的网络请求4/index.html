@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Flutter中的网络请求4 - Terryzh</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Terryzh" /><meta name="description" content="基于shared_preferences本地存储操作 数据存储是开发APP必不可少的一部分，比如页面缓存，从网络上获取数据的本地持久化等，那么" /><meta name="keywords" content="flutter" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.54.0 with even 4.0.0" />
+
+
+<link rel="canonical" href="http://www.elixir-zh.cn/post/flutter%E4%B8%AD%E7%9A%84%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%824/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.65dce888.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Flutter中的网络请求4" />
+<meta property="og:description" content="基于shared_preferences本地存储操作 数据存储是开发APP必不可少的一部分，比如页面缓存，从网络上获取数据的本地持久化等，那么" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.elixir-zh.cn/post/flutter%E4%B8%AD%E7%9A%84%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%824/" />
+<meta property="article:published_time" content="2019-08-14T16:15:13&#43;08:00"/>
+<meta property="article:modified_time" content="2019-08-14T16:15:13&#43;08:00"/>
+
+<meta itemprop="name" content="Flutter中的网络请求4">
+<meta itemprop="description" content="基于shared_preferences本地存储操作 数据存储是开发APP必不可少的一部分，比如页面缓存，从网络上获取数据的本地持久化等，那么">
+
+
+<meta itemprop="datePublished" content="2019-08-14T16:15:13&#43;08:00" />
+<meta itemprop="dateModified" content="2019-08-14T16:15:13&#43;08:00" />
+<meta itemprop="wordCount" content="730">
+
+
+
+<meta itemprop="keywords" content="flutter," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Flutter中的网络请求4"/>
+<meta name="twitter:description" content="基于shared_preferences本地存储操作 数据存储是开发APP必不可少的一部分，比如页面缓存，从网络上获取数据的本地持久化等，那么"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Terryzh</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Terryzh</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Flutter中的网络请求4</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-08-14 </span>
+        <div class="post-category">
+            <a href="/categories/code/"> code </a>
+            </div>
+          <span class="more-meta"> 730 words </span>
+          <span class="more-meta"> 2 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#基于shared-preferences本地存储操作">基于shared_preferences本地存储操作</a>
+<ul>
+<li><a href="#什么是shared-preferences">什么是shared_preferences?</a></li>
+<li><a href="#如何使用shared-preferences">如何使用shared_preferences？</a></li>
+<li><a href="#shared-preferences有那些常用的api">shared_preferences有那些常用的API？</a></li>
+<li><a href="#基于shared-preferences实现计数器demo">基于shared_preferences实现计数器Demo</a></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="基于shared-preferences本地存储操作">基于shared_preferences本地存储操作</h1>
+
+<p>数据存储是开发APP必不可少的一部分，比如页面缓存，从网络上获取数据的本地持久化等，那么在Flutter中如何进行数据存储呢？</p>
+
+<blockquote>
+<p>Flutter官方推荐我们用sharedpreferences进行数据存储，类似于RN中的<code>AsyncStorage</code>。</p>
+</blockquote>
+
+<p><img src="https://img-blog.csdnimg.cn/20190529010007229.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L25pY29sZWxpbGkx,size_16,color_FFFFFF,t_70" alt="" /></p>
+
+<h2 id="什么是shared-preferences">什么是shared_preferences?</h2>
+
+<p><a href="https://pub.dartlang.org/packages/shared_preferences#-installing-tab-">shared_preferences</a>是Flutter社区开发的一个本地数据存取插件：</p>
+
+<ul>
+<li>简单的，异步的，持久化的key-value存储系统；</li>
+<li>在Android上它是基于<code>SharedPreferences</code>的；</li>
+<li>在iOS上它是基于<code>NSUserDefaults</code>的；</li>
+</ul>
+
+<h2 id="如何使用shared-preferences">如何使用shared_preferences？</h2>
+
+<p>首先在<code>pubspec.yaml</code>文件中添加：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">dependencies<span class="p">:</span><span class="w">
+</span><span class="w">  </span>shared_preferences<span class="p">:</span><span class="w"> </span>^<span class="m">0.5</span>.<span class="m">1</span>+</code></pre></td></tr></table>
+</div>
+</div>
+<p>记得运行安装哦：<code>flutter packages get</code></p>
+
+<p>在需要用到的文件中导入：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-dart" data-lang="dart"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-dart" data-lang="dart"><span class="k">import</span> <span class="s1">&#39;package:shared_preferences/shared_preferences.dart&#39;</span><span class="p">;</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>存储数据</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-dart" data-lang="dart"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-dart" data-lang="dart"><span class="kd">final</span> <span class="n">prefs</span> <span class="o">=</span> <span class="kd">await</span> <span class="n">SharedPreferences</span><span class="p">.</span><span class="n">getInstance</span><span class="p">();</span>
+
+<span class="c1">// set value
+</span><span class="c1"></span><span class="n">prefs</span><span class="p">.</span><span class="n">setInt</span><span class="p">(</span><span class="s1">&#39;counter&#39;</span><span class="p">,</span> <span class="n">counter</span><span class="p">);</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>读取数据</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-dart" data-lang="dart"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-dart" data-lang="dart"><span class="kd">final</span> <span class="n">prefs</span> <span class="o">=</span> <span class="kd">await</span> <span class="n">SharedPreferences</span><span class="p">.</span><span class="n">getInstance</span><span class="p">();</span>
+
+<span class="c1">// Try reading data from the counter key. If it does not exist, return 0.
+</span><span class="c1"></span><span class="kd">final</span> <span class="n">counter</span> <span class="o">=</span> <span class="n">prefs</span><span class="p">.</span><span class="n">getInt</span><span class="p">(</span><span class="s1">&#39;counter&#39;</span><span class="p">)</span> <span class="o">??</span> <span class="m">0</span><span class="p">;}</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>删除数据</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-dart" data-lang="dart"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-dart" data-lang="dart"><span class="kd">final</span> <span class="n">prefs</span> <span class="o">=</span> <span class="kd">await</span> <span class="n">SharedPreferences</span><span class="p">.</span><span class="n">getInstance</span><span class="p">();</span>
+<span class="n">prefs</span><span class="p">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">&#39;counter&#39;</span><span class="p">);</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="shared-preferences有那些常用的api">shared_preferences有那些常用的API？</h2>
+
+<p><img src="https://img-blog.csdnimg.cn/20190529011028316.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L25pY29sZWxpbGkx,size_16,color_FFFFFF,t_70" alt="shared_preferences" /></p>
+
+<p><img src="https://img-blog.csdnimg.cn/20190529011142923.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L25pY29sZWxpbGkx,size_16,color_FFFFFF,t_70" alt="shared_preferences" /></p>
+
+<h2 id="基于shared-preferences实现计数器demo">基于shared_preferences实现计数器Demo</h2>
+
+<p><img src="https://img.mukewang.com/szimg/5d42cff60a760b7603380284.jpg" alt="图片描述" /></p>
+
+<blockquote>
+<p>示例源码：</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-dart" data-lang="dart"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-dart" data-lang="dart"><span class="k">import</span> <span class="s1">&#39;package:flutter/material.dart&#39;</span><span class="p">;</span>
+<span class="k">import</span> <span class="s1">&#39;package:shared_preferences/shared_preferences.dart&#39;</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">runApp</span><span class="p">(</span><span class="n">MaterialApp</span><span class="p">(</span>
+    <span class="nl">home:</span> <span class="n">Scaffold</span><span class="p">(</span>
+      <span class="nl">appBar:</span> <span class="n">AppBar</span><span class="p">(</span>
+        <span class="nl">title:</span> <span class="n">Text</span><span class="p">(</span><span class="s1">&#39;shared_preferences&#39;</span><span class="p">),</span>
+      <span class="p">),</span>
+      <span class="nl">body:</span> <span class="n">_CounterWidget</span><span class="p">(),</span>
+    <span class="p">),</span>
+  <span class="p">));</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">_CounterWidget</span> <span class="kd">extends</span> <span class="n">StatefulWidget</span> <span class="p">{</span>
+  <span class="err">@</span><span class="n">override</span>
+  <span class="n">_CounterState</span> <span class="n">createState</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="n">_CounterState</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">_CounterState</span> <span class="kd">extends</span> <span class="n">State</span><span class="o">&lt;</span><span class="n">_CounterWidget</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="kt">String</span> <span class="n">countString</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+  <span class="kt">String</span> <span class="n">localCount</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+
+  <span class="err">@</span><span class="n">override</span>
+  <span class="n">Widget</span> <span class="n">build</span><span class="p">(</span><span class="n">BuildContext</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">Center</span><span class="p">(</span>
+      <span class="nl">child:</span> <span class="n">Column</span><span class="p">(</span>
+        <span class="nl">children:</span> <span class="o">&lt;</span><span class="n">Widget</span><span class="o">&gt;</span><span class="p">[</span>
+          <span class="n">RaisedButton</span><span class="p">(</span>
+              <span class="nl">onPressed:</span> <span class="n">_incrementCounter</span><span class="p">,</span> <span class="nl">child:</span> <span class="n">Text</span><span class="p">(</span><span class="s1">&#39;Increment Counter&#39;</span><span class="p">)),</span>
+          <span class="n">RaisedButton</span><span class="p">(</span><span class="nl">onPressed:</span> <span class="n">_getCounter</span><span class="p">,</span> <span class="nl">child:</span> <span class="n">Text</span><span class="p">(</span><span class="s1">&#39;Get Counter&#39;</span><span class="p">)),</span>
+          <span class="n">Text</span><span class="p">(</span>
+            <span class="n">countString</span><span class="p">,</span>
+            <span class="nl">style:</span> <span class="n">TextStyle</span><span class="p">(</span><span class="nl">fontSize:</span> <span class="m">20</span><span class="p">),</span>
+          <span class="p">),</span>
+          <span class="n">Text</span><span class="p">(</span>
+            <span class="s1">&#39;result：&#39;</span> <span class="o">+</span> <span class="n">localCount</span><span class="p">,</span>
+            <span class="nl">style:</span> <span class="n">TextStyle</span><span class="p">(</span><span class="nl">fontSize:</span> <span class="m">20</span><span class="p">),</span>
+          <span class="p">),</span>
+        <span class="p">],</span>
+      <span class="p">),</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="n">_incrementCounter</span><span class="p">()</span> <span class="kd">async</span> <span class="p">{</span>
+    <span class="n">SharedPreferences</span> <span class="n">prefs</span> <span class="o">=</span> <span class="kd">await</span> <span class="n">SharedPreferences</span><span class="p">.</span><span class="n">getInstance</span><span class="p">();</span>
+    <span class="n">setState</span><span class="p">(()</span> <span class="p">{</span>
+      <span class="n">countString</span> <span class="o">=</span> <span class="n">countString</span> <span class="o">+</span> <span class="s2">&#34; 1&#34;</span><span class="p">;</span>
+    <span class="p">});</span>
+    <span class="kt">int</span> <span class="n">counter</span> <span class="o">=</span> <span class="p">(</span><span class="n">prefs</span><span class="p">.</span><span class="n">getInt</span><span class="p">(</span><span class="s1">&#39;counter&#39;</span><span class="p">)</span> <span class="o">??</span> <span class="m">0</span><span class="p">)</span> <span class="o">+</span> <span class="m">1</span><span class="p">;</span>
+    <span class="kd">await</span> <span class="n">prefs</span><span class="p">.</span><span class="n">setInt</span><span class="p">(</span><span class="s1">&#39;counter&#39;</span><span class="p">,</span> <span class="n">counter</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="n">_getCounter</span><span class="p">()</span> <span class="kd">async</span> <span class="p">{</span>
+    <span class="n">SharedPreferences</span> <span class="n">prefs</span> <span class="o">=</span> <span class="kd">await</span> <span class="n">SharedPreferences</span><span class="p">.</span><span class="n">getInstance</span><span class="p">();</span>
+    <span class="n">setState</span><span class="p">(()</span> <span class="p">{</span>
+      <span class="n">localCount</span> <span class="o">=</span> <span class="n">prefs</span><span class="p">.</span><span class="n">getInt</span><span class="p">(</span><span class="s1">&#39;counter&#39;</span><span class="p">).</span><span class="n">toString</span><span class="p">();</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="参考">参考</h2>
+
+<ul>
+<li><a href="https://flutter.dev/docs/cookbook/persistence/key-value">Storing key-value data on disk</a></li>
+</ul>
+
+<blockquote>
+<blockquote>
+<p>转自imooc<a href="https://coding.imooc.com/learn/questiondetail/134650.html">CrazyCodeBoy</a></p>
+</blockquote>
+</blockquote>
+    </div>
+
+    
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">Reward</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/reward/wechat-qr-code.png">
+        <span>wechat</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/reward/alipay-qr-code.png">
+        <span>alipay</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/flutter/">flutter</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/flutter%E4%B8%AD%E7%9A%84%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%823/">
+            <span class="next-text nav-default">Flutter中的网络请求3</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2019-08-14 16:15:13 \x2b0800 \x2b0800',
+        title: 'Flutter中的网络请求4',
+        clientID: 'bf0ed9ea18e819e40135',
+        clientSecret: '92bdc65717aa7f0ec48bfe94e773b57a21163785',
+        repo: 'blog_comments',
+        owner: '496971418@qq.com',
+        admin: ['496971418@qq.com'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:terryzh017@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://stackoverflow.com/users/10838177/terryzh" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://twitter.com/terryzhAizz" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/t496971418" class="iconfont icon-github" title="github"></a>
+  <a href="http://www.elixir-zh.cn/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Terryzh</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
