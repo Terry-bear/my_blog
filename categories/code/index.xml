@@ -6,10 +6,19 @@
     <description>Recent content in code on Terryzh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 31 Jul 2019 16:17:57 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 14 Aug 2019 15:40:16 +0800</lastBuildDate>
     
 	<atom:link href="http://www.elixir-zh.cn/categories/code/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Flutter中的网络请求1</title>
+      <link>http://www.elixir-zh.cn/post/flutter%E4%B8%AD%E7%9A%84%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%821/</link>
+      <pubDate>Wed, 14 Aug 2019 15:40:16 +0800</pubDate>
+      
+      <guid>http://www.elixir-zh.cn/post/flutter%E4%B8%AD%E7%9A%84%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%821/</guid>
+      <description>网络请求是开发APP必不可少的一部分，比如获取用户订单数据，获取商品列表，提交表单等等都离不了网络请求，那么在Flutter中如何进行网络请</description>
+    </item>
     
     <item>
       <title>[转]JS中八种继承方案分析</title>

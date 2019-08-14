@@ -6,10 +6,19 @@
     <description>Recent content in flutter on Terryzh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 10 Jan 2019 21:53:11 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 14 Aug 2019 15:40:16 +0800</lastBuildDate>
     
 	<atom:link href="http://www.elixir-zh.cn/tags/flutter/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Flutter中的网络请求1</title>
+      <link>http://www.elixir-zh.cn/post/flutter%E4%B8%AD%E7%9A%84%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%821/</link>
+      <pubDate>Wed, 14 Aug 2019 15:40:16 +0800</pubDate>
+      
+      <guid>http://www.elixir-zh.cn/post/flutter%E4%B8%AD%E7%9A%84%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%821/</guid>
+      <description>网络请求是开发APP必不可少的一部分，比如获取用户订单数据，获取商品列表，提交表单等等都离不了网络请求，那么在Flutter中如何进行网络请</description>
+    </item>
     
     <item>
       <title>Flutter从入门到弃坑1之部署</title>
