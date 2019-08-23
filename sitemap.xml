@@ -10,6 +10,13 @@
   </url>
   
   <url>
+    <loc>http://www.elixir-zh.cn/post/2019react%E7%BB%86%E8%8A%82%E8%AE%B2%E8%A7%A3/</loc>
+    <lastmod>2019-08-23T10:08:21+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>http://www.elixir-zh.cn/post/flutter%E6%B7%B7%E5%90%88%E5%BC%80%E5%8F%91%E4%B9%8Bios-native/</loc>
     <lastmod>2019-08-16T14:44:10+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -220,7 +227,7 @@
   
   <url>
     <loc>http://www.elixir-zh.cn/post/</loc>
-    <lastmod>2019-08-16T14:44:10+08:00</lastmod>
+    <lastmod>2019-08-23T10:08:21+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -255,7 +262,7 @@
   
   <url>
     <loc>http://www.elixir-zh.cn/categories/code/</loc>
-    <lastmod>2019-08-16T14:44:10+08:00</lastmod>
+    <lastmod>2019-08-23T10:08:21+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -276,7 +283,7 @@
   
   <url>
     <loc>http://www.elixir-zh.cn/tags/javascript/</loc>
-    <lastmod>2019-07-31T16:17:57+08:00</lastmod>
+    <lastmod>2019-08-23T10:08:21+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>

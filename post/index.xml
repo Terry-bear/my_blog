@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Terryzh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 16 Aug 2019 14:44:10 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 23 Aug 2019 10:08:21 +0800</lastBuildDate>
     
 	<atom:link href="http://www.elixir-zh.cn/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>2019React细节讲解</title>
+      <link>http://www.elixir-zh.cn/post/2019react%E7%BB%86%E8%8A%82%E8%AE%B2%E8%A7%A3/</link>
+      <pubDate>Fri, 23 Aug 2019 10:08:21 +0800</pubDate>
+      
+      <guid>http://www.elixir-zh.cn/post/2019react%E7%BB%86%E8%8A%82%E8%AE%B2%E8%A7%A3/</guid>
+      <description>为什么选择使用框架而不是原生? 框架的好处: 组件化: 其中以 React 的组件化最为彻底,甚至可以到函数级别的原子组件,高度的组件化可以是我们的工程易于维</description>
+    </item>
     
     <item>
       <title>Flutter混合开发之IOS Native</title>
