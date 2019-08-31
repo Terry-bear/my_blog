@@ -246,7 +246,7 @@
 <li>componentWillUnmount: 当我们的组件被卸载或者销毁了就会调用，我们可以在这个函数里去清除一些定时器，取消网络请求，清理无效的DOM元素等垃圾清理工作</li>
 </ul>
 
-<p><img src="https://user-gold-cdn.xitu.io/2019/8/23/16cbc24e71728047?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="2019-07-31-14-30-17" /></p>
+<p><img src="/img/2019react/1.png" alt="1" /></p>
 
 <blockquote>
 <p>一个查看react生命周期的<a href="https://link.juejin.im/?target=http%3A%2F%2Fprojects.wojtekmaj.pl%2Freact-lifecycle-methods-diagram%2F">网站</a></p>
@@ -291,7 +291,7 @@
 <li>全局状态管理工具: 借助Redux或者Mobx等全局状态管理工具进行通信,这种工具会维护一个全局状态中心Store,并根据不同的事件产生新的状态</li>
 </ul>
 
-<p><img src="https://user-gold-cdn.xitu.io/2019/8/23/16cbc24e6fd6847c?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="2019-07-31-18-38-37" /></p>
+<p><img src="/img/2019react/2.png" alt="2" /></p>
 
 <h2 id="react有哪些优化性能是手段">React有哪些优化性能是手段?</h2>
 
@@ -417,34 +417,34 @@
 
 <p>也就是说，这是React背后在做的事情，对于我们开发者来说，是透明的，具体是什么样的效果呢？</p>
 
-<p><img src="https://user-gold-cdn.xitu.io/2019/8/23/16cbc24e6dc17825?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img" /></p>
+<p><img src="/img/2019react/3.png" alt="3" /></p>
 
-<p><img src="https://user-gold-cdn.xitu.io/2019/8/23/16cbc24e6e745a88?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img" /></p>
+<p><img src="/img/2019react/4.png" alt="4" /></p>
 
 <p>有图表三个图表，有一个输入框，以及上面的三种模式
 每次<strong>输入东西的时候，就会进去一直在渲染。</strong>为了更好的看到渲染的性能，Dan为我们做了一个表。</p>
 
 <p>我们先看看，同步模式：</p>
 
-<p><img src="https://user-gold-cdn.xitu.io/2019/8/23/16cbc24e6e8a5096?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img" /></p>
+<p><img src="/img/2019react/5.png" alt="5" /></p>
 
-<p><img src="https://user-gold-cdn.xitu.io/2019/8/23/16cbc24e705009e6?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img" /></p>
+<p><img src="/img/2019react/6.png" alt="6" /></p>
 
 <p>同步模式下，我们都知道，我们没输入一个字符，React就开始渲染，当React渲染一颗巨大的树的时候，是非常卡的，所以才会有shouldUpdate的出现，在这里Dan也展示了，这种卡！</p>
 
 <p>我们再来看看第二种（Debounced模式）：</p>
 
-<p><img src="https://user-gold-cdn.xitu.io/2019/8/23/16cbc24e99680001?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img" /></p>
+<p><img src="/img/2019react/7.png" alt="7" /></p>
 
-<p><img src="https://user-gold-cdn.xitu.io/2019/8/23/16cbc24e997833c6?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img" /></p>
+<p><img src="/img/2019react/8.png" alt="8" /></p>
 
 <p>Debounced模式简单的来说，就是延迟渲染，比如，当你输入完成以后，再开始渲染所有的变化。这么做的坏处就是，至少不会阻塞用户的输入了，但是依然有非常严重的卡顿。</p>
 
 <p>切换到异步模式：</p>
 
-<p><img src="https://user-gold-cdn.xitu.io/2019/8/23/16cbc24e99a35e40?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img" /></p>
+<p><img src="/img/2019react/9.png" alt="9" /></p>
 
-<p><img src="https://user-gold-cdn.xitu.io/2019/8/23/16cbc24e9a323bb1?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img" /></p>
+<p><img src="/img/2019react/10.png" alt="10" /></p>
 
 <p>异步渲染模式就是不阻塞当前线程，继续跑。在视频里可以看到所有的输入，表上都会是原谅色的。</p>
 
@@ -473,7 +473,7 @@
 
 <p>到这儿为止，一次用户交互流程结束。可以看到，在整个流程中数据都是单向流动的，这种方式保证了流程的清晰。</p>
 
-<p><img src="https://user-gold-cdn.xitu.io/2019/8/23/16cbc24efade2de0?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="2019-08-01-17-29-20" /></p>
+<p><img src="/img/2019react/11.png" alt="11" /></p>
 
 <blockquote>
 <p><a href="https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2Fxiaomuzhu%2Ffront-end-interview%2Fblob%2Fmaster%2Fdocs%2Fguide%2Fredux.md">redux原理详解</a></p>
@@ -492,7 +492,7 @@
 </ul></li>
 </ul>
 
-<p><img src="https://user-gold-cdn.xitu.io/2019/8/23/16cbc24efb408781?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="2019-08-01-22-21-51" /></p>
+<p><img src="/img/2019react/12.png" alt="12" /></p>
 
 <h2 id="redux与mobx的区别">redux与mobx的区别?</h2>
 
