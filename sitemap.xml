@@ -10,6 +10,13 @@
   </url>
   
   <url>
+    <loc>http://www.elixir-zh.cn/post/%E5%A6%82%E4%BD%95%E5%9C%A8javascript%E4%B8%AD%E5%86%99%E4%B8%80%E4%B8%AA%E4%BC%98%E9%9B%85%E7%9A%84deepclone/</loc>
+    <lastmod>2019-09-02T14:13:13+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>http://www.elixir-zh.cn/post/2019react%E7%BB%86%E8%8A%82%E8%AE%B2%E8%A7%A3/</loc>
     <lastmod>2019-08-23T10:08:21+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -198,14 +205,14 @@
   </url>
   
   <url>
-    <loc>http://www.elixir-zh.cn/tags/css/</loc>
+    <loc>http://www.elixir-zh.cn/categories/css/</loc>
     <lastmod>2019-06-18T16:30:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://www.elixir-zh.cn/categories/css/</loc>
+    <loc>http://www.elixir-zh.cn/tags/css/</loc>
     <lastmod>2019-06-18T16:30:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
@@ -227,7 +234,7 @@
   
   <url>
     <loc>http://www.elixir-zh.cn/post/</loc>
-    <lastmod>2019-08-23T10:08:21+08:00</lastmod>
+    <lastmod>2019-09-02T14:13:13+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -262,7 +269,7 @@
   
   <url>
     <loc>http://www.elixir-zh.cn/categories/code/</loc>
-    <lastmod>2019-08-23T10:08:21+08:00</lastmod>
+    <lastmod>2019-09-02T14:13:13+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -283,20 +290,20 @@
   
   <url>
     <loc>http://www.elixir-zh.cn/tags/javascript/</loc>
-    <lastmod>2019-08-23T10:08:21+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://www.elixir-zh.cn/tags/personal/</loc>
-    <lastmod>2019-04-21T17:02:01+08:00</lastmod>
+    <lastmod>2019-09-02T14:13:13+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://www.elixir-zh.cn/categories/personal/</loc>
+    <lastmod>2019-04-21T17:02:01+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.elixir-zh.cn/tags/personal/</loc>
     <lastmod>2019-04-21T17:02:01+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>

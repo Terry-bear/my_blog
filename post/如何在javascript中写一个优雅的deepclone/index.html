@@ -1,0 +1,1464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>如何在javaScript中写一个优雅的deepClone - Terryzh</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Terryzh" /><meta name="description" content="导读 最近经常看到很多JavaScript手写代码的文章总结，里面提供了很多JavaScript Api的手写实现。 里面的题目实现大多类似，而且" /><meta name="keywords" content="javascript" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.54.0 with even 4.0.0" />
+
+
+<link rel="canonical" href="http://www.elixir-zh.cn/post/%E5%A6%82%E4%BD%95%E5%9C%A8javascript%E4%B8%AD%E5%86%99%E4%B8%80%E4%B8%AA%E4%BC%98%E9%9B%85%E7%9A%84deepclone/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.65dce888.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="如何在javaScript中写一个优雅的deepClone" />
+<meta property="og:description" content="导读 最近经常看到很多JavaScript手写代码的文章总结，里面提供了很多JavaScript Api的手写实现。 里面的题目实现大多类似，而且" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.elixir-zh.cn/post/%E5%A6%82%E4%BD%95%E5%9C%A8javascript%E4%B8%AD%E5%86%99%E4%B8%80%E4%B8%AA%E4%BC%98%E9%9B%85%E7%9A%84deepclone/" />
+<meta property="article:published_time" content="2019-09-02T14:13:13&#43;08:00"/>
+<meta property="article:modified_time" content="2019-09-02T14:13:13&#43;08:00"/>
+
+<meta itemprop="name" content="如何在javaScript中写一个优雅的deepClone">
+<meta itemprop="description" content="导读 最近经常看到很多JavaScript手写代码的文章总结，里面提供了很多JavaScript Api的手写实现。 里面的题目实现大多类似，而且">
+
+
+<meta itemprop="datePublished" content="2019-09-02T14:13:13&#43;08:00" />
+<meta itemprop="dateModified" content="2019-09-02T14:13:13&#43;08:00" />
+<meta itemprop="wordCount" content="6161">
+
+
+
+<meta itemprop="keywords" content="javascript," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="如何在javaScript中写一个优雅的deepClone"/>
+<meta name="twitter:description" content="导读 最近经常看到很多JavaScript手写代码的文章总结，里面提供了很多JavaScript Api的手写实现。 里面的题目实现大多类似，而且"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Terryzh</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Terryzh</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">如何在javaScript中写一个优雅的deepClone</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-09-02 </span>
+        <div class="post-category">
+            <a href="/categories/code/"> code </a>
+            </div>
+          <span class="more-meta"> 6161 words </span>
+          <span class="more-meta"> 13 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#导读">导读</a></li>
+<li><a href="#深拷贝和浅拷贝的定义">深拷贝和浅拷贝的定义</a></li>
+<li><a href="#乞丐版">乞丐版</a></li>
+<li><a href="#基础版本">基础版本</a></li>
+<li><a href="#考虑数组">考虑数组</a></li>
+<li><a href="#循环引用">循环引用</a></li>
+<li><a href="#性能优化">性能优化</a></li>
+<li><a href="#其他数据类型">其他数据类型</a>
+<ul>
+<li><a href="#合理的判断引用类型">合理的判断引用类型</a></li>
+<li><a href="#获取数据类型">获取数据类型</a></li>
+<li><a href="#可继续遍历的类型">可继续遍历的类型</a></li>
+<li><a href="#不可继续遍历的类型">不可继续遍历的类型</a></li>
+<li><a href="#克隆函数">克隆函数</a></li>
+</ul></li>
+<li><a href="#最后">最后</a></li>
+<li><a href="#参考">参考</a></li>
+<li><a href="#小结">小结</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="导读">导读</h2>
+
+<p>最近经常看到很多<code>JavaScript</code>手写代码的文章总结，里面提供了很多<code>JavaScript Api</code>的手写实现。</p>
+
+<p>里面的题目实现大多类似，而且说实话很多代码在我看来是非常简陋的，如果我作为面试官，看到这样的代码，在我心里是不会合格的，本篇文章我拿最简单的深拷贝来讲一讲。</p>
+
+<p>看本文之前先问自己三个问题：</p>
+
+<ul>
+<li>你真的理解什么是深拷贝吗？</li>
+<li>在面试官眼里，什么样的深拷贝才算合格？</li>
+<li>什么样的深拷贝能让面试官感到惊艳？</li>
+</ul>
+
+<p>本文由浅入深，带你一步一步实现一个惊艳面试官的深拷贝。</p>
+
+<p>本文测试代码：<a href="https://github.com/t496971418/elixir_blog/tree/master/javascript/deep_clone">点我查看</a></p>
+
+<blockquote>
+<p>例如：代码clone到本地后，执行 node clone1.test.js查看测试结果。</p>
+</blockquote>
+
+<p>建议结合测试代码一起阅读效果更佳。</p>
+
+<h2 id="深拷贝和浅拷贝的定义">深拷贝和浅拷贝的定义</h2>
+
+<p><img src="/img/deepClone/1.png" alt="1" /></p>
+
+<p>你只要少搞明白<code>拷贝</code>和<code>赋值</code>的区别。</p>
+
+<p>我们来明确一下深拷贝和浅拷贝的定义：</p>
+
+<p>浅拷贝：</p>
+
+<p><img src="/img/deepClone/2.png" alt="2" /></p>
+
+<blockquote>
+<p>创建一个新对象，这个对象有着原始对象属性值的一份精确拷贝。如果属性是基本类型，拷贝的就是基本类型的值，如果属性是引用类型，拷贝的就是内存地址 ，所以如果其中一个对象改变了这个地址，就会影响到另一个对象。</p>
+</blockquote>
+
+<p>深拷贝：</p>
+
+<p><img src="/img/deepClone/3.png" alt="3" /></p>
+
+<blockquote>
+<p>将一个对象从内存中完整的拷贝一份出来,从堆内存中开辟一个新的区域存放新对象,且修改新对象不会影响原对象</p>
+</blockquote>
+
+<p>话不多说，浅拷贝就不再多说，下面我们直入正题：</p>
+
+<h2 id="乞丐版">乞丐版</h2>
+
+<p>在不使用第三方库的情况下，我们想要深拷贝一个对象，用的最多的就是下面这个方法。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">());</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>这种写法非常简单，而且可以应对大部分的应用场景，但是它还是有很大缺陷的，比如拷贝其他引用类型、拷贝函数、循环引用等情况。</p>
+
+<p>显然，面试时你只说出这样的方法是一定不会合格的。</p>
+
+<p>接下来，我们一起来手动实现一个深拷贝方法。</p>
+
+<h2 id="基础版本">基础版本</h2>
+
+<p>如果是浅拷贝的话，我们可以很容易写出下面的代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">clone</span><span class="p">(</span><span class="nx">target</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">cloneTarget</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">target</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">cloneTarget</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">target</span><span class="p">[</span><span class="nx">key</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">cloneTarget</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>创建一个新的对象，遍历需要克隆的对象，将需要克隆对象的属性依次添加到新对象上，返回。</p>
+
+<p>如果是深拷贝的话，考虑到我们要拷贝的对象是不知道有多少层深度的，我们可以用递归来解决问题，稍微改写上面的代码：</p>
+
+<ul>
+<li>如果是原始类型，无需继续拷贝，直接返回</li>
+<li>如果是引用类型，创建一个新的对象，遍历需要克隆的对象，将需要克隆对象的属性执行<strong>深拷贝后</strong>依次添加到新对象上。</li>
+</ul>
+
+<p>很容易理解，如果有更深层次的对象可以继续递归直到属性为原始类型，这样我们就完成了一个最简单的深拷贝：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">clone</span><span class="p">(</span><span class="nx">target</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">target</span> <span class="o">===</span> <span class="s1">&#39;object&#39;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">cloneTarget</span> <span class="o">=</span> <span class="p">{};</span>
+        <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">target</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">cloneTarget</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">clone</span><span class="p">(</span><span class="nx">target</span><span class="p">[</span><span class="nx">key</span><span class="p">]);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nx">cloneTarget</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">target</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>我们可以打开测试代码中的<a href="https://github.com/t496971418/elixir_blog/blob/master/javascript/deep_clone/test/clone1.test.js">clone1.test.js</a>对下面的测试用例进行测试：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">const</span> <span class="nx">target</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">field1</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nx">field2</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">,</span>
+    <span class="nx">field3</span><span class="o">:</span> <span class="s1">&#39;Terryzh&#39;</span><span class="p">,</span>
+    <span class="nx">field4</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">child</span><span class="o">:</span> <span class="s1">&#39;child&#39;</span><span class="p">,</span>
+        <span class="nx">child2</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">child2</span><span class="o">:</span> <span class="s1">&#39;child2&#39;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>执行结果：</p>
+
+<p><img src="/img/deepClone/4.png" alt="4" /></p>
+
+<p>这是一个最基础版本的深拷贝，这段代码可以让你向面试官展示你可以用递归解决问题，但是显然，他还有非常多的缺陷，比如，还没有考虑数组。</p>
+
+<h2 id="考虑数组">考虑数组</h2>
+
+<p>在上面的版本中，我们的初始化结果只考虑了普通的<code>object</code>，下面我们只需要把初始化代码稍微一变，就可以兼容数组了：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">clone</span><span class="p">(</span><span class="nx">target</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">target</span> <span class="o">===</span> <span class="s1">&#39;object&#39;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">cloneTarget</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">target</span><span class="p">)</span> <span class="o">?</span> <span class="p">[]</span> <span class="o">:</span> <span class="p">{};</span>
+        <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">target</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">cloneTarget</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">clone</span><span class="p">(</span><span class="nx">target</span><span class="p">[</span><span class="nx">key</span><span class="p">]);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nx">cloneTarget</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">target</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>在<a href="https://github.com/t496971418/elixir_blog/blob/master/javascript/deep_clone/test/clone2.test.js">clone2.test.js</a>中执行下面的测试用例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">const</span> <span class="nx">target</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">field1</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nx">field2</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">,</span>
+    <span class="nx">field3</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">child</span><span class="o">:</span> <span class="s1">&#39;child&#39;</span>
+    <span class="p">},</span>
+    <span class="nx">field4</span><span class="o">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
+<span class="p">};</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>执行结果：</p>
+
+<p><img src="/img/deepClone/5.png" alt="5" /></p>
+
+<p>OK，没有问题，你的代码又向合格迈进了一小步。</p>
+
+<h2 id="循环引用">循环引用</h2>
+
+<p>我们执行下面这样一个测试用例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">const</span> <span class="nx">target</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">field1</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nx">field2</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">,</span>
+    <span class="nx">field3</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">child</span><span class="o">:</span> <span class="s1">&#39;child&#39;</span>
+    <span class="p">},</span>
+    <span class="nx">field4</span><span class="o">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
+<span class="p">};</span>
+<span class="nx">target</span><span class="p">.</span><span class="nx">target</span> <span class="o">=</span> <span class="nx">target</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>可以看到下面的结果：</p>
+
+<p><img src="/img/deepClone/6.png" alt="6" /></p>
+
+<p>很明显，因为递归进入死循环导致栈内存溢出了。</p>
+
+<p>原因就是上面的对象存在循环引用的情况，即对象的属性间接或直接的引用了自身的情况：</p>
+
+<p>解决循环引用问题，我们可以额外开辟一个存储空间，来存储当前对象和拷贝对象的对应关系，当需要拷贝当前对象时，先去存储空间中找，有没有拷贝过这个对象，如果有的话直接返回，如果没有的话继续拷贝，这样就巧妙化解的循环引用的问题。</p>
+
+<p>这个存储空间，需要可以存储<code>key-value</code>形式的数据，且<code>key</code>可以是一个引用类型，我们可以选择<code>Map</code>这种数据结构：</p>
+
+<ul>
+<li>检查<code>map</code>中有无克隆过的对象</li>
+<li>有 - 直接返回</li>
+<li>没有 - 将当前对象作为<code>key</code>，克隆对象作为<code>value</code>进行存储</li>
+<li>继续克隆</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">clone</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">map</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Map</span><span class="p">())</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">target</span> <span class="o">===</span> <span class="s1">&#39;object&#39;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">cloneTarget</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">target</span><span class="p">)</span> <span class="o">?</span> <span class="p">[]</span> <span class="o">:</span> <span class="p">{};</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">map</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">target</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">map</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">target</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="nx">map</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">cloneTarget</span><span class="p">);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">target</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">cloneTarget</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">clone</span><span class="p">(</span><span class="nx">target</span><span class="p">[</span><span class="nx">key</span><span class="p">],</span> <span class="nx">map</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nx">cloneTarget</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">target</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>再来执行上面的测试用例：</p>
+
+<p><img src="/img/deepClone/7.png" alt="7" /></p>
+
+<p>可以看到，执行没有报错，且<code>target</code>属性，变为了一个<code>Circular</code>类型，即循环应用的意思。</p>
+
+<p>接下来，我们可以使用，<code>WeakMap</code>提代<code>Map</code>来使代码达到画龙点睛的作用。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">clone</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">map</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WeakMap</span><span class="p">())</span> <span class="p">{</span>
+    <span class="c1">// ...
+</span><span class="c1"></span><span class="p">};</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>为什么要这样做呢？，先来看看<code>WeakMap</code>的作用：</p>
+
+<blockquote>
+<p>WeakMap 对象是一组键/值对的集合，其中的键是弱引用的。其键必须是对象，而值可以是任意的。</p>
+</blockquote>
+
+<p>什么是弱引用呢？</p>
+
+<blockquote>
+<p>在计算机程序设计中，弱引用与强引用相对，是指不能确保其引用的对象不会被垃圾回收器回收的引用。 一个对象若只被弱引用所引用，则被认为是不可访问（或弱可访问）的，并因此可能在任何时刻被回收。</p>
+</blockquote>
+
+<p>我们默认创建一个对象：<code>const obj = {}</code>，就默认创建了一个强引用的对象，我们只有手动将<code>obj = null</code>，它才会被垃圾回收机制进行回收，如果是弱引用对象，垃圾回收机制会自动帮我们回收。</p>
+
+<p>举个例子：</p>
+
+<p>如果我们使用<code>Map</code>的话，那么对象间是存在强引用关系的：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">name</span> <span class="o">:</span> <span class="s1">&#39;Terryzh&#39;</span><span class="p">}</span>
+<span class="k">const</span> <span class="nx">target</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">obj</span><span class="o">:</span><span class="s1">&#39;Terryzhhhhh&#39;</span>
+<span class="p">}</span> 
+<span class="nx">obj</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>虽然我们手动将<code>obj</code>，进行释放，然是<code>target</code>依然对<code>obj</code>存在强引用关系，所以这部分内存依然无法被释放。</p>
+
+<p>再来看<code>WeakMap</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">name</span> <span class="o">:</span> <span class="s1">&#39;Terryzh&#39;</span><span class="p">}</span>
+<span class="k">const</span> <span class="nx">target</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WeakMap</span><span class="p">();</span>
+<span class="nx">target</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span><span class="s1">&#39;Terryzhhhhh&#39;</span><span class="p">);</span>
+<span class="nx">obj</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>如果是<code>WeakMap</code>的话，<code>target</code>和<code>obj</code>存在的就是弱引用关系，当下一次垃圾回收机制执行时，这块内存就会被释放掉。</p>
+
+<p>设想一下，如果我们要拷贝的对象非常庞大时，使用<code>Map</code>会对内存造成非常大的额外消耗，而且我们需要手动清除<code>Map</code>的属性才能释放这块内存，而<code>WeakMap</code>会帮我们巧妙化解这个问题。</p>
+
+<p>我也经常在某些代码中看到有人使用<code>WeakMap</code>来解决循环引用问题，但是解释都是模棱两可的，当你不太了解<code>WeakMap</code>的真正作用时。我建议你也不要在面试中写这样的代码，结果只能是给自己挖坑，即使是准备面试，你写的每一行代码也都是需要经过深思熟虑并且非常明白的。</p>
+
+<p>能考虑到循环引用的问题，你已经向面试官展示了你考虑问题的全面性，如果还能用<code>WeakMap</code>解决问题，并很明确的向面试官解释这样做的目的，那么你的代码在面试官眼里应该算是合格了。</p>
+
+<h2 id="性能优化">性能优化</h2>
+
+<p>在上面的代码中，我们遍历数组和对象都使用了<code>for in</code>这种方式，实际上<code>for in</code>在遍历时效率是非常低的，我们来对比下常见的三种循环<code>for、while、for in</code>的执行效率：</p>
+
+<p><img src="/img/deepClone/8.png" alt="8" /></p>
+
+<p>可以看到，<code>while</code>的效率是最好的，所以，我们可以想办法把<code>for in</code>遍历改变为<code>while</code>遍历。</p>
+
+<p>我们先使用<code>while</code>来实现一个通用的<code>forEach</code>遍历，<code>iteratee</code>是遍历的回掉函数，他可以接收每次遍历的<code>value</code>和<code>index</code>两个参数：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">forEach</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="nx">iteratee</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">index</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="k">const</span> <span class="nx">length</span> <span class="o">=</span> <span class="nx">array</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="o">++</span><span class="nx">index</span> <span class="o">&lt;</span> <span class="nx">length</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">iteratee</span><span class="p">(</span><span class="nx">array</span><span class="p">[</span><span class="nx">index</span><span class="p">],</span> <span class="nx">index</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">array</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>下面对我们的<code>cloen</code>函数进行改写：当遍历数组时，直接使用<code>forEach</code>进行遍历，当遍历对象时，使用<code>Object.keys</code>取出所有的<code>key</code>进行遍历，然后在遍历时把<code>forEach</code>会调函数的<code>value</code>当作<code>key</code>使用：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">clone</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">map</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WeakMap</span><span class="p">())</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">target</span> <span class="o">===</span> <span class="s1">&#39;object&#39;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">const</span> <span class="nx">isArray</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">target</span><span class="p">);</span>
+        <span class="kd">let</span> <span class="nx">cloneTarget</span> <span class="o">=</span> <span class="nx">isArray</span> <span class="o">?</span> <span class="p">[]</span> <span class="o">:</span> <span class="p">{};</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="nx">map</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">target</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">map</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">target</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="nx">map</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">cloneTarget</span><span class="p">);</span>
+
+        <span class="k">const</span> <span class="nx">keys</span> <span class="o">=</span> <span class="nx">isArray</span> <span class="o">?</span> <span class="kc">undefined</span> <span class="o">:</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">target</span><span class="p">);</span>
+        <span class="nx">forEach</span><span class="p">(</span><span class="nx">keys</span> <span class="o">||</span> <span class="nx">target</span><span class="p">,</span> <span class="p">(</span><span class="nx">value</span><span class="p">,</span> <span class="nx">key</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">keys</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">key</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="nx">cloneTarget</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">clone2</span><span class="p">(</span><span class="nx">target</span><span class="p">[</span><span class="nx">key</span><span class="p">],</span> <span class="nx">map</span><span class="p">);</span>
+        <span class="p">});</span>
+
+        <span class="k">return</span> <span class="nx">cloneTarget</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">target</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>下面，我们执行<a href="https://github.com/t496971418/elixir_blog/blob/master/javascript/deep_clone/test/clone4.test.js">clone4.test.js</a>分别对上一个克隆函数和改写后的克隆函数进行测试：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">const</span> <span class="nx">target</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">field1</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nx">field2</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">,</span>
+    <span class="nx">field3</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">child</span><span class="o">:</span> <span class="s1">&#39;child&#39;</span>
+    <span class="p">},</span>
+    <span class="nx">field4</span><span class="o">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span>
+    <span class="nx">f</span><span class="o">:</span> <span class="p">{</span> <span class="nx">f</span><span class="o">:</span> <span class="p">{</span> <span class="nx">f</span><span class="o">:</span> <span class="p">{</span> <span class="nx">f</span><span class="o">:</span> <span class="p">{</span> <span class="nx">f</span><span class="o">:</span> <span class="p">{</span> <span class="nx">f</span><span class="o">:</span> <span class="p">{</span> <span class="nx">f</span><span class="o">:</span> <span class="p">{</span> <span class="nx">f</span><span class="o">:</span> <span class="p">{</span> <span class="nx">f</span><span class="o">:</span> <span class="p">{</span> <span class="nx">f</span><span class="o">:</span> <span class="p">{</span> <span class="nx">f</span><span class="o">:</span> <span class="p">{</span> <span class="nx">f</span><span class="o">:</span> <span class="p">{}</span> <span class="p">}</span> <span class="p">}</span> <span class="p">}</span> <span class="p">}</span> <span class="p">}</span> <span class="p">}</span> <span class="p">}</span> <span class="p">}</span> <span class="p">}</span> <span class="p">}</span> <span class="p">},</span>
+<span class="p">};</span>
+
+<span class="nx">target</span><span class="p">.</span><span class="nx">target</span> <span class="o">=</span> <span class="nx">target</span><span class="p">;</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">time</span><span class="p">();</span>
+<span class="k">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">clone1</span><span class="p">(</span><span class="nx">target</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">timeEnd</span><span class="p">();</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">time</span><span class="p">();</span>
+<span class="k">const</span> <span class="nx">result2</span> <span class="o">=</span> <span class="nx">clone2</span><span class="p">(</span><span class="nx">target</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">timeEnd</span><span class="p">();</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>执行结果：</p>
+
+<p><img src="/img/deepClone/9.png" alt="9" /></p>
+
+<p>很明显，我们的性能优化是有效的。</p>
+
+<p>到这里，你已经向面试官展示了，在写代码的时候你会考虑程序的运行效率，并且你具有通用函数的抽象能力。</p>
+
+<h2 id="其他数据类型">其他数据类型</h2>
+
+<p>在上面的代码中，我们其实只考虑了普通的<code>object</code>和<code>array</code>两种数据类型，实际上所有的引用类型远远不止这两个，还有很多，下面我们先尝试获取对象准确的类型。</p>
+
+<h3 id="合理的判断引用类型">合理的判断引用类型</h3>
+
+<p>首先，判断是否为引用类型，我们还需要考虑<code>function</code>和<code>null</code>两种特殊的数据类型：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">isObject</span><span class="p">(</span><span class="nx">target</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="nx">type</span> <span class="o">=</span> <span class="k">typeof</span> <span class="nx">target</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nx">target</span> <span class="o">!==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">type</span> <span class="o">===</span> <span class="s1">&#39;object&#39;</span> <span class="o">||</span> <span class="nx">type</span> <span class="o">===</span> <span class="s1">&#39;function&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">isObject</span><span class="p">(</span><span class="nx">target</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">target</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="c1">// ...
+</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="获取数据类型">获取数据类型</h3>
+
+<p>我们可以使用<code>toString</code>来获取准确的引用类型：</p>
+
+<blockquote>
+<p>每一个引用类型都有<code>toString</code>方法，默认情况下，<code>toString()</code>方法被每个<code>Object</code>对象继承。如果此方法在自定义对象中未被覆盖，t<code>oString()</code>返回 <code>&quot;[object type]&quot;</code>，其中type是对象的类型。</p>
+</blockquote>
+
+<p>注意，上面提到了如果此方法在自定义对象中未被覆盖，<code>toString</code>才会达到预想的效果，事实上，大部分引用类型比如<code>Array、Date、RegExp</code>等都重写了<code>toString</code>方法。</p>
+
+<p>我们可以直接调用<code>Object</code>原型上未被覆盖的<code>toString()</code>方法，使用<code>call</code>来改变<code>this</code>指向来达到我们想要的效果。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">getType</span><span class="p">(</span><span class="nx">target</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">toString</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">target</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<table>
+<thead>
+<tr>
+<th align="left">调用</th>
+<th>结果</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="left">Object.prototype.toString.call(true)</td>
+<td>[object Boolean]</td>
+</tr>
+
+<tr>
+<td align="left">Object.prototype.toString.call(123)</td>
+<td>[object Number]</td>
+</tr>
+
+<tr>
+<td align="left">Object.prototype.toString.call(’terryzh’)</td>
+<td>[object String]</td>
+</tr>
+
+<tr>
+<td align="left">Object.prototype.toString.call(null)</td>
+<td>[object Null]</td>
+</tr>
+
+<tr>
+<td align="left">Object.prototype.toString.call(undefine)</td>
+<td>[object Undefine]</td>
+</tr>
+
+<tr>
+<td align="left">Object.prototype.toString.call(Symbol())</td>
+<td>[object Symbol]</td>
+</tr>
+
+<tr>
+<td align="left">Object.prototype.toString.call({})</td>
+<td>[object Object]</td>
+</tr>
+
+<tr>
+<td align="left">Object.prototype.toString.call(function(){})</td>
+<td>[object Function]</td>
+</tr>
+
+<tr>
+<td align="left">Object.prototype.toString.call([])</td>
+<td>[object Array]</td>
+</tr>
+
+<tr>
+<td align="left">Object.prototype.toString.call(new Error())</td>
+<td>[object Error]</td>
+</tr>
+
+<tr>
+<td align="left">Object.prototype.toString.call(new RegExp())</td>
+<td>[object RegExp]</td>
+</tr>
+
+<tr>
+<td align="left">Object.prototype.toString.call(Math)</td>
+<td>[object Math]</td>
+</tr>
+
+<tr>
+<td align="left">Object.prototype.toString.call(JSON)</td>
+<td>[object JSON]</td>
+</tr>
+
+<tr>
+<td align="left">Object.prototype.toString.call(window)</td>
+<td>[object global]</td>
+</tr>
+</tbody>
+</table>
+
+<p>下面我们抽离出一些常用的数据类型以便后面使用：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">const</span> <span class="nx">mapTag</span> <span class="o">=</span> <span class="s1">&#39;[object Map]&#39;</span><span class="p">;</span>
+<span class="k">const</span> <span class="nx">setTag</span> <span class="o">=</span> <span class="s1">&#39;[object Set]&#39;</span><span class="p">;</span>
+<span class="k">const</span> <span class="nx">arrayTag</span> <span class="o">=</span> <span class="s1">&#39;[object Array]&#39;</span><span class="p">;</span>
+<span class="k">const</span> <span class="nx">objectTag</span> <span class="o">=</span> <span class="s1">&#39;[object Object]&#39;</span><span class="p">;</span>
+
+<span class="k">const</span> <span class="nx">boolTag</span> <span class="o">=</span> <span class="s1">&#39;[object Boolean]&#39;</span><span class="p">;</span>
+<span class="k">const</span> <span class="nx">dateTag</span> <span class="o">=</span> <span class="s1">&#39;[object Date]&#39;</span><span class="p">;</span>
+<span class="k">const</span> <span class="nx">errorTag</span> <span class="o">=</span> <span class="s1">&#39;[object Error]&#39;</span><span class="p">;</span>
+<span class="k">const</span> <span class="nx">numberTag</span> <span class="o">=</span> <span class="s1">&#39;[object Number]&#39;</span><span class="p">;</span>
+<span class="k">const</span> <span class="nx">regexpTag</span> <span class="o">=</span> <span class="s1">&#39;[object RegExp]&#39;</span><span class="p">;</span>
+<span class="k">const</span> <span class="nx">stringTag</span> <span class="o">=</span> <span class="s1">&#39;[object String]&#39;</span><span class="p">;</span>
+<span class="k">const</span> <span class="nx">symbolTag</span> <span class="o">=</span> <span class="s1">&#39;[object Symbol]&#39;</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>在上面的集中类型中，我们简单将他们分为两类：</p>
+
+<ul>
+<li>可以继续遍历的类型</li>
+<li>不可以继续遍历的类型</li>
+</ul>
+
+<p>我们分别为它们做不同的拷贝。</p>
+
+<h3 id="可继续遍历的类型">可继续遍历的类型</h3>
+
+<p>上面我们已经考虑的<code>object</code>、<code>array</code>都属于可以继续遍历的类型，因为它们内存都还可以存储其他数据类型的数据，另外还有<code>Map</code>，<code>Set</code>等都是可以继续遍历的类型，这里我们只考虑这四种，如果你有兴趣可以继续探索其他类型。</p>
+
+<p>有序这几种类型还需要继续进行递归，我们首先需要获取它们的初始化数据，例如上面的<code>[]</code>和<code>{}</code>，我们可以通过拿到<code>constructor</code>的方式来通用的获取。</p>
+
+<p>例如：<code>const target = {}</code>就是<code>const target = new Object()</code>的语法糖。另外这种方法还有一个好处：因为我们还使用了原对象的构造方法，所以它可以保留对象原型上的数据，如果直接使用普通的<code>{}</code>，那么原型必然是丢失了的。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">getInit</span><span class="p">(</span><span class="nx">target</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="nx">Ctor</span> <span class="o">=</span> <span class="nx">target</span><span class="p">.</span><span class="nx">constructor</span><span class="p">;</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nx">Ctor</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>下面，我们改写<code>clone</code>函数，对可继续遍历的数据类型进行处理：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">clone</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">map</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WeakMap</span><span class="p">())</span> <span class="p">{</span>
+
+    <span class="c1">// 克隆原始类型
+</span><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">isObject</span><span class="p">(</span><span class="nx">target</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">target</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// 初始化
+</span><span class="c1"></span>    <span class="k">const</span> <span class="nx">type</span> <span class="o">=</span> <span class="nx">getType</span><span class="p">(</span><span class="nx">target</span><span class="p">);</span>
+    <span class="kd">let</span> <span class="nx">cloneTarget</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">deepTag</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="nx">type</span><span class="p">))</span> <span class="p">{</span>
+        <span class="nx">cloneTarget</span> <span class="o">=</span> <span class="nx">getInit</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">type</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="c1">// 防止循环引用
+</span><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="nx">map</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">target</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">map</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">target</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nx">map</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">cloneTarget</span><span class="p">);</span>
+
+    <span class="c1">// 克隆set
+</span><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="nx">type</span> <span class="o">===</span> <span class="nx">setTag</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">target</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">value</span> <span class="p">=&gt;</span> <span class="p">{</span>
+            <span class="nx">cloneTarget</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">clone</span><span class="p">(</span><span class="nx">value</span><span class="p">));</span>
+        <span class="p">});</span>
+        <span class="k">return</span> <span class="nx">cloneTarget</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// 克隆map
+</span><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="nx">type</span> <span class="o">===</span> <span class="nx">mapTag</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">target</span><span class="p">.</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">value</span><span class="p">,</span> <span class="nx">key</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+            <span class="nx">cloneTarget</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="nx">clone</span><span class="p">(</span><span class="nx">value</span><span class="p">));</span>
+        <span class="p">});</span>
+        <span class="k">return</span> <span class="nx">cloneTarget</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// 克隆对象和数组
+</span><span class="c1"></span>    <span class="k">const</span> <span class="nx">keys</span> <span class="o">=</span> <span class="nx">type</span> <span class="o">===</span> <span class="nx">arrayTag</span> <span class="o">?</span> <span class="kc">undefined</span> <span class="o">:</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">target</span><span class="p">);</span>
+    <span class="nx">forEach</span><span class="p">(</span><span class="nx">keys</span> <span class="o">||</span> <span class="nx">target</span><span class="p">,</span> <span class="p">(</span><span class="nx">value</span><span class="p">,</span> <span class="nx">key</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">keys</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">key</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nx">cloneTarget</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">clone</span><span class="p">(</span><span class="nx">target</span><span class="p">[</span><span class="nx">key</span><span class="p">],</span> <span class="nx">map</span><span class="p">);</span>
+    <span class="p">});</span>
+
+    <span class="k">return</span> <span class="nx">cloneTarget</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>我们执行<a href="https://github.com/t496971418/elixir_blog/blob/master/javascript/deep_clone/test/clone5.test.js">clone5.test.js</a>对下面的测试用例进行测试：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">const</span> <span class="nx">target</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">field1</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nx">field2</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">,</span>
+    <span class="nx">field3</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">child</span><span class="o">:</span> <span class="s1">&#39;child&#39;</span>
+    <span class="p">},</span>
+    <span class="nx">field4</span><span class="o">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span>
+    <span class="nx">empty</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nx">map</span><span class="p">,</span>
+    <span class="nx">set</span><span class="p">,</span>
+<span class="p">};</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>执行结果：</p>
+
+<p><img src="/img/deepClone/10.png" alt="10" /></p>
+
+<p>没有问题，里大功告成又进一步，下面我们继续处理其他类型：</p>
+
+<h3 id="不可继续遍历的类型">不可继续遍历的类型</h3>
+
+<p>其他剩余的类型我们把它们统一归类成不可处理的数据类型，我们依次进行处理：</p>
+
+<p><code>Bool</code>、<code>Number</code>、<code>String</code>、<code>String</code>、<code>Date</code>、<code>Error</code>这几种类型我们都可以直接用构造函数和原始数据创建一个新对象：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">cloneOtherType</span><span class="p">(</span><span class="nx">targe</span><span class="p">,</span> <span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="nx">Ctor</span> <span class="o">=</span> <span class="nx">targe</span><span class="p">.</span><span class="nx">constructor</span><span class="p">;</span>
+    <span class="k">switch</span> <span class="p">(</span><span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="nx">boolTag</span><span class="o">:</span>
+        <span class="k">case</span> <span class="nx">numberTag</span><span class="o">:</span>
+        <span class="k">case</span> <span class="nx">stringTag</span><span class="o">:</span>
+        <span class="k">case</span> <span class="nx">errorTag</span><span class="o">:</span>
+        <span class="k">case</span> <span class="nx">dateTag</span><span class="o">:</span>
+            <span class="k">return</span> <span class="k">new</span> <span class="nx">Ctor</span><span class="p">(</span><span class="nx">targe</span><span class="p">);</span>
+        <span class="k">case</span> <span class="nx">regexpTag</span><span class="o">:</span>
+            <span class="k">return</span> <span class="nx">cloneReg</span><span class="p">(</span><span class="nx">targe</span><span class="p">);</span>
+        <span class="k">case</span> <span class="nx">symbolTag</span><span class="o">:</span>
+            <span class="k">return</span> <span class="nx">cloneSymbol</span><span class="p">(</span><span class="nx">targe</span><span class="p">);</span>
+        <span class="k">default</span><span class="o">:</span>
+            <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>克隆<code>Symbol</code>类型：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">cloneSymbol</span><span class="p">(</span><span class="nx">targe</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nb">Object</span><span class="p">(</span><span class="nx">Symbol</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">valueOf</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">targe</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="c1">//克隆正则：
+</span><span class="c1"></span>
+<span class="kd">function</span> <span class="nx">cloneReg</span><span class="p">(</span><span class="nx">targe</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="nx">reFlags</span> <span class="o">=</span> <span class="sr">/\w*$/</span><span class="p">;</span>
+    <span class="k">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">targe</span><span class="p">.</span><span class="nx">constructor</span><span class="p">(</span><span class="nx">targe</span><span class="p">.</span><span class="nx">source</span><span class="p">,</span> <span class="nx">reFlags</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">targe</span><span class="p">));</span>
+    <span class="nx">result</span><span class="p">.</span><span class="nx">lastIndex</span> <span class="o">=</span> <span class="nx">targe</span><span class="p">.</span><span class="nx">lastIndex</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>实际上还有很多数据类型我这里没有写到，有兴趣的话可以继续探索实现一下。</p>
+
+<p>能写到这里，面试官已经看到了你考虑问题的严谨性，你对变量和类型的理解，对<code>JS API</code>的熟练程度，相信面试官已经开始对你刮目相看了。</p>
+
+<h3 id="克隆函数">克隆函数</h3>
+
+<p>最后，我把克隆函数单独拎出来了，实际上克隆函数是没有实际应用场景的，两个对象使用一个在内存中处于同一个地址的函数也是没有任何问题的，我特意看了下<code>lodash</code>对函数的处理：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"> <span class="k">const</span> <span class="nx">isFunc</span> <span class="o">=</span> <span class="k">typeof</span> <span class="nx">value</span> <span class="o">==</span> <span class="s1">&#39;function&#39;</span>
+ <span class="k">if</span> <span class="p">(</span><span class="nx">isFunc</span> <span class="o">||</span> <span class="o">!</span><span class="nx">cloneableTags</span><span class="p">[</span><span class="nx">tag</span><span class="p">])</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">object</span> <span class="o">?</span> <span class="nx">value</span> <span class="o">:</span> <span class="p">{}</span>
+ <span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>可见这里如果发现是函数的话就会直接返回了，没有做特殊的处理，但是我发现不少面试官还是热衷于问这个问题的，而且据我了解能写出来的少之又少。。。</p>
+
+<p>实际上这个方法并没有什么难度，主要就是考察你对基础的掌握扎实不扎实。</p>
+
+<p>首先，我们可以通过<code>prototype</code>来区分下箭头函数和普通函数，箭头函数是没有<code>prototype</code>的。</p>
+
+<p>我们可以直接使用<code>eval</code>和函数字符串来重新生成一个箭头函数，注意这种方法是不适用于普通函数的。</p>
+
+<p>我们可以使用正则来处理普通函数：</p>
+
+<p>分别使用正则取出函数体和函数参数，然后使用<code>new Function ([arg1[, arg2[, ...argN]],] functionBody)</code>构造函数重新构造一个新的函数：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">cloneFunction</span><span class="p">(</span><span class="nx">func</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="nx">bodyReg</span> <span class="o">=</span> <span class="sr">/(?&lt;={)(.|\n)+(?=})/m</span><span class="p">;</span>
+    <span class="k">const</span> <span class="nx">paramReg</span> <span class="o">=</span> <span class="sr">/(?&lt;=\().+(?=\)\s+{)/</span><span class="p">;</span>
+    <span class="k">const</span> <span class="nx">funcString</span> <span class="o">=</span> <span class="nx">func</span><span class="p">.</span><span class="nx">toString</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">func</span><span class="p">.</span><span class="nx">prototype</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;普通函数&#39;</span><span class="p">);</span>
+        <span class="k">const</span> <span class="nx">param</span> <span class="o">=</span> <span class="nx">paramReg</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">funcString</span><span class="p">);</span>
+        <span class="k">const</span> <span class="nx">body</span> <span class="o">=</span> <span class="nx">bodyReg</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">funcString</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">body</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;匹配到函数体：&#39;</span><span class="p">,</span> <span class="nx">body</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">param</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">const</span> <span class="nx">paramArr</span> <span class="o">=</span> <span class="nx">param</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">);</span>
+                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;匹配到参数：&#39;</span><span class="p">,</span> <span class="nx">paramArr</span><span class="p">);</span>
+                <span class="k">return</span> <span class="k">new</span> <span class="nb">Function</span><span class="p">(...</span><span class="nx">paramArr</span><span class="p">,</span> <span class="nx">body</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="k">new</span> <span class="nb">Function</span><span class="p">(</span><span class="nx">body</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+            <span class="p">}</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">eval</span><span class="p">(</span><span class="nx">funcString</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>最后，我们再来执行<a href="https://github.com/t496971418/elixir_blog/blob/master/javascript/deep_clone/test/clone6.test.js">clone6.test.js</a>对下面的测试用例进行测试：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">const</span> <span class="nx">map</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Map</span><span class="p">();</span>
+<span class="nx">map</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;key&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">);</span>
+<span class="nx">map</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;Terryzh&#39;</span><span class="p">,</span> <span class="s1">&#39;Terryzhhhhh&#39;</span><span class="p">);</span>
+
+<span class="k">const</span> <span class="nx">set</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Set</span><span class="p">();</span>
+<span class="nx">set</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s1">&#39;Terryzh&#39;</span><span class="p">);</span>
+<span class="nx">set</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s1">&#39;Terryzhhhhh&#39;</span><span class="p">);</span>
+
+<span class="k">const</span> <span class="nx">target</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">field1</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nx">field2</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">,</span>
+    <span class="nx">field3</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">child</span><span class="o">:</span> <span class="s1">&#39;child&#39;</span>
+    <span class="p">},</span>
+    <span class="nx">field4</span><span class="o">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span>
+    <span class="nx">empty</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nx">map</span><span class="p">,</span>
+    <span class="nx">set</span><span class="p">,</span>
+    <span class="nx">bool</span><span class="o">:</span> <span class="k">new</span> <span class="nb">Boolean</span><span class="p">(</span><span class="kc">true</span><span class="p">),</span>
+    <span class="nx">num</span><span class="o">:</span> <span class="k">new</span> <span class="nb">Number</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span>
+    <span class="nx">str</span><span class="o">:</span> <span class="k">new</span> <span class="nb">String</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span>
+    <span class="nx">symbol</span><span class="o">:</span> <span class="nb">Object</span><span class="p">(</span><span class="nx">Symbol</span><span class="p">(</span><span class="mi">1</span><span class="p">)),</span>
+    <span class="nx">date</span><span class="o">:</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(),</span>
+    <span class="nx">reg</span><span class="o">:</span> <span class="sr">/\d+/</span><span class="p">,</span>
+    <span class="nx">error</span><span class="o">:</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(),</span>
+    <span class="nx">func1</span><span class="o">:</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Terryzhhhhh&#39;</span><span class="p">);</span>
+    <span class="p">},</span>
+    <span class="nx">func2</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>执行结果：</p>
+
+<p><img src="/img/deepClone/11.png" alt="11" /></p>
+
+<h2 id="最后">最后</h2>
+
+<p>为了更好的阅读，我们用一张图来展示上面所有的代码：</p>
+
+<p><img src="/img/deepClone/12.png" alt="12" /></p>
+
+<p>完整代码：<a href="https://github.com/t496971418/elixir_blog/tree/master/javascript/deep_clone">戳我查看</a></p>
+
+<p>可见，一个小小的深拷贝还是隐藏了很多的知识点的。</p>
+
+<p>千万不要以最低的要求来要求自己，如果你只是为了应付面试中的一个题目，那么你可能只会去准备上面最简陋的深拷贝的方法。</p>
+
+<p>但是面试官考察你的目的是全方位的考察你的思维能力，如果你写出上面的代码，可以体现你多方位的能力：</p>
+
+<ul>
+<li>基本实现
+
+<ul>
+<li>递归能力</li>
+</ul></li>
+<li>循环引用
+
+<ul>
+<li>考虑问题的全面性</li>
+<li>理解weakmap的真正意义</li>
+</ul></li>
+<li>多种类型
+
+<ul>
+<li>考虑问题的严谨性</li>
+<li>创建各种引用类型的方法，JS API的熟练程度</li>
+<li>准确的判断数据类型，对数据类型的理解程度</li>
+</ul></li>
+<li>通用遍历：
+
+<ul>
+<li>写代码可以考虑性能优化</li>
+<li>了解集中遍历的效率</li>
+<li>代码抽象能力</li>
+</ul></li>
+<li>拷贝函数：
+
+<ul>
+<li>箭头函数和普通函数的区别</li>
+<li>正则表达式熟练程度</li>
+</ul></li>
+</ul>
+
+<p>看吧，一个小小的深拷贝能考察你这么多的能力，如果面试官看到这样的代码，怎么能够不惊艳呢？</p>
+
+<p>其实面试官出的所有题目你都可以用这样的思路去考虑。不要为了应付面试而去背一些代码，这样在有经验的面试官面前会都会暴露出来。你写的每一段代码都要经过深思熟虑，为什么要这样用，还能怎么优化&hellip;这样才能给面试官展现一个最好的你。</p>
+
+<h2 id="参考">参考</h2>
+
+<ul>
+<li><a href="https://link.juejin.im/?target=https%3A%2F%2Fdeveloper.mozilla.org%2Fzh-CN%2Fdocs%2FWeb%2FJavaScript%2FReference%2FGlobal_Objects%2FWeakMap">WeakMap</a></li>
+<li><a href="https://link.juejin.im/?target=https%3A%2F%2Flodash.com%2F">lodash</a></li>
+</ul>
+
+<h2 id="小结">小结</h2>
+
+<p>希望看完本篇文章能对你有如下帮助：</p>
+
+<ul>
+<li>理解深浅拷贝的真正意义</li>
+<li>能整我深拷贝的各个要点，对问题进行深入分析</li>
+<li>可以手写一个比较完整的深拷贝</li>
+</ul>
+
+<blockquote>
+<p>作者：ConardLi <a href="https://juejin.im/post/5d68eac8e51d4561c67840c4">链接</a></p>
+
+<p>来源：掘金著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+</blockquote>
+    </div>
+
+    
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">Reward</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/reward/wechat-qr-code.png">
+        <span>wechat</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/reward/alipay-qr-code.png">
+        <span>alipay</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/javascript/">javascript</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/2019react%E7%BB%86%E8%8A%82%E8%AE%B2%E8%A7%A3/">
+            <span class="next-text nav-default">2019React细节讲解</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2019-09-02 14:13:13 \x2b0800 \x2b0800',
+        title: '如何在javaScript中写一个优雅的deepClone',
+        clientID: 'bf0ed9ea18e819e40135',
+        clientSecret: '92bdc65717aa7f0ec48bfe94e773b57a21163785',
+        repo: 'blog_comments',
+        owner: '496971418@qq.com',
+        admin: ['496971418@qq.com'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:terryzh017@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://stackoverflow.com/users/10838177/terryzh" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://twitter.com/terryzhAizz" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/t496971418" class="iconfont icon-github" title="github"></a>
+  <a href="http://www.elixir-zh.cn/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Terryzh</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
