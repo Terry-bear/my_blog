@@ -6,10 +6,19 @@
     <description>Recent content in code on Terryzh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 09 Sep 2019 15:20:17 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 08 Oct 2019 16:49:01 +0800</lastBuildDate>
     
 	<atom:link href="http://www.elixir-zh.cn/categories/code/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>BI前端大屏适配</title>
+      <link>http://www.elixir-zh.cn/post/bi%E5%89%8D%E7%AB%AF%E5%A4%A7%E5%B1%8F%E9%80%82%E9%85%8D/</link>
+      <pubDate>Tue, 08 Oct 2019 16:49:01 +0800</pubDate>
+      
+      <guid>http://www.elixir-zh.cn/post/bi%E5%89%8D%E7%AB%AF%E5%A4%A7%E5%B1%8F%E9%80%82%E9%85%8D/</guid>
+      <description>writing&amp;hellip;</description>
+    </item>
     
     <item>
       <title>Node常用工具集</title>
