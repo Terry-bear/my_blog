@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>React开发技巧之组件应用 - Terryzh</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Terryzh" /><meta name="description" content="前言 React 中涉及到的组件的复杂应用总结。 1.异步组件 场景:路由切换,如果同步加载多个页面路由会导致缓慢 核心 API: loader : 需要加载的组件 loading : 未加载出来的页" /><meta name="keywords" content="javascript" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.54.0 with even 4.0.0" />
+
+
+<link rel="canonical" href="http://www.elixir-zh.cn/post/react%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7%E4%B9%8B%E7%BB%84%E4%BB%B6%E5%BA%94%E7%94%A8/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.65dce888.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="React开发技巧之组件应用" />
+<meta property="og:description" content="前言 React 中涉及到的组件的复杂应用总结。 1.异步组件 场景:路由切换,如果同步加载多个页面路由会导致缓慢 核心 API: loader : 需要加载的组件 loading : 未加载出来的页" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.elixir-zh.cn/post/react%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7%E4%B9%8B%E7%BB%84%E4%BB%B6%E5%BA%94%E7%94%A8/" />
+<meta property="article:published_time" content="2019-11-04T15:37:49&#43;08:00"/>
+<meta property="article:modified_time" content="2019-11-04T15:37:49&#43;08:00"/>
+
+<meta itemprop="name" content="React开发技巧之组件应用">
+<meta itemprop="description" content="前言 React 中涉及到的组件的复杂应用总结。 1.异步组件 场景:路由切换,如果同步加载多个页面路由会导致缓慢 核心 API: loader : 需要加载的组件 loading : 未加载出来的页">
+
+
+<meta itemprop="datePublished" content="2019-11-04T15:37:49&#43;08:00" />
+<meta itemprop="dateModified" content="2019-11-04T15:37:49&#43;08:00" />
+<meta itemprop="wordCount" content="1250">
+
+
+
+<meta itemprop="keywords" content="javascript," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="React开发技巧之组件应用"/>
+<meta name="twitter:description" content="前言 React 中涉及到的组件的复杂应用总结。 1.异步组件 场景:路由切换,如果同步加载多个页面路由会导致缓慢 核心 API: loader : 需要加载的组件 loading : 未加载出来的页"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Terryzh</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Terryzh</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">React开发技巧之组件应用</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-11-04 </span>
+        <div class="post-category">
+            <a href="/categories/code/"> code </a>
+            </div>
+          <span class="more-meta"> 1250 words </span>
+          <span class="more-meta"> 3 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#前言">前言</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#1-异步组件">1.异步组件</a></li>
+<li><a href="#2-动态组件">2.动态组件</a></li>
+<li><a href="#3-递归组件">3.递归组件</a></li>
+<li><a href="#4-受控组件和不受控组件">4.受控组件和不受控组件</a></li>
+<li><a href="#5-高阶组件">5.高阶组件</a>
+<ul>
+<li><a href="#5-1-定义">5.1 定义</a></li>
+<li><a href="#5-2-实现方法">5.2 实现方法</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h3 id="前言">前言</h3>
+
+<p>React 中涉及到的组件的复杂应用总结。</p>
+
+<h1 id="1-异步组件">1.异步组件</h1>
+
+<ol>
+<li><p>场景:路由切换,如果同步加载多个页面路由会导致缓慢</p></li>
+
+<li><p>核心 <code>API</code>:
+<code>loader</code> : 需要加载的组件
+<code>loading</code> : 未加载出来的页面展示组件
+<code>delay</code> : 延迟加载时间
+<code>timeout</code> : 超时时间</p></li>
+
+<li><p>使用方法:
+安装 <code>react-loadable</code> ,<code>babel</code>插件安装 <code>syntax-dynamic-import. react-loadable</code>是通过<code>webpack</code>的异步<code>import</code>实现的</p></li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="k">const</span> <span class="nx">Loading</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span><span class="nx">loading</span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;;</span>
+<span class="p">};</span>
+
+<span class="k">const</span> <span class="nx">LoadableComponent</span> <span class="o">=</span> <span class="nx">Loadable</span><span class="p">({</span>
+  <span class="nx">loader</span><span class="o">:</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="k">import</span><span class="p">(</span><span class="s2">&#34;../../components/TwoTen/thirteen&#34;</span><span class="p">),</span>
+  <span class="nx">loading</span><span class="o">:</span> <span class="nx">Loading</span>
+<span class="p">});</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="k">class</span> <span class="nx">Thirteen</span> <span class="k">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">&lt;</span><span class="nt">LoadableComponent</span><span class="p">&gt;&lt;/</span><span class="nt">LoadableComponent</span><span class="p">&gt;;</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<ol>
+<li><code>Loadable.Map()</code>
+并行加载多个资源的高阶组件</li>
+</ol>
+
+<h1 id="2-动态组件">2.动态组件</h1>
+
+<p>场景:做一个 tab 切换时就会涉及到组件动态加载
+ 实质上是利用三元表达式判断组件是否显示</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="k">class</span> <span class="nx">FourteenChildOne</span> <span class="k">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+    <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span><span class="nx">这是动态组件</span> <span class="mi">1</span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">class</span> <span class="nx">FourteenChildTwo</span> <span class="k">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+    <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span><span class="nx">这是动态组件</span> <span class="mi">2</span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="k">class</span> <span class="nx">Fourteen</span> <span class="k">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">state</span><span class="o">=</span><span class="p">{</span>
+      <span class="nx">oneShowFlag</span><span class="o">:</span><span class="kc">true</span>
+  <span class="p">}</span>
+  <span class="nx">tab</span><span class="o">=</span><span class="p">()=&gt;{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span><span class="nx">oneShowFlag</span><span class="o">:!</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">oneShowFlag</span><span class="p">})</span>
+  <span class="p">}</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="p">{</span><span class="nx">oneShowFlag</span><span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span>
+    <span class="k">return</span> <span class="p">(&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">Button</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;primary&#34;</span> <span class="na">onClick</span><span class="o">=</span><span class="s">{this.tab}</span><span class="p">&gt;</span><span class="nx">显示组件</span><span class="p">{</span><span class="nx">oneShowFlag</span><span class="o">?</span><span class="mi">2</span><span class="o">:</span><span class="mi">1</span><span class="p">}&lt;/</span><span class="nt">Button</span><span class="p">&gt;</span>
+        <span class="p">{</span><span class="nx">oneShowFlag</span><span class="o">?</span><span class="p">&lt;</span><span class="nt">FourteenChildOne</span><span class="p">&gt;&lt;/</span><span class="nt">FourteenChildOne</span><span class="p">&gt;</span><span class="o">:</span><span class="p">&lt;</span><span class="nt">FourteenChildTwo</span><span class="p">&gt;&lt;/</span><span class="nt">FourteenChildTwo</span><span class="p">&gt;}</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;);</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>如果是单个组件是否显示可以用短路运算</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="nx">oneShowFlag</span><span class="o">&amp;&amp;</span><span class="p">&lt;</span><span class="nt">FourteenChildOne</span><span class="p">&gt;&lt;/</span><span class="nt">FourteenChildOne</span><span class="p">&gt;</span></code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="3-递归组件">3.递归组件</h1>
+
+<p>场景: <code>tree</code>组件
+ 利用<code>React.Fragment</code>或者 <code>div</code> 包裹循环</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="k">class</span> <span class="nx">Item</span> <span class="k">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="nx">list</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">children</span> <span class="o">||</span> <span class="p">[];</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="o">=</span><span class="s">&#34;item&#34;</span><span class="p">&gt;</span>
+        <span class="p">{</span><span class="nx">list</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">item</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+          <span class="k">return</span> <span class="p">(</span>
+            <span class="p">&lt;</span><span class="nt">React</span><span class="na">.Fragment</span> <span class="na">key</span><span class="o">=</span><span class="s">{index}</span><span class="p">&gt;</span>
+              <span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;{</span><span class="nx">item</span><span class="p">.</span><span class="nx">name</span><span class="p">}&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
+              <span class="p">{</span><span class="c1">// 当该节点还有children时，则递归调用本身
+</span><span class="c1"></span>              <span class="nx">item</span><span class="p">.</span><span class="nx">children</span> <span class="o">&amp;&amp;</span> <span class="nx">item</span><span class="p">.</span><span class="nx">children</span><span class="p">.</span><span class="nx">length</span> <span class="o">?</span> <span class="p">(</span>
+                <span class="p">&lt;</span><span class="nt">Item</span><span class="p">&gt;{</span><span class="nx">item</span><span class="p">.</span><span class="nx">children</span><span class="p">}&lt;/</span><span class="nt">Item</span><span class="p">&gt;</span>
+              <span class="p">)</span> <span class="o">:</span> <span class="kc">null</span><span class="p">}</span>
+            <span class="o">&lt;</span><span class="err">/React.Fragment&gt;</span>
+          <span class="p">);</span>
+        <span class="p">})}</span>
+      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="4-受控组件和不受控组件">4.受控组件和不受控组件</h1>
+
+<p>受控组件 : 组件拥有自己的状态</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="k">class</span> <span class="nx">Controll</span> <span class="k">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">();</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">value</span><span class="o">:</span> <span class="s2">&#34;这是受控组件默认值&#34;</span> <span class="p">};</span>
+  <span class="p">}</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">value</span><span class="p">}&lt;/</span><span class="nt">div</span><span class="p">&gt;;</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>不受控组件:组件无自己的状态,在父组件通过 <code>ref</code> 来控制或者通过 <code>props</code> 传值</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="k">class</span> <span class="nx">NoControll</span> <span class="k">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">value</span><span class="p">}&lt;/</span><span class="nt">div</span><span class="p">&gt;;</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>导入代码:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="k">export</span> <span class="k">default</span> <span class="k">class</span> <span class="nx">Sixteen</span> <span class="k">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">componentDidMount</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;ref 获取的不受控组件值为&#34;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">refs</span><span class="p">[</span><span class="s2">&#34;noControll&#34;</span><span class="p">]);</span>
+  <span class="p">}</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">Controll</span><span class="p">&gt;&lt;/</span><span class="nt">Controll</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">NoControll</span>
+          <span class="na">value</span><span class="o">=</span><span class="s">{&#34;这是不受控组件传入值&#34;}</span>
+          <span class="na">ref</span><span class="o">=</span><span class="s">&#34;noControll&#34;</span>
+        <span class="p">&gt;&lt;/</span><span class="nt">NoControll</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="5-高阶组件">5.高阶组件</h1>
+
+<h2 id="5-1-定义">5.1 定义</h2>
+
+<p>就是类似高阶函数的定义,将组件作为参数或者返回一个组件的组件</p>
+
+<h2 id="5-2-实现方法">5.2 实现方法</h2>
+
+<ol>
+<li>属性代理</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="k">import</span> <span class="nx">React</span><span class="p">,{</span><span class="nx">Component</span><span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
+
+<span class="k">const</span> <span class="nx">Seventeen</span> <span class="o">=</span> <span class="nx">WraooedComponent</span> <span class="p">=&gt;</span>
+  <span class="k">class</span> <span class="k">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+    <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">const</span> <span class="nx">props</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="p">...</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">,</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;这是高阶组件&#34;</span>
+      <span class="p">};</span>
+      <span class="k">return</span> <span class="p">&lt;</span><span class="nt">WrappedComponent</span> <span class="p">{</span><span class="na">...props</span><span class="p">}</span> <span class="p">/&gt;;</span>
+    <span class="p">}</span>
+  <span class="p">};</span>
+
+<span class="k">class</span> <span class="nx">WrappedComponent</span> <span class="k">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">state</span><span class="o">=</span><span class="p">{</span>
+     <span class="nx">baseName</span><span class="o">:</span><span class="s1">&#39;这是基础组件&#39;</span> 
+  <span class="p">}</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="p">{</span><span class="nx">baseName</span><span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span>
+    <span class="k">const</span> <span class="p">{</span><span class="nx">name</span><span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span>
+    <span class="k">return</span> <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span><span class="nx">基础组件值为</span><span class="p">{</span><span class="nx">baseName</span><span class="p">}&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span><span class="nx">通过高阶组件属性代理的得到的值为</span><span class="p">{</span><span class="nx">name</span><span class="p">}&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Seventeen</span><span class="p">(</span><span class="nx">WrappedComponent</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<ol>
+<li>反向继承
+原理就是利用 <code>super</code> 改变改组件的 <code>this</code> 方向,继而就可以在该组件处理容器组件的一些值</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx">  <span class="k">const</span> <span class="nx">Seventeen</span> <span class="o">=</span> <span class="p">(</span><span class="nx">WrappedComponent</span><span class="p">)=&gt;{</span>
+    <span class="k">return</span> <span class="k">class</span> <span class="k">extends</span> <span class="nx">WrappedComponent</span> <span class="p">{</span>
+        <span class="nx">componentDidMount</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span><span class="nx">baseName</span><span class="o">:</span><span class="s1">&#39;这是通过反向继承修改后的基础组件名称&#39;</span><span class="p">})</span>
+        <span class="p">}</span>
+        <span class="nx">render</span><span class="p">(){</span>
+            <span class="k">return</span> <span class="k">super</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">class</span> <span class="nx">WrappedComponent</span> <span class="k">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">state</span><span class="o">=</span><span class="p">{</span>
+     <span class="nx">baseName</span><span class="o">:</span><span class="s1">&#39;这是基础组件&#39;</span> 
+  <span class="p">}</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="p">{</span><span class="nx">baseName</span><span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span>
+    <span class="k">return</span> <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span><span class="nx">基础组件值为</span><span class="p">{</span><span class="nx">baseName</span><span class="p">}&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Seventeen</span><span class="p">(</span><span class="nx">WrappedComponent</span><span class="p">);</span></code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">Reward</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/reward/wechat-qr-code.png">
+        <span>wechat</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/reward/alipay-qr-code.png">
+        <span>alipay</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/javascript/">javascript</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/react%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7%E4%B9%8B%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">React开发技巧之组件通信</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/css%E6%96%87%E7%AB%A0%E6%B1%87%E6%80%BB%E6%9F%A5%E8%AF%A2/">
+            <span class="next-text nav-default">CSS文章汇总查询</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2019-11-04 15:37:49 \x2b0800 \x2b0800',
+        title: 'React开发技巧之组件应用',
+        clientID: 'bf0ed9ea18e819e40135',
+        clientSecret: '92bdc65717aa7f0ec48bfe94e773b57a21163785',
+        repo: 'blog_comments',
+        owner: '496971418@qq.com',
+        admin: ['496971418@qq.com'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:terryzh017@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://stackoverflow.com/users/10838177/terryzh" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://twitter.com/terryzhAizz" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/t496971418" class="iconfont icon-github" title="github"></a>
+  <a href="http://www.elixir-zh.cn/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Terryzh</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
