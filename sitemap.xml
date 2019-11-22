@@ -10,6 +10,13 @@
   </url>
   
   <url>
+    <loc>http://www.elixir-zh.cn/post/cors%E5%92%8Ccsrf%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/</loc>
+    <lastmod>2019-11-22T17:19:23+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>http://www.elixir-zh.cn/post/react%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7%E4%B9%8B%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1/</loc>
     <lastmod>2019-11-14T15:05:01+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -262,7 +269,7 @@
   
   <url>
     <loc>http://www.elixir-zh.cn/post/</loc>
-    <lastmod>2019-11-14T15:05:01+08:00</lastmod>
+    <lastmod>2019-11-22T17:19:23+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -297,7 +304,7 @@
   
   <url>
     <loc>http://www.elixir-zh.cn/categories/code/</loc>
-    <lastmod>2019-11-14T15:05:01+08:00</lastmod>
+    <lastmod>2019-11-22T17:19:23+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -318,7 +325,7 @@
   
   <url>
     <loc>http://www.elixir-zh.cn/tags/javascript/</loc>
-    <lastmod>2019-11-14T15:05:01+08:00</lastmod>
+    <lastmod>2019-11-22T17:19:23+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>

@@ -6,10 +6,19 @@
     <description>Recent content in code on Terryzh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 14 Nov 2019 15:05:01 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 22 Nov 2019 17:19:23 +0800</lastBuildDate>
     
 	<atom:link href="http://www.elixir-zh.cn/categories/code/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>CORS和CSRF跨域问题</title>
+      <link>http://www.elixir-zh.cn/post/cors%E5%92%8Ccsrf%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Fri, 22 Nov 2019 17:19:23 +0800</pubDate>
+      
+      <guid>http://www.elixir-zh.cn/post/cors%E5%92%8Ccsrf%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/</guid>
+      <description>一、CORS 和 CSRF 区别 先看下图： 两者概念完全不同，另外常常我们也会看到 XSS ，这里一起介绍： CORS ： Cross Origin Resourse-Sharing 跨站资源共享 CSRF ：Cross-Site Request Forgery 跨站</description>
+    </item>
     
     <item>
       <title>React开发技巧之组件通信</title>
