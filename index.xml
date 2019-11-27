@@ -21,12 +21,30 @@
     </item>
     
     <item>
+      <title>“VUE3之 compositionAPI&#34;</title>
+      <link>http://www.elixir-zh.cn/post/vue3.0%E4%B9%8Bcompositionapi/</link>
+      <pubDate>Wed, 27 Nov 2019 15:28:21 +0800</pubDate>
+      
+      <guid>http://www.elixir-zh.cn/post/vue3.0%E4%B9%8Bcompositionapi/</guid>
+      <description>前言 2019年2月6号，React 发布 16.8.0 版本，新增 Hooks 特性。随即，Vue 在 2019 的各大 JSConf 中也宣告了 Vue3.0 最重要的 RFC，即 Function-based API。Vue3.0 将抛弃</description>
+    </item>
+    
+    <item>
       <title>CORS和CSRF跨域问题</title>
       <link>http://www.elixir-zh.cn/post/cors%E5%92%8Ccsrf%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/</link>
       <pubDate>Fri, 22 Nov 2019 17:19:23 +0800</pubDate>
       
       <guid>http://www.elixir-zh.cn/post/cors%E5%92%8Ccsrf%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/</guid>
       <description>一、CORS 和 CSRF 区别 先看下图： 两者概念完全不同，另外常常我们也会看到 XSS ，这里一起介绍： CORS ： Cross Origin Resourse-Sharing 跨站资源共享 CSRF ：Cross-Site Request Forgery 跨站</description>
+    </item>
+    
+    <item>
+      <title>Vue局部css样式覆盖</title>
+      <link>http://www.elixir-zh.cn/post/vue%E5%B1%80%E9%83%A8css%E6%A0%B7%E5%BC%8F%E8%A6%86%E7%9B%96/</link>
+      <pubDate>Thu, 14 Nov 2019 16:05:08 +0800</pubDate>
+      
+      <guid>http://www.elixir-zh.cn/post/vue%E5%B1%80%E9%83%A8css%E6%A0%B7%E5%BC%8F%E8%A6%86%E7%9B%96/</guid>
+      <description>前言 VUE 和 React 中 CSS 样式覆盖问题。 VUE 1 局部样式 1.Vue中style标签的scoped属性表示它的样式只作用于当前模块，是样式私有化. 2.渲染的规</description>
     </item>
     
     <item>

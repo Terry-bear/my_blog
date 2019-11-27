@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>“VUE3之 compositionAPI&#34; - Terryzh</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Terryzh" /><meta name="description" content="前言 2019年2月6号，React 发布 16.8.0 版本，新增 Hooks 特性。随即，Vue 在 2019 的各大 JSConf 中也宣告了 Vue3.0 最重要的 RFC，即 Function-based API。Vue3.0 将抛弃" /><meta name="keywords" content="javascript" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.54.0 with even 4.0.0" />
+
+
+<link rel="canonical" href="http://www.elixir-zh.cn/post/vue3.0%E4%B9%8Bcompositionapi/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.65dce888.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="“VUE3之 compositionAPI&#34;" />
+<meta property="og:description" content="前言 2019年2月6号，React 发布 16.8.0 版本，新增 Hooks 特性。随即，Vue 在 2019 的各大 JSConf 中也宣告了 Vue3.0 最重要的 RFC，即 Function-based API。Vue3.0 将抛弃" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.elixir-zh.cn/post/vue3.0%E4%B9%8Bcompositionapi/" />
+<meta property="article:published_time" content="2019-11-27T15:28:21&#43;08:00"/>
+<meta property="article:modified_time" content="2019-11-27T15:28:21&#43;08:00"/>
+
+<meta itemprop="name" content="“VUE3之 compositionAPI&#34;">
+<meta itemprop="description" content="前言 2019年2月6号，React 发布 16.8.0 版本，新增 Hooks 特性。随即，Vue 在 2019 的各大 JSConf 中也宣告了 Vue3.0 最重要的 RFC，即 Function-based API。Vue3.0 将抛弃">
+
+
+<meta itemprop="datePublished" content="2019-11-27T15:28:21&#43;08:00" />
+<meta itemprop="dateModified" content="2019-11-27T15:28:21&#43;08:00" />
+<meta itemprop="wordCount" content="4112">
+
+
+
+<meta itemprop="keywords" content="javascript," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="“VUE3之 compositionAPI&#34;"/>
+<meta name="twitter:description" content="前言 2019年2月6号，React 发布 16.8.0 版本，新增 Hooks 特性。随即，Vue 在 2019 的各大 JSConf 中也宣告了 Vue3.0 最重要的 RFC，即 Function-based API。Vue3.0 将抛弃"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Terryzh</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Terryzh</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">“VUE3之 compositionAPI&#34;</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-11-27 </span>
+        <div class="post-category">
+            <a href="/categories/code/"> code </a>
+            </div>
+          <span class="more-meta"> 4112 words </span>
+          <span class="more-meta"> 9 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#前言">前言</a></li>
+<li><a href="#一-composition-api">一、Composition API</a>
+<ul>
+<li><a href="#1-基本用法">1、基本用法</a></li>
+<li><a href="#2-组合函数">2、组合函数</a></li>
+<li><a href="#3-setup-函数">3、setup() 函数</a>
+<ul>
+<li><a href="#i-初始化时机">i. 初始化时机</a></li>
+<li><a href="#ii-reactivity-api">ii. reactivity api</a></li>
+</ul></li>
+<li><a href="#4-props-类型推导">4、Props 类型推导</a></li>
+</ul></li>
+<li><a href="#二-业务实践">二、业务实践</a>
+<ul>
+<li><a href="#1-列表分页查询">1、列表分页查询</a></li>
+<li><a href="#2-user-select-组件">2、user-select 组件</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="前言">前言</h2>
+
+<p>2019年2月6号，React 发布 16.8.0 版本，新增 Hooks 特性。随即，Vue 在 2019 的各大 JSConf 中也宣告了 Vue3.0 最重要的 RFC，即 Function-based API。Vue3.0 将抛弃之前的 Class API 的提案，选择了 Function API。目前，<a href="https://github.com/vuejs">vue 官方</a> 也提供了 Vue3.0 特性的尝鲜版本，前段时间叫 <code>vue-function-api</code>，目前已经改名叫 <code>composition-api</code>。</p>
+
+<h2 id="一-composition-api">一、Composition API</h2>
+
+<p>首先，我们得了解一下，Composition API 设计初衷是什么？</p>
+
+<p><img src="/img/vue3composition/1.png" alt="img" /></p>
+
+<ol>
+<li>逻辑组合和复用</li>
+<li>类型推导：Vue3.0 最核心的点之一就是使用 TS 重构，以实现对 TS 丝滑般的支持。而基于函数 的 API 则天然对类型推导很友好。</li>
+<li>打包尺寸：每个函数都可作为 named ES export 被单独引入，对 tree-shaking 很友好；其次所有函数名和 setup 函数内部的变量都能被压缩，所以能有更好的压缩效率。</li>
+</ol>
+
+<p>我们再来具体了解一下 <strong>逻辑组合和复用</strong> 这块。</p>
+
+<p>开始之前，我们先回顾下目前 Vue2.x 对于<strong>逻辑复用的方案</strong>都有哪些？如图</p>
+
+<p><img src="/img/vue3composition/2.png" alt="img" /></p>
+
+<p>其中 Mixins 和 HOC 都可能存在 <strong>①模板数据来源不清晰</strong> 的问题。</p>
+
+<p>并且在 mixin 的属性、方法的命名以及 HOC 的 props 注入也可能会产生 <strong>②命名空间冲突的问题</strong>。</p>
+
+<p>最后，由于 HOC 和 Renderless Components 都需要额外的组件实例来做逻辑封装，会导致<strong>③无谓的性能开销</strong>。</p>
+
+<h3 id="1-基本用法">1、基本用法</h3>
+
+<p>OK，大致了解了 Composition API 设计的目的了，接下来，我们来看看其基本用法。</p>
+
+<p>安装</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">npm i @vue/composition-api -S</code></pre></td></tr></table>
+</div>
+</div>
+<p>使用</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="k">import</span> <span class="nx">Vue</span> <span class="nx">from</span> <span class="s1">&#39;vue&#39;</span>
+<span class="k">import</span> <span class="nx">VueCompositionApi</span> <span class="nx">from</span> <span class="s1">&#39;@vue/composition-api&#39;</span>
+
+<span class="nx">Vue</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">VueCompositionApi</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>如果，你项目是用的 TS，那么请使用 <code>createComponent</code> 来定义组件，这样你才能使用类型推断</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-typescript" data-lang="typescript"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-typescript" data-lang="typescript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">createComponent</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@vue/composition-api&#39;</span>
+
+<span class="kr">const</span> <span class="nx">Component</span> <span class="o">=</span> <span class="nx">createComponent</span><span class="p">({</span>
+  <span class="c1">// ...
+</span><span class="c1"></span><span class="p">})</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>由于我本身项目使用的就是 TS，所以这里 JS 的一些用法我就不过多提及，上个尤大的例子之后就不提了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-typescript" data-lang="typescript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-typescript" data-lang="typescript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">computed</span><span class="p">,</span> <span class="nx">watch</span><span class="p">,</span> <span class="nx">onMounted</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;vue&#39;</span>
+
+<span class="kr">const</span> <span class="nx">App</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">template</span><span class="o">:</span> <span class="sb">`
+</span><span class="sb">    &lt;div&gt;
+</span><span class="sb">      &lt;span&gt;count is {{ count }}&lt;/span&gt;
+</span><span class="sb">      &lt;span&gt;plusOne is {{ plusOne }}&lt;/span&gt;
+</span><span class="sb">      &lt;button @click=&#34;increment&#34;&gt;count++&lt;/button&gt;
+</span><span class="sb">    &lt;/div&gt;
+</span><span class="sb">  `</span><span class="p">,</span>
+  <span class="nx">setup() {</span>
+    <span class="c1">// reactive state
+</span><span class="c1"></span>    <span class="kr">const</span> <span class="nx">count</span> <span class="o">=</span> <span class="nx">value</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="c1">// computed state
+</span><span class="c1"></span>    <span class="kr">const</span> <span class="nx">plusOne</span> <span class="o">=</span> <span class="nx">computed</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">count</span><span class="p">.</span><span class="nx">value</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="c1">// method
+</span><span class="c1"></span>    <span class="kr">const</span> <span class="nx">increment</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="nx">count</span><span class="p">.</span><span class="nx">value</span><span class="o">++</span> <span class="p">}</span>
+    <span class="c1">// watch
+</span><span class="c1"></span>    <span class="nx">watch</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">count</span><span class="p">.</span><span class="nx">value</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">val</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`count * 2 is </span><span class="si">${</span><span class="nx">val</span><span class="si">}</span><span class="sb">`</span><span class="p">)</span>
+    <span class="p">})</span>
+    <span class="c1">// lifecycle
+</span><span class="c1"></span>    <span class="nx">onMounted</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`mounted`</span><span class="p">)</span>
+    <span class="p">})</span>
+    <span class="c1">// expose bindings on render context
+</span><span class="c1"></span>    <span class="k">return</span> <span class="p">{</span>
+      <span class="nx">count</span><span class="p">,</span>
+      <span class="nx">plusOne</span><span class="p">,</span>
+      <span class="nx">increment</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>OK，回到 TS，我们看看其基本用法，其实用法基本一致。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-vue" data-lang="vue"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-vue" data-lang="vue">&lt;template&gt;
+  &lt;div class=&#34;hooks-one&#34;&gt;
+    &lt;h2&gt;{{ msg }}&lt;/h2&gt;
+    &lt;p&gt;count is {{ count }}&lt;/p&gt;
+    &lt;p&gt;plusOne is {{ plusOne }}&lt;/p&gt;
+    &lt;button @click=&#34;increment&#34;&gt;count++&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script lang=&#34;ts&#34;&gt;
+import { ref, computed, watch, onMounted, Ref, createComponent } from &#39;@vue/composition-api&#39;
+
+export default createComponent({
+  props: {
+    name: String
+  },
+  setup (props) {
+    const count: Ref&lt;number&gt; = ref(0)
+    // computed
+    const plusOne = computed(() =&gt; count.value + 1)
+    // method
+    const increment = () =&gt; { count.value++ }
+    // watch
+    watch(() =&gt; count.value * 2, val =&gt; {
+      console.log(`count * 2 is ${val}`)
+    })
+		// lifecycle
+    onMounted(() =&gt; {
+      console.log(&#39;onMounted&#39;)
+    })
+		// expose bindings on render context
+    return {
+      count,
+      plusOne,
+      increment,
+      msg: `hello ${props.name}`
+    }
+  }
+})
+&lt;/script&gt;</code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="2-组合函数">2、组合函数</h3>
+
+<p>我们已经了解到 Composition API 初衷之一就是做逻辑组合，这就有了所谓的<strong>组合函数</strong>。</p>
+
+<p>尤大在 <a href="https://zhuanlan.zhihu.com/p/68477600">Vue Function-based API RFC</a> 中举了一个鼠标位置侦听的例子，我这里举一个带业务场景的例子吧。</p>
+
+<p><strong>场景：我需要在一些特定的页面修改页面 title，而我又不想做成全局。</strong></p>
+
+<p>传统做法我们会直接将逻辑丢到 mixins 中，做法如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-typescript" data-lang="typescript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-typescript" data-lang="typescript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Vue</span><span class="p">,</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;vue-property-decorator&#39;</span>
+
+<span class="kr">declare</span> <span class="nx">module</span> <span class="s1">&#39;vue/types/vue&#39;</span> <span class="p">{</span>
+  <span class="kr">interface</span> <span class="nx">Vue</span> <span class="p">{</span>
+    <span class="nx">setTitle</span> <span class="p">(</span><span class="nx">title</span>: <span class="kt">string</span><span class="p">)</span><span class="o">:</span> <span class="k">void</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">setTitle</span> <span class="p">(</span><span class="nx">title</span>: <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="nx">title</span>
+<span class="p">}</span>
+
+<span class="kd">@Component</span>
+<span class="kr">export</span> <span class="k">default</span> <span class="kr">class</span> <span class="nx">SetTitle</span> <span class="kr">extends</span> <span class="nx">Vue</span> <span class="p">{</span>
+  <span class="nx">setTitle</span> <span class="p">(</span><span class="nx">title</span>: <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">setTitle</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">title</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>然后在页面引用</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-typescript" data-lang="typescript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-typescript" data-lang="typescript"><span class="kr">import</span> <span class="nx">SetTitle</span> <span class="nx">from</span> <span class="s1">&#39;@/mixins/title&#39;</span>
+
+<span class="kd">@Component</span><span class="p">({</span>
+  <span class="nx">mixins</span><span class="o">:</span> <span class="p">[</span> <span class="nx">SetTitle</span> <span class="p">]</span>
+<span class="p">})</span>
+<span class="kr">export</span> <span class="k">default</span> <span class="kr">class</span> <span class="nx">Home</span> <span class="kr">extends</span> <span class="nx">Vue</span> <span class="p">{</span>
+  <span class="nx">mounted</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setTitle</span><span class="p">(</span><span class="s1">&#39;首页&#39;</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>那么，让我们使用 <strong>Composition API</strong> 来做处理，看看又是如何做的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-typescript" data-lang="typescript"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-typescript" data-lang="typescript"><span class="kr">export</span> <span class="kd">function</span> <span class="nx">setTitle</span> <span class="p">(</span><span class="nx">title</span>: <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="nx">title</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>然后在页面引用</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-typescript" data-lang="typescript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-typescript" data-lang="typescript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">setTitle</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@/hooks/title&#39;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">onMounted</span><span class="p">,</span> <span class="nx">createComponent</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@vue/composition-api&#39;</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">createComponent</span><span class="p">({</span>
+  <span class="nx">setup</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">onMounted</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">setTitle</span><span class="p">(</span><span class="s1">&#39;首页&#39;</span><span class="p">)</span>
+    <span class="p">})</span>
+  <span class="p">}</span>
+<span class="p">})</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>能看出来，我们只需要将需要复用的逻辑抽离出来，然后只需直接在 <code>setup()</code> 中直接使用即可，非常的方便。</p>
+
+<p>当然你硬要做成全局也不是不行，这种情况一般会做成全局指令，如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-typescript" data-lang="typescript"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-typescript" data-lang="typescript"><span class="kr">import</span> <span class="nx">Vue</span><span class="p">,</span> <span class="p">{</span> <span class="nx">VNodeDirective</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;vue&#39;</span>
+
+<span class="nx">Vue</span><span class="p">.</span><span class="nx">directive</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">inserted</span> <span class="p">(</span><span class="nx">el</span>: <span class="kt">any</span><span class="p">,</span> <span class="nx">binding</span>: <span class="kt">VNodeDirective</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="nx">el</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">title</span>
+  <span class="p">}</span>
+<span class="p">})</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>页面使用如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-vue" data-lang="vue"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-vue" data-lang="vue">&lt;template&gt;
+  &lt;div class=&#34;home&#34; v-title data-title=&#34;首页&#34;&gt;
+    home
+  &lt;/div&gt;
+&lt;/template&gt;</code></pre></td></tr></table>
+</div>
+</div>
+<p>有些小伙伴可能看完这个场景会觉得，我这样明显使用全局指令的方式更便捷啊，Vue3.0 组合函数的优势在哪呢？</p>
+
+<p>别急，上面的例子其实只是为了告诉大家<strong>如何将你们目前 Mixins 使用组合函数做改造</strong>。</p>
+
+<p>在之后的实战环节，还有很多真实场景呢，如果你等不及，可以直接跳过去看第二章。</p>
+
+<h3 id="3-setup-函数">3、setup() 函数</h3>
+
+<p><code>setup()</code> 是 Vue3.0 中引入的一个新的组件选项，setup 组件逻辑的地方。</p>
+
+<h4 id="i-初始化时机">i. 初始化时机</h4>
+
+<p><code>setup()</code> 什么时候进行初始化呢？我们看张图</p>
+
+<p><img src="/img/vue3composition/3.png" alt="img" /></p>
+
+<p>setup 是在组件实例被创建时， 初始化了 props 之后调用，处于 created 前。</p>
+
+<p>这个时候我们能接收初始 props 作为参数。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-typescript" data-lang="typescript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-typescript" data-lang="typescript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">Vue</span><span class="p">,</span> <span class="nx">Prop</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;vue-property-decorator&#39;</span>
+
+<span class="kd">@Component</span><span class="p">({</span>
+  <span class="nx">setup</span> <span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;setup&#39;</span><span class="p">,</span> <span class="nx">props</span><span class="p">.</span><span class="nx">test</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">{}</span>
+  <span class="p">}</span>
+<span class="p">})</span>
+<span class="kr">export</span> <span class="k">default</span> <span class="kr">class</span> <span class="nx">Hooks</span> <span class="kr">extends</span> <span class="nx">Vue</span> <span class="p">{</span>
+  <span class="kd">@Prop</span><span class="p">({</span> <span class="k">default</span><span class="o">:</span> <span class="s1">&#39;hello&#39;</span> <span class="p">})</span>
+  <span class="nx">test</span>: <span class="kt">string</span>
+
+  <span class="nx">beforeCreate</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;beforeCreate&#39;</span><span class="p">)</span>
+  <span class="p">}</span>
+
+  <span class="nx">created</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;created&#39;</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>控制台打印顺序如下</p>
+
+<p><img src="/img/vue3composition/4.png" alt="img" /></p>
+
+<p>其次，我们从上面的所有例子能发现，<code>setup()</code> 和 <code>data()</code> 很像，都可以返回一个对象，而这个对象上的属性则会直接暴露给模板渲染上下文：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-vue" data-lang="vue"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-vue" data-lang="vue">&lt;template&gt;
+  &lt;div class=&#34;hooks&#34;&gt;
+    {{ msg }}
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script lang=&#34;ts&#34;&gt;
+import { createComponent } from &#39;@vue/composition-api&#39;
+
+export default createComponent({
+  props: {
+    name: String
+  },
+  setup (props) {
+    return {
+      msg: `hello ${props.name}`
+    }
+  }
+})
+&lt;/script&gt;</code></pre></td></tr></table>
+</div>
+</div>
+<h4 id="ii-reactivity-api">ii. reactivity api</h4>
+
+<p>与 React Hooks 的函数增强路线不同，Vue Hooks 走的是 value 增强路线，它要做的是如何从一个响应式的值中，衍生出普通的值以及 view。</p>
+
+<p>在 <code>setup()</code> 内部，Vue 则为我们提供了一系列响应式的 API，比如 ref，它返回一个 Ref 包装对象，并在 view 层引用的时候自动展开</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-vue" data-lang="vue"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-vue" data-lang="vue">&lt;template&gt;
+  &lt;div class=&#34;hooks&#34;&gt;
+    &lt;button @click=&#34;count++&#34;&gt;{{ count }}&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script lang=&#34;ts&#34;&gt;
+import { ref, Ref, createComponent } from &#39;@vue/composition-api&#39;
+
+export default createComponent({
+  setup (props) {
+    const count: Ref&lt;number&gt; = ref(0)
+    console.log(count.value)
+    return {
+      count
+    }
+  }
+})
+&lt;/script&gt;</code></pre></td></tr></table>
+</div>
+</div>
+<p>然后便是我们常见的 computed 和 watch 了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-typescript" data-lang="typescript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-typescript" data-lang="typescript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">ref</span><span class="p">,</span> <span class="nx">computed</span><span class="p">,</span> <span class="nx">Ref</span><span class="p">,</span> <span class="nx">createComponent</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@vue/composition-api&#39;</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">createComponent</span><span class="p">({</span>
+  <span class="nx">setup</span> <span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">count</span>: <span class="kt">Ref</span><span class="o">&lt;</span><span class="kt">number</span><span class="o">&gt;</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="kr">const</span> <span class="nx">plusOne</span> <span class="o">=</span> <span class="nx">computed</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">count</span><span class="p">.</span><span class="nx">value</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="nx">watch</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">count</span><span class="p">.</span><span class="nx">value</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">val</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`count * 2 is </span><span class="si">${</span><span class="nx">val</span><span class="si">}</span><span class="sb">`</span><span class="p">)</span>
+    <span class="p">})</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="nx">count</span><span class="p">,</span>
+      <span class="nx">plusOne</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">})</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>而我们通过计算产生的值，即使不进行类型申明，也能直接拿到进行其类型做推导，因为它是依赖 Ref 进行计算的</p>
+
+<p><img src="/img/vue3composition/5.png" alt="img" /></p>
+
+<p><code>setup()</code> 中其它的内部 API 以及生命周期函数我这就不过多介绍了，想了解的直接查看 <a href="https://zhuanlan.zhihu.com/p/68477600">原文</a></p>
+
+<h3 id="4-props-类型推导">4、Props 类型推导</h3>
+
+<p>关于 Props 类型推导，一开始我就有说过，在 TS 中，你想使用类型推导，那么你必须在 createComponent 函数来定义组件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-typescript" data-lang="typescript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-typescript" data-lang="typescript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">createComponent</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@vue/composition-api&#39;</span>
+
+<span class="kr">const</span> <span class="nx">MyComponent</span> <span class="o">=</span> <span class="nx">createComponent</span><span class="p">({</span>
+  <span class="nx">props</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">msg</span>: <span class="kt">String</span>
+  <span class="p">},</span>
+  <span class="nx">setup</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">props</span><span class="p">.</span><span class="nx">msg</span> <span class="c1">// string | undefined
+</span><span class="c1"></span>    <span class="k">return</span> <span class="p">{}</span>
+  <span class="p">}</span>
+<span class="p">})</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>当然，props 选项并不是必须的，假如你不需要运行时的 props 类型检查，你可以直接在 TS 类型层面进行申明</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-typescript" data-lang="typescript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-typescript" data-lang="typescript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">createComponent</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@vue/composition-api&#39;</span>
+
+<span class="kr">interface</span> <span class="nx">Props</span> <span class="p">{</span>
+  <span class="nx">msg</span>: <span class="kt">string</span>
+<span class="p">}</span>
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">createComponent</span><span class="p">({</span>
+  <span class="nx">props</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;msg&#39;</span><span class="p">],</span>
+  <span class="nx">setup</span> <span class="p">(</span><span class="nx">props</span>: <span class="kt">Props</span><span class="p">,</span> <span class="p">{</span> <span class="nx">root</span> <span class="p">})</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="p">{</span> <span class="nx">$createElement</span>: <span class="kt">h</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">root</span>
+    <span class="k">return</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">h</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">,</span> <span class="nx">props</span><span class="p">.</span><span class="nx">msg</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">})</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>对于复杂的 Props 类型，你可以使用 Vue 提供的 PropType 来申明任意复杂度的 props 类型，不过按照其类型申明来看，我们需要用 any 做一层强制转换</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-typescript" data-lang="typescript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-typescript" data-lang="typescript"><span class="kr">export</span> <span class="nx">type</span> <span class="nx">Prop</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">{</span> <span class="p">()</span><span class="o">:</span> <span class="nx">T</span> <span class="p">}</span> <span class="o">|</span> <span class="p">{</span> <span class="k">new</span><span class="p">(...</span><span class="nx">args</span>: <span class="kt">any</span><span class="p">[])</span><span class="o">:</span> <span class="nx">T</span> <span class="o">&amp;</span> <span class="nx">object</span> <span class="p">}</span> <span class="o">|</span> <span class="p">{</span> <span class="k">new</span><span class="p">(...</span><span class="nx">args</span>: <span class="kt">string</span><span class="p">[])</span><span class="o">:</span> <span class="nb">Function</span> <span class="p">}</span>
+
+<span class="kr">export</span> <span class="nx">type</span> <span class="nx">PropType</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span> <span class="o">=</span> <span class="nx">Prop</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span> <span class="o">|</span> <span class="nx">Prop</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="p">[]</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">createComponent</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@vue/composition-api&#39;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">PropType</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;vue&#39;</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">createComponent</span><span class="p">({</span>
+  <span class="nx">props</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">options</span><span class="o">:</span> <span class="p">(</span><span class="kc">null</span> <span class="kr">as</span> <span class="nx">any</span><span class="p">)</span> <span class="kr">as</span> <span class="nx">PropType</span><span class="o">&lt;</span><span class="p">{</span> <span class="nx">msg</span>: <span class="kt">string</span> <span class="p">}</span><span class="o">&gt;</span>
+  <span class="p">},</span>
+  <span class="nx">setup</span> <span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">props</span><span class="p">.</span><span class="nx">options</span> <span class="c1">// { msg: string } | undefined
+</span><span class="c1"></span>    <span class="k">return</span> <span class="p">{}</span>
+  <span class="p">}</span>
+<span class="p">})</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="二-业务实践">二、业务实践</h2>
+
+<p>目前为止，我们对 Vue3.0 的 Composition API 有了一定的了解，也清楚了其适合使用的一些实际业务场景。</p>
+
+<p>而我在具体业务中又做了哪些尝鲜呢？接下来，让我们一起进入真正的实战阶段</p>
+
+<h3 id="1-列表分页查询">1、列表分页查询</h3>
+
+<p><strong>场景：我需要对业务中的列表做分页查询，其中包括页码、页码大小这两个通用查询条件，以及一些特定条件做查询，比如关键字、状态等。</strong></p>
+
+<p>在 Vue2.x 中，我们的做法有两种，如图所示</p>
+
+<p><img src="/img/vue3composition/6.png" alt="img" /></p>
+
+<ol>
+<li>最简单的方式就是直接将通用查询存储到一个地方，需要使用查询的地方直接引入即可，然后在页面做一系列重复的操作，这个时候最考验 <code>Ctrl + C</code>、<code>Ctrl + V</code> 的功力了。</li>
+<li>将其通用的变量和方法抽离到 <code>mixins</code> 当中，然后页面直接使用即可，可免去一大堆重复的工作。但是当我们页面存在一个以上的分页列表时，问题就来了，我的变量会被冲掉，导致查询出错。</li>
+</ol>
+
+<p>所以现在，我们试着使用 Vue3.0 的特性，将其重复的逻辑抽离出来放置到 <code>@/hooks/paging-query.ts</code> 中</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-typescript" data-lang="typescript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-typescript" data-lang="typescript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">ref</span><span class="p">,</span> <span class="nx">Ref</span><span class="p">,</span> <span class="nx">reactive</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@vue/composition-api&#39;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">UnwrapRef</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@vue/composition-api/dist/reactivity&#39;</span>
+
+<span class="kr">export</span> <span class="kd">function</span> <span class="nx">usePaging</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">conditions</span>: <span class="kt">UnwrapRef</span><span class="o">&lt;</span><span class="p">{</span>
+    <span class="nx">page</span>: <span class="kt">Ref</span><span class="o">&lt;</span><span class="kt">number</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="nx">pageSize</span>: <span class="kt">Ref</span><span class="o">&lt;</span><span class="kt">number</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="nx">totalCount</span>: <span class="kt">Ref</span><span class="o">&lt;</span><span class="kt">number</span><span class="o">&gt;</span>
+  <span class="p">}</span><span class="o">&gt;</span> <span class="o">=</span> <span class="nx">reactive</span><span class="p">({</span>
+    <span class="nx">page</span>: <span class="kt">ref</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+    <span class="nx">pageSize</span>: <span class="kt">ref</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span>
+    <span class="nx">totalCount</span>: <span class="kt">ref</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+  <span class="p">})</span>
+
+  <span class="kr">const</span> <span class="nx">handleSizeChange</span> <span class="o">=</span> <span class="p">(</span><span class="nx">val</span>: <span class="kt">number</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">conditions</span><span class="p">.</span><span class="nx">pageSize</span> <span class="o">=</span> <span class="nx">val</span>
+  <span class="p">}</span>
+
+  <span class="kr">const</span> <span class="nx">handleCurrentChange</span> <span class="o">=</span> <span class="p">(</span><span class="nx">val</span>: <span class="kt">number</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">conditions</span><span class="p">.</span><span class="nx">page</span> <span class="o">=</span> <span class="nx">val</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="nx">conditions</span><span class="p">,</span>
+    <span class="nx">handleSizeChange</span><span class="p">,</span>
+    <span class="nx">handleCurrentChange</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>然后我们在具体页面中对其进行组合去使用</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-vue" data-lang="vue"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-vue" data-lang="vue">&lt;template&gt;
+  &lt;div class=&#34;paging-demo&#34;&gt;
+    &lt;el-input v-model=&#34;query&#34;&gt;&lt;/el-input&gt;
+    &lt;el-pagination
+      background
+      @size-change=&#34;handleSizeChange&#34;
+      @current-change=&#34;handleCurrentChange&#34;
+      :current-page.sync=&#34;cons.page&#34;
+      :page-sizes=&#34;[10, 20, 30, 50]&#34;
+      :page-size.sync=&#34;cons.pageSize&#34;
+      layout=&#34;prev, pager, next, sizes&#34;
+      :total=&#34;cons.totalCount&#34;&gt;
+    &lt;/el-pagination&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script lang=&#34;ts&#34;&gt;
+import { usePaging } from &#39;@/hooks/paging-query&#39;
+import { ref, Ref, watch } from &#39;@vue/composition-api&#39;
+
+export default createComponent({
+  setup () {
+    const { conditions: cons, handleSizeChange, handleCurrentChange } = usePaging()
+    const query: Ref&lt;string&gt; = ref(&#39;&#39;)
+    watch([
+      () =&gt; cons.page,
+      () =&gt; cons.pageSize,
+      () =&gt; query.value
+    ], ([val1, val2, val3]) =&gt; {
+      console.log(&#39;conditions changed，do search&#39;, val1, val2, val3)
+    })
+    return {
+      cons,
+      query,
+      handleSizeChange,
+      handleCurrentChange
+    }
+  }
+})
+&lt;/script&gt;</code></pre></td></tr></table>
+</div>
+</div>
+<p>从这个例子我们能看出来，暴露给模板的属性来源非常清晰，直接从 <code>usePaging()</code> 返回；并且能够随意重命名，所以也不会有命名空间冲突的问题；更不会有额外的组件实例带来的性能损耗。</p>
+
+<p>怎么样，有没有点真香的感觉了。</p>
+
+<h3 id="2-user-select-组件">2、user-select 组件</h3>
+
+<p><strong>场景：在我负责的业务中，有一个通用的业务组件，我称之为 user-select，它是一个人员选择组件</strong>。如图</p>
+
+<p><img src="/img/vue3composition/7.png" alt="img" /></p>
+
+<p>关于改造前后的对比我们先看张图，好大致有个了解</p>
+
+<p><img src="/img/vue3composition/8.png" alt="img" /></p>
+
+<p>在 Vue2.x 中，它通用的业务逻辑和数据并没有得到很好的处理，大致原因和上面那个案例原因差不多。</p>
+
+<p>然后我每次想要使用的时候需要做以下操作，这充分锻炼了我  <code>Ctrl + C</code>、<code>Ctrl + V</code> 的功力</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-typescript" data-lang="typescript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-typescript" data-lang="typescript"><span class="o">&lt;</span><span class="nx">template</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">div</span> <span class="kr">class</span><span class="o">=</span><span class="s2">&#34;demo&#34;</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">user</span><span class="o">-</span><span class="nx">select</span>
+      :<span class="kt">options</span><span class="o">=</span><span class="s2">&#34;users&#34;</span>
+      <span class="o">:</span><span class="nx">user</span><span class="p">.</span><span class="nx">sync</span><span class="o">=</span><span class="s2">&#34;user&#34;</span>
+      <span class="kd">@search</span><span class="o">=</span><span class="s2">&#34;adminSearch&#34;</span> <span class="err">/&gt;</span>
+  <span class="o">&lt;</span><span class="err">/div&gt;</span>
+<span class="o">&lt;</span><span class="err">/template&gt;</span>
+
+<span class="o">&lt;</span><span class="nx">script</span> <span class="nx">lang</span><span class="o">=</span><span class="s2">&#34;ts&#34;</span><span class="o">&gt;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">Prop</span><span class="p">,</span> <span class="nx">Vue</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;vue-property-decorator&#39;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Action</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;vuex-class&#39;</span>
+<span class="kr">import</span> <span class="nx">UserSelect</span> <span class="nx">from</span> <span class="s1">&#39;@/views/service/components/user-select.vue&#39;</span>
+
+<span class="kd">@Component</span><span class="p">({</span>
+  <span class="nx">components</span><span class="o">:</span> <span class="p">{</span> <span class="nx">UserSelect</span> <span class="p">}</span>
+<span class="p">})</span>
+<span class="kr">export</span> <span class="k">default</span> <span class="kr">class</span> <span class="nx">Demo</span> <span class="kr">extends</span> <span class="nx">Vue</span> <span class="p">{</span>
+  <span class="nx">user</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="nx">users</span>: <span class="kt">User</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[]</span>
+
+  <span class="kd">@Prop</span><span class="p">()</span>
+  <span class="nx">visible</span>: <span class="kt">boolean</span>
+  
+  <span class="kd">@Action</span><span class="p">(</span><span class="s1">&#39;userSearch&#39;</span><span class="p">)</span> <span class="nx">userSearch</span>: <span class="kt">Function</span>
+
+  <span class="nx">adminSearch</span> <span class="p">(</span><span class="nx">query</span>: <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">userSearch</span><span class="p">({</span> <span class="nx">search</span>: <span class="kt">query</span><span class="p">,</span> <span class="nx">pageSize</span>: <span class="kt">200</span> <span class="p">}).</span><span class="nx">then</span><span class="p">((</span><span class="nx">res</span>: <span class="kt">Ajax.AjaxResponse</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">users</span> <span class="o">=</span> <span class="nx">res</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">items</span>
+    <span class="p">})</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="o">&lt;</span><span class="err">/script&gt;</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>那么使用 Composition API 后就能避免掉这个情况么？答案肯定是能避免掉。</p>
+
+<p>我们先看看，使用 Vue3.0 进行改造 <code>setup</code> 中的逻辑如何</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-typescript" data-lang="typescript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-typescript" data-lang="typescript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">ref</span><span class="p">,</span> <span class="nx">computed</span><span class="p">,</span> <span class="nx">Ref</span><span class="p">,</span> <span class="nx">watch</span><span class="p">,</span> <span class="nx">createComponent</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@vue/composition-api&#39;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">userSearch</span><span class="p">,</span> <span class="nx">IOption</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@/hooks/user-search&#39;</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">createComponent</span><span class="p">({</span>
+  <span class="nx">setup</span> <span class="p">(</span><span class="nx">props</span><span class="p">,</span> <span class="p">{</span> <span class="nx">emit</span><span class="p">,</span> <span class="nx">root</span> <span class="p">})</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">isFirstFoucs</span>: <span class="kt">Ref</span><span class="o">&lt;</span><span class="kr">boolean</span><span class="o">&gt;</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span>
+    <span class="kd">let</span> <span class="nx">showCheckbox</span>: <span class="kt">Ref</span><span class="o">&lt;</span><span class="kr">boolean</span><span class="o">&gt;</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
+	<span class="c1">// computed
+</span><span class="c1"></span>    <span class="c1">// 当前选中选项
+</span><span class="c1"></span>    <span class="kr">const</span> <span class="nx">chooseItems</span>: <span class="kt">Ref</span><span class="o">&lt;</span><span class="kt">string</span> <span class="o">|</span> <span class="kt">string</span><span class="p">[]</span><span class="o">&gt;</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">(</span><span class="nx">computed</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">props</span><span class="p">.</span><span class="nx">user</span><span class="p">))</span>
+    <span class="c1">// 选项去重(包含对象的情况)
+</span><span class="c1"></span>    <span class="kr">const</span> <span class="nx">uniqueOptions</span> <span class="o">=</span> <span class="nx">computed</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="kr">const</span> <span class="nx">originArr</span>: <span class="kt">IOption</span><span class="p">[]</span> <span class="o">|</span> <span class="nx">any</span> <span class="o">=</span> <span class="nx">props</span><span class="p">.</span><span class="nx">customSearch</span> <span class="o">?</span> <span class="nx">props.options</span> : <span class="kt">items.value</span>
+      <span class="kr">const</span> <span class="nx">newArr</span>: <span class="kt">IOption</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[]</span>
+      <span class="kr">const</span> <span class="nx">strArr</span>: <span class="kt">string</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[]</span>
+      <span class="nx">originArr</span><span class="p">.</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">item</span>: <span class="kt">IOption</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">strArr</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">item</span><span class="p">)))</span> <span class="p">{</span>
+          <span class="nx">strArr</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">item</span><span class="p">))</span>
+          <span class="nx">newArr</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">item</span><span class="p">)</span>
+        <span class="p">}</span>
+      <span class="p">})</span>
+      <span class="k">return</span> <span class="nx">newArr</span>
+    <span class="p">})</span>
+	<span class="c1">// watch
+</span><span class="c1"></span>    <span class="nx">watch</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">chooseItems</span><span class="p">.</span><span class="nx">value</span><span class="p">,</span> <span class="p">(</span><span class="nx">val</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;update:user&#39;</span><span class="p">,</span> <span class="nx">val</span><span class="p">)</span>
+      <span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;change&#39;</span><span class="p">,</span> <span class="nx">val</span><span class="p">)</span>
+    <span class="p">})</span>
+		<span class="c1">// methods
+</span><span class="c1"></span>    <span class="kr">const</span> <span class="nx">remoteMethod</span> <span class="o">=</span> <span class="p">(</span><span class="nx">query</span>: <span class="kt">string</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="c1">// 可抛出去自定义，也可使用内部集成好的方法处理 remote
+</span><span class="c1"></span>      <span class="k">if</span> <span class="p">(</span><span class="nx">props</span><span class="p">.</span><span class="nx">customSearch</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;search&#39;</span><span class="p">,</span> <span class="nx">query</span><span class="p">)</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">handleUserSearch</span><span class="p">(</span><span class="nx">query</span><span class="p">)</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="kr">const</span> <span class="nx">handleFoucs</span> <span class="o">=</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">isFirstFoucs</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="kc">false</span>
+      <span class="p">}</span>
+      <span class="nx">remoteMethod</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span>
+      <span class="nx">isFirstFoucs</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="kc">true</span>
+    <span class="p">}</span>
+    <span class="kr">const</span> <span class="nx">handleOptionClick</span> <span class="o">=</span> <span class="p">(</span><span class="nx">item</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;option-click&#39;</span><span class="p">,</span> <span class="nx">item</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="c1">// 显示勾选状态，若是单选则无需显示 checkbox
+</span><span class="c1"></span>    <span class="kr">const</span> <span class="nx">isChecked</span> <span class="o">=</span> <span class="p">(</span><span class="nx">value</span>: <span class="kt">string</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="kd">let</span> <span class="nx">checked</span>: <span class="kt">boolean</span> <span class="o">=</span> <span class="kc">false</span>
+      <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">chooseItems</span><span class="p">.</span><span class="nx">value</span> <span class="o">===</span> <span class="s1">&#39;string&#39;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">showCheckbox</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="kc">false</span>
+        <span class="k">return</span> <span class="kc">false</span>
+      <span class="p">}</span>
+      <span class="nx">chooseItems</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">item</span>: <span class="kt">string</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">item</span> <span class="o">===</span> <span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">checked</span> <span class="o">=</span> <span class="kc">true</span>
+        <span class="p">}</span>
+      <span class="p">})</span>
+      <span class="k">return</span> <span class="nx">checked</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="nx">isFirstFoucs</span><span class="p">,</span> <span class="nx">showCheckbox</span><span class="p">,</span> <span class="c1">// ref
+</span><span class="c1"></span>      <span class="nx">uniqueOptions</span><span class="p">,</span> <span class="nx">chooseItems</span><span class="p">,</span> <span class="c1">// computed
+</span><span class="c1"></span>      <span class="nx">handleUserSearch</span><span class="p">,</span> <span class="nx">remoteMethod</span><span class="p">,</span> <span class="nx">handleFoucs</span><span class="p">,</span> <span class="nx">handleOptionClick</span><span class="p">,</span> <span class="nx">isChecked</span> <span class="c1">// methods
+</span><span class="c1"></span>    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">})</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>然后我们再将可以重复使用的逻辑和数据抽离到 <code>hooks/user-search.ts</code> 中</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-typescript" data-lang="typescript"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-typescript" data-lang="typescript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">ref</span><span class="p">,</span> <span class="nx">Ref</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@vue/composition-api&#39;</span>
+
+<span class="kr">export</span> <span class="kr">interface</span> <span class="nx">IOption</span> <span class="p">{</span>
+  <span class="p">[</span><span class="nx">key</span>: <span class="kt">string</span><span class="p">]</span><span class="o">:</span> <span class="kt">string</span>
+<span class="p">}</span>
+
+<span class="kr">export</span> <span class="kd">function</span> <span class="nx">userSearch</span> <span class="p">({</span> <span class="nx">root</span> <span class="p">})</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">items</span>: <span class="kt">Ref</span><span class="o">&lt;</span><span class="nx">IOption</span><span class="p">[]</span><span class="o">&gt;</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">([])</span>
+
+  <span class="kr">const</span> <span class="nx">handleUserSearch</span> <span class="o">=</span> <span class="p">(</span><span class="nx">query</span>: <span class="kt">string</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">root</span><span class="p">.</span><span class="nx">$store</span><span class="p">.</span><span class="nx">dispatch</span><span class="p">(</span><span class="s1">&#39;userSearch&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">search</span>: <span class="kt">query</span><span class="p">,</span> <span class="nx">pageSize</span>: <span class="kt">25</span> <span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="nx">res</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">items</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">res</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">items</span>
+    <span class="p">})</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="p">{</span> <span class="nx">items</span><span class="p">,</span> <span class="nx">handleUserSearch</span> <span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>然后即可在组件中直接使用（当然你可以随便重命名）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-typescript" data-lang="typescript"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-typescript" data-lang="typescript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">userSearch</span><span class="p">,</span> <span class="nx">IOption</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@/hooks/user-search&#39;</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">createComponent</span><span class="p">({</span>
+  <span class="nx">setup</span> <span class="p">(</span><span class="nx">props</span><span class="p">,</span> <span class="p">{</span> <span class="nx">emit</span><span class="p">,</span> <span class="nx">root</span> <span class="p">})</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="p">{</span> <span class="nx">items</span><span class="p">,</span> <span class="nx">handleUserSearch</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">userSearch</span><span class="p">({</span> <span class="nx">root</span> <span class="p">})</span>
+  <span class="p">}</span>
+<span class="p">})</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>最后，避免掉命名冲突的后患，有做了业务集成后，我现在使用 `` 组件只需这样即可</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-html" data-lang="html"> <span class="p">&lt;</span><span class="nt">user-select</span> <span class="na">:user</span><span class="err">.</span><span class="na">sync</span><span class="o">=</span><span class="s">&#34;user&#34;</span> <span class="p">/&gt;</span></code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">Reward</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/reward/wechat-qr-code.png">
+        <span>wechat</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/reward/alipay-qr-code.png">
+        <span>alipay</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/javascript/">javascript</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/cors%E5%92%8Ccsrf%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/">
+            <span class="next-text nav-default">CORS和CSRF跨域问题</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2019-11-27 15:28:21 \x2b0800 \x2b0800',
+        title: '“VUE3之 compositionAPI\x22',
+        clientID: 'bf0ed9ea18e819e40135',
+        clientSecret: '92bdc65717aa7f0ec48bfe94e773b57a21163785',
+        repo: 'blog_comments',
+        owner: '496971418@qq.com',
+        admin: ['496971418@qq.com'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:terryzh017@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://stackoverflow.com/users/10838177/terryzh" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://twitter.com/terryzhAizz" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/t496971418" class="iconfont icon-github" title="github"></a>
+  <a href="http://www.elixir-zh.cn/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Terryzh</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
