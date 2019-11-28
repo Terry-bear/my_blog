@@ -10,6 +10,13 @@
   </url>
   
   <url>
+    <loc>http://www.elixir-zh.cn/post/requestmethodoptions%E8%B7%A8%E5%9F%9Fcors/</loc>
+    <lastmod>2019-11-28T15:22:39+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>http://www.elixir-zh.cn/post/vue3.0%E4%B9%8Bcompositionapi/</loc>
     <lastmod>2019-11-27T15:28:21+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -283,7 +290,7 @@
   
   <url>
     <loc>http://www.elixir-zh.cn/post/</loc>
-    <lastmod>2019-11-27T15:28:21+08:00</lastmod>
+    <lastmod>2019-11-28T15:22:39+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -318,7 +325,7 @@
   
   <url>
     <loc>http://www.elixir-zh.cn/categories/code/</loc>
-    <lastmod>2019-11-27T15:28:21+08:00</lastmod>
+    <lastmod>2019-11-28T15:22:39+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -339,7 +346,7 @@
   
   <url>
     <loc>http://www.elixir-zh.cn/tags/javascript/</loc>
-    <lastmod>2019-11-27T15:28:21+08:00</lastmod>
+    <lastmod>2019-11-28T15:22:39+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>

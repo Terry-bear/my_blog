@@ -21,6 +21,15 @@
     </item>
     
     <item>
+      <title>RequestMethod:OPTIONS跨域CORS</title>
+      <link>http://www.elixir-zh.cn/post/requestmethodoptions%E8%B7%A8%E5%9F%9Fcors/</link>
+      <pubDate>Thu, 28 Nov 2019 15:22:39 +0800</pubDate>
+      
+      <guid>http://www.elixir-zh.cn/post/requestmethodoptions%E8%B7%A8%E5%9F%9Fcors/</guid>
+      <description>两种请求 浏览器将CORS请求分为两类：简单请求（simple request）和非简单请求（not-so-simple request）。 同时满</description>
+    </item>
+    
+    <item>
       <title>“VUE3之 compositionAPI&#34;</title>
       <link>http://www.elixir-zh.cn/post/vue3.0%E4%B9%8Bcompositionapi/</link>
       <pubDate>Wed, 27 Nov 2019 15:28:21 +0800</pubDate>
