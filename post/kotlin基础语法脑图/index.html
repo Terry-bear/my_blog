@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>code · Terryzh</title>
+  <title>Kotlin基础语法脑图 - Terryzh</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Terryzh" /><meta name="description" content="Terryzh&#39;s blog share some code skills." /><meta name="keywords" content="Javascript, golang, container" />
+<meta name="author" content="Terryzh" /><meta name="description" content="基本类型 类型 表达式 函数进阶" /><meta name="keywords" content="“kotlin&#34;, Android" />
 
 
 
@@ -26,9 +26,7 @@
 <meta name="generator" content="Hugo 0.54.0 with even 4.0.0" />
 
 
-<link rel="canonical" href="http://www.elixir-zh.cn/categories/code/" />
-  <link href="http://www.elixir-zh.cn/categories/code/index.xml" rel="alternate" type="application/rss+xml" title="Terryzh" />
-  <link href="http://www.elixir-zh.cn/categories/code/index.xml" rel="feed" type="application/rss+xml" title="Terryzh" />
+<link rel="canonical" href="http://www.elixir-zh.cn/post/kotlin%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E8%84%91%E5%9B%BE/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -40,19 +38,27 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
-<meta property="og:title" content="code" />
-<meta property="og:description" content="Terryzh&#39;s blog share some code skills." />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="http://www.elixir-zh.cn/categories/code/" />
+<meta property="og:title" content="Kotlin基础语法脑图" />
+<meta property="og:description" content="基本类型 类型 表达式 函数进阶" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.elixir-zh.cn/post/kotlin%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E8%84%91%E5%9B%BE/" />
+<meta property="article:published_time" content="2019-12-16T10:07:20&#43;08:00"/>
+<meta property="article:modified_time" content="2019-12-16T10:07:20&#43;08:00"/>
 
-<meta property="og:updated_time" content="2019-04-03T16:07:18&#43;08:00"/>
+<meta itemprop="name" content="Kotlin基础语法脑图">
+<meta itemprop="description" content="基本类型 类型 表达式 函数进阶">
 
-<meta itemprop="name" content="code">
-<meta itemprop="description" content="Terryzh&#39;s blog share some code skills.">
 
+<meta itemprop="datePublished" content="2019-12-16T10:07:20&#43;08:00" />
+<meta itemprop="dateModified" content="2019-12-16T10:07:20&#43;08:00" />
+<meta itemprop="wordCount" content="13">
+
+
+
+<meta itemprop="keywords" content="“kotlin&#34;,Android," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="code"/>
-<meta name="twitter:description" content="Terryzh&#39;s blog share some code skills."/>
+<meta name="twitter:title" content="Kotlin基础语法脑图"/>
+<meta name="twitter:description" content="基本类型 类型 表达式 函数进阶"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -116,69 +122,107 @@
     <main id="main" class="main">
       <div class="content-wrapper">
         <div id="content" class="content">
-          <section id="archive" class="archive">
-  
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Kotlin基础语法脑图</h1>
 
-  <div class="archive-post">
-      <span class="archive-post-time">
-        2019-04-03
-      </span>
-      <span class="archive-post-title">
-        <a href="/post/%E4%B9%9D%E7%A7%8D%E8%B7%A8%E5%9F%9F%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/" class="archive-post-link">
-          九种跨域方式实现原理
-        </a>
-      </span>
-    </div><div class="archive-post">
-      <span class="archive-post-time">
-        2019-01-22
-      </span>
-      <span class="archive-post-title">
-        <a href="/post/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3typescript-1/" class="archive-post-link">
-          深入理解TypeScript 1
-        </a>
-      </span>
-    </div><div class="archive-post">
-      <span class="archive-post-time">
-        2019-01-10
-      </span>
-      <span class="archive-post-title">
-        <a href="/post/flutter%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%BC%83%E5%9D%911%E4%B9%8B%E9%83%A8%E7%BD%B2/" class="archive-post-link">
-          Flutter从入门到弃坑1之部署
-        </a>
-      </span>
-    </div><div class="archive-post">
-      <span class="archive-post-time">
-        2019-01-09
-      </span>
-      <span class="archive-post-title">
-        <a href="/post/golang%E5%A6%82%E4%BD%95%E7%AE%A1%E7%90%86%E9%A1%B9%E7%9B%AE%E4%BE%9D%E8%B5%96/" class="archive-post-link">
-          Golang如何管理项目依赖
-        </a>
-      </span>
-    </div><div class="archive-post">
-      <span class="archive-post-time">
-        2019-01-08
-      </span>
-      <span class="archive-post-title">
-        <a href="/post/android%E5%9F%BA%E6%9C%AC%E5%85%AD%E5%A4%A7%E5%B8%83%E5%B1%80/" class="archive-post-link">
-          Android基本六大布局
-        </a>
-      </span>
-    </div>
-</section>
+      <div class="post-meta">
+        <span class="post-time"> 2019-12-16 </span>
+        <div class="post-category">
+            <a href="/categories/code/"> code </a>
+            </div>
+          <span class="more-meta"> 13 words </span>
+          <span class="more-meta"> 1 min read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
 
-<nav class="pagination">
-  <a class="prev" href="/categories/code/page/5/">
-      <i class="iconfont icon-left"></i>
-      <span class="prev-text">Prev</span>
-    </a>
-  <a class="next" href="/categories/code/page/7/">
-      <span class="next-text">Next</span>
-      <i class="iconfont icon-right"></i>
-    </a>
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#基本类型">基本类型</a></li>
+<li><a href="#类型">类型</a></li>
+<li><a href="#表达式">表达式</a></li>
+<li><a href="#函数进阶">函数进阶</a></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
-        </div>
+  </div>
+</div>
+    <div class="post-content">
+      <h3 id="基本类型">基本类型</h3>
+
+<p><img src="/img/kotlinBase/内置类型.png" alt="1" /></p>
+
+<h3 id="类型">类型</h3>
+
+<p><img src="/img/kotlinBase/kt类型初步.png" alt="2" /></p>
+
+<h3 id="表达式">表达式</h3>
+
+<p><img src="/img/kotlinBase/kt.png" alt="3" /></p>
+
+<h3 id="函数进阶">函数进阶</h3>
+
+<p><img src="/img/kotlinBase/函数进阶.png" alt="4" /></p>
+    </div>
+
+    
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">Reward</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/reward/wechat-qr-code.png">
+        <span>wechat</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/reward/alipay-qr-code.png">
+        <span>alipay</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/kotlin/">“kotlin&#34;</a>
+          <a href="/tags/android/">Android</a>
+          </div>
+      <nav class="post-nav">
         
+        <a class="next" href="/post/requestmethodoptions%E8%B7%A8%E5%9F%9Fcors/">
+            <span class="next-text nav-default">RequestMethod:OPTIONS跨域CORS</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2019-12-16 10:07:20 \x2b0800 \x2b0800',
+        title: 'Kotlin基础语法脑图',
+        clientID: 'bf0ed9ea18e819e40135',
+        clientSecret: '92bdc65717aa7f0ec48bfe94e773b57a21163785',
+        repo: 'blog_comments',
+        owner: '496971418@qq.com',
+        admin: ['496971418@qq.com'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
 
       </div>
     </main>

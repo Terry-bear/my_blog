@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Terryzh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 28 Nov 2019 15:22:39 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 16 Dec 2019 10:07:20 +0800</lastBuildDate>
     
 	<atom:link href="http://www.elixir-zh.cn/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Kotlin基础语法脑图</title>
+      <link>http://www.elixir-zh.cn/post/kotlin%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E8%84%91%E5%9B%BE/</link>
+      <pubDate>Mon, 16 Dec 2019 10:07:20 +0800</pubDate>
+      
+      <guid>http://www.elixir-zh.cn/post/kotlin%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E8%84%91%E5%9B%BE/</guid>
+      <description>基本类型 类型 表达式 函数进阶</description>
+    </item>
     
     <item>
       <title>RequestMethod:OPTIONS跨域CORS</title>
