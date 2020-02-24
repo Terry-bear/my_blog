@@ -21,6 +21,15 @@
     </item>
     
     <item>
+      <title>“Pm2 node绝佳进程管理工具&#34;</title>
+      <link>http://www.elixir-zh.cn/post/pm2-node%E7%BB%9D%E4%BD%B3%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/</link>
+      <pubDate>Mon, 24 Feb 2020 15:29:55 +0800</pubDate>
+      
+      <guid>http://www.elixir-zh.cn/post/pm2-node%E7%BB%9D%E4%BD%B3%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/</guid>
+      <description>pm2 是什么？ pm2 是一个 node 的程序管理器 pm2 解决什么问题？ pm2 可以让 node 服务 crash 掉之后，自动帮我们重启 pm2 可以在 server 重启之后，自动帮我们重启 pm2 可利用 CPU 多核，开启</description>
+    </item>
+    
+    <item>
       <title>Kotlin基础语法脑图</title>
       <link>http://www.elixir-zh.cn/post/kotlin%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E8%84%91%E5%9B%BE/</link>
       <pubDate>Mon, 16 Dec 2019 10:07:20 +0800</pubDate>

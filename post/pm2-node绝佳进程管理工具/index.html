@@ -1,0 +1,1480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>“Pm2 node绝佳进程管理工具&#34; - Terryzh</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Terryzh" /><meta name="description" content="pm2 是什么？ pm2 是一个 node 的程序管理器 pm2 解决什么问题？ pm2 可以让 node 服务 crash 掉之后，自动帮我们重启 pm2 可以在 server 重启之后，自动帮我们重启 pm2 可利用 CPU 多核，开启" /><meta name="keywords" content="javascript" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.54.0 with even 4.0.0" />
+
+
+<link rel="canonical" href="http://www.elixir-zh.cn/post/pm2-node%E7%BB%9D%E4%BD%B3%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.65dce888.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="“Pm2 node绝佳进程管理工具&#34;" />
+<meta property="og:description" content="pm2 是什么？ pm2 是一个 node 的程序管理器 pm2 解决什么问题？ pm2 可以让 node 服务 crash 掉之后，自动帮我们重启 pm2 可以在 server 重启之后，自动帮我们重启 pm2 可利用 CPU 多核，开启" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.elixir-zh.cn/post/pm2-node%E7%BB%9D%E4%BD%B3%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/" />
+<meta property="article:published_time" content="2020-02-24T15:29:55&#43;08:00"/>
+<meta property="article:modified_time" content="2020-02-24T15:29:55&#43;08:00"/>
+
+<meta itemprop="name" content="“Pm2 node绝佳进程管理工具&#34;">
+<meta itemprop="description" content="pm2 是什么？ pm2 是一个 node 的程序管理器 pm2 解决什么问题？ pm2 可以让 node 服务 crash 掉之后，自动帮我们重启 pm2 可以在 server 重启之后，自动帮我们重启 pm2 可利用 CPU 多核，开启">
+
+
+<meta itemprop="datePublished" content="2020-02-24T15:29:55&#43;08:00" />
+<meta itemprop="dateModified" content="2020-02-24T15:29:55&#43;08:00" />
+<meta itemprop="wordCount" content="5255">
+
+
+
+<meta itemprop="keywords" content="“javascript”,“node&#34;," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="“Pm2 node绝佳进程管理工具&#34;"/>
+<meta name="twitter:description" content="pm2 是什么？ pm2 是一个 node 的程序管理器 pm2 解决什么问题？ pm2 可以让 node 服务 crash 掉之后，自动帮我们重启 pm2 可以在 server 重启之后，自动帮我们重启 pm2 可利用 CPU 多核，开启"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Terryzh</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Terryzh</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">“Pm2 node绝佳进程管理工具&#34;</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-02-24 </span>
+        <div class="post-category">
+            <a href="/categories/code/"> code </a>
+            </div>
+          <span class="more-meta"> 5255 words </span>
+          <span class="more-meta"> 11 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#pm2-是什么">pm2 是什么？</a></li>
+<li><a href="#pm2-解决什么问题">pm2 解决什么问题？</a></li>
+<li><a href="#本篇将提到">本篇将提到：</a></li>
+</ul></li>
+<li><a href="#安裝">安裝</a></li>
+<li><a href="#pm2-with-cli">pm2 with CLI</a>
+<ul>
+<li><a href="#可以使用-pm2-cli-來启动-node-專案-範例如下">可以使用 <code>pm2 CLI</code> 來启动 node 專案, 範例如下：</a></li>
+<li><a href="#靜態檔的服务器">靜態檔的服务器</a></li>
+<li><a href="#启动可以附加的参数">启动可以附加的参数</a></li>
+</ul></li>
+<li><a href="#叢集模式">叢集模式</a></li>
+<li><a href="#管理程序">管理程序</a></li>
+<li><a href="#顯示管理程序狀態">顯示管理程序狀態</a></li>
+<li><a href="#logs">Logs</a></li>
+<li><a href="#循環-log">循環 log</a>
+<ul>
+<li><a href="#安裝-1">安裝</a></li>
+<li><a href="#config-檔位置">config 檔位置</a></li>
+<li><a href="#参数">参数</a></li>
+<li><a href="#圖示">圖示</a></li>
+</ul></li>
+<li><a href="#terminal-監控面板">terminal 監控面板</a></li>
+<li><a href="#pm2-ecosystem">pm2 ecosystem</a>
+<ul>
+<li><a href="#cli">CLI</a></li>
+<li><a href="#從-ecosystem-中只启动特定-app">從 ecosystem 中只启动特定 app</a></li>
+<li><a href="#帶入参数">帶入参数</a></li>
+<li><a href="#参数範例">参数範例</a></li>
+</ul></li>
+<li><a href="#pm2-部署">pm2 部署</a>
+<ul>
+<li><a href="#部署前的必要条件">部署前的必要条件</a></li>
+<li><a href="#初始化遠端資料夾">初始化遠端資料夾</a></li>
+<li><a href="#部署">部署</a></li>
+<li><a href="#部署相關指令">部署相關指令</a></li>
+<li><a href="#強制重启">強制重启</a></li>
+</ul></li>
+<li><a href="#ci-cd-部署">CI / CD 部署</a></li>
+<li><a href="#開機自动启动">開機自动启动</a></li>
+<li><a href="#有變更時重启">有變更時重启</a></li>
+<li><a href="#更新-pm2">更新 PM2</a></li>
+<li><a href="#常用指令">常用指令</a></li>
+<li><a href="#自动補齊">自动補齊</a></li>
+<li><a href="#疑難雜症">疑難雜症</a>
+<ul>
+<li><a href="#遇到錯誤-error-enoent-no-such-file-or-directory-uv-cwd">遇到錯誤 <code>Error: ENOENT: no such file or directory, uv_cwd</code></a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      
+
+<h3 id="pm2-是什么">pm2 是什么？</h3>
+
+<ul>
+<li>pm2 是一个 node 的程序管理器</li>
+</ul>
+
+<h3 id="pm2-解决什么问题">pm2 解决什么问题？</h3>
+
+<ul>
+<li>pm2 可以让 node 服务 crash 掉之后，自动帮我们重启</li>
+<li>pm2 可以在 server 重启之后，自动帮我们重启</li>
+<li>pm2 可利用 CPU 多核，开启多程序，已达到类似负载平衡的效果
+
+<ul>
+<li>Graceful reload 可达成类似 rolling upgrade 的效果，0 downtime 升級</li>
+<li>多程序多服务，可提升处理 request 的速度</li>
+<li>可設定 cron 排程自动重启時間</li>
+</ul></li>
+<li>pm2 提供多项資訊，包含已重启次数、 CPU 用量、 memory 用量, process id, 等等…</li>
+<li>pm2 可以在指定的条件下，自动帮我们重启，条件可以是’up time’, ‘已使用多少 memory’, 等等…,</li>
+<li>pm2 可以帮我们整理 log, 让 log 以我们想要的周期分割档案，并保存我们想要的数量，若有超过，自动删除。</li>
+<li>pm2 提供简单的部署方式，可一次性部署到多台 server</li>
+<li>pm2 可與 CD / CD 工具做结合， CI / CD 部署也没有问题</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">好 pm2, 不用吗？</pre></td></tr></table>
+</div>
+</div>
+<h3 id="本篇将提到">本篇将提到：</h3>
+
+<ul>
+<li>安裝 pm2</li>
+<li>使用 <code>CLI</code> 启动 pm2</li>
+<li>使用 pm2 設定檔 <code>ecosystem</code> 启动 pm2</li>
+<li>使用 pm2 設定檔 <code>ecosystem</code> 部署 node 專案</li>
+<li>使用 pm2 搭配 <code>GitLab CI / CD Runner</code> 部署 node 專案</li>
+</ul>
+
+<h2 id="安裝">安裝</h2>
+
+<ul>
+<li>全域安裝</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">  npm install pm2@latest -g</pre></td></tr></table>
+</div>
+</div>
+<h2 id="pm2-with-cli">pm2 with CLI</h2>
+
+<h3 id="可以使用-pm2-cli-來启动-node-專案-範例如下">可以使用 <code>pm2 CLI</code> 來启动 node 專案, 範例如下：</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">pm2 start location/fileName.js --name appName \
+--watch true \
+--max-memory-restart 500M \
+--log ~/.pm2/logs/appName/ \
+--time true \
+--cron &#34;0 17 * * *&#34; \
+--no-daemon true \
+--merge-logs</pre></td></tr></table>
+</div>
+</div>
+<p>以上範例中設定代表的意思，参考如下：</p>
+
+<h3 id="靜態檔的服务器">靜態檔的服务器</h3>
+
+<ul>
+<li>也可以服务靜態檔</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">  pm2 serve &lt;path&gt; &lt;port&gt;</pre></td></tr></table>
+</div>
+</div>
+<h3 id="启动可以附加的参数">启动可以附加的参数</h3>
+
+<ul>
+<li><code>--name</code>
+指定 app 一个名字</li>
+<li><code>--watch</code>
+檔案有變更時，會自动重新启动</li>
+<li><code>--max-memory-restart</code>
+Memory 使用超过這个門檻時，會自动重启</li>
+<li><code>--log</code>
+指定 log 的位址, 若要指定新位址，需将原本的 process 删掉，再重新启动指定</li>
+<li><code>--output</code>
+指定 output log 位址</li>
+<li><code>--error</code>
+指定 error log 位址</li>
+<li><code>--log-date-format</code>
+指定 log 的格式</li>
+<li><code>--merge-logs</code>
+同一个 app 跑多程序時，不要依據程序 id 去分割 log, 全部合在一起</li>
+<li><code>--arg1</code> <code>--arg2</code> <code>--arg3</code>
+指派額外的参数</li>
+<li><code>--restart-delay</code>
+自动重启時，要 delay 多久</li>
+<li><code>--time</code>
+給 log 加上前綴</li>
+<li><code>--no-autorestart</code>
+不要自动重启</li>
+<li><code>--cron</code>
+指定 cron 規律，強制重启</li>
+<li><code>--no-daemon</code>
+無 daemon 模式， listen log 模式</li>
+<li><code>--spa</code>
+限定 serve 使用, 會重導所有的請求到 index.html</li>
+<li><code>--basic-auth-username</code> <code>--basic-auth-password</code>
+用於靜態檔, 让該頁面需要帳號密碼方可存取</li>
+</ul>
+
+<h2 id="叢集模式">叢集模式</h2>
+
+<ul>
+<li>pm2 自动偵測該機器的 CPU 数量，启动最大能負荷的 process, 適用上面的選项,
+
+<br /></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">  -i</pre></td></tr></table>
+</div>
+</div>
+<p>后面接希望启动 instance 的数量， 0 或 max 默認自动偵測 CPU 启动最大值</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">  pm2 start app.js -i max</pre></td></tr></table>
+</div>
+</div>
+<h2 id="管理程序">管理程序</h2>
+
+<ul>
+<li>直接 kill 掉 process, 再重新開始程序</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">  pm2 restart app_name</pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>如果是在 cluster mode, <code>reload</code> 會依序升級重启每一个程序，达到 zero downtime 升級</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">  pm2 reload app_name</pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>停止服务</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">  pm2 stop app_name</pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>停止並删除服务</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">  pm2 delete app_name</pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>除了 app_name 之外，你也可以指定
+<code>all</code> : 启动所有程序
+<code>id</code> : 該程序 id</li>
+</ul>
+
+<h2 id="顯示管理程序狀態">顯示管理程序狀態</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">pm2 [list|ls|status]</pre></td></tr></table>
+</div>
+</div>
+<p><a href="https://i.imgur.com/WIv3pVR.png"><img src="https://i.imgur.com/WIv3pVR.png" alt="img" /></a></p>
+
+<h2 id="logs">Logs</h2>
+
+<ul>
+<li>輸出 log</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">  pm2 logs</pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>顯示指定行数 log (指定倒数 200 行)</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">  pm2 logs --lines 200</pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>指定輸出程序 log</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">  pm2 logs id</pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>指定輸出格式 format</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">  pm2 logs --format</pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>指定輸出格式 json</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">  pm2 logs --json</pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>清空 log</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">  pm2 flush</pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>取消 log
+可以利用指定 log 路徑為 <code>/dev/null</code> 來取消 log 輸出, log 参数用法請参考 ecosystem 範例</li>
+</ul>
+
+<h2 id="循環-log">循環 log</h2>
+
+<p>如果你看过 log 檔案超肥，幾年的 log 都寫在同一个檔案; 如果你打開 log 資料夾，發現裡面躺著幾百个 log 檔案; 如果你看过千奇百怪的 log 檔名; 如果你 <code>du -h</code> 發現 log 資料夾大的嚇死人
+如果你有以上的經驗，那恭喜你，你有救了</p>
+
+<h3 id="安裝-1">安裝</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">pm2 install pm2-logrotate</pre></td></tr></table>
+</div>
+</div>
+<h3 id="config-檔位置">config 檔位置</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">/home/user/.pm2/module_conf.json</pre></td></tr></table>
+</div>
+</div>
+<h3 id="参数">参数</h3>
+
+<ul>
+<li>max_size (預設 10M):
+當 log 檔案达到多大時， logrotate module 會将它分割成另外一个檔案。 logrotate module 有可能在檢查檔案時，檔案已經超过指定的大小了，所以超过一些些是可能的。 單位可以自行指定, 10G, 10M, 10K</li>
+<li>retain (預設 30 个 log 檔案):
+預設最多保存的 log 数量，如果設定為 7 的話，将會保存目前的 log, 以及最多 7 个 log 檔案</li>
+<li>compress (預設 false):
+壓縮所有循環 log 檔案</li>
+<li>dateFormat (時間格式，預設 YYYY-MM-DD_HH-mm-ss) :
+檔案命名的時間格式</li>
+<li>rotateModule (預設 true) :
+跟其他 apps 一樣，循環 pm2’s module</li>
+<li>workerInterval (預設 30 秒) :
+多久 logrotate 會檢查一次 log 檔案大小</li>
+<li>rotateInterval (預設每天午夜循環, 範例 0 0 * ):
+除了設定檔案大小以外，我们也可以設定以時間為單位去循環，格式上採用 <code>node-schedule</code></li>
+<li>TZ (預設為系統時間):
+檔案命名的時間會根據你所設定的時區而改變</li>
+</ul>
+
+<h3 id="圖示">圖示</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">*    *    *    *    *    *
+┬    ┬    ┬    ┬    ┬    ┬
+│    │    │    │    │    |
+│    │    │    │    │    └ day of week (0 - 7) (0 or 7 is Sun)
+│    │    │    │    └───── month (1 - 12)
+│    │    │    └────────── day of month (1 - 31)
+│    │    └─────────────── hour (0 - 23)
+│    └──────────────────── minute (0 - 59)
+└───────────────────────── second (0 - 59, OPTIONAL)</pre></td></tr></table>
+</div>
+</div>
+<h2 id="terminal-監控面板">terminal 監控面板</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">pm2 monit</pre></td></tr></table>
+</div>
+</div>
+<h2 id="pm2-ecosystem">pm2 ecosystem</h2>
+
+<p>CLI 工具固然不錯，但只要是人難免手滑打錯或漏打参数。 pm2 ecosystem 解決了這个问题，只要好好的打上一次，以后除非設定有變更，否則启动服务只需要短短幾个指令，而且 ecosystem 檔案還可以納入 git 控管，跟著專案跑</p>
+
+<ul>
+<li>產生範例 ecosystem file</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">  pm2 ecosystem</pre></td></tr></table>
+</div>
+</div>
+<h3 id="cli">CLI</h3>
+
+<p>跟前面介紹过的管理程序一樣，差別只是将 app.js 換成 ecosystem.js
+多个管理程序 CLI, 這邊就只列出 start, 其餘同上</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">pm2 start ecosystem.config.js</pre></td></tr></table>
+</div>
+</div>
+<h3 id="從-ecosystem-中只启动特定-app">從 ecosystem 中只启动特定 app</h3>
+
+<p>下面的 appName 為我们寫在 ecosystem.config.js 檔案中的 appName</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">pm2 start ecosystem.config.js --only yourApp</pre></td></tr></table>
+</div>
+</div>
+<h3 id="帶入参数">帶入参数</h3>
+
+<p>拿下面的範例來說，如果我輸入 <code>pm2 start ecosystem --only app1 --env production</code> , 那麼 pm2 就會使用 <code>NODE_ENV=production</code> 這个環境變数</p>
+
+<h3 id="参数範例">参数範例</h3>
+
+<p>下面的参数有點多，我们肯定不會一次使用到這麼多的参数，所以可以視專案需求留下我们需要的参数即可</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">module.exports = {
+    apps: [
+        // First application
+        {
+            // App 名稱
+            name: &#39;app1&#39;,
+            // 執行服务的入口檔案
+            script: &#39;./server.js&#39;,
+            // 你的服务所在位置
+            cwd: &#39;var/www/yourApp/&#39;,
+            // 分為 cluster 以及 fork 模式
+            exec_mode: &#39;cluster&#39;,
+            // 只適用於 cluster 模式，程序启动数量
+            instances: 0,
+            // 適合開發時用，檔案一有變更就會自动重启
+            watch: false,
+            // 當佔用的 memory 达到 500M, 就自动重启
+            max_memory_restart: &#39;500M&#39;,
+            // 可以指定要启动服务的 node 版本
+            interpreter: &#39;/root/.nvm/versions/node/v8.16.0/bin/node&#39;,
+            // node 的額外参数
+            // 格式可以是 array, 像是 &#34;args&#34;: [&#34;--toto=heya coco&#34;, &#34;-d&#34;, &#34;1&#34;], 或是 string, 像是 &#34;args&#34;: &#34;--to=&#39;heya coco&#39; -d 1&#34;
+            interpreter_args: &#34;port=3001 sitename=&#39;first pm2 app&#39;&#34;,
+            // 同上
+            node_args: &#34;port=3001 sitename=&#39;first pm2 app&#39;&#34;,
+            // &#39;cron&#39; 模式指定重启時間，只支持 cluster 模式
+            cron_restart: &#34;0 17 * * *&#34;,
+            // log 顯示時間
+            time: true,
+            // 可經由 CLI 帶入的参数
+            args: &#39;-a 13 -b 12&#39;,
+            // 想要被忽略的檔案或資料夾, 支援正則，指定的檔案或資料夾如果內容有變更，服务将不會重启
+            // 格式可以是 array, 像是 &#34;args&#34;: [&#34;--toto=heya coco&#34;, &#34;-d&#34;, &#34;1&#34;], 或是 string, 像是 &#34;args&#34;: &#34;--to=&#39;heya coco&#39; -d 1&#34;
+            ignore_watch: [&#34;[\/\\]\./&#34;, &#34;node_modules&#34;],
+            // 支援 source_map, 預設 true, 細節可参考
+            // http://pm2.keymetrics.io/docs/usage/source-map-support/
+            // https://www.html5rocks.com/en/tutorials/developertools/sourcemaps/
+            source_map_support: true,
+            // instance_var, 詳見以下連结
+            // http://pm2.keymetrics.io/docs/usage/environment/#specific-environment-variables
+            instance_var: &#39;NODE_APP_INSTANCE&#39;,
+            // log 的時間格式
+            log_date_format: &#39;YYYY-MM-DD HH:mm Z&#39;,
+            // 錯誤 log 的指定位置
+            error_file: &#39;/var/log&#39;,
+            // 正常輸出 log 的指定位置
+            out_file: &#39;/var/log&#39;,
+            // 同一个 app 有多程序 id, 如果設定為 true 的話， 同 app 的 log 檔案将不會根據不同的程序 id 分割，會全部合在一起
+            combine_logs: true,
+            // 同上
+            merge_logs: true,
+            // pid file 指定位置, 預設 $HOME/.pm2/pid/app-pm_id.pid
+            pid_file: &#39;user/.pm2/pid/app-pm_id.pid&#39;,
+            // pm2 會根據此選项內的時間來判定程序是否有成功启动
+            // 格式可使用 number 或 string, number 的話， 3000 代表 3000 ms。 string 的話, 可使用 &#39;1h&#39; 代表一个小時, &#39;5m&#39; 代表五分鐘, &#39;10s&#39; 代表十秒
+            min_uptime: &#39;5&#39;,
+            // 單位為 ms, 如果在該時間內 app 没有聽 port 的話，強制重启
+            listen_timeout: 8000,
+            // 當執行 reload 時，因為 graceful reload 會等到服务都没有被存取了才會斷開，如果超过這个時間，強制斷開重启
+            // 細節可参考官方文件 http://pm2.keymetrics.io/docs/usage/signals-clean-restart/
+            kill_timeout: 1600,
+            // 一般來說，服务等待 listen 事件觸發后，執行 reload, 若此選项為 true, 則等待 &#39;ready&#39; message
+            // 細節可参考官方文件 http://pm2.keymetrics.io/docs/usage/signals-clean-restart/
+            wait_ready: false,
+            // pm2 具有 crash 自动重启的功能。 但若異常狀況重启超过此選项的指定次数，則停止自动重启功能。 異常與否的判定，預設為 1 秒，也就是說如果服务启动不足一秒又立即重启，則異常重启次数 + 1。 若 min_uptime 選项有指定，則以 min_uptime 指定的最小正常启动時間為標準來判斷是否為異常重启
+            // 細節可参考官方文件 http://pm2.keymetrics.io/docs/usage/signals-clean-restart/
+            max_restarts: 10,
+            // 單位為 ms, 預設為 0, 若有指定時間，則 app 會等待指定時間过后重启
+            restart_delay: 4000,
+            // 預設為 true, 若設為 false, pm2 将會關閉自动重启功能, 也就是說 app crash 之后将不會自动重启
+            autorestart: true,
+            // 預設為 true, 預設執行 pm2 start app 時，只要 ssh key 没问题， pm2 會自动比較 local 跟 remote, 看是否為最新的 commit，若否，會自动下載更新。 此功能有版本问题，需新版才支援
+            vizion: true,
+            // 進階功能，當使用 Keymetrics 的 dashboard 執行 pull 或 update 操作后，可以觸發執行的一系列指令
+            post_update: [&#34;npm install&#34;, &#34;echo launching the app&#34;],
+            // defaults to false. if true, you can start the same script several times which is usually not allowed by PM2
+            // 預設為 false, 如果設定為 true, 
+            force: false,
+            // 當不指定 env 時，會套用此 object 裡頭的環境變数, 例如 pm2 start ecosystem.js
+            env: {
+                COMMON_VARIABLE: &#39;true&#39;,
+                NODE_ENV: &#39;&#39;,
+                ID: &#39;44&#39;
+            },
+            // 當有指定 env 時，會套用此 object 裡頭的環境變数, 例如 pm2 start ecosystem.js --env production
+            env_production: {
+                NODE_ENV: &#39;production&#39;,
+                ID: &#39;55&#39;
+            },
+            // 同上
+            env_development: {
+                NODE_ENV: &#39;development&#39;
+            }
+        },
+        // 第二个 app, 很多資訊上面有介紹过的就不再重複
+        {
+            // Serve 模式, 可服务靜態資料夾
+            script: &#34;serve&#34;,
+            env: {
+                PM2_SERVE_PATH: &#39;.&#39;,
+                PM2_SERVE_PORT: 8080
+                },
+            name: &#39;app2&#39;,
+            // 預設模式，可應用在其他語言, cluster 只可用在 node.js
+            exec_mode: &#39;fork&#39;,
+            interpreter: &#39;/root/.nvm/versions/node/v8.16.0/bin/node&#39;,
+            time: true,
+        }
+    ],
+    // 這一个區塊是部署的部分
+    deploy: {
+        // production
+        production: {
+            // 要登入執行 pm2 的 user
+            user: &#39;root&#39;,
+            // 支援多个 host 部署
+            host: [&#39;host1&#39;, &#39;host2&#39;],
+            // remote 要檢查的 public key 的位置
+            key: &#39;path/to/some.pem&#39;,
+            // 要部署的分支
+            ref: &#39;origin/master&#39;,
+            // Git 倉庫位址
+            repo: &#39;git@gitlab.com:user/yourProject.git&#39;,
+            // 要部署到 server 上的資料夾路徑
+            path: &#39;/var/www/yourProjectName&#39;,
+            // 如果 ssh 有設定好，從 local 連到 remote 端将不會再詢問是否将 remote 端的 public key 加到 known host
+            &#34;ssh_options&#34;: &#34;StrictHostKeyChecking=no&#34;,
+            // 在 pm2 要從 local 端連到 remote 端之前要執行的指令，可以多个指令，由 ; 分割，也可以指定 shell script 的檔案路徑
+            &#34;pre-setup&#34;: &#39;apt update -y; apt install git -y&#39;,
+            // 當 pm2 在 remote 機器上将專案 clone 下來之后會執行的指令，同上，可以多个指令，由 ; 分割，也可以指定 shell script 的檔案路徑
+            &#34;post-setup&#34;: &#34;ls -la&#34;,
+            // 當 pm2 在 local 要連上 remote 部署之前 ，在 local 端所要執行的指令, 同上，可以多个指令，由 ; 分割，也可以指定 shell script 的檔案路徑
+            &#34;pre-deploy-local&#34; : &#34;echo &#39;This is a local executed command&#39;&#34;,
+            // 部署完成后, 所要執行的指令 同上，可以多个指令，由 ; 分割，也可以指定 shell script 的檔案路徑
+            &#39;post-deploy&#39;: &#39;sudo /root/.nvm/versions/node/v8.16.0/bin/npm install &amp;&amp; sudo /root/.nvm/versions/node/v8.16.0/bin/npm rebuild &amp;&amp; /root/.nvm/versions/node/v8.16.0/bin/pm2 reload ecosystem.config.js&#39;,
+            env_production: {
+                 NODE_ENV: &#39;production&#39;
+            }
+        }, 
+        staging: {
+            user: &#39;root&#39;,
+            host: [&#39;host3&#39;, &#39;host4&#39;],
+            ref: &#39;origin/staging&#39;,
+            repo: &#39;git@gitlab.com:user/yourProject.git&#39;,
+            path: &#39;/var/www/yourProjectName&#39;,
+            &#34;ssh_options&#34;: &#34;StrictHostKeyChecking=no&#34;,
+            &#34;pre-setup&#34;: &#39;apt update -y; apt install git -y&#39;,
+            &#34;post-setup&#34;: &#34;ls -la&#34;,
+            &#34;pre-deploy-local&#34; : &#34;echo &#39;This is a local executed command&#39;&#34;,
+            &#39;post-deploy&#39;: &#39;sudo /root/.nvm/versions/node/v8.16.0/bin/npm install &amp;&amp; sudo /root/.nvm/versions/node/v8.16.0/bin/npm rebuild &amp;&amp; /root/.nvm/versions/node/v8.16.0/bin/pm2 reload ecosystem.config.js&#39;,
+            env_production: {
+                 NODE_ENV: &#39;staging&#39;
+            }
+        },
+    },
+};</pre></td></tr></table>
+</div>
+</div>
+<h2 id="pm2-部署">pm2 部署</h2>
+
+<p>pm2 的部署功能，可以让我们從本機直接部署到多台 server 上, 也可以结合 CI / CD 工具，在提交 commit 后自动部署</p>
+
+<h3 id="部署前的必要条件">部署前的必要条件</h3>
+
+<ul>
+<li><p>首先要先確定，local 到 remote 端的 ssh key 有準備好了吗？ <code>local 到 remote server 的 ssh 連線是必要的哦</code>！ 简单來說，你需要在 local 放一把 private key, 然后在你的 remote server 放一把 public key, 這樣才能暢通無阻哦！ 這部分再麻煩 Google 一下哦！</p></li>
+
+<li><p>再來，因為 pm2 會 ssh 到 remote server 上，然后在 remote server 上從我们的專案處 GitHub 或 GitLab 将專案 clone 下來，所以務必確保 <code>remote server 是可以從 GitHub 或 GitLab clone 我们的專案</code>, 所以你要在 remote server 上放一把 clone 用的 private key, 然后将 public key 放在 GitLab 或 GitHub 上，這部分也是麻煩 Google 一下哦</p></li>
+
+<li><p>由於首次 ssh 連線時會跳詢問是否将 public key 加入到 known host，這个 prompt 會让 pm2 deploy 卡住，所以務必先将 remote server 設定好哦！ 可以先連線一次，也可以修改 ssh config, 取消這个 hostKey 的 確認功能。</p></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">  echo -e &#34;Host *\n\tStrictHostKeyChecking no\n\n&#34; &gt; ~/.ssh/config</pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li><p>接下來，要将 ecosystem 設定檔寫好，這部分請参考上方的 deploy 範例</p></li>
+
+<li><p>最后，請確認 remote server 的 ssh 通道 (預設 port 22) 不是關閉的哦！</p></li>
+</ul>
+
+<h3 id="初始化遠端資料夾">初始化遠端資料夾</h3>
+
+<p>在部署之前, 先在 remote server 上初始化專案的資料夾, 可以帶入不同的参数让 pm2 根據設定檔做相對應得部署</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">pm2 deploy ecosystem.config.js production setup</pre></td></tr></table>
+</div>
+</div>
+<h3 id="部署">部署</h3>
+
+<ul>
+<li>部署
+在初始化遠端資料夾之后，我们就可以使用 pm2 的部署功能了</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">  pm2 deploy ecosystem.config.js production</pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>deploy 可使用的参数如下，也可使用 <code>pm2 deploy help</code> 查看</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">  pm2 deploy &lt;configuration_file&gt; &lt;environment&gt; &lt;command&gt;
+  
+    Commands:
+      setup                遠端初始化（第一次部署才會用到）
+      update               更新到最新的 commit
+      revert [n]           回復到上一次的 deployment
+      curr[ent]            輸出目前上線中的 commit 
+      prev[ious]           輸出上一次部署的 commit
+      exec|run &lt;cmd&gt;       執行指定的指令
+      list                 列出包含目前，以及之前所部署的 commit
+      [ref]                部署到指定的 ref</pre></td></tr></table>
+</div>
+</div>
+<h3 id="部署相關指令">部署相關指令</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">pm2 startOrRestart all.json            # 重启所有 app
+pm2 startOrReload all.json             # 觸發 reload</pre></td></tr></table>
+</div>
+</div>
+<h3 id="強制重启">強制重启</h3>
+
+<p>pm2 的部署，會要求 local 端先将變更推上 Git repository, 然后 pm2 會在 remote server 執行 git pull, 所以當 local 的變更尚未推上 Git 時，部署會失敗。
+這時候如果我们硬要部署，我们可以使用</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">pm2 deploy ecosystem.json production --force</pre></td></tr></table>
+</div>
+</div>
+<h2 id="ci-cd-部署">CI / CD 部署</h2>
+
+<ul>
+<li>利用 GitLab 的 CI / CD Runner 配合 pm2 來跑自动部署, 以下為 gitlab.yml 檔案範例</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"># 使用輕量化 pm2 image
+image: keymetrics/pm2:latest-alpine
+stages:
+- deploy
+
+Deploy:
+  stage: deploy
+  script:
+  # 若 ssh-agent 未安裝，則安裝
+  - &#39;which ssh-agent || ( apk add --update openssh )&#39;
+  # 安裝 bash, 以執行 pm2 CLI 工具
+  - apk add --update bash
+  # 安裝 git, pm2 要連过去時會用到
+  - apk add --update git
+  # 執行 ssh agent
+  - eval $(ssh-agent -s)
+  # 将 ssh key 加到 ssh agent, 此 ssh key 為 GitLab 的 variable 選项
+  - echo &#34;$SSH_PRIVATE_KEY&#34; | ssh-add -
+  # 執行 pm2 CLI
+  - pm2 deploy ecosystem.config.js production update
+  
+  only:
+  - master</pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>設定好之后，只要 git push 到 master branch, 就會觸發 GitLab CI / CD Runner 自动完成 CI / CD</li>
+</ul>
+
+<h2 id="開機自动启动">開機自动启动</h2>
+
+<ul>
+<li>產生開機 script</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">  pm2 startup</pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>取消開機自动重启</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">  pm2 unstartup</pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>儲存下次重启時，預設启动的 process</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">  pm2 save</pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>如果有更新 node 的版本，記得更新 script</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">  pm2 unstartup &amp;&amp; pm2 startup &amp;&amp; pm2 save</pre></td></tr></table>
+</div>
+</div>
+<h2 id="有變更時重启">有變更時重启</h2>
+
+<p>監看該資料夾下的所有檔案，以及子資料夾，並且忽略 <code>node_module</code> 這个資料夾</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">cd /path/to/my/app
+pm2 start env.js --watch --ignore-watch=&#34;node_modules&#34;</pre></td></tr></table>
+</div>
+</div>
+<h2 id="更新-pm2">更新 PM2</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">npm install pm2@latest -g &amp;&amp; pm2 update</pre></td></tr></table>
+</div>
+</div>
+<h2 id="常用指令">常用指令</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"># Fork 模式
+pm2 start app.js --name my-api # 指定程序名稱
+
+# Cluster 模式
+pm2 start app.js -i 0        # 會根據可用的 CPU 数量來启动最大的程序数量，达到平衡負載的效果
+pm2 start app.js -i max      # 跟上面一樣，但是廢除了
+pm2 scale app +3             # 增加三个 worker
+pm2 scale app 2              # 将 worker 更新成兩个
+
+# 狀態顯示
+
+pm2 list               # 顯示所有程序狀態
+pm2 jlist              # 将程序狀態使用 raw JSON 印出
+pm2 prettylist         # 将程序狀態用美化的 JSON 印出
+
+pm2 describe 0         # 顯示特定程序的所有資訊
+
+pm2 monit              # 監控所有程序
+
+# Logs
+
+pm2 logs [--raw]       # 以串流的方式顯示所有 log
+pm2 flush              # 移除所有 log 檔案
+pm2 reloadLogs         # 重新載入 logs
+
+# 操作
+
+pm2 stop all           # 停止所有程序
+pm2 restart all        # 重新开启所有程序
+
+pm2 reload all         # 重新載入服务
+
+pm2 stop 0             # 停止特定 id 的程序
+pm2 restart 0          # 重新启动特定 id 程序
+
+pm2 delete 0           # 從 pm2 list 移除特定 id 程序, 但這並不會停止該程序
+pm2 delete all         # 移除所有程序, 但這並不會停止這些程序
+
+# Misc
+
+pm2 reset &lt;process&gt;    # 重置 meta data
+pm2 updatePM2          # 更新 pm2
+pm2 ping               # Ensure pm2 daemon has been launched
+pm2 sendSignal SIGUSR2 my-app # Send system signal to script
+pm2 start app.js --no-daemon # 不要背景執行
+pm2 start app.js --no-vizion # 不加這一行，預設執行 pm2 start app 時，只要 ssh key 没问题， pm2 會自动比較 local 跟 remote, 看是否為最新的 commit，若否，會自动下載更新
+pm2 start app.js --no-autorestart # 不自动重启</pre></td></tr></table>
+</div>
+</div>
+<h2 id="自动補齊">自动補齊</h2>
+
+<ul>
+<li>支援 pm2 指令可以打
+
+<br /></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">  tab</pre></td></tr></table>
+</div>
+</div>
+<p>自动補齊</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">  pm2 completion install</pre></td></tr></table>
+</div>
+</div>
+<h2 id="疑難雜症">疑難雜症</h2>
+
+<h3 id="遇到錯誤-error-enoent-no-such-file-or-directory-uv-cwd">遇到錯誤 <code>Error: ENOENT: no such file or directory, uv_cwd</code></h3>
+
+<p>意思是說， <code>pm2</code> 的工作目錄資料夾不存在，所謂的工作目錄資料夾就是我们第一次启动 <code>pm2</code> 的位置。很可能是我们启动之后，就不小心把它删了，如果要尋找工作目錄資料夾在哪，可以使用下面的 command</p>
+
+<ol>
+<li>找到 <code>pm2</code> 的 process id</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">ps ax | grep PM2</pre></td></tr></table>
+</div>
+</div>
+<ol>
+<li>然后查詢該 process 執行時所在的目錄（将上面得到的 process id 替換下面的 <code>PM2_Process_ID</code></li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">ls -l /proc/PM2_Process_ID/cwd</pre></td></tr></table>
+</div>
+</div>
+<ol>
+<li>公布结果</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">ls -l /proc/24016/cwd</pre></td></tr></table>
+</div>
+</div>
+<p>结果應該會如下, 最后的 <code>deleted</code> 表示該目錄已經被删除了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">lrwxrwxrwx 1 root root 0 Feb 4 17:04 /proc/24016/cwd -&gt; /home/nodejs/deploy(deleted)</pre></td></tr></table>
+</div>
+</div>
+<p>現在知道原因了，那解決的方法呢？ 我们要先把目前的 process 砍掉，然后到一个安全一點的地方在开启一次，以免下次又被誤删了！</p>
+
+<ol>
+<li>殺掉 pm2 process id</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">   kill -9 processID</pre></td></tr></table>
+</div>
+</div>
+<ol>
+<li>到一个安全不會再被意外砍掉的目錄再次启动 <code>pm2</code></li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">   Copycd ~ &amp;&amp; pm2 -v</pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">Reward</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/reward/wechat-qr-code.png">
+        <span>wechat</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/reward/alipay-qr-code.png">
+        <span>alipay</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/javascript/">“javascript”</a>
+          <a href="/tags/node/">“node&#34;</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/kotlin%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E8%84%91%E5%9B%BE/">
+            <span class="next-text nav-default">Kotlin基础语法脑图</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2020-02-24 15:29:55 \x2b0800 \x2b0800',
+        title: '“Pm2 node绝佳进程管理工具\x22',
+        clientID: 'bf0ed9ea18e819e40135',
+        clientSecret: '92bdc65717aa7f0ec48bfe94e773b57a21163785',
+        repo: 'blog_comments',
+        owner: '496971418@qq.com',
+        admin: ['496971418@qq.com'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:terryzh017@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://stackoverflow.com/users/10838177/terryzh" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://twitter.com/terryzhAizz" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/t496971418" class="iconfont icon-github" title="github"></a>
+  <a href="http://www.elixir-zh.cn/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Terryzh</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
