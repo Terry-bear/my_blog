@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>“Pm2 node绝佳进程管理工具&#34; - Terryzh</title>
+  <title>Pm2 node绝佳进程管理工具 - Terryzh</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -38,14 +38,14 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
-<meta property="og:title" content="“Pm2 node绝佳进程管理工具&#34;" />
+<meta property="og:title" content="Pm2 node绝佳进程管理工具" />
 <meta property="og:description" content="pm2 是什么？ pm2 是一个 node 的程序管理器 pm2 解决什么问题？ pm2 可以让 node 服务 crash 掉之后，自动帮我们重启 pm2 可以在 server 重启之后，自动帮我们重启 pm2 可利用 CPU 多核，开启" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://www.elixir-zh.cn/post/pm2-node%E7%BB%9D%E4%BD%B3%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/" />
 <meta property="article:published_time" content="2020-02-24T15:29:55&#43;08:00"/>
 <meta property="article:modified_time" content="2020-02-24T15:29:55&#43;08:00"/>
 
-<meta itemprop="name" content="“Pm2 node绝佳进程管理工具&#34;">
+<meta itemprop="name" content="Pm2 node绝佳进程管理工具">
 <meta itemprop="description" content="pm2 是什么？ pm2 是一个 node 的程序管理器 pm2 解决什么问题？ pm2 可以让 node 服务 crash 掉之后，自动帮我们重启 pm2 可以在 server 重启之后，自动帮我们重启 pm2 可利用 CPU 多核，开启">
 
 
@@ -57,7 +57,7 @@
 
 <meta itemprop="keywords" content="“javascript”,“node&#34;," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="“Pm2 node绝佳进程管理工具&#34;"/>
+<meta name="twitter:title" content="Pm2 node绝佳进程管理工具"/>
 <meta name="twitter:description" content="pm2 是什么？ pm2 是一个 node 的程序管理器 pm2 解决什么问题？ pm2 可以让 node 服务 crash 掉之后，自动帮我们重启 pm2 可以在 server 重启之后，自动帮我们重启 pm2 可利用 CPU 多核，开启"/>
 
 <!--[if lte IE 9]>
@@ -125,7 +125,7 @@
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title">“Pm2 node绝佳进程管理工具&#34;</h1>
+      <h1 class="post-title">Pm2 node绝佳进程管理工具</h1>
 
       <div class="post-meta">
         <span class="post-time"> 2020-02-24 </span>
@@ -191,9 +191,9 @@
 <li><a href="#更新-pm2">更新 PM2</a></li>
 <li><a href="#常用指令">常用指令</a></li>
 <li><a href="#自动補齊">自动補齊</a></li>
-<li><a href="#疑難雜症">疑難雜症</a>
+<li><a href="#疑难杂症">疑难杂症</a>
 <ul>
-<li><a href="#遇到錯誤-error-enoent-no-such-file-or-directory-uv-cwd">遇到錯誤 <code>Error: ENOENT: no such file or directory, uv_cwd</code></a></li>
+<li><a href="#遇到错误-error-enoent-no-such-file-or-directory-uv-cwd">遇到错误 <code>Error: ENOENT: no such file or directory, uv_cwd</code></a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -420,8 +420,6 @@ Memory 使用超过這个門檻時，會自动重启</li>
 <pre class="chroma">pm2 [list|ls|status]</pre></td></tr></table>
 </div>
 </div>
-<p><a href="https://i.imgur.com/WIv3pVR.png"><img src="https://i.imgur.com/WIv3pVR.png" alt="img" /></a></p>
-
 <h2 id="logs">Logs</h2>
 
 <ul>
@@ -620,7 +618,7 @@ Memory 使用超过這个門檻時，會自动重启</li>
 <p>下面的参数有點多，我们肯定不會一次使用到這麼多的参数，所以可以視專案需求留下我们需要的参数即可</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">  1
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="lnt">  1
 </span><span class="lnt">  2
 </span><span class="lnt">  3
 </span><span class="lnt">  4
@@ -776,164 +774,164 @@ Memory 使用超过這个門檻時，會自动重启</li>
 </span><span class="lnt">154
 </span><span class="lnt">155
 </span><span class="lnt">156
-</span></pre></td>
+</span></code></pre></td>
 <td class="lntd">
-<pre class="chroma">module.exports = {
-    apps: [
-        // First application
-        {
-            // App 名稱
-            name: &#39;app1&#39;,
-            // 執行服务的入口檔案
-            script: &#39;./server.js&#39;,
-            // 你的服务所在位置
-            cwd: &#39;var/www/yourApp/&#39;,
-            // 分為 cluster 以及 fork 模式
-            exec_mode: &#39;cluster&#39;,
-            // 只適用於 cluster 模式，程序启动数量
-            instances: 0,
-            // 適合開發時用，檔案一有變更就會自动重启
-            watch: false,
-            // 當佔用的 memory 达到 500M, 就自动重启
-            max_memory_restart: &#39;500M&#39;,
-            // 可以指定要启动服务的 node 版本
-            interpreter: &#39;/root/.nvm/versions/node/v8.16.0/bin/node&#39;,
-            // node 的額外参数
-            // 格式可以是 array, 像是 &#34;args&#34;: [&#34;--toto=heya coco&#34;, &#34;-d&#34;, &#34;1&#34;], 或是 string, 像是 &#34;args&#34;: &#34;--to=&#39;heya coco&#39; -d 1&#34;
-            interpreter_args: &#34;port=3001 sitename=&#39;first pm2 app&#39;&#34;,
-            // 同上
-            node_args: &#34;port=3001 sitename=&#39;first pm2 app&#39;&#34;,
-            // &#39;cron&#39; 模式指定重启時間，只支持 cluster 模式
-            cron_restart: &#34;0 17 * * *&#34;,
-            // log 顯示時間
-            time: true,
-            // 可經由 CLI 帶入的参数
-            args: &#39;-a 13 -b 12&#39;,
-            // 想要被忽略的檔案或資料夾, 支援正則，指定的檔案或資料夾如果內容有變更，服务将不會重启
-            // 格式可以是 array, 像是 &#34;args&#34;: [&#34;--toto=heya coco&#34;, &#34;-d&#34;, &#34;1&#34;], 或是 string, 像是 &#34;args&#34;: &#34;--to=&#39;heya coco&#39; -d 1&#34;
-            ignore_watch: [&#34;[\/\\]\./&#34;, &#34;node_modules&#34;],
-            // 支援 source_map, 預設 true, 細節可参考
-            // http://pm2.keymetrics.io/docs/usage/source-map-support/
-            // https://www.html5rocks.com/en/tutorials/developertools/sourcemaps/
-            source_map_support: true,
-            // instance_var, 詳見以下連结
-            // http://pm2.keymetrics.io/docs/usage/environment/#specific-environment-variables
-            instance_var: &#39;NODE_APP_INSTANCE&#39;,
-            // log 的時間格式
-            log_date_format: &#39;YYYY-MM-DD HH:mm Z&#39;,
-            // 錯誤 log 的指定位置
-            error_file: &#39;/var/log&#39;,
-            // 正常輸出 log 的指定位置
-            out_file: &#39;/var/log&#39;,
-            // 同一个 app 有多程序 id, 如果設定為 true 的話， 同 app 的 log 檔案将不會根據不同的程序 id 分割，會全部合在一起
-            combine_logs: true,
-            // 同上
-            merge_logs: true,
-            // pid file 指定位置, 預設 $HOME/.pm2/pid/app-pm_id.pid
-            pid_file: &#39;user/.pm2/pid/app-pm_id.pid&#39;,
-            // pm2 會根據此選项內的時間來判定程序是否有成功启动
-            // 格式可使用 number 或 string, number 的話， 3000 代表 3000 ms。 string 的話, 可使用 &#39;1h&#39; 代表一个小時, &#39;5m&#39; 代表五分鐘, &#39;10s&#39; 代表十秒
-            min_uptime: &#39;5&#39;,
-            // 單位為 ms, 如果在該時間內 app 没有聽 port 的話，強制重启
-            listen_timeout: 8000,
-            // 當執行 reload 時，因為 graceful reload 會等到服务都没有被存取了才會斷開，如果超过這个時間，強制斷開重启
-            // 細節可参考官方文件 http://pm2.keymetrics.io/docs/usage/signals-clean-restart/
-            kill_timeout: 1600,
-            // 一般來說，服务等待 listen 事件觸發后，執行 reload, 若此選项為 true, 則等待 &#39;ready&#39; message
-            // 細節可参考官方文件 http://pm2.keymetrics.io/docs/usage/signals-clean-restart/
-            wait_ready: false,
-            // pm2 具有 crash 自动重启的功能。 但若異常狀況重启超过此選项的指定次数，則停止自动重启功能。 異常與否的判定，預設為 1 秒，也就是說如果服务启动不足一秒又立即重启，則異常重启次数 + 1。 若 min_uptime 選项有指定，則以 min_uptime 指定的最小正常启动時間為標準來判斷是否為異常重启
-            // 細節可参考官方文件 http://pm2.keymetrics.io/docs/usage/signals-clean-restart/
-            max_restarts: 10,
-            // 單位為 ms, 預設為 0, 若有指定時間，則 app 會等待指定時間过后重启
-            restart_delay: 4000,
-            // 預設為 true, 若設為 false, pm2 将會關閉自动重启功能, 也就是說 app crash 之后将不會自动重启
-            autorestart: true,
-            // 預設為 true, 預設執行 pm2 start app 時，只要 ssh key 没问题， pm2 會自动比較 local 跟 remote, 看是否為最新的 commit，若否，會自动下載更新。 此功能有版本问题，需新版才支援
-            vizion: true,
-            // 進階功能，當使用 Keymetrics 的 dashboard 執行 pull 或 update 操作后，可以觸發執行的一系列指令
-            post_update: [&#34;npm install&#34;, &#34;echo launching the app&#34;],
-            // defaults to false. if true, you can start the same script several times which is usually not allowed by PM2
-            // 預設為 false, 如果設定為 true, 
-            force: false,
-            // 當不指定 env 時，會套用此 object 裡頭的環境變数, 例如 pm2 start ecosystem.js
-            env: {
-                COMMON_VARIABLE: &#39;true&#39;,
-                NODE_ENV: &#39;&#39;,
-                ID: &#39;44&#39;
-            },
-            // 當有指定 env 時，會套用此 object 裡頭的環境變数, 例如 pm2 start ecosystem.js --env production
-            env_production: {
-                NODE_ENV: &#39;production&#39;,
-                ID: &#39;55&#39;
-            },
-            // 同上
-            env_development: {
-                NODE_ENV: &#39;development&#39;
-            }
-        },
-        // 第二个 app, 很多資訊上面有介紹过的就不再重複
-        {
-            // Serve 模式, 可服务靜態資料夾
-            script: &#34;serve&#34;,
-            env: {
-                PM2_SERVE_PATH: &#39;.&#39;,
-                PM2_SERVE_PORT: 8080
-                },
-            name: &#39;app2&#39;,
-            // 預設模式，可應用在其他語言, cluster 只可用在 node.js
-            exec_mode: &#39;fork&#39;,
-            interpreter: &#39;/root/.nvm/versions/node/v8.16.0/bin/node&#39;,
-            time: true,
-        }
-    ],
-    // 這一个區塊是部署的部分
-    deploy: {
-        // production
-        production: {
-            // 要登入執行 pm2 的 user
-            user: &#39;root&#39;,
-            // 支援多个 host 部署
-            host: [&#39;host1&#39;, &#39;host2&#39;],
-            // remote 要檢查的 public key 的位置
-            key: &#39;path/to/some.pem&#39;,
-            // 要部署的分支
-            ref: &#39;origin/master&#39;,
-            // Git 倉庫位址
-            repo: &#39;git@gitlab.com:user/yourProject.git&#39;,
-            // 要部署到 server 上的資料夾路徑
-            path: &#39;/var/www/yourProjectName&#39;,
-            // 如果 ssh 有設定好，從 local 連到 remote 端将不會再詢問是否将 remote 端的 public key 加到 known host
-            &#34;ssh_options&#34;: &#34;StrictHostKeyChecking=no&#34;,
-            // 在 pm2 要從 local 端連到 remote 端之前要執行的指令，可以多个指令，由 ; 分割，也可以指定 shell script 的檔案路徑
-            &#34;pre-setup&#34;: &#39;apt update -y; apt install git -y&#39;,
-            // 當 pm2 在 remote 機器上将專案 clone 下來之后會執行的指令，同上，可以多个指令，由 ; 分割，也可以指定 shell script 的檔案路徑
-            &#34;post-setup&#34;: &#34;ls -la&#34;,
-            // 當 pm2 在 local 要連上 remote 部署之前 ，在 local 端所要執行的指令, 同上，可以多个指令，由 ; 分割，也可以指定 shell script 的檔案路徑
-            &#34;pre-deploy-local&#34; : &#34;echo &#39;This is a local executed command&#39;&#34;,
-            // 部署完成后, 所要執行的指令 同上，可以多个指令，由 ; 分割，也可以指定 shell script 的檔案路徑
-            &#39;post-deploy&#39;: &#39;sudo /root/.nvm/versions/node/v8.16.0/bin/npm install &amp;&amp; sudo /root/.nvm/versions/node/v8.16.0/bin/npm rebuild &amp;&amp; /root/.nvm/versions/node/v8.16.0/bin/pm2 reload ecosystem.config.js&#39;,
-            env_production: {
-                 NODE_ENV: &#39;production&#39;
-            }
-        }, 
-        staging: {
-            user: &#39;root&#39;,
-            host: [&#39;host3&#39;, &#39;host4&#39;],
-            ref: &#39;origin/staging&#39;,
-            repo: &#39;git@gitlab.com:user/yourProject.git&#39;,
-            path: &#39;/var/www/yourProjectName&#39;,
-            &#34;ssh_options&#34;: &#34;StrictHostKeyChecking=no&#34;,
-            &#34;pre-setup&#34;: &#39;apt update -y; apt install git -y&#39;,
-            &#34;post-setup&#34;: &#34;ls -la&#34;,
-            &#34;pre-deploy-local&#34; : &#34;echo &#39;This is a local executed command&#39;&#34;,
-            &#39;post-deploy&#39;: &#39;sudo /root/.nvm/versions/node/v8.16.0/bin/npm install &amp;&amp; sudo /root/.nvm/versions/node/v8.16.0/bin/npm rebuild &amp;&amp; /root/.nvm/versions/node/v8.16.0/bin/pm2 reload ecosystem.config.js&#39;,
-            env_production: {
-                 NODE_ENV: &#39;staging&#39;
-            }
-        },
-    },
-};</pre></td></tr></table>
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="err">module.exports</span> <span class="err">=</span> <span class="p">{</span>
+    <span class="err">apps:</span> <span class="err">[</span>
+        <span class="err">//</span> <span class="err">First</span> <span class="err">application</span>
+        <span class="err">{</span>
+            <span class="err">//</span> <span class="err">App</span> <span class="err">名稱</span>
+            <span class="err">name:</span> <span class="err">&#39;app1&#39;,</span>
+            <span class="err">//</span> <span class="err">執行服务的入口檔案</span>
+            <span class="err">script:</span> <span class="err">&#39;./server.js&#39;,</span>
+            <span class="err">//</span> <span class="err">你的服务所在位置</span>
+            <span class="err">cwd:</span> <span class="err">&#39;var/www/yourApp/&#39;,</span>
+            <span class="err">//</span> <span class="err">分為</span> <span class="err">cluster</span> <span class="err">以及</span> <span class="err">fork</span> <span class="err">模式</span>
+            <span class="err">exec_mode:</span> <span class="err">&#39;cluster&#39;,</span>
+            <span class="err">//</span> <span class="err">只適用於</span> <span class="err">cluster</span> <span class="err">模式，程序启动数量</span>
+            <span class="err">instances:</span> <span class="err">0,</span>
+            <span class="err">//</span> <span class="err">適合開發時用，檔案一有變更就會自动重启</span>
+            <span class="err">watch:</span> <span class="err">false,</span>
+            <span class="err">//</span> <span class="err">當佔用的</span> <span class="err">memory</span> <span class="err">达到</span> <span class="err">500M,</span> <span class="err">就自动重启</span>
+            <span class="err">max_memory_restart:</span> <span class="err">&#39;500M&#39;,</span>
+            <span class="err">//</span> <span class="err">可以指定要启动服务的</span> <span class="err">node</span> <span class="err">版本</span>
+            <span class="err">interpreter:</span> <span class="err">&#39;/root/.nvm/versions/node/v8.16.0/bin/node&#39;,</span>
+            <span class="err">//</span> <span class="err">node</span> <span class="err">的額外参数</span>
+            <span class="err">//</span> <span class="err">格式可以是</span> <span class="err">array,</span> <span class="err">像是</span> <span class="nt">&#34;args&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;--toto=heya coco&#34;</span><span class="p">,</span> <span class="s2">&#34;-d&#34;</span><span class="p">,</span> <span class="s2">&#34;1&#34;</span><span class="p">],</span> <span class="err">或是</span> <span class="err">string,</span> <span class="err">像是</span> <span class="nt">&#34;args&#34;</span><span class="p">:</span> <span class="s2">&#34;--to=&#39;heya coco&#39; -d 1&#34;</span>
+            <span class="err">interpreter_args</span><span class="p">:</span> <span class="s2">&#34;port=3001 sitename=&#39;first pm2 app&#39;&#34;</span><span class="p">,</span>
+            <span class="err">//</span> <span class="err">同上</span>
+            <span class="err">node_args:</span> <span class="nt">&#34;port=3001 sitename=&#39;first pm2 app&#39;&#34;</span><span class="p">,</span>
+            <span class="err">//</span> <span class="err">&#39;cron&#39;</span> <span class="err">模式指定重启時間，只支持</span> <span class="err">cluster</span> <span class="err">模式</span>
+            <span class="err">cron_restart:</span> <span class="nt">&#34;0 17 * * *&#34;</span><span class="p">,</span>
+            <span class="err">//</span> <span class="err">log</span> <span class="err">顯示時間</span>
+            <span class="err">time:</span> <span class="err">true,</span>
+            <span class="err">//</span> <span class="err">可經由</span> <span class="err">CLI</span> <span class="err">帶入的参数</span>
+            <span class="err">args:</span> <span class="err">&#39;-a</span> <span class="err">13</span> <span class="err">-b</span> <span class="err">12&#39;,</span>
+            <span class="err">//</span> <span class="err">想要被忽略的檔案或資料夾,</span> <span class="err">支援正則，指定的檔案或資料夾如果內容有變更，服务将不會重启</span>
+            <span class="err">//</span> <span class="err">格式可以是</span> <span class="err">array,</span> <span class="err">像是</span> <span class="nt">&#34;args&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;--toto=heya coco&#34;</span><span class="p">,</span> <span class="s2">&#34;-d&#34;</span><span class="p">,</span> <span class="s2">&#34;1&#34;</span><span class="p">],</span> <span class="err">或是</span> <span class="err">string,</span> <span class="err">像是</span> <span class="nt">&#34;args&#34;</span><span class="p">:</span> <span class="s2">&#34;--to=&#39;heya coco&#39; -d 1&#34;</span>
+            <span class="err">ignore_watch</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;[\/\\]\./&#34;</span><span class="p">,</span> <span class="s2">&#34;node_modules&#34;</span><span class="p">],</span>
+            <span class="err">//</span> <span class="err">支援</span> <span class="err">source_map,</span> <span class="err">預設</span> <span class="err">true,</span> <span class="err">細節可参考</span>
+            <span class="err">//</span> <span class="err">http://pm2.keymetrics.io/docs/usage/source-map-support/</span>
+            <span class="err">//</span> <span class="err">https://www.html5rocks.com/en/tutorials/developertools/sourcemaps/</span>
+            <span class="err">source_map_support:</span> <span class="err">true,</span>
+            <span class="err">//</span> <span class="err">instance_var,</span> <span class="err">詳見以下連结</span>
+            <span class="err">//</span> <span class="err">http://pm2.keymetrics.io/docs/usage/environment/#specific-environment-variables</span>
+            <span class="err">instance_var:</span> <span class="err">&#39;NODE_APP_INSTANCE&#39;,</span>
+            <span class="err">//</span> <span class="err">log</span> <span class="err">的時間格式</span>
+            <span class="err">log_date_format:</span> <span class="err">&#39;YYYY-MM-DD</span> <span class="err">HH:mm</span> <span class="err">Z&#39;,</span>
+            <span class="err">//</span> <span class="err">错误</span> <span class="err">log</span> <span class="err">的指定位置</span>
+            <span class="err">error_file:</span> <span class="err">&#39;/var/log&#39;,</span>
+            <span class="err">//</span> <span class="err">正常輸出</span> <span class="err">log</span> <span class="err">的指定位置</span>
+            <span class="err">out_file:</span> <span class="err">&#39;/var/log&#39;,</span>
+            <span class="err">//</span> <span class="err">同一个</span> <span class="err">app</span> <span class="err">有多程序</span> <span class="err">id,</span> <span class="err">如果設定為</span> <span class="err">true</span> <span class="err">的話，</span> <span class="err">同</span> <span class="err">app</span> <span class="err">的</span> <span class="err">log</span> <span class="err">檔案将不會根據不同的程序</span> <span class="err">id</span> <span class="err">分割，會全部合在一起</span>
+            <span class="err">combine_logs:</span> <span class="err">true,</span>
+            <span class="err">//</span> <span class="err">同上</span>
+            <span class="err">merge_logs:</span> <span class="err">true,</span>
+            <span class="err">//</span> <span class="err">pid</span> <span class="err">file</span> <span class="err">指定位置,</span> <span class="err">預設</span> <span class="err">$HOME/.pm2/pid/app-pm_id.pid</span>
+            <span class="err">pid_file:</span> <span class="err">&#39;user/.pm2/pid/app-pm_id.pid&#39;,</span>
+            <span class="err">//</span> <span class="err">pm2</span> <span class="err">會根據此選项內的時間來判定程序是否有成功启动</span>
+            <span class="err">//</span> <span class="err">格式可使用</span> <span class="err">number</span> <span class="err">或</span> <span class="err">string,</span> <span class="err">number</span> <span class="err">的話，</span> <span class="err">3000</span> <span class="err">代表</span> <span class="err">3000</span> <span class="err">ms。</span> <span class="err">string</span> <span class="err">的話,</span> <span class="err">可使用</span> <span class="err">&#39;1h&#39;</span> <span class="err">代表一个小時,</span> <span class="err">&#39;5m&#39;</span> <span class="err">代表五分鐘,</span> <span class="err">&#39;10s&#39;</span> <span class="err">代表十秒</span>
+            <span class="err">min_uptime:</span> <span class="err">&#39;5&#39;,</span>
+            <span class="err">//</span> <span class="err">單位為</span> <span class="err">ms,</span> <span class="err">如果在該時間內</span> <span class="err">app</span> <span class="err">没有聽</span> <span class="err">port</span> <span class="err">的話，強制重启</span>
+            <span class="err">listen_timeout:</span> <span class="err">8000,</span>
+            <span class="err">//</span> <span class="err">當執行</span> <span class="err">reload</span> <span class="err">時，因為</span> <span class="err">graceful</span> <span class="err">reload</span> <span class="err">會等到服务都没有被存取了才會斷開，如果超过這个時間，強制斷開重启</span>
+            <span class="err">//</span> <span class="err">細節可参考官方文件</span> <span class="err">http://pm2.keymetrics.io/docs/usage/signals-clean-restart/</span>
+            <span class="err">kill_timeout:</span> <span class="err">1600,</span>
+            <span class="err">//</span> <span class="err">一般來說，服务等待</span> <span class="err">listen</span> <span class="err">事件觸發后，執行</span> <span class="err">reload,</span> <span class="err">若此選项為</span> <span class="err">true,</span> <span class="err">則等待</span> <span class="err">&#39;ready&#39;</span> <span class="err">message</span>
+            <span class="err">//</span> <span class="err">細節可参考官方文件</span> <span class="err">http://pm2.keymetrics.io/docs/usage/signals-clean-restart/</span>
+            <span class="err">wait_ready:</span> <span class="err">false,</span>
+            <span class="err">//</span> <span class="err">pm2</span> <span class="err">具有</span> <span class="err">crash</span> <span class="err">自动重启的功能。</span> <span class="err">但若異常狀況重启超过此選项的指定次数，則停止自动重启功能。</span> <span class="err">異常與否的判定，預設為</span> <span class="err">1</span> <span class="err">秒，也就是說如果服务启动不足一秒又立即重启，則異常重启次数</span> <span class="err">+</span> <span class="err">1。</span> <span class="err">若</span> <span class="err">min_uptime</span> <span class="err">選项有指定，則以</span> <span class="err">min_uptime</span> <span class="err">指定的最小正常启动時間為標準來判斷是否為異常重启</span>
+            <span class="err">//</span> <span class="err">細節可参考官方文件</span> <span class="err">http://pm2.keymetrics.io/docs/usage/signals-clean-restart/</span>
+            <span class="err">max_restarts:</span> <span class="err">10,</span>
+            <span class="err">//</span> <span class="err">單位為</span> <span class="err">ms,</span> <span class="err">預設為</span> <span class="err">0,</span> <span class="err">若有指定時間，則</span> <span class="err">app</span> <span class="err">會等待指定時間过后重启</span>
+            <span class="err">restart_delay:</span> <span class="err">4000,</span>
+            <span class="err">//</span> <span class="err">預設為</span> <span class="err">true,</span> <span class="err">若設為</span> <span class="err">false,</span> <span class="err">pm2</span> <span class="err">将會關閉自动重启功能,</span> <span class="err">也就是說</span> <span class="err">app</span> <span class="err">crash</span> <span class="err">之后将不會自动重启</span>
+            <span class="err">autorestart:</span> <span class="err">true,</span>
+            <span class="err">//</span> <span class="err">預設為</span> <span class="err">true,</span> <span class="err">預設執行</span> <span class="err">pm2</span> <span class="err">start</span> <span class="err">app</span> <span class="err">時，只要</span> <span class="err">ssh</span> <span class="err">key</span> <span class="err">没问题，</span> <span class="err">pm2</span> <span class="err">會自动比較</span> <span class="err">local</span> <span class="err">跟</span> <span class="err">remote,</span> <span class="err">看是否為最新的</span> <span class="err">commit，若否，會自动下載更新。</span> <span class="err">此功能有版本问题，需新版才支援</span>
+            <span class="err">vizion:</span> <span class="err">true,</span>
+            <span class="err">//</span> <span class="err">進階功能，當使用</span> <span class="err">Keymetrics</span> <span class="err">的</span> <span class="err">dashboard</span> <span class="err">執行</span> <span class="err">pull</span> <span class="err">或</span> <span class="err">update</span> <span class="err">操作后，可以觸發執行的一系列指令</span>
+            <span class="err">post_update:</span> <span class="err">[</span><span class="nt">&#34;npm install&#34;</span><span class="p">,</span> <span class="nt">&#34;echo launching the app&#34;</span><span class="err">]</span><span class="p">,</span>
+            <span class="err">//</span> <span class="err">defaults</span> <span class="err">to</span> <span class="err">false.</span> <span class="err">if</span> <span class="err">true,</span> <span class="err">you</span> <span class="err">can</span> <span class="err">start</span> <span class="err">the</span> <span class="err">same</span> <span class="err">script</span> <span class="err">several</span> <span class="err">times</span> <span class="err">which</span> <span class="err">is</span> <span class="err">usually</span> <span class="err">not</span> <span class="err">allowed</span> <span class="err">by</span> <span class="err">PM2</span>
+            <span class="err">//</span> <span class="err">預設為</span> <span class="err">false,</span> <span class="err">如果設定為</span> <span class="err">true,</span> 
+            <span class="err">force:</span> <span class="err">false,</span>
+            <span class="err">//</span> <span class="err">當不指定</span> <span class="err">env</span> <span class="err">時，會套用此</span> <span class="err">object</span> <span class="err">裡頭的環境變数,</span> <span class="err">例如</span> <span class="err">pm2</span> <span class="err">start</span> <span class="err">ecosystem.js</span>
+            <span class="err">env:</span> <span class="err">{</span>
+                <span class="err">COMMON_VARIABLE:</span> <span class="err">&#39;true&#39;,</span>
+                <span class="err">NODE_ENV:</span> <span class="err">&#39;&#39;,</span>
+                <span class="err">ID:</span> <span class="err">&#39;44&#39;</span>
+            <span class="p">}</span><span class="err">,</span>
+            <span class="err">//</span> <span class="err">當有指定</span> <span class="err">env</span> <span class="err">時，會套用此</span> <span class="err">object</span> <span class="err">裡頭的環境變数,</span> <span class="err">例如</span> <span class="err">pm</span><span class="mi">2</span> <span class="err">start</span> <span class="err">ecosystem.js</span> <span class="err">--env</span> <span class="err">production</span>
+            <span class="err">env_production:</span> <span class="p">{</span>
+                <span class="err">NODE_ENV:</span> <span class="err">&#39;production&#39;,</span>
+                <span class="err">ID:</span> <span class="err">&#39;55&#39;</span>
+            <span class="p">}</span><span class="err">,</span>
+            <span class="err">//</span> <span class="err">同上</span>
+            <span class="err">env_development:</span> <span class="p">{</span>
+                <span class="err">NODE_ENV:</span> <span class="err">&#39;development&#39;</span>
+            <span class="p">}</span>
+        <span class="err">},</span>
+        <span class="err">//</span> <span class="err">第二个</span> <span class="err">app,</span> <span class="err">很多資訊上面有介紹过的就不再重複</span>
+        <span class="p">{</span>
+            <span class="err">//</span> <span class="err">Serve</span> <span class="err">模式,</span> <span class="err">可服务靜態資料夾</span>
+            <span class="err">script:</span> <span class="nt">&#34;serve&#34;</span><span class="p">,</span>
+            <span class="err">env:</span> <span class="err">{</span>
+                <span class="err">PM2_SERVE_PATH:</span> <span class="err">&#39;.&#39;,</span>
+                <span class="err">PM2_SERVE_PORT:</span> <span class="err">8080</span>
+                <span class="p">}</span><span class="err">,</span>
+            <span class="err">name:</span> <span class="err">&#39;app</span><span class="mi">2</span><span class="err">&#39;,</span>
+            <span class="err">//</span> <span class="err">預設模式，可應用在其他語言,</span> <span class="err">cluster</span> <span class="err">只可用在</span> <span class="err">node.js</span>
+            <span class="err">exec_mode:</span> <span class="err">&#39;fork&#39;,</span>
+            <span class="err">interpreter:</span> <span class="err">&#39;/root/.nvm/versions/node/v</span><span class="mf">8.16</span><span class="err">.</span><span class="mi">0</span><span class="err">/bin/node&#39;,</span>
+            <span class="err">time:</span> <span class="kc">true</span><span class="err">,</span>
+        <span class="err">}</span>
+    <span class="err">],</span>
+    <span class="err">//</span> <span class="err">這一个區塊是部署的部分</span>
+    <span class="err">deploy:</span> <span class="p">{</span>
+        <span class="err">//</span> <span class="err">production</span>
+        <span class="err">production:</span> <span class="err">{</span>
+            <span class="err">//</span> <span class="err">要登入執行</span> <span class="err">pm2</span> <span class="err">的</span> <span class="err">user</span>
+            <span class="err">user:</span> <span class="err">&#39;root&#39;,</span>
+            <span class="err">//</span> <span class="err">支援多个</span> <span class="err">host</span> <span class="err">部署</span>
+            <span class="err">host:</span> <span class="err">[&#39;host1&#39;,</span> <span class="err">&#39;host2&#39;],</span>
+            <span class="err">//</span> <span class="err">remote</span> <span class="err">要檢查的</span> <span class="err">public</span> <span class="err">key</span> <span class="err">的位置</span>
+            <span class="err">key:</span> <span class="err">&#39;path/to/some.pem&#39;,</span>
+            <span class="err">//</span> <span class="err">要部署的分支</span>
+            <span class="err">ref:</span> <span class="err">&#39;origin/master&#39;,</span>
+            <span class="err">//</span> <span class="err">Git</span> <span class="err">倉庫位址</span>
+            <span class="err">repo:</span> <span class="err">&#39;git@gitlab.com:user/yourProject.git&#39;,</span>
+            <span class="err">//</span> <span class="err">要部署到</span> <span class="err">server</span> <span class="err">上的資料夾路徑</span>
+            <span class="err">path:</span> <span class="err">&#39;/var/www/yourProjectName&#39;,</span>
+            <span class="err">//</span> <span class="err">如果</span> <span class="err">ssh</span> <span class="err">有設定好，從</span> <span class="err">local</span> <span class="err">連到</span> <span class="err">remote</span> <span class="err">端将不會再詢問是否将</span> <span class="err">remote</span> <span class="err">端的</span> <span class="err">public</span> <span class="err">key</span> <span class="err">加到</span> <span class="err">known</span> <span class="err">host</span>
+            <span class="nt">&#34;ssh_options&#34;</span><span class="p">:</span> <span class="s2">&#34;StrictHostKeyChecking=no&#34;</span><span class="p">,</span>
+            <span class="err">//</span> <span class="err">在</span> <span class="err">pm2</span> <span class="err">要從</span> <span class="err">local</span> <span class="err">端連到</span> <span class="err">remote</span> <span class="err">端之前要執行的指令，可以多个指令，由</span> <span class="err">;</span> <span class="err">分割，也可以指定</span> <span class="err">shell</span> <span class="err">script</span> <span class="err">的檔案路徑</span>
+            <span class="nt">&#34;pre-setup&#34;</span><span class="p">:</span> <span class="err">&#39;apt</span> <span class="err">update</span> <span class="err">-y;</span> <span class="err">apt</span> <span class="err">install</span> <span class="err">git</span> <span class="err">-y&#39;</span><span class="p">,</span>
+            <span class="err">//</span> <span class="err">當</span> <span class="err">pm2</span> <span class="err">在</span> <span class="err">remote</span> <span class="err">機器上将專案</span> <span class="err">clone</span> <span class="err">下來之后會執行的指令，同上，可以多个指令，由</span> <span class="err">;</span> <span class="err">分割，也可以指定</span> <span class="err">shell</span> <span class="err">script</span> <span class="err">的檔案路徑</span>
+            <span class="nt">&#34;post-setup&#34;</span><span class="p">:</span> <span class="s2">&#34;ls -la&#34;</span><span class="p">,</span>
+            <span class="err">//</span> <span class="err">當</span> <span class="err">pm2</span> <span class="err">在</span> <span class="err">local</span> <span class="err">要連上</span> <span class="err">remote</span> <span class="err">部署之前</span> <span class="err">，在</span> <span class="err">local</span> <span class="err">端所要執行的指令,</span> <span class="err">同上，可以多个指令，由</span> <span class="err">;</span> <span class="err">分割，也可以指定</span> <span class="err">shell</span> <span class="err">script</span> <span class="err">的檔案路徑</span>
+            <span class="nt">&#34;pre-deploy-local&#34;</span> <span class="p">:</span> <span class="s2">&#34;echo &#39;This is a local executed command&#39;&#34;</span><span class="p">,</span>
+            <span class="err">//</span> <span class="err">部署完成后,</span> <span class="err">所要執行的指令</span> <span class="err">同上，可以多个指令，由</span> <span class="err">;</span> <span class="err">分割，也可以指定</span> <span class="err">shell</span> <span class="err">script</span> <span class="err">的檔案路徑</span>
+            <span class="err">&#39;post-deploy&#39;:</span> <span class="err">&#39;sudo</span> <span class="err">/root/.nvm/versions/node/v8.16.0/bin/npm</span> <span class="err">install</span> <span class="err">&amp;&amp;</span> <span class="err">sudo</span> <span class="err">/root/.nvm/versions/node/v8.16.0/bin/npm</span> <span class="err">rebuild</span> <span class="err">&amp;&amp;</span> <span class="err">/root/.nvm/versions/node/v8.16.0/bin/pm2</span> <span class="err">reload</span> <span class="err">ecosystem.config.js&#39;,</span>
+            <span class="err">env_production:</span> <span class="err">{</span>
+                 <span class="err">NODE_ENV:</span> <span class="err">&#39;production&#39;</span>
+            <span class="p">}</span>
+        <span class="err">},</span> 
+        <span class="err">staging:</span> <span class="p">{</span>
+            <span class="err">user:</span> <span class="err">&#39;root&#39;,</span>
+            <span class="err">host:</span> <span class="err">[&#39;host3&#39;,</span> <span class="err">&#39;host4&#39;],</span>
+            <span class="err">ref:</span> <span class="err">&#39;origin/staging&#39;,</span>
+            <span class="err">repo:</span> <span class="err">&#39;git@gitlab.com:user/yourProject.git&#39;,</span>
+            <span class="err">path:</span> <span class="err">&#39;/var/www/yourProjectName&#39;,</span>
+            <span class="nt">&#34;ssh_options&#34;</span><span class="p">:</span> <span class="s2">&#34;StrictHostKeyChecking=no&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;pre-setup&#34;</span><span class="p">:</span> <span class="err">&#39;apt</span> <span class="err">update</span> <span class="err">-y;</span> <span class="err">apt</span> <span class="err">install</span> <span class="err">git</span> <span class="err">-y&#39;</span><span class="p">,</span>
+            <span class="nt">&#34;post-setup&#34;</span><span class="p">:</span> <span class="s2">&#34;ls -la&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;pre-deploy-local&#34;</span> <span class="p">:</span> <span class="s2">&#34;echo &#39;This is a local executed command&#39;&#34;</span><span class="p">,</span>
+            <span class="err">&#39;post-deploy&#39;:</span> <span class="err">&#39;sudo</span> <span class="err">/root/.nvm/versions/node/v8.16.0/bin/npm</span> <span class="err">install</span> <span class="err">&amp;&amp;</span> <span class="err">sudo</span> <span class="err">/root/.nvm/versions/node/v8.16.0/bin/npm</span> <span class="err">rebuild</span> <span class="err">&amp;&amp;</span> <span class="err">/root/.nvm/versions/node/v8.16.0/bin/pm2</span> <span class="err">reload</span> <span class="err">ecosystem.config.js&#39;,</span>
+            <span class="err">env_production:</span> <span class="err">{</span>
+                 <span class="err">NODE_ENV:</span> <span class="err">&#39;staging&#39;</span>
+            <span class="p">}</span>
+        <span class="err">},</span>
+    <span class="err">},</span>
+<span class="err">};</span></code></pre></td></tr></table>
 </div>
 </div>
 <h2 id="pm2-部署">pm2 部署</h2>
@@ -1296,9 +1294,9 @@ pm2 start app.js --no-autorestart # 不自动重启</pre></td></tr></table>
 <pre class="chroma">  pm2 completion install</pre></td></tr></table>
 </div>
 </div>
-<h2 id="疑難雜症">疑難雜症</h2>
+<h2 id="疑难杂症">疑难杂症</h2>
 
-<h3 id="遇到錯誤-error-enoent-no-such-file-or-directory-uv-cwd">遇到錯誤 <code>Error: ENOENT: no such file or directory, uv_cwd</code></h3>
+<h3 id="遇到错误-error-enoent-no-such-file-or-directory-uv-cwd">遇到错误 <code>Error: ENOENT: no such file or directory, uv_cwd</code></h3>
 
 <p>意思是說， <code>pm2</code> 的工作目錄資料夾不存在，所謂的工作目錄資料夾就是我们第一次启动 <code>pm2</code> 的位置。很可能是我们启动之后，就不小心把它删了，如果要尋找工作目錄資料夾在哪，可以使用下面的 command</p>
 
@@ -1407,7 +1405,7 @@ pm2 start app.js --no-autorestart # 不自动重启</pre></td></tr></table>
     <script type="text/javascript">
       var gitalk = new Gitalk({
         id: '2020-02-24 15:29:55 \x2b0800 \x2b0800',
-        title: '“Pm2 node绝佳进程管理工具\x22',
+        title: 'Pm2 node绝佳进程管理工具',
         clientID: 'bf0ed9ea18e819e40135',
         clientSecret: '92bdc65717aa7f0ec48bfe94e773b57a21163785',
         repo: 'blog_comments',
