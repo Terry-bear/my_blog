@@ -6,10 +6,19 @@
     <description>Recent content in code on Terryzh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 24 Feb 2020 15:29:55 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 10 Mar 2020 17:01:58 +0800</lastBuildDate>
     
 	<atom:link href="http://www.elixir-zh.cn/categories/code/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>SMOT设计</title>
+      <link>http://www.elixir-zh.cn/post/smot%E8%AE%BE%E8%AE%A1/</link>
+      <pubDate>Tue, 10 Mar 2020 17:01:58 +0800</pubDate>
+      
+      <guid>http://www.elixir-zh.cn/post/smot%E8%AE%BE%E8%AE%A1/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Pm2 node绝佳进程管理工具</title>

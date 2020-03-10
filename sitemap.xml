@@ -10,6 +10,13 @@
   </url>
   
   <url>
+    <loc>http://www.elixir-zh.cn/post/smot%E8%AE%BE%E8%AE%A1/</loc>
+    <lastmod>2020-03-10T17:01:58+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>http://www.elixir-zh.cn/post/pm2-node%E7%BB%9D%E4%BD%B3%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/</loc>
     <lastmod>2020-02-24T15:29:55+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -311,7 +318,7 @@
   
   <url>
     <loc>http://www.elixir-zh.cn/post/</loc>
-    <lastmod>2020-02-24T15:29:55+08:00</lastmod>
+    <lastmod>2020-03-10T17:01:58+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -346,7 +353,7 @@
   
   <url>
     <loc>http://www.elixir-zh.cn/categories/code/</loc>
-    <lastmod>2020-02-24T15:29:55+08:00</lastmod>
+    <lastmod>2020-03-10T17:01:58+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -367,7 +374,7 @@
   
   <url>
     <loc>http://www.elixir-zh.cn/tags/javascript/</loc>
-    <lastmod>2019-11-28T15:22:39+08:00</lastmod>
+    <lastmod>2020-03-10T17:01:58+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
