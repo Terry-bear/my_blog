@@ -43,15 +43,15 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://www.elixir-zh.cn/post/cors%E5%92%8Ccsrf%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/" />
 <meta property="article:published_time" content="2019-11-22T17:19:23&#43;08:00"/>
-<meta property="article:modified_time" content="2019-11-22T17:19:23&#43;08:00"/>
+<meta property="article:modified_time" content="2020-03-12T01:49:23&#43;08:00"/>
 
 <meta itemprop="name" content="CORS和CSRF跨域问题">
 <meta itemprop="description" content="一、CORS 和 CSRF 区别 先看下图： 两者概念完全不同，另外常常我们也会看到 XSS ，这里一起介绍： CORS ： Cross Origin Resourse-Sharing 跨站资源共享 CSRF ：Cross-Site Request Forgery 跨站">
 
 
 <meta itemprop="datePublished" content="2019-11-22T17:19:23&#43;08:00" />
-<meta itemprop="dateModified" content="2019-11-22T17:19:23&#43;08:00" />
-<meta itemprop="wordCount" content="4141">
+<meta itemprop="dateModified" content="2020-03-12T01:49:23&#43;08:00" />
+<meta itemprop="wordCount" content="4078">
 
 
 
@@ -132,7 +132,7 @@
         <div class="post-category">
             <a href="/categories/code/"> code </a>
             </div>
-          <span class="more-meta"> 4141 words </span>
+          <span class="more-meta"> 4078 words </span>
           <span class="more-meta"> 9 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -190,7 +190,7 @@
 
 <p>先看下图：</p>
 
-<p><img src="/img/cors/cors1.png" alt="CORS 和 CSRF 区别" /></p>
+<p><img src="http://terryzhblog.s3-cn-south-1.qiniucs.com/uPic/cors1.png" alt="cors1" /></p>
 
 <p>两者概念完全不同，另外常常我们也会看到 XSS ，这里一起介绍：</p>
 
@@ -247,13 +247,13 @@
 
 <p><code>Origin</code> 字段用来说明本次请求的来源（包括<strong>协议</strong> + <strong>域名</strong> + <strong>端口号</strong>），服务端根据这个值来决定是否同意此次请求。</p>
 
-<p><img src="/img/cors/cors2.png" alt="简单请求的 CORS 流程" /></p>
+<p><img src="http://terryzhblog.s3-cn-south-1.qiniucs.com/uPic/cors2.png" alt="cors2" /></p>
 
 <p>当 <code>Origin</code> 指定的源不在许可范围，服务器会返回一个正常的 HTTP 回应，但浏览器会在响应头中发现 <code>Access-Control-Allow-Origin</code> 字段，便抛出异常。</p>
 
 <p>当 <code>Origin</code> 指定的源在许可范围，服务器返回的响应头中会多出几个头信息字段：</p>
 
-<p><img src="/img/cors/cors3.png" alt="简单请求的 CORS 流程" /></p>
+<p><img src="http://terryzhblog.s3-cn-south-1.qiniucs.com/uPic/cors3.png" alt="cors3" /></p>
 
 <p>除了上面图中的头信息，一般会有以下三个相关头信息：</p>
 
@@ -375,7 +375,7 @@ Connection: Keep-Alive
 
 <h3 id="2-csrf-攻击流程">2. CSRF 攻击流程</h3>
 
-<p><img src="/img/cors/cors4.png" alt="CSRF 攻击流程" /></p>
+<p><img src="http://terryzhblog.s3-cn-south-1.qiniucs.com/uPic/cors4.png" alt="cors4" /></p>
 
 <p>上面描述了 CSRF 攻击的流程，其中受害者完成两个步骤：</p>
 
@@ -601,7 +601,7 @@ Connection: Keep-Alive
 
 <h3 id="2-xss-分类">2. XSS 分类</h3>
 
-<p><img src="/img/cors/cors5.png" alt="XSS 分类" /></p>
+<p><img src="http://terryzhblog.s3-cn-south-1.qiniucs.com/uPic/cors5.png" alt="cors5" /></p>
 
 <h3 id="3-xss-防御">3. XSS 防御</h3>
 
@@ -721,12 +721,6 @@ Connection: Keep-Alive
 <li>其他资源： 没有限制</li>
 <li>启用后，不符合 CSP 的外部资源就会被阻止加载。</li>
 </ul>
-
-<blockquote>
-<p>作者：pingan8787</p>
-
-<p>链接：<a href="https://juejin.im/post/5dd1211c51882510c70668ad">https://juejin.im/post/5dd1211c51882510c70668ad</a></p>
-</blockquote>
     </div>
 
     

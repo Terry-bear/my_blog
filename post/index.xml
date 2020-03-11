@@ -31,15 +31,6 @@
     </item>
     
     <item>
-      <title>Kotlin基础语法脑图</title>
-      <link>http://www.elixir-zh.cn/post/kotlin%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E8%84%91%E5%9B%BE/</link>
-      <pubDate>Mon, 16 Dec 2019 10:07:20 +0800</pubDate>
-      
-      <guid>http://www.elixir-zh.cn/post/kotlin%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E8%84%91%E5%9B%BE/</guid>
-      <description>基本类型 类型 表达式 函数进阶</description>
-    </item>
-    
-    <item>
       <title>RequestMethod:OPTIONS跨域CORS</title>
       <link>http://www.elixir-zh.cn/post/requestmethodoptions%E8%B7%A8%E5%9F%9Fcors/</link>
       <pubDate>Thu, 28 Nov 2019 15:22:39 +0800</pubDate>
@@ -118,15 +109,6 @@
       
       <guid>http://www.elixir-zh.cn/post/%E5%A6%82%E4%BD%95%E5%9C%A8javascript%E4%B8%AD%E5%86%99%E4%B8%80%E4%B8%AA%E4%BC%98%E9%9B%85%E7%9A%84deepclone/</guid>
       <description>导读 最近经常看到很多JavaScript手写代码的文章总结，里面提供了很多JavaScript Api的手写实现。 里面的题目实现大多类似，而且</description>
-    </item>
-    
-    <item>
-      <title>2019React细节讲解</title>
-      <link>http://www.elixir-zh.cn/post/2019react%E7%BB%86%E8%8A%82%E8%AE%B2%E8%A7%A3/</link>
-      <pubDate>Fri, 23 Aug 2019 10:08:21 +0800</pubDate>
-      
-      <guid>http://www.elixir-zh.cn/post/2019react%E7%BB%86%E8%8A%82%E8%AE%B2%E8%A7%A3/</guid>
-      <description>为什么选择使用框架而不是原生? 框架的好处: 组件化: 其中以 React 的组件化最为彻底,甚至可以到函数级别的原子组件,高度的组件化可以是我们的工程易于维</description>
     </item>
     
     <item>

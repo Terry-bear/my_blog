@@ -43,14 +43,14 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://www.elixir-zh.cn/post/%E8%BD%ACjs%E4%B8%AD%E5%85%AB%E7%A7%8D%E7%BB%A7%E6%89%BF%E6%96%B9%E6%A1%88%E5%88%86%E6%9E%90/" />
 <meta property="article:published_time" content="2019-07-31T16:17:57&#43;08:00"/>
-<meta property="article:modified_time" content="2019-07-31T16:17:57&#43;08:00"/>
+<meta property="article:modified_time" content="2020-03-12T01:17:57&#43;08:00"/>
 
 <meta itemprop="name" content="[转]JS中八种继承方案分析">
 <meta itemprop="description" content="1、原型链继承 构造函数、原型和实例之间的关系：每个构造函数都有一个原型对象，原型对象都包含一个指向构造函数的指针，而实例都包含一个原型对象的">
 
 
 <meta itemprop="datePublished" content="2019-07-31T16:17:57&#43;08:00" />
-<meta itemprop="dateModified" content="2019-07-31T16:17:57&#43;08:00" />
+<meta itemprop="dateModified" content="2020-03-12T01:17:57&#43;08:00" />
 <meta itemprop="wordCount" content="2713">
 
 
@@ -220,7 +220,7 @@
 </span></code></pre></td></tr></table>
 </div>
 </div>
-<p><a href="https://camo.githubusercontent.com/987d7eea3d5e37ea266753b99b17546776a7d5b5/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031382f31302f33302f313636633263303130376664383063373f773d38303026683d34313726663d706e6726733d313537383838"><img src="https://camo.githubusercontent.com/987d7eea3d5e37ea266753b99b17546776a7d5b5/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031382f31302f33302f313636633263303130376664383063373f773d38303026683d34313726663d706e6726733d313537383838" alt="img" /></a></p>
+<p><img src="http://terryzhblog.s3-cn-south-1.qiniucs.com/uPic/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031382f31302f33302f313636633263303130376664383063373f773d38303026683d34313726663d706e6726733d313537383838.png" alt="68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031382f31302f33302f313636633263303130376664383063373f773d38303026683d34313726663d706e6726733d313537383838" /></p>
 
 <p>原型链方案存在的缺点：多个实例对引用类型的操作会被篡改。</p>
 <div class="highlight"><div class="chroma">
@@ -381,7 +381,7 @@
 </span></code></pre></td></tr></table>
 </div>
 </div>
-<p><a href="https://camo.githubusercontent.com/8036ee5ed0d80f1e53a4f30ad85cc62ef9221c54/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031382f31302f33302f313636633263303130633533376666383f773d38303026683d32333426663d706e6726733d313334343630"><img src="https://camo.githubusercontent.com/8036ee5ed0d80f1e53a4f30ad85cc62ef9221c54/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031382f31302f33302f313636633263303130633533376666383f773d38303026683d32333426663d706e6726733d313334343630" alt="img" /></a></p>
+<p><img src="http://terryzhblog.s3-cn-south-1.qiniucs.com/uPic/js%20八中继承方案2.png" alt="js 八中继承方案2" /></p>
 
 <p>缺点：</p>
 
@@ -586,7 +586,7 @@
 </span></code></pre></td></tr></table>
 </div>
 </div>
-<p><a href="https://camo.githubusercontent.com/5ea4a09982aad1eb18eb4247ad0176f95aa35ea6/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031382f31302f33302f313636633263303130396466353433383f773d38303026683d33353226663d706e6726733d323035323231"><img src="https://camo.githubusercontent.com/5ea4a09982aad1eb18eb4247ad0176f95aa35ea6/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031382f31302f33302f313636633263303130396466353433383f773d38303026683d33353226663d706e6726733d323035323231" alt="img" /></a></p>
+<p><img src="http://terryzhblog.s3-cn-south-1.qiniucs.com/uPic/js%20八中继承方案3.png" alt="js 八中继承方案3" /></p>
 
 <p>这个例子的高效率体现在它只调用了一次<code>SuperType</code> 构造函数，并且因此避免了在<code>SubType.prototype</code> 上创建不必要的、多余的属性。于此同时，原型链还能保持不变；因此，还能够正常使用<code>instanceof</code> 和<code>isPrototypeOf()</code></p>
 

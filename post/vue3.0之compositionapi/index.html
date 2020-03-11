@@ -43,14 +43,14 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://www.elixir-zh.cn/post/vue3.0%E4%B9%8Bcompositionapi/" />
 <meta property="article:published_time" content="2019-11-27T15:28:21&#43;08:00"/>
-<meta property="article:modified_time" content="2019-11-27T15:28:21&#43;08:00"/>
+<meta property="article:modified_time" content="2020-03-12T01:28:21&#43;08:00"/>
 
 <meta itemprop="name" content="“VUE3之 compositionAPI&#34;">
 <meta itemprop="description" content="前言 2019年2月6号，React 发布 16.8.0 版本，新增 Hooks 特性。随即，Vue 在 2019 的各大 JSConf 中也宣告了 Vue3.0 最重要的 RFC，即 Function-based API。Vue3.0 将抛弃">
 
 
 <meta itemprop="datePublished" content="2019-11-27T15:28:21&#43;08:00" />
-<meta itemprop="dateModified" content="2019-11-27T15:28:21&#43;08:00" />
+<meta itemprop="dateModified" content="2020-03-12T01:28:21&#43;08:00" />
 <meta itemprop="wordCount" content="4112">
 
 
@@ -176,7 +176,7 @@
 
 <p>首先，我们得了解一下，Composition API 设计初衷是什么？</p>
 
-<p><img src="/img/vue3composition/1.png" alt="img" /></p>
+<p><img src="http://terryzhblog.s3-cn-south-1.qiniucs.com/uPic/1-vuecomp.png" alt="1-vuecomp" /></p>
 
 <ol>
 <li>逻辑组合和复用</li>
@@ -188,7 +188,7 @@
 
 <p>开始之前，我们先回顾下目前 Vue2.x 对于<strong>逻辑复用的方案</strong>都有哪些？如图</p>
 
-<p><img src="/img/vue3composition/2.png" alt="img" /></p>
+<p><img src="http://terryzhblog.s3-cn-south-1.qiniucs.com/uPic/2-vuecomp.png" alt="2-vuecomp" /></p>
 
 <p>其中 Mixins 和 HOC 都可能存在 <strong>①模板数据来源不清晰</strong> 的问题。</p>
 
@@ -574,7 +574,7 @@ export default createComponent({
 
 <p><code>setup()</code> 什么时候进行初始化呢？我们看张图</p>
 
-<p><img src="/img/vue3composition/3.png" alt="img" /></p>
+<p><img src="http://terryzhblog.s3-cn-south-1.qiniucs.com/uPic/3-vuecomp.png" alt="3-vuecomp" /></p>
 
 <p>setup 是在组件实例被创建时， 初始化了 props 之后调用，处于 created 前。</p>
 
@@ -627,7 +627,7 @@ export default createComponent({
 </div>
 <p>控制台打印顺序如下</p>
 
-<p><img src="/img/vue3composition/4.png" alt="img" /></p>
+<p><img src="http://terryzhblog.s3-cn-south-1.qiniucs.com/uPic/4-vuecomp.png" alt="4-vuecomp" style="zoom:25%;" /></p>
 
 <p>其次，我们从上面的所有例子能发现，<code>setup()</code> 和 <code>data()</code> 很像，都可以返回一个对象，而这个对象上的属性则会直接暴露给模板渲染上下文：</p>
 <div class="highlight"><div class="chroma">
@@ -766,7 +766,7 @@ export default createComponent({
 </div>
 <p>而我们通过计算产生的值，即使不进行类型申明，也能直接拿到进行其类型做推导，因为它是依赖 Ref 进行计算的</p>
 
-<p><img src="/img/vue3composition/5.png" alt="img" /></p>
+<p><img src="http://terryzhblog.s3-cn-south-1.qiniucs.com/uPic/5-vuecomp.png" alt="5-vuecomp" /></p>
 
 <p><code>setup()</code> 中其它的内部 API 以及生命周期函数我这就不过多介绍了，想了解的直接查看 <a href="https://zhuanlan.zhihu.com/p/68477600">原文</a></p>
 
@@ -883,7 +883,7 @@ export default createComponent({
 
 <p>在 Vue2.x 中，我们的做法有两种，如图所示</p>
 
-<p><img src="/img/vue3composition/6.png" alt="img" /></p>
+<p><img src="http://terryzhblog.s3-cn-south-1.qiniucs.com/uPic/6-vuecomp.png" alt="6-vuecomp" /></p>
 
 <ol>
 <li>最简单的方式就是直接将通用查询存储到一个地方，需要使用查询的地方直接引入即可，然后在页面做一系列重复的操作，这个时候最考验 <code>Ctrl + C</code>、<code>Ctrl + V</code> 的功力了。</li>
@@ -1048,11 +1048,11 @@ export default createComponent({
 
 <p><strong>场景：在我负责的业务中，有一个通用的业务组件，我称之为 user-select，它是一个人员选择组件</strong>。如图</p>
 
-<p><img src="/img/vue3composition/7.png" alt="img" /></p>
+<p><img src="http://terryzhblog.s3-cn-south-1.qiniucs.com/uPic/7-vuecomp.png" alt="7-vuecomp" /></p>
 
 <p>关于改造前后的对比我们先看张图，好大致有个了解</p>
 
-<p><img src="/img/vue3composition/8.png" alt="img" /></p>
+<p><img src="http://terryzhblog.s3-cn-south-1.qiniucs.com/uPic/8-vuecomp.png" alt="8-vuecomp" /></p>
 
 <p>在 Vue2.x 中，它通用的业务逻辑和数据并没有得到很好的处理，大致原因和上面那个案例原因差不多。</p>
 

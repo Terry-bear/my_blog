@@ -24,13 +24,6 @@
   </url>
   
   <url>
-    <loc>http://www.elixir-zh.cn/post/kotlin%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E8%84%91%E5%9B%BE/</loc>
-    <lastmod>2019-12-16T10:07:20+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>http://www.elixir-zh.cn/post/requestmethodoptions%E8%B7%A8%E5%9F%9Fcors/</loc>
     <lastmod>2019-11-28T15:22:39+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -39,14 +32,14 @@
   
   <url>
     <loc>http://www.elixir-zh.cn/post/vue3.0%E4%B9%8Bcompositionapi/</loc>
-    <lastmod>2019-11-27T15:28:21+08:00</lastmod>
+    <lastmod>2020-03-12T01:28:21+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://www.elixir-zh.cn/post/cors%E5%92%8Ccsrf%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/</loc>
-    <lastmod>2019-11-22T17:19:23+08:00</lastmod>
+    <lastmod>2020-03-12T01:49:23+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -88,14 +81,7 @@
   
   <url>
     <loc>http://www.elixir-zh.cn/post/%E5%A6%82%E4%BD%95%E5%9C%A8javascript%E4%B8%AD%E5%86%99%E4%B8%80%E4%B8%AA%E4%BC%98%E9%9B%85%E7%9A%84deepclone/</loc>
-    <lastmod>2019-09-02T14:13:13+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://www.elixir-zh.cn/post/2019react%E7%BB%86%E8%8A%82%E8%AE%B2%E8%A7%A3/</loc>
-    <lastmod>2019-08-23T10:08:21+08:00</lastmod>
+    <lastmod>2020-03-12T02:13:13+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -144,7 +130,7 @@
   
   <url>
     <loc>http://www.elixir-zh.cn/post/%E8%BD%ACjs%E4%B8%AD%E5%85%AB%E7%A7%8D%E7%BB%A7%E6%89%BF%E6%96%B9%E6%A1%88%E5%88%86%E6%9E%90/</loc>
-    <lastmod>2019-07-31T16:17:57+08:00</lastmod>
+    <lastmod>2020-03-12T01:17:57+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -282,13 +268,6 @@
   </url>
   
   <url>
-    <loc>http://www.elixir-zh.cn/tags/android/</loc>
-    <lastmod>2019-12-16T10:07:20+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>http://www.elixir-zh.cn/tags/css/</loc>
     <lastmod>2019-06-18T16:30:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -325,7 +304,7 @@
   
   <url>
     <loc>http://www.elixir-zh.cn/tags/</loc>
-    <lastmod>2019-12-16T10:07:20+08:00</lastmod>
+    <lastmod>2019-06-18T16:30:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -417,13 +396,6 @@
   <url>
     <loc>http://www.elixir-zh.cn/tags/javascript/</loc>
     <lastmod>2020-02-24T15:29:55+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://www.elixir-zh.cn/tags/kotlin/</loc>
-    <lastmod>2019-12-16T10:07:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
