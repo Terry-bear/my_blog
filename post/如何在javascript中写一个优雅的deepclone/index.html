@@ -195,7 +195,7 @@
 
 <h2 id="深拷贝和浅拷贝的定义">深拷贝和浅拷贝的定义</h2>
 
-<p><img src="http://terryzhblog.s3-cn-south-1.qiniucs.com/uPic/1.png" alt="1" /></p>
+<p><img src="http://img.elixir-zh.cn/uPic/1.png" alt="1" /></p>
 
 <p>你只要少搞明白<code>拷贝</code>和<code>赋值</code>的区别。</p>
 
@@ -203,7 +203,7 @@
 
 <p>浅拷贝：</p>
 
-<p><img src="http://terryzhblog.s3-cn-south-1.qiniucs.com/uPic/2.png" alt="2" /></p>
+<p><img src="http://img.elixir-zh.cn/uPic/2.png" alt="2" /></p>
 
 <blockquote>
 <p>创建一个新对象，这个对象有着原始对象属性值的一份精确拷贝。如果属性是基本类型，拷贝的就是基本类型的值，如果属性是引用类型，拷贝的就是内存地址 ，所以如果其中一个对象改变了这个地址，就会影响到另一个对象。</p>
@@ -211,7 +211,7 @@
 
 <p>深拷贝：</p>
 
-<p><img src="http://terryzhblog.s3-cn-south-1.qiniucs.com/uPic/3-deepclone.png" alt="3-deepclone" /></p>
+<p><img src="http://img.elixir-zh.cn/uPic/3-deepclone.png" alt="3-deepclone" /></p>
 
 <blockquote>
 <p>将一个对象从内存中完整的拷贝一份出来,从堆内存中开辟一个新的区域存放新对象,且修改新对象不会影响原对象</p>
@@ -332,7 +332,7 @@
 </div>
 <p>执行结果：</p>
 
-<p><img src="http://terryzhblog.s3-cn-south-1.qiniucs.com/uPic/4-deepclone.png" alt="4-deepclone" /></p>
+<p><img src="http://img.elixir-zh.cn/uPic/4-deepclone.png" alt="4-deepclone" /></p>
 
 <p>这是一个最基础版本的深拷贝，这段代码可以让你向面试官展示你可以用递归解决问题，但是显然，他还有非常多的缺陷，比如，还没有考虑数组。</p>
 
@@ -394,7 +394,7 @@
 </div>
 <p>执行结果：</p>
 
-<p><img src="http://terryzhblog.s3-cn-south-1.qiniucs.com/uPic/5-deepclone.png" alt="5-deepclone" /></p>
+<p><img src="http://img.elixir-zh.cn/uPic/5-deepclone.png" alt="5-deepclone" /></p>
 
 <p>OK，没有问题，你的代码又向合格迈进了一小步。</p>
 
@@ -428,7 +428,7 @@
 </div>
 <p>可以看到下面的结果：</p>
 
-<p><img src="http://terryzhblog.s3-cn-south-1.qiniucs.com/uPic/6-deepclone.png" alt="6-deepclone" /></p>
+<p><img src="http://img.elixir-zh.cn/uPic/6-deepclone.png" alt="6-deepclone" /></p>
 
 <p>很明显，因为递归进入死循环导致栈内存溢出了。</p>
 
@@ -483,7 +483,7 @@
 </div>
 <p>再来执行上面的测试用例：</p>
 
-<p><img src="http://terryzhblog.s3-cn-south-1.qiniucs.com/uPic/7-deepclone.png" alt="7-deepclone" /></p>
+<p><img src="http://img.elixir-zh.cn/uPic/7-deepclone.png" alt="7-deepclone" /></p>
 
 <p>可以看到，执行没有报错，且<code>target</code>属性，变为了一个<code>Circular</code>类型，即循环应用的意思。</p>
 
@@ -565,7 +565,7 @@
 
 <p>在上面的代码中，我们遍历数组和对象都使用了<code>for in</code>这种方式，实际上<code>for in</code>在遍历时效率是非常低的，我们来对比下常见的三种循环<code>for、while、for in</code>的执行效率：</p>
 
-<p><img src="http://terryzhblog.s3-cn-south-1.qiniucs.com/uPic/8-deepclone.png" alt="8-deepclone" /></p>
+<p><img src="http://img.elixir-zh.cn/uPic/8-deepclone.png" alt="8-deepclone" /></p>
 
 <p>可以看到，<code>while</code>的效率是最好的，所以，我们可以想办法把<code>for in</code>遍历改变为<code>while</code>遍历。</p>
 
@@ -695,7 +695,7 @@
 </div>
 <p>执行结果：</p>
 
-<p><img src="http://terryzhblog.s3-cn-south-1.qiniucs.com/uPic/9-deepclone.png" alt="9-deepclone" /></p>
+<p><img src="http://img.elixir-zh.cn/uPic/9-deepclone.png" alt="9-deepclone" /></p>
 
 <p>很明显，我们的性能优化是有效的。</p>
 
@@ -1033,7 +1033,7 @@
 </div>
 <p>执行结果：</p>
 
-<p><img src="http://terryzhblog.s3-cn-south-1.qiniucs.com/uPic/10-deepclone.png" alt="10-deepclone" /></p>
+<p><img src="http://img.elixir-zh.cn/uPic/10-deepclone.png" alt="10-deepclone" /></p>
 
 <p>没有问题，里大功告成又进一步，下面我们继续处理其他类型：</p>
 
@@ -1277,13 +1277,13 @@
 </div>
 <p>执行结果：</p>
 
-<p><img src="http://terryzhblog.s3-cn-south-1.qiniucs.com/uPic/11-deepclone.png" alt="11-deepclone" /></p>
+<p><img src="http://img.elixir-zh.cn/uPic/11-deepclone.png" alt="11-deepclone" /></p>
 
 <h2 id="最后">最后</h2>
 
 <p>为了更好的阅读，我们用一张图来展示上面所有的代码：</p>
 
-<p><img src="http://terryzhblog.s3-cn-south-1.qiniucs.com/uPic/12-deepclone.png" alt="12-deepclone" /></p>
+<p><img src="http://img.elixir-zh.cn/uPic/12-deepclone.png" alt="12-deepclone" /></p>
 
 <p>完整代码：<a href="https://github.com/t496971418/elixir_blog/tree/master/javascript/deep_clone">戳我查看</a></p>
 
