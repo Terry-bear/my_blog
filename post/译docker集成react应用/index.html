@@ -4,7 +4,72 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <title>[译]Docker集成React应用 - Terryzh</title>
-  
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Terryzh" /><meta name="description" content="本文翻译自 Michael Herman 的 Dockerizing a React App Docker是一种容器化工具，可以帮助开发者加快开发和部署过程。如果你正在使用微服务，Docker可以更轻松地将小型" /><meta name="keywords" content="javascript, 容器化" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.54.0 with even 4.0.0" />
+
+
+<link rel="canonical" href="http://www.elixir-zh.cn/post/%E8%AF%91docker%E9%9B%86%E6%88%90react%E5%BA%94%E7%94%A8/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.65dce888.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="[译]Docker集成React应用" />
+<meta property="og:description" content="本文翻译自 Michael Herman 的 Dockerizing a React App Docker是一种容器化工具，可以帮助开发者加快开发和部署过程。如果你正在使用微服务，Docker可以更轻松地将小型" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.elixir-zh.cn/post/%E8%AF%91docker%E9%9B%86%E6%88%90react%E5%BA%94%E7%94%A8/" />
+<meta property="article:published_time" content="2019-06-22T17:27:39&#43;08:00"/>
+<meta property="article:modified_time" content="2019-06-22T17:27:39&#43;08:00"/>
+
+<meta itemprop="name" content="[译]Docker集成React应用">
+<meta itemprop="description" content="本文翻译自 Michael Herman 的 Dockerizing a React App Docker是一种容器化工具，可以帮助开发者加快开发和部署过程。如果你正在使用微服务，Docker可以更轻松地将小型">
+
+
+<meta itemprop="datePublished" content="2019-06-22T17:27:39&#43;08:00" />
+<meta itemprop="dateModified" content="2019-06-22T17:27:39&#43;08:00" />
+<meta itemprop="wordCount" content="2450">
+
+
+
+<meta itemprop="keywords" content="javascript,容器化," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[译]Docker集成React应用"/>
+<meta name="twitter:description" content="本文翻译自 Michael Herman 的 Dockerizing a React App Docker是一种容器化工具，可以帮助开发者加快开发和部署过程。如果你正在使用微服务，Docker可以更轻松地将小型"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-LEYTX870RK"></script>
 <script>
